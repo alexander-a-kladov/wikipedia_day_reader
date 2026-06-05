@@ -42,15 +42,17 @@ AI_PROVIDERS = {
         "note": "Free: 30 req/min · 14 400 req/day",
     },
     "openrouter": {
-        "name": "OpenRouter — Llama 3.1 8B (free)",
-        "model": "meta-llama/llama-3.1-8b-instruct:free",
+        "name": "OpenRouter (free models)",
+        "model": "google/gemma-3-4b-it:free",   # updated default; user can override
         "free": True,
         "signup": "https://openrouter.ai/keys",
-        "note": "Free models, no billing required",
+        "note": "Free models available — choose any :free model below",
+        "model_override_key": "openrouter_model",   # key in _keys_store for custom model
     },
 }
 
-KEYS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ai_keys.json")
+KEYS_FILE  = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ai_keys.json")
+CACHE_DIR  = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache")
 
 
 def load_keys() -> dict:
@@ -71,6 +73,48 @@ def save_keys(keys: dict):
         print(f"  ✓ Keys saved to {KEYS_FILE}")
     except Exception as e:
         print(f"  ⚠ Cannot write {KEYS_FILE}: {e}")
+
+
+# ── RESULT CACHE ──────────────────────────────────────────────────────────────
+
+def _cache_path(date_str: str) -> str:
+    os.makedirs(CACHE_DIR, exist_ok=True)
+    return os.path.join(CACHE_DIR, f"{date_str}.json")
+
+
+def cache_save(date_str: str, payload: dict) -> str:
+    """Save classification result to cache; return ISO timestamp."""
+    import datetime as dt
+    ts = dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    payload["_saved_at"] = ts
+    with open(_cache_path(date_str), "w", encoding="utf-8") as f:
+        json.dump(payload, f, ensure_ascii=False, indent=None)
+    return ts
+
+
+def cache_load(date_str: str) -> dict | None:
+    """Load cached result for date; return None if not found."""
+    p = _cache_path(date_str)
+    if not os.path.exists(p):
+        return None
+    try:
+        with open(p, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return None
+
+
+def cache_info(date_str: str) -> dict:
+    """Return {exists, saved_at} for date."""
+    p = _cache_path(date_str)
+    if not os.path.exists(p):
+        return {"exists": False, "saved_at": None}
+    try:
+        with open(p, "r", encoding="utf-8") as f:
+            d = json.load(f)
+        return {"exists": True, "saved_at": d.get("_saved_at")}
+    except Exception:
+        return {"exists": False, "saved_at": None}
 
 
 _UA = ("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
@@ -602,7 +646,10 @@ def run_job(events_raw, births_raw, cfg,
 
     def _get_ai(provider):
         key   = _keys_store.get(provider, "").strip()
-        model = AI_PROVIDERS[provider]["model"]
+        # Allow per-provider model override stored in keys file
+        override_key = AI_PROVIDERS.get(provider, {}).get("model_override_key")
+        model = (_keys_store.get(override_key, "").strip()
+                 or AI_PROVIDERS[provider]["model"])
         if not key:
             raise ValueError(
                 f"API key for '{AI_PROVIDERS[provider]['name']}' not set. "
@@ -713,6 +760,19 @@ HTML_PAGE = r"""<!DOCTYPE html>
   .bp:disabled{opacity:.45;cursor:not-allowed;}
   .bs{background:transparent;border-color:var(--bd);color:var(--tx2);}
   .bs:hover{border-color:var(--ac2);color:var(--ac);}
+  .bsave{background:transparent;border-color:#5a8a5a;color:#2d6b2d;}
+  .bsave:hover{background:#edf7ed;border-color:#2d6b2d;}
+  .bsave:disabled{opacity:.45;cursor:not-allowed;}
+  .bload{background:transparent;border-color:#5a7a8a;color:#1e5070;}
+  .bload:hover{background:#e8f2f8;border-color:#1e5070;}
+  /* saved badge */
+  .saved-badge{display:none;align-items:center;gap:5px;font-size:12px;
+    padding:4px 10px;border-radius:var(--r);background:#edf7ed;
+    border:1.5px solid #7ab88a;color:#1a5c2a;white-space:nowrap;}
+  .saved-badge.visible{display:flex;}
+  .saved-badge .sb-icon{font-size:13px;}
+  .saved-badge .sb-date{font-weight:600;}
+  .saved-badge .sb-time{opacity:.75;}
   /* AI toggle strip */
   .ai-strip{display:flex;align-items:center;gap:7px;padding:5px 11px;border-radius:var(--r);background:var(--sf2);border:1.5px solid var(--bd);transition:all .2s;}
   .ai-strip.active{background:#e8f2fb;border-color:#8ab8d8;}
@@ -808,8 +868,17 @@ HTML_PAGE = r"""<!DOCTYPE html>
   </div>
 </header>
 <div class="ctrl">
-  <input type="date" id="datePicker"/>
+  <input type="date" id="datePicker" onchange="onDateChange()"/>
   <button class="bp" id="loadBtn" onclick="loadData()">Загрузить</button>
+  <button class="bsave" id="saveBtn" onclick="saveResult()" disabled title="Сохранить результат">💾 Сохранить</button>
+  <button class="bload" id="uploadBtn" onclick="uploadResult()" disabled title="Загрузить сохранённый результат">📂 Открыть</button>
+  <!-- saved indicator -->
+  <div class="saved-badge" id="savedBadge">
+    <span class="sb-icon">✅</span>
+    <span>Сохранено:</span>
+    <span class="sb-date" id="sbDate"></span>
+    <span class="sb-time" id="sbTime"></span>
+  </div>
   <!-- AI toggles -->
   <div class="ai-strip" id="aiStripEv">
     <input type="checkbox" id="aiChkEv" onchange="onAiToggle()">
@@ -879,6 +948,7 @@ async function init(){
   config=await (await fetch('/api/config')).json();
   keysData=await (await fetch('/api/keys')).json();
   renderFilters();
+  await checkCacheForDate(document.getElementById('datePicker').value);
 }
 
 // ── AI TOGGLE ────────────────────────────────────────────────────────────────
@@ -926,7 +996,85 @@ function modeLabel(){
   return `🤖 ${prov}: ${parts.join(' + ')}`;
 }
 
-// ── FILTERS ───────────────────────────────────────────────────────────────────
+// ── SAVE / UPLOAD / CACHE ─────────────────────────────────────────────────────
+
+async function checkCacheForDate(dv){
+  if(!dv){ hideSavedBadge(); setSaveUploadBtns(false,false); return; }
+  const r = await fetch('/api/cache_info?date='+dv);
+  const d = await r.json();
+  if(d.exists){
+    showSavedBadge(dv, d.saved_at);
+    setSaveUploadBtns(!!data, true);
+  } else {
+    hideSavedBadge();
+    setSaveUploadBtns(!!data, false);
+  }
+}
+
+async function onDateChange(){
+  await checkCacheForDate(document.getElementById('datePicker').value);
+}
+
+function showSavedBadge(dv, savedAt){
+  const badge = document.getElementById('savedBadge');
+  const parts = (savedAt||'').split(' ');
+  document.getElementById('sbDate').textContent = fmtDate(dv);
+  document.getElementById('sbTime').textContent = parts[1] ? '('+parts[1]+')' : '';
+  badge.classList.add('visible');
+}
+
+function hideSavedBadge(){
+  document.getElementById('savedBadge').classList.remove('visible');
+}
+
+function setSaveUploadBtns(canSave, canUpload){
+  document.getElementById('saveBtn').disabled  = !canSave;
+  document.getElementById('uploadBtn').disabled = !canUpload;
+}
+
+async function saveResult(){
+  if(!data) return;
+  const dv = document.getElementById('datePicker').value;
+  const btn = document.getElementById('saveBtn');
+  btn.disabled = true; btn.textContent = '💾 Сохранение…';
+  try {
+    const r = await fetch('/api/save', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({date: dv, result: data})
+    });
+    const resp = await r.json();
+    if(resp.error) throw new Error(resp.error);
+    showSavedBadge(dv, resp.saved_at);
+    setSaveUploadBtns(true, true);
+    btn.textContent = '💾 Сохранено ✓';
+    setTimeout(() => { btn.textContent = '💾 Сохранить'; btn.disabled = false; }, 2000);
+  } catch(e) {
+    alert('Ошибка сохранения: ' + e.message);
+    btn.textContent = '💾 Сохранить'; btn.disabled = false;
+  }
+}
+
+async function uploadResult(){
+  const dv = document.getElementById('datePicker').value;
+  if(!dv) return;
+  const btn = document.getElementById('uploadBtn');
+  btn.disabled = true; btn.textContent = '📂 Открытие…';
+  try {
+    const r = await fetch('/api/load?date='+dv);
+    const resp = await r.json();
+    if(resp.error) throw new Error(resp.error);
+    data = resp;
+    updCounts(data);
+    renderContent(data, 'загружено из файла · ' + fmtDate(dv));
+    showSavedBadge(dv, resp._saved_at);
+    setSaveUploadBtns(true, true);
+    btn.textContent = '📂 Открыть'; btn.disabled = false;
+  } catch(e) {
+    alert('Ошибка загрузки: ' + e.message);
+    btn.textContent = '📂 Открыть'; btn.disabled = false;
+  }
+}
 function renderFilters(){
   const ef=document.getElementById('EF'),bf=document.getElementById('BF');
   ef.innerHTML='';bf.innerHTML='';
@@ -1015,6 +1163,11 @@ async function loadData(){
       data={...m.result,wiki_url,wiki_title};
       updCounts(data);renderContent(data,modeLabel());
       btn.disabled=false;btn.textContent='Загрузить';
+      // refresh cache state
+      const dv2=document.getElementById('datePicker').value;
+      checkCacheForDate(dv2);
+      setSaveUploadBtns(true, document.getElementById('uploadBtn').disabled===false||false);
+      document.getElementById('saveBtn').disabled=false;
     } else if(m.type==='error'){
       sseSource.close();sseSource=null;
       document.getElementById('content').innerHTML=`<div class="err"><b>Ошибка:</b> ${m.text}</div>`;
@@ -1125,22 +1278,91 @@ function renderAiTab(){
 
   for(const [id, meta] of Object.entries(providers)){
     const hasKey = !!(keys[id] && keys[id] !== '');
-    h += `<div class="provider-card ${hasKey?'has-key':''}">
+    const isOR   = id === 'openrouter';
+    const curModel = keys['openrouter_model'] || meta.model || '';
+
+    h += `<div class="provider-card ${hasKey?'has-key':''}" id="pcard_${id}">
       <div class="prov-header">
         <span class="prov-name">${meta.name}</span>
         <span class="prov-free">Бесплатный</span>
-        <span class="key-status ${hasKey?'set':'unset'}">${hasKey?'✓ ключ задан':'нет ключа'}</span>
+        <span class="key-status ${hasKey?'set':'unset'}" id="kstat_${id}">${hasKey?'✓ ключ задан':'нет ключа'}</span>
       </div>
       <div class="prov-note">${meta.note}</div>
       <div class="prov-key-row">
         <input type="password" id="key_${id}" placeholder="Вставьте API ключ…"
-          value="${keys[id]||''}"
-          autocomplete="off">
+          value="${keys[id]||''}" autocomplete="off"
+          ${isOR ? 'oninput="onOrKeyInput()"' : ''}>
         <a href="${meta.signup}" target="_blank">Получить ключ →</a>
-      </div>
-    </div>`;
+      </div>`;
+
+    if(isOR){
+      h += `<div style="margin-top:10px">
+        <div style="font-size:12px;color:var(--tx2);margin-bottom:5px">
+          Модель:
+          <button class="bs" style="font-size:11px;padding:2px 9px;margin-left:6px"
+            onclick="loadOrModels()" id="orLoadBtn">⟳ Загрузить список</button>
+          <span id="orLoadStatus" style="font-size:11px;color:var(--tx2);margin-left:6px"></span>
+        </div>
+        <div style="display:flex;gap:7px;align-items:center">
+          <select id="orModelSel" style="flex:1;font-size:12px"
+            onchange="document.getElementById('orModelInput').value=this.value">
+            <option value="${curModel}">${curModel || '— введите вручную —'}</option>
+          </select>
+          <input type="text" id="orModelInput" value="${esc(curModel)}"
+            placeholder="или введите model ID вручную"
+            style="flex:1;font-family:monospace;font-size:12px;padding:4px 7px;
+                   border:1px solid var(--bd);border-radius:4px;background:var(--sf)">
+        </div>
+        <div style="font-size:11px;color:var(--tx2);margin-top:4px">
+          Ищите бесплатные модели на
+          <a href="https://openrouter.ai/models?q=:free" target="_blank"
+            style="color:var(--ai)">openrouter.ai/models?q=:free</a>
+        </div>
+      </div>`;
+    }
+
+    h += `</div>`;
   }
   document.getElementById('aiE').innerHTML = h;
+}
+
+function onOrKeyInput(){
+  // Enable load button only when key looks non-empty
+  const btn = document.getElementById('orLoadBtn');
+  const key = document.getElementById('key_openrouter');
+  if(btn && key) btn.disabled = key.value.trim().length < 10;
+}
+
+async function loadOrModels(){
+  const key = document.getElementById('key_openrouter')?.value.trim();
+  if(!key){ alert('Сначала введите API ключ OpenRouter'); return; }
+  const btn = document.getElementById('orLoadBtn');
+  const status = document.getElementById('orLoadStatus');
+  btn.disabled = true; btn.textContent = '…';
+  status.textContent = 'загружаю…';
+  try {
+    const r = await fetch('/api/or_models?key=' + encodeURIComponent(key));
+    const d = await r.json();
+    if(d.error){ status.textContent = '⚠ ' + d.error; return; }
+    const sel = document.getElementById('orModelSel');
+    const cur = document.getElementById('orModelInput')?.value || '';
+    sel.innerHTML = '';
+    d.models.forEach(m => {
+      const opt = document.createElement('option');
+      opt.value = m.id;
+      opt.textContent = `${m.id}  (${m.name})`;
+      if(m.id === cur) opt.selected = true;
+      sel.appendChild(opt);
+    });
+    if(!cur && d.models.length) {
+      document.getElementById('orModelInput').value = d.models[0].id;
+    }
+    status.textContent = `✓ ${d.models.length} бесплатных моделей`;
+  } catch(e) {
+    status.textContent = '⚠ ' + e.message;
+  } finally {
+    btn.disabled = false; btn.textContent = '⟳ Загрузить список';
+  }
 }
 
 function renderEd(cid,cats,type){
@@ -1183,14 +1405,17 @@ async function saveSettings(){
   if(kw)config.keyword_min_hits=parseInt(kw.value);
   await fetch('/api/config',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(config)});
 
-  // Save AI keys (only send non-masked values)
+  // Save AI keys (only send non-empty / non-masked values)
   const newKeys = {};
   const providers = keysData.providers || {};
   for(const id of Object.keys(providers)){
     const inp = document.getElementById('key_'+id);
     if(inp) newKeys[id] = inp.value;
   }
-  const kr = await fetch('/api/keys',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(newKeys)});
+  // Save OpenRouter model override
+  const orModel = document.getElementById('orModelInput');
+  if(orModel && orModel.value.trim()) newKeys['openrouter_model'] = orModel.value.trim();
+  await fetch('/api/keys',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(newKeys)});
   keysData = await (await fetch('/api/keys')).json();  // refresh
 
   renderFilters();closeSettings();
@@ -1220,6 +1445,20 @@ class Handler(BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(body)
 
+        elif path == '/api/cache_info':
+            params   = parse_qs(urlparse(self.path).query)
+            date_str = params.get('date', [''])[0]
+            self._json(cache_info(date_str) if date_str else {"exists": False})
+
+        elif path == '/api/load':
+            params   = parse_qs(urlparse(self.path).query)
+            date_str = params.get('date', [''])[0]
+            result   = cache_load(date_str)
+            if result is None:
+                self._json({"error": "not found"})
+            else:
+                self._json(result)
+
         elif path == '/api/config':
             self._json(config_store)
 
@@ -1230,6 +1469,33 @@ class Handler(BaseHTTPRequestHandler):
                 "keys": masked,
                 "providers": AI_PROVIDERS,
             })
+
+        elif path == '/api/or_models':
+            # Proxy OpenRouter /models with user key, return only free models
+            params = parse_qs(urlparse(self.path).query)
+            key = params.get('key', [''])[0].strip()
+            if not key:
+                self._json({"error": "no key"}); return
+            try:
+                req = urllib.request.Request(
+                    "https://openrouter.ai/api/v1/models",
+                    headers={"Authorization": f"Bearer {key}",
+                             "User-Agent": _UA, "Accept": "application/json"}
+                )
+                with urllib.request.urlopen(req, timeout=15) as resp:
+                    data = json.loads(resp.read().decode())
+                free = [
+                    {"id": m["id"], "name": m.get("name", m["id"])}
+                    for m in data.get("data", [])
+                    if float((m.get("pricing") or {}).get("prompt", "1") or "1") == 0
+                ]
+                free.sort(key=lambda m: m["id"])
+                self._json({"models": free})
+            except urllib.error.HTTPError as e:
+                body = e.read().decode(errors="replace")
+                self._json({"error": f"HTTP {e.code}: {body[:200]}"})
+            except Exception as e:
+                self._json({"error": str(e)})
 
         elif path == '/api/progress':
             self.send_response(200)
@@ -1257,7 +1523,19 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self):
         body = self.rfile.read(int(self.headers.get('Content-Length', 0)))
 
-        if self.path == '/api/config':
+        if self.path == '/api/save':
+            try:
+                payload  = json.loads(body)
+                date_str = payload.get("date", "")
+                result   = payload.get("result", {})
+                if not date_str or not result:
+                    self._json({"error": "missing date or result"}); return
+                ts = cache_save(date_str, result)
+                self._json({"ok": True, "saved_at": ts})
+            except Exception as e:
+                self._json({"error": str(e)})
+
+        elif self.path == '/api/config':
             try:
                 config_store.update(json.loads(body))
                 self._json({"ok": True})
@@ -1265,14 +1543,14 @@ class Handler(BaseHTTPRequestHandler):
                 self._json({"error": str(e)})
 
         elif self.path == '/api/keys':
-            # Save keys: only overwrite non-empty values so masking doesn't erase real keys
+            # Save keys: only overwrite non-empty / non-masked values
             try:
-                incoming = json.loads(body)  # {provider: key_or_masked}
-                for provider, value in incoming.items():
+                incoming = json.loads(body)
+                for k, value in incoming.items():
                     if value and not value.startswith("•"):
-                        _keys_store[provider] = value.strip()
+                        _keys_store[k] = value.strip()
                     elif not value:
-                        _keys_store.pop(provider, None)
+                        _keys_store.pop(k, None)
                 save_keys(_keys_store)
                 self._json({"ok": True})
             except Exception as e:
