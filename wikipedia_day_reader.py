@@ -128,13 +128,20 @@ def _ai_prompt(entries, categories, russian_desc, include_russian):
         cat_lines += f'\n  "russians": Русские/Советские — {russian_desc}'
     numbered = "\n".join(f"{i}: {strip_html(e)}" for i, e in enumerate(entries))
     system = (
-        "You are a precise semantic classifier for historical Wikipedia entries.\n"
+        "You are a strict semantic classifier for historical Wikipedia entries.\n"
         "Return ONLY a JSON object mapping each entry index (string) to an array "
-        "of matching category ids. Match by meaning. Empty array [] if none match.\n"
-        'Example: {"0":["science"],"1":[],"2":["art","education"]}\n'
-        "No markdown, no explanation — only the JSON object."
+        "of matching category ids.\n"
+        "Rules:\n"
+        "- Match ONLY if the entry is DIRECTLY and PRIMARILY about that category.\n"
+        "- Military battles, wars, conquests, politics, elections, treaties → NO science/art/literature.\n"
+        "- Founding of a city, capture of territory, coronation → NO science/art/education.\n"
+        "- A person publishing a scientific paper → science. Publishing a novel → literature.\n"
+        "- Empty array [] when the entry does not clearly fit any category.\n"
+        "- Do NOT assign a category just because a country or person name sounds related.\n"
+        'Example: {"0":["science"],"1":[],"2":["art","education"],"3":[]}\n'
+        "Return ONLY valid JSON, no markdown, no explanation."
     )
-    user = f"Categories:\n{cat_lines}\n\nEntries:\n{numbered}"
+    user = f"Categories:\n{cat_lines}\n\nClassify each entry:\n{numbered}"
     return system, user
 
 
@@ -148,6 +155,22 @@ def _parse_ai_json(text: str, n: int) -> dict:
         return {str(k): (v if isinstance(v, list) else []) for k, v in raw.items()}
     except Exception:
         return {str(i): [] for i in range(n)}
+
+
+def _vocab_confirm(text_lower: str, cat_id: str) -> bool:
+    """
+    Secondary guard: confirm AI assignment has at least one vocabulary word match.
+    'russians' is skipped (context-dependent names don't need keyword match).
+    """
+    if cat_id == "russians":
+        return True
+    kws = VOCAB.get(cat_id, set())
+    if not kws:
+        return True  # unknown cat — pass through
+    words  = set(re.findall(r"[a-z']+", text_lower))
+    tokens = re.findall(r"[a-z']+", text_lower)
+    bgrams = {tokens[i] + " " + tokens[i+1] for i in range(len(tokens) - 1)}
+    return bool((words | bgrams) & kws)
 
 
 # ── PROVIDER IMPLEMENTATIONS ──────────────────────────────────────────────────
@@ -196,7 +219,13 @@ AI_BATCH = 40  # default fallback
 
 
 def classify_entries_ai(entries, categories, russian_desc, include_russian,
-                         provider, key, model, progress_cb=None):
+                         provider, key, model, progress_cb=None,
+                         vocab_filter=False):
+    """
+    Classify using external AI.
+    vocab_filter=True: reject AI assignments where zero VOCAB words match
+    (catches hallucinations like military events → science).
+    """
     fn = _AI_FNS.get(provider)
     if not fn:
         raise ValueError(f"Unknown provider: {provider}")
@@ -206,14 +235,22 @@ def classify_entries_ai(entries, categories, russian_desc, include_russian,
     n = len(entries)
     batch_size = _AI_BATCH.get(provider, AI_BATCH)
     for start in range(0, n, batch_size):
-        batch   = entries[start:start + batch_size]
-        mapping = fn(batch, categories, russian_desc, include_russian, key, model)
+        batch        = entries[start:start + batch_size]
+        batch_texts  = [strip_html(e).lower() for e in batch]
+        mapping      = fn(batch, categories, russian_desc, include_russian, key, model)
         for idx_s, cats in mapping.items():
             idx = int(idx_s)
-            if idx < len(batch):
-                for cid in (cats or []):
-                    if cid in result:
-                        result[cid].append(batch[idx])
+            if idx >= len(batch):
+                continue
+            entry   = batch[idx]
+            tlo     = batch_texts[idx]
+            for cid in (cats or []):
+                if cid not in result:
+                    continue
+                # Postfilter: skip if AI assigned but zero vocab words match
+                if vocab_filter and not _vocab_confirm(tlo, cid):
+                    continue
+                result[cid].append(entry)
         if progress_cb:
             progress_cb(min(start + batch_size, n), n)
     return result
@@ -280,6 +317,10 @@ VOCAB = {
         "algebra","geometry","computer","computing","algorithm","robotics",
         "chemistry","physics","biology","mathematics","medicine","scientific",
         "astronomical","geological","pharmaceutical","epidemiological","clinical",
+        "natural knowledge","natural philosophy","learned society","royal society",
+        "akademie","académie","academia","scientific society","observatory founded",
+        "discovers","discovered","isolates","isolated","synthesizes","synthesized",
+        "invents","invented","patent granted","first described","first observed",
     },
     "art": {
         "painter","sculptor","artist","illustrator","filmmaker","director",
@@ -552,25 +593,34 @@ config_store = dict(DEFAULT_CONFIG)
 _keys_store:  dict = {}   # loaded at startup
 
 
-def run_job(events_raw, births_raw, cfg, use_ai=False, ai_provider="gemini"):
+def run_job(events_raw, births_raw, cfg,
+            use_ai_events=False, use_ai_births=False, ai_provider="gemini"):
     _job_queue.queue.clear()
 
     def push(obj):
         _job_queue.put(json.dumps(obj, ensure_ascii=False))
 
+    def _get_ai(provider):
+        key   = _keys_store.get(provider, "").strip()
+        model = AI_PROVIDERS[provider]["model"]
+        if not key:
+            raise ValueError(
+                f"API key for '{AI_PROVIDERS[provider]['name']}' not set. "
+                f"Add it in ⚙ Settings → AI."
+            )
+        return key, model
+
     def run():
         try:
-            if use_ai:
-                # ── AI path ──────────────────────────────────────────────
-                key   = _keys_store.get(ai_provider, "").strip()
-                model = AI_PROVIDERS[ai_provider]["model"]
-                if not key:
-                    raise ValueError(
-                        f"API key for '{AI_PROVIDERS[ai_provider]['name']}' not set. "
-                        f"Add it in ⚙ Settings → AI."
-                    )
+            thr   = float(cfg.get("tfidf_threshold",  DEFAULT_CONFIG["tfidf_threshold"]))
+            kwmin = int(cfg.get("keyword_min_hits",    DEFAULT_CONFIG["keyword_min_hits"]))
+            pname = AI_PROVIDERS.get(ai_provider, {}).get("name", ai_provider)
+
+            # ── Events ───────────────────────────────────────────────────
+            if use_ai_events:
+                key, model = _get_ai(ai_provider)
                 push({"type": "status",
-                      "text": f"AI-классификация событий ({AI_PROVIDERS[ai_provider]['name']})…"})
+                      "text": f"AI события ({pname})…"})
                 ev_res = classify_entries_ai(
                     events_raw, cfg["event_categories"],
                     cfg["russian_description"], False,
@@ -581,8 +631,23 @@ def run_job(events_raw, births_raw, cfg, use_ai=False, ai_provider="gemini"):
                         "text": f"AI события: {d}/{t}",
                     })
                 )
+            else:
+                push({"type": "status", "text": "Классифицирую события (локально)…"})
+                ev_res = classify_entries(
+                    events_raw, cfg["event_categories"],
+                    cfg["russian_description"], False, thr, kwmin,
+                    progress_cb=lambda d, t: push({
+                        "type": "progress",
+                        "pct": int(d / max(t, 1) * 50),
+                        "text": f"События: {d} из {t}",
+                    })
+                )
+
+            # ── Births ────────────────────────────────────────────────────
+            if use_ai_births:
+                key, model = _get_ai(ai_provider)
                 push({"type": "status",
-                      "text": f"AI-классификация рождений…"})
+                      "text": f"AI рождения ({pname})…"})
                 bi_res = classify_entries_ai(
                     births_raw, cfg["birth_categories"],
                     cfg["russian_description"], True,
@@ -594,20 +659,6 @@ def run_job(events_raw, births_raw, cfg, use_ai=False, ai_provider="gemini"):
                     })
                 )
             else:
-                # ── Local TF-IDF path ─────────────────────────────────────
-                thr   = float(cfg.get("tfidf_threshold",  DEFAULT_CONFIG["tfidf_threshold"]))
-                kwmin = int(cfg.get("keyword_min_hits",    DEFAULT_CONFIG["keyword_min_hits"]))
-
-                push({"type": "status", "text": "Классифицирую события (локально)…"})
-                ev_res = classify_entries(
-                    events_raw, cfg["event_categories"],
-                    cfg["russian_description"], False, thr, kwmin,
-                    progress_cb=lambda d, t: push({
-                        "type": "progress",
-                        "pct": int(d / max(t, 1) * 50),
-                        "text": f"События: {d} из {t}",
-                    })
-                )
                 push({"type": "status", "text": "Классифицирую рождения (локально)…"})
                 bi_res = classify_entries(
                     births_raw, cfg["birth_categories"],
@@ -663,10 +714,11 @@ HTML_PAGE = r"""<!DOCTYPE html>
   .bs{background:transparent;border-color:var(--bd);color:var(--tx2);}
   .bs:hover{border-color:var(--ac2);color:var(--ac);}
   /* AI toggle strip */
-  .ai-strip{display:flex;align-items:center;gap:8px;padding:5px 12px;border-radius:var(--r);background:var(--sf2);border:1.5px solid var(--bd);transition:all .2s;}
+  .ai-strip{display:flex;align-items:center;gap:7px;padding:5px 11px;border-radius:var(--r);background:var(--sf2);border:1.5px solid var(--bd);transition:all .2s;}
   .ai-strip.active{background:#e8f2fb;border-color:#8ab8d8;}
   .ai-strip label{font-size:13px;color:var(--tx2);cursor:pointer;user-select:none;}
   .ai-strip.active label{color:var(--ai);font-weight:600;}
+  .ai-sep{width:1px;height:20px;background:var(--bd);margin:0 2px;}
   input[type=checkbox]{width:14px;height:14px;cursor:pointer;accent-color:var(--ai);}
   select{font-family:'Source Serif 4',serif;font-size:13px;padding:3px 7px;border:1.5px solid var(--bd);border-radius:var(--r);background:var(--sf);color:var(--tx);cursor:pointer;}
   select:focus{outline:none;border-color:#8ab8d8;}
@@ -758,16 +810,20 @@ HTML_PAGE = r"""<!DOCTYPE html>
 <div class="ctrl">
   <input type="date" id="datePicker"/>
   <button class="bp" id="loadBtn" onclick="loadData()">Загрузить</button>
-  <!-- AI toggle -->
-  <div class="ai-strip" id="aiStrip">
-    <input type="checkbox" id="aiChk" onchange="onAiToggle()">
-    <label for="aiChk">🤖 Внешний AI</label>
-    <select id="aiProv" style="display:none" onchange="onProvChange()">
-      <option value="gemini">Gemini 2.0 Flash</option>
-      <option value="groq">Groq Llama 3.1</option>
-      <option value="openrouter">OpenRouter (free)</option>
-    </select>
+  <!-- AI toggles -->
+  <div class="ai-strip" id="aiStripEv">
+    <input type="checkbox" id="aiChkEv" onchange="onAiToggle()">
+    <label for="aiChkEv">🤖 AI события</label>
   </div>
+  <div class="ai-strip" id="aiStripBi">
+    <input type="checkbox" id="aiChkBi" onchange="onAiToggle()">
+    <label for="aiChkBi">🤖 AI рождения</label>
+  </div>
+  <select id="aiProv" style="display:none" onchange="onProvChange()">
+    <option value="gemini">Gemini 2.0 Flash</option>
+    <option value="groq">Groq Llama 3.1</option>
+    <option value="openrouter">OpenRouter (free)</option>
+  </select>
   <button class="bs" onclick="openSettings()">⚙ Настройки</button>
 </div>
 <div class="main">
@@ -827,27 +883,47 @@ async function init(){
 
 // ── AI TOGGLE ────────────────────────────────────────────────────────────────
 function onAiToggle(){
-  const on=document.getElementById('aiChk').checked;
-  const strip=document.getElementById('aiStrip');
-  const sel=document.getElementById('aiProv');
-  strip.classList.toggle('active',on);
-  sel.style.display=on?'':'none';
-  const sub=document.getElementById('hdrSub');
-  sub.textContent=on
-    ? `AI классификация · ${providerName(sel.value)} · Wikipedia`
-    : 'Локальная классификация · TF-IDF + словарь · Wikipedia';
+  const onEv = document.getElementById('aiChkEv').checked;
+  const onBi = document.getElementById('aiChkBi').checked;
+  const anyOn = onEv || onBi;
+  document.getElementById('aiStripEv').classList.toggle('active', onEv);
+  document.getElementById('aiStripBi').classList.toggle('active', onBi);
+  const sel = document.getElementById('aiProv');
+  sel.style.display = anyOn ? '' : 'none';
+  updateSubtitle();
 }
 
-function onProvChange(){
-  const sel=document.getElementById('aiProv');
-  const sub=document.getElementById('hdrSub');
-  if(document.getElementById('aiChk').checked)
-    sub.textContent=`AI классификация · ${providerName(sel.value)} · Wikipedia`;
+function onProvChange(){ updateSubtitle(); }
+
+function updateSubtitle(){
+  const onEv = document.getElementById('aiChkEv').checked;
+  const onBi = document.getElementById('aiChkBi').checked;
+  const prov = providerName(document.getElementById('aiProv').value);
+  const sub  = document.getElementById('hdrSub');
+  if(!onEv && !onBi){
+    sub.textContent = 'Локальная классификация · TF-IDF + словарь · Wikipedia';
+  } else {
+    const parts = [];
+    if(onEv) parts.push('события');
+    if(onBi) parts.push('рождения');
+    sub.textContent = `🤖 AI (${prov}): ${parts.join(' + ')} · Wikipedia`;
+  }
 }
 
 function providerName(id){
   const names={gemini:'Gemini 2.0 Flash',groq:'Groq Llama 3.1',openrouter:'OpenRouter (free)'};
   return names[id]||id;
+}
+
+function modeLabel(){
+  const onEv = document.getElementById('aiChkEv').checked;
+  const onBi = document.getElementById('aiChkBi').checked;
+  const prov = providerName(document.getElementById('aiProv').value);
+  if(!onEv && !onBi) return 'локальная TF-IDF';
+  const parts = [];
+  if(onEv) parts.push('события');
+  if(onBi) parts.push('рождения');
+  return `🤖 ${prov}: ${parts.join(' + ')}`;
 }
 
 // ── FILTERS ───────────────────────────────────────────────────────────────────
@@ -890,7 +966,8 @@ function toggleF(type,id){
 // ── LOAD ──────────────────────────────────────────────────────────────────────
 async function loadData(){
   const dv=document.getElementById('datePicker').value;if(!dv)return;
-  const useAi=document.getElementById('aiChk').checked;
+  const useAiEv=document.getElementById('aiChkEv').checked;
+  const useAiBi=document.getElementById('aiChkBi').checked;
   const aiProv=document.getElementById('aiProv').value;
   const btn=document.getElementById('loadBtn');
   btn.disabled=true;btn.textContent='Загрузка...';
@@ -901,7 +978,9 @@ async function loadData(){
 
   const r=await fetch('/api/start',{
     method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({date:dv,config,use_ai:useAi,ai_provider:aiProv})
+    body:JSON.stringify({date:dv,config,
+      use_ai_events:useAiEv, use_ai_births:useAiBi,
+      ai_provider:aiProv})
   });
   const resp=await r.json();
   if(resp.error){
@@ -910,7 +989,7 @@ async function loadData(){
   }
 
   const {wiki_url,wiki_title,total_events,total_births}=resp;
-  const mode=useAi?`🤖 ${providerName(aiProv)}`:'локальная TF-IDF';
+  const mode=modeLabel();
   document.getElementById('content').innerHTML=`
     <div class="ptitle">${fmtDate(dv)}</div>
     <div class="pmeta"><a href="${wiki_url}" target="_blank" style="color:var(--ac)">Wikipedia — ${wiki_title}</a>
@@ -934,7 +1013,7 @@ async function loadData(){
     } else if(m.type==='done'){
       sseSource.close();sseSource=null;
       data={...m.result,wiki_url,wiki_title};
-      updCounts(data);renderContent(data,mode);
+      updCounts(data);renderContent(data,modeLabel());
       btn.disabled=false;btn.textContent='Загрузить';
     } else if(m.type==='error'){
       sseSource.close();sseSource=null;
@@ -1204,8 +1283,9 @@ class Handler(BaseHTTPRequestHandler):
                 payload    = json.loads(body)
                 date_str   = payload["date"]
                 cfg        = payload.get("config", config_store)
-                use_ai     = bool(payload.get("use_ai", False))
-                ai_provider = payload.get("ai_provider", "gemini")
+                use_ai_events  = bool(payload.get("use_ai_events",  False))
+                use_ai_births  = bool(payload.get("use_ai_births",  False))
+                ai_provider    = payload.get("ai_provider", "gemini")
 
                 d = date.fromisoformat(date_str)
                 months = [
@@ -1220,7 +1300,10 @@ class Handler(BaseHTTPRequestHandler):
                     self._json({"error": f"Не удалось загрузить Wikipedia: {err}"}); return
 
                 events_raw, births_raw = parse_wikipedia_raw(html_content)
-                run_job(events_raw, births_raw, cfg, use_ai=use_ai, ai_provider=ai_provider)
+                run_job(events_raw, births_raw, cfg,
+                        use_ai_events=use_ai_events,
+                        use_ai_births=use_ai_births,
+                        ai_provider=ai_provider)
 
                 self._json({
                     "ok": True,
