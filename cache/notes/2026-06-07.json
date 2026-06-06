@@ -4,6 +4,10 @@
     "images": [
       "/images/2026-06-07_9c84c1c5b8.jpg"
     ],
-    "pub_status": "ready"
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-07",
+      "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#2026-06-07%7Chttps%3A%2F%2Fen.wikipedia.org%2Fwiki%2F1894"
+    }
   }
 }
