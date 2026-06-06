@@ -1007,9 +1007,8 @@ HTML_PAGE = r"""<!DOCTYPE html>
 </header>
 <div class="ctrl">
   <input type="date" id="datePicker" onchange="onDateChange()"/>
-  <button class="bp" id="loadBtn" onclick="loadData()">Загрузить</button>
-  <button class="bsave" id="saveBtn" onclick="saveResult()" disabled title="Сохранить результат">💾 Сохранить</button>
   <button class="bload" id="uploadBtn" onclick="uploadResult()" disabled title="Загрузить сохранённый результат">📂 Открыть</button>
+  <button class="bsave" id="saveBtn" onclick="saveResult()" disabled title="Сохранить результат">💾 Сохранить</button>
   <!-- saved indicator -->
   <div class="saved-badge" id="savedBadge">
     <span class="sb-icon">✅</span>
@@ -1018,6 +1017,7 @@ HTML_PAGE = r"""<!DOCTYPE html>
     <span class="sb-time" id="sbTime"></span>
   </div>
   <!-- AI toggles -->
+  <button class="bp" id="loadBtn" onclick="loadData()">Загрузить</button>
   <div class="ai-strip" id="aiStripEv">
     <input type="checkbox" id="aiChkEv" onchange="onAiToggle()">
     <label for="aiChkEv">🤖 AI события</label>
@@ -1211,9 +1211,23 @@ async function onDateChange(){
 
 function showSavedBadge(dv, savedAt){
   const badge = document.getElementById('savedBadge');
-  const parts = (savedAt||'').split(' ');
-  document.getElementById('sbDate').textContent = fmtDate(dv);
-  document.getElementById('sbTime').textContent = parts[1] ? '('+parts[1]+')' : '';
+  if(savedAt){
+    // savedAt is like "2026-06-05 14:32:10" — show date and time separately
+    const parts = savedAt.split(' ');
+    const datePart = parts[0] || '';
+    const timePart = parts[1] || '';
+    // Format the save date in Russian
+    let dateLabel = datePart;
+    if(datePart){
+      const d = new Date(datePart + 'T00:00:00');
+      if(!isNaN(d)) dateLabel = d.toLocaleDateString('ru-RU',{day:'numeric',month:'short',year:'numeric'});
+    }
+    document.getElementById('sbDate').textContent = dateLabel;
+    document.getElementById('sbTime').textContent = timePart ? timePart : '';
+  } else {
+    document.getElementById('sbDate').textContent = '';
+    document.getElementById('sbTime').textContent = '';
+  }
   badge.classList.add('visible');
 }
 
