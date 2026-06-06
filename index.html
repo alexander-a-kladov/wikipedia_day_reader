@@ -46,6 +46,19 @@ header h1 {
     box-shadow: 0 2px 10px rgba(0,0,0,.08);
 }
 
+.post-actions {
+    padding: 0 24px 24px;
+}
+
+.share-btn {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+
 .file-date {
     padding: 14px 20px;
     background: #fafafa;
@@ -225,6 +238,11 @@ body.dark .loading,
 body.dark .error {
     color: #bbb;
 }
+
+body.dark .share-btn {
+    background: #333;
+    color: white;
+}
 </style>
 </head>
 <body>
@@ -271,27 +289,45 @@ function createPost(fileDate, sourceUrl, post) {
     const article = document.createElement('article');
     article.className = 'post';
 
+    const postId = encodeURIComponent(
+        fileDate + '|' + sourceUrl
+    );
+
+    article.id = postId;
+
     let imagesHtml = '';
 
     if ((post.images || []).length) {
 
         const slides = post.images.map(img => `
             <div class="slide">
-                <img src="${getImagePath(img)}"
+                <img
+                    src="${getImagePath(img)}"
                     loading="lazy"
-                    alt="">
+                    alt=""
+                >
             </div>
         `).join('');
 
         imagesHtml = `
             <div class="slider">
-                <button class="slider-btn prev">‹</button>
+
+                <button
+                    class="slider-btn prev"
+                    type="button">
+                    ‹
+                </button>
 
                 <div class="slider-track">
                     ${slides}
                 </div>
 
-                <button class="slider-btn next">›</button>
+                <button
+                    class="slider-btn next"
+                    type="button">
+                    ›
+                </button>
+
             </div>
         `;
     }
@@ -301,14 +337,19 @@ function createPost(fileDate, sourceUrl, post) {
             ${fileDate}
         </div>
 
-        ${
-            imagesHtml
-                ? `<div class="images">${imagesHtml}</div>`
-                : ''
-        }
+        ${imagesHtml}
 
         <div class="content">
             ${textToHtml(post.text || '')}
+        </div>
+
+        <div class="post-actions">
+            <button
+                class="share-btn"
+                data-post-id="${postId}"
+                type="button">
+                🔗 Поделиться
+            </button>
         </div>
     `;
 
@@ -320,71 +361,113 @@ function showAllMode() {
     return params.get('show_all') === 'true';
 }
 
+function scrollToHashPost() {
+
+    const hash =
+        decodeURIComponent(
+            location.hash.slice(1)
+        );
+
+    if (!hash) return;
+
+    const post =
+        document.getElementById(hash);
+
+    if (!post) return;
+
+    post.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+    });
+
+    post.style.outline =
+        '3px solid #4a90e2';
+
+    post.style.outlineOffset =
+        '4px';
+
+    setTimeout(() => {
+        post.style.outline = '';
+    }, 3000);
+}
+
 async function loadFeed() {
 
     try {
 
-        const indexResponse = await fetch('cache/index.json');
+        const indexResponse =
+            await fetch('cache/index.json');
 
         if (!indexResponse.ok) {
-            throw new Error('Не удалось загрузить cache/index.json');
+            throw new Error(
+                'Не удалось загрузить cache/index.json'
+            );
         }
 
-        const files = await indexResponse.json();
+        const files =
+            await indexResponse.json();
 
-        files.sort((a, b) => b.localeCompare(a));
+        files.sort((a, b) =>
+            b.localeCompare(a)
+        );
 
         feed.innerHTML = '';
+
+        const showAll =
+            showAllMode();
 
         for (const fileName of files) {
 
             try {
 
-                const response = await fetch(
-                    `cache/notes/${fileName}`
-                );
+                const response =
+                    await fetch(
+                        `cache/notes/${fileName}`
+                    );
 
                 if (!response.ok) {
-                    console.error(
-                        'Ошибка загрузки файла:',
-                        fileName
-                    );
                     continue;
                 }
 
-                const data = await response.json();
+                const data =
+                    await response.json();
 
-                const fileDate = fileName.replace(
-                    /\.json$/i,
-                    ''
-                );
+                const fileDate =
+                    fileName.replace(
+                        /\.json$/i,
+                        ''
+                    );
 
-                const showAll = showAllMode();
-
-                for (const [sourceUrl, post] of Object.entries(data)) {
+                for (const [sourceUrl, post]
+                    of Object.entries(data)) {
 
                     const isPublished =
+                        post &&
                         post.published &&
                         post.published.date;
 
-                    if (!showAll && !isPublished) {
+                    if (
+                        !showAll &&
+                        !isPublished
+                    ) {
                         continue;
                     }
 
-                    const card = createPost(
-                        fileDate,
-                        sourceUrl,
-                        post
-                    );
+                    const card =
+                        createPost(
+                            fileDate,
+                            sourceUrl,
+                            post
+                        );
 
                     feed.appendChild(card);
+
                     initSlider(card);
                 }
 
             } catch (err) {
 
                 console.error(
-                    'Ошибка обработки файла',
                     fileName,
                     err
                 );
@@ -392,9 +475,16 @@ async function loadFeed() {
         }
 
         if (!feed.children.length) {
-            feed.innerHTML =
-                '<div class="error">Публикации не найдены</div>';
+
+            feed.innerHTML = `
+                <div class="error">
+                    Нет опубликованных материалов
+                </div>
+            `;
         }
+
+       // после того как всё отрисовалось
+        scrollToHashPost();
 
     } catch (err) {
 
@@ -408,17 +498,23 @@ async function loadFeed() {
     }
 }
 
-const themeButton =
-    document.getElementById('themeToggle');
-
 function applyTheme(theme) {
 
     if (theme === 'dark') {
+
         document.body.classList.add('dark');
-        themeButton.textContent = '☀️';
+
+        if (themeButton) {
+            themeButton.textContent = '☀️';
+        }
+
     } else {
+
         document.body.classList.remove('dark');
-        themeButton.textContent = '🌙';
+
+        if (themeButton) {
+            themeButton.textContent = '🌙';
+        }
     }
 }
 
@@ -488,6 +584,9 @@ function initSlider(card) {
         });
 }
 
+const themeButton =
+    document.getElementById('themeToggle');
+
 themeButton.addEventListener('click', () => {
 
     const dark =
@@ -506,7 +605,58 @@ themeButton.addEventListener('click', () => {
 
 initTheme();
 
+document.addEventListener(
+    'click',
+    async (e) => {
+
+        const btn =
+            e.target.closest('.share-btn');
+
+        if (!btn) return;
+
+        const url =
+            location.origin +
+            location.pathname +
+            '#' +
+            btn.dataset.postId;
+
+        if (navigator.share) {
+
+            try {
+
+                await navigator.share({
+                    title:
+                        'События истории и личности',
+                    url
+                });
+
+                return;
+
+            } catch (err) {}
+        }
+
+        try {
+
+            await navigator.clipboard
+                .writeText(url);
+
+            alert(
+                'Ссылка скопирована'
+            );
+
+        } catch (err) {
+
+            prompt(
+                'Скопируйте ссылку:',
+                url
+            );
+        }
+    }
+);
+
 loadFeed();
+
+
 </script>
 
 </body>
