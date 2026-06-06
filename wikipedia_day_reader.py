@@ -906,6 +906,23 @@ HTML_PAGE = r"""<!DOCTYPE html>
   .note-upload-btn:hover{border-color:var(--ac2);color:var(--ac);}
   .note-actions{display:flex;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid var(--bd);}
   .note-actions .spacer{flex:1;}
+  /* published block */
+  .pub-block{margin-top:10px;padding:10px 12px;background:var(--sf2);border-radius:6px;
+    border:1px solid var(--bd);display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+  .pub-block label{font-size:12px;color:var(--tx2);white-space:nowrap;}
+  .pub-block input[type=date],.pub-block input[type=url]{font-family:'Source Serif 4',serif;
+    font-size:13px;padding:4px 8px;border:1px solid var(--bd);border-radius:4px;
+    background:var(--sf);color:var(--tx);}
+  .pub-block input[type=date]{width:150px;}
+  .pub-block input[type=url]{flex:1;min-width:180px;}
+  .pub-toggle{font-size:12px;color:var(--ai);cursor:pointer;text-decoration:underline;
+    background:none;border:none;padding:0;margin-top:6px;}
+  /* published badge on post */
+  .note-pub-badge{display:flex;align-items:center;gap:6px;padding:5px 12px;
+    font-size:12px;color:var(--tx2);border-top:1px solid var(--bd);}
+  .note-pub-badge a{color:var(--ai);text-decoration:none;}
+  .note-pub-badge a:hover{text-decoration:underline;}
+  .note-pub-badge .pub-dot{width:6px;height:6px;border-radius:50%;background:#5a8a5a;flex-shrink:0;}
   /* image lightbox */
   .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.82);display:none;
     align-items:center;justify-content:center;z-index:300;cursor:zoom-out;}
@@ -1052,6 +1069,14 @@ HTML_PAGE = r"""<!DOCTYPE html>
       📎 Добавить картинку
       <input type="file" id="noteFileInput" accept="image/*" multiple style="display:none" onchange="uploadImages(event)">
     </label>
+    <!-- Published block -->
+    <button class="pub-toggle" id="pubToggleBtn" onclick="togglePubBlock()">＋ Добавить публикацию</button>
+    <div class="pub-block" id="pubBlock" style="display:none">
+      <label>📅 Дата публикации:</label>
+      <input type="date" id="pubDate">
+      <label>🔗 Ссылка:</label>
+      <input type="url" id="pubUrl" placeholder="https://...">
+    </div>
     <div class="note-actions">
       <button class="bp" onclick="saveNote()">💾 Сохранить</button>
       <button class="bs" style="color:#c0392b;border-color:#f5c0c0" onclick="deleteNote()">🗑 Удалить заметку</button>
@@ -1388,7 +1413,9 @@ function notePost(wikiKey){
   const n=notesData[wikiKey];
   const hasText=n.text&&n.text.trim();
   const imgs=(n.images||[]);
-  if(!hasText&&!imgs.length) return '';
+  const pub=n.published||{};
+  const hasPub=pub.date||pub.url;
+  if(!hasText&&!imgs.length&&!hasPub) return '';
   let h=`<div class="note-post">`;
   if(hasText) h+=`<div class="note-post-text">${n.text}</div>`;
   if(imgs.length){
@@ -1396,6 +1423,13 @@ function notePost(wikiKey){
     imgs.forEach(url=>{
       h+=`<img src="${url}" loading="lazy" onclick="openLightbox('${url}')" title="Открыть">`;
     });
+    h+=`</div>`;
+  }
+  if(hasPub){
+    const dateStr=pub.date?new Date(pub.date+'T00:00:00').toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'}):'';
+    h+=`<div class="note-pub-badge"><span class="pub-dot"></span>`;
+    h+=`<span>Опубликовано${dateStr?' '+dateStr:''}</span>`;
+    if(pub.url) h+=`<a href="${pub.url}" target="_blank" title="${pub.url}">🔗 Ссылка на публикацию</a>`;
     h+=`</div>`;
   }
   h+=`</div>`;
@@ -1445,22 +1479,24 @@ function openNoteModal(evt, wikiKey){
   if(existing){
     document.getElementById('noteEditor').value=existing.text||'';
     renderNoteImgs(existing.images||[]);
+    // Published info
+    const pub=existing.published||{};
+    document.getElementById('pubDate').value=pub.date||'';
+    document.getElementById('pubUrl').value=pub.url||'';
+    const hasPub=pub.date||pub.url;
+    document.getElementById('pubBlock').style.display=hasPub?'flex':'none';
+    document.getElementById('pubToggleBtn').textContent=hasPub?'— Скрыть публикацию':'＋ Добавить публикацию';
   } else {
     // First open: copy entry plain text as starter
     const entryEl=[...document.querySelectorAll('.entry')].find(el=>el.innerHTML.includes(wikiKey));
-    let starter='';
-    if(entryEl){
-      // Copy the entry HTML (with hyperlinks preserved)
-      starter=entryEl.innerHTML
-        .replace(/<span[^>]*>.*?<\/span>/g,'')
-        .replace(/<button[^>]*>.*?<\/button>/g,'')
-        .trim();
-    }
     document.getElementById('noteEditor').value='';
-    // Put HTML into editor as plain seed — user can edit
     document.getElementById('noteEditor').value=
       entryEl ? entryEl.innerText.replace(/📝/,'').trim() : '';
     renderNoteImgs([]);
+    document.getElementById('pubDate').value='';
+    document.getElementById('pubUrl').value='';
+    document.getElementById('pubBlock').style.display='none';
+    document.getElementById('pubToggleBtn').textContent='＋ Добавить публикацию';
   }
   document.getElementById('noteModal').classList.add('open');
   document.getElementById('noteEditor').focus();
@@ -1508,6 +1544,15 @@ async function uploadImages(evt){
   evt.target.value='';
 }
 
+function togglePubBlock(){
+  const blk=document.getElementById('pubBlock');
+  const btn=document.getElementById('pubToggleBtn');
+  const visible=blk.style.display!=='none';
+  blk.style.display=visible?'none':'flex';
+  btn.textContent=visible?'＋ Добавить публикацию':'— Скрыть публикацию';
+  if(!visible) document.getElementById('pubDate').focus();
+}
+
 async function saveNote(){
   const text=document.getElementById('noteEditor').value.trim();
   // Collect current images from thumbs (excluding deleted)
@@ -1522,7 +1567,12 @@ async function saveNote(){
   }
   _pendingImgDels=[];
 
-  const note={text, images: thumbImgs};
+  // Published info
+  const pubDate=document.getElementById('pubDate').value.trim();
+  const pubUrl=document.getElementById('pubUrl').value.trim();
+  const published=(pubDate||pubUrl)?{date:pubDate, url:pubUrl}:null;
+
+  const note={text, images: thumbImgs, ...(published?{published}:{})};
   const r=await fetch('/api/notes',{method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({date:_noteDate, key:_noteKey, note})});
