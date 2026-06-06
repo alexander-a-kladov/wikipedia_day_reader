@@ -5,9 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Past and English Books</title>
 <style>
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
@@ -25,12 +23,8 @@ header {
     padding: 14px 24px;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 24px;
-}
+header h1 { margin: 0; font-size: 24px; }
 
-/* ── date navigator ── */
 .date-nav {
     display: flex;
     align-items: center;
@@ -39,25 +33,7 @@ header h1 {
     flex-wrap: wrap;
 }
 
-.date-nav-btn {
-    border: none;
-    background: #eee;
-    border-radius: 8px;
-    padding: 6px 12px;
-    font-size: 18px;
-    cursor: pointer;
-    line-height: 1;
-}
-
-.date-nav-btn:hover {
-    background: #ddd;
-}
-
-.date-tabs {
-    display: flex;
-    gap: 4px;
-    flex-wrap: wrap;
-}
+.date-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
 
 .date-tab {
     border: 2px solid transparent;
@@ -71,9 +47,7 @@ header h1 {
     white-space: nowrap;
 }
 
-.date-tab:hover {
-    background: #ddd;
-}
+.date-tab:hover { background: #ddd; }
 
 .date-tab.active {
     background: #1565c0;
@@ -81,12 +55,7 @@ header h1 {
     border-color: #1565c0;
 }
 
-/* custom date picker */
-#customDateWrap {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
+#customDateWrap { position: relative; display: flex; align-items: center; }
 
 #customDateInput {
     border: 2px solid #ccc;
@@ -99,10 +68,7 @@ header h1 {
     color: inherit;
 }
 
-#customDateInput:focus {
-    outline: none;
-    border-color: #1565c0;
-}
+#customDateInput:focus { outline: none; border-color: #1565c0; }
 
 #today-btn {
     margin-left: 6px;
@@ -115,11 +81,8 @@ header h1 {
     font-weight: 600;
 }
 
-#today-btn:hover {
-    background: #ddd;
-}
+#today-btn:hover { background: #ddd; }
 
-/* ── feed ── */
 #feed {
     max-width: 1400px;
     margin: 24px auto;
@@ -134,9 +97,7 @@ header h1 {
     box-shadow: 0 2px 10px rgba(0,0,0,.08);
 }
 
-.post-actions {
-    padding: 0 24px 24px;
-}
+.post-actions { padding: 0 24px 24px; }
 
 .share-btn {
     border: none;
@@ -155,21 +116,11 @@ header h1 {
     color: #666;
 }
 
-/* ── slider ── */
-.slider {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-}
+.slider { position: relative; width: 100%; overflow: hidden; }
 
-.slider-track {
-    display: flex;
-    transition: transform .3s ease;
-}
+.slider-track { display: flex; transition: transform .3s ease; }
 
-.slide {
-    min-width: 100%;
-}
+.slide { min-width: 100%; }
 
 .slide img {
     width: 100%;
@@ -196,38 +147,16 @@ header h1 {
 
 .slider-btn.prev { left: 10px; }
 .slider-btn.next { right: 10px; }
+.slider-btn:hover { background: rgba(0,0,0,.75); }
 
-.slider-btn:hover {
-    background: rgba(0,0,0,.75);
-}
+.content { padding: 24px; line-height: 1.9; font-size: 22px; }
 
-.content {
-    padding: 24px;
-    line-height: 1.9;
-    font-size: 22px;
-}
+.content a { color: #1565c0; text-decoration: none; }
+.content a:hover { text-decoration: underline; }
 
-.content a {
-    color: #1565c0;
-    text-decoration: none;
-}
+.loading, .error { text-align: center; padding: 40px; color: #666; }
 
-.content a:hover {
-    text-decoration: underline;
-}
-
-.loading, .error {
-    text-align: center;
-    padding: 40px;
-    color: #666;
-}
-
-/* ── header row ── */
-.header-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+.header-row { display: flex; justify-content: space-between; align-items: center; }
 
 .theme-toggle {
     border: none;
@@ -243,78 +172,33 @@ header h1 {
 
 /* ── dark theme ── */
 body.dark { background: #121212; color: #e0e0e0; }
-
-body.dark header {
-    background: #1e1e1e;
-    border-color: #333;
-}
-
-body.dark .post {
-    background: #1e1e1e;
-    box-shadow: 0 2px 12px rgba(0,0,0,.4);
-}
-
-body.dark .file-date {
-    background: #252525;
-    border-color: #333;
-    color: #ccc;
-}
-
+body.dark header { background: #1e1e1e; border-color: #333; }
+body.dark .post { background: #1e1e1e; box-shadow: 0 2px 12px rgba(0,0,0,.4); }
+body.dark .file-date { background: #252525; border-color: #333; color: #ccc; }
 body.dark .content { color: #e0e0e0; }
 body.dark .content a { color: #66b3ff; }
 body.dark .slide img { background: #111; }
-
 body.dark .theme-toggle,
-body.dark .date-nav-btn,
 body.dark .date-tab,
-body.dark #today-btn {
-    background: #333;
-    color: #e0e0e0;
-}
-
-body.dark .date-nav-btn:hover,
+body.dark #today-btn { background: #333; color: #e0e0e0; }
 body.dark .date-tab:hover,
 body.dark #today-btn:hover { background: #444; }
-
-body.dark .date-tab.active {
-    background: #1976d2;
-    border-color: #1976d2;
-    color: #fff;
-}
-
-body.dark #customDateInput {
-    background: #2a2a2a;
-    border-color: #555;
-    color: #e0e0e0;
-}
-
+body.dark .date-tab.active { background: #1976d2; border-color: #1976d2; color: #fff; }
+body.dark #customDateInput { background: #2a2a2a; border-color: #555; color: #e0e0e0; }
 body.dark #customDateInput:focus { border-color: #66b3ff; }
-
 body.dark .loading, body.dark .error { color: #bbb; }
-
-body.dark .share-btn {
-    background: #333;
-    color: white;
-}
+body.dark .share-btn { background: #333; color: white; }
 
 /* ── responsive ── */
 @media (max-width: 768px) {
     #feed { padding: 0; margin: 0; }
-
     .post { border-radius: 0; margin-bottom: 18px; }
-
     .slide img { height: 82vh; object-fit: contain; }
-
     .content { font-size: 20px; line-height: 1.6; padding: 18px; }
-
     .file-date { font-size: 16px; }
-
     .slider-btn { width: 52px; height: 52px; font-size: 28px; }
-
     header { padding: 12px 16px; }
-
     header h1 { font-size: 20px; }
-
     .date-nav { gap: 6px; }
 }
 </style>
@@ -326,16 +210,12 @@ body.dark .share-btn {
         <h1>The Past and English Books</h1>
         <button id="themeToggle" class="theme-toggle">🌙</button>
     </div>
-
     <div class="date-nav">
-        <!-- quick tabs: yesterday / today / tomorrow -->
         <div class="date-tabs">
             <button class="date-tab" data-offset="-1" type="button">← Вчера</button>
             <button class="date-tab active" data-offset="0" type="button">Сегодня</button>
             <button class="date-tab" data-offset="1" type="button">Завтра →</button>
         </div>
-
-        <!-- custom date picker -->
         <div id="customDateWrap">
             <input type="date" id="customDateInput" title="Выбрать дату">
             <button id="today-btn" type="button">↺ Сегодня</button>
@@ -352,30 +232,58 @@ body.dark .share-btn {
    Helpers
 ───────────────────────────────────────── */
 
-/** Format a Date as "DD Month" in Russian, no year */
 function formatDayMonth(date) {
-    return date.toLocaleDateString('ru-RU', {
-        day:   'numeric',
-        month: 'long'
-    });
+    return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
 }
 
-/** Format a Date as "MM-DD" (the filename key) */
 function toMMDD(date) {
     const mm = String(date.getMonth() + 1).padStart(2, '0');
     const dd = String(date.getDate()).padStart(2, '0');
     return `${mm}-${dd}`;
 }
 
-/** Format a Date as "YYYY-MM-DD" for <input type=date> */
 function toISODate(date) {
-    return date.toISOString().slice(0, 10);
+    // Use local date parts to avoid UTC-offset surprises
+    const y  = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const dd = String(date.getDate()).padStart(2, '0');
+    return `${y}-${mm}-${dd}`;
 }
 
-/** Offset today by N days */
-function dateOffset(n) {
+function localToday() {
     const d = new Date();
+    d.setHours(0, 0, 0, 0);
+    return d;
+}
+
+function dateOffsetFrom(base, n) {
+    const d = new Date(base);
     d.setDate(d.getDate() + n);
+    d.setHours(0, 0, 0, 0);
+    return d;
+}
+
+/**
+ * Parse a hash that looks like "MM-DD-N"
+ * Returns { mmdd: "MM-DD", num: N } or null.
+ */
+function parsePostHash(hash) {
+    const m = hash.match(/^(\d{2}-\d{2})-(\d+)$/);
+    if (!m) return null;
+    return { mmdd: m[1], num: parseInt(m[2], 10) };
+}
+
+/**
+ * Given a "MM-DD" string, build a Date object for that day
+ * in the CURRENT year (or next year if the date already passed
+ * by more than 6 months — handles New Year edge cases).
+ * We don't actually care about the year for display; we only need
+ * the Date so setDate() can compute yesterday/today/tomorrow offsets.
+ */
+function dateFromMMDD(mmdd) {
+    const [mm, dd] = mmdd.split('-').map(Number);
+    const now = new Date();
+    const d = new Date(now.getFullYear(), mm - 1, dd, 0, 0, 0, 0);
     return d;
 }
 
@@ -385,11 +293,7 @@ function dateOffset(n) {
 
 const feed = document.getElementById('feed');
 
-// The currently selected date (default = today)
-let selectedDate = new Date();
-
-// Remove time part for clean comparisons
-selectedDate.setHours(0, 0, 0, 0);
+let selectedDate = localToday();  // will be overridden by hash on boot
 
 /* ─────────────────────────────────────────
    HTML helpers
@@ -409,32 +313,28 @@ function textToHtml(text) {
 }
 
 function getImagePath(src) {
-    const filename = src.split('/').pop();
-    return `cache/images/${filename}`;
+    return `cache/images/${src.split('/').pop()}`;
 }
 
 /* ─────────────────────────────────────────
-   Post card
+   Post card  — id = "MM-DD-N"
 ───────────────────────────────────────── */
 
-function createPost(mmdd, displayLabel, sourceUrl, post) {
-
+function createPost(mmdd, postNum, displayLabel, sourceUrl, post) {
     const article = document.createElement('article');
     article.className = 'post';
 
-    // Share id: mmdd|sourceUrl  (no year)
-    const postId = encodeURIComponent(`${mmdd}|${sourceUrl}`);
-    article.id = postId;
+    // Stable, year-free anchor: MM-DD-N
+    const anchorId = `${mmdd}-${postNum}`;
+    article.id = anchorId;
 
     let imagesHtml = '';
-
     if ((post.images || []).length) {
         const slides = post.images.map(img => `
             <div class="slide">
                 <img src="${getImagePath(img)}" loading="lazy" alt="">
             </div>
         `).join('');
-
         imagesHtml = `
             <div class="slider">
                 <button class="slider-btn prev" type="button">‹</button>
@@ -449,7 +349,7 @@ function createPost(mmdd, displayLabel, sourceUrl, post) {
         ${imagesHtml}
         <div class="content">${textToHtml(post.text || '')}</div>
         <div class="post-actions">
-            <button class="share-btn" data-post-id="${postId}" type="button">🔗 Поделиться</button>
+            <button class="share-btn" data-anchor="${anchorId}" type="button">🔗 Поделиться</button>
         </div>
     `;
 
@@ -457,7 +357,7 @@ function createPost(mmdd, displayLabel, sourceUrl, post) {
 }
 
 /* ─────────────────────────────────────────
-   Slider init
+   Slider
 ───────────────────────────────────────── */
 
 function initSlider(card) {
@@ -474,16 +374,14 @@ function initSlider(card) {
     }
 
     let index = 0;
-
-    function update() {
+    const update = () => {
         track.style.transform = `translateX(-${index * 100}%)`;
-    }
+    };
 
     slider.querySelector('.next').addEventListener('click', () => {
         index = (index + 1) % slides.length;
         update();
     });
-
     slider.querySelector('.prev').addEventListener('click', () => {
         index = (index - 1 + slides.length) % slides.length;
         update();
@@ -491,24 +389,22 @@ function initSlider(card) {
 }
 
 /* ─────────────────────────────────────────
-   Scroll to hash post
+   Scroll to a post by its anchor id
 ───────────────────────────────────────── */
 
-function scrollToHashPost() {
-    const hash = decodeURIComponent(location.hash.slice(1));
-    if (!hash) return;
+function scrollToPost(anchorId) {
+    if (!anchorId) return;
+    const el = document.getElementById(anchorId);
+    if (!el) return;
 
-    const post = document.getElementById(hash);
-    if (!post) return;
-
-    post.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    post.style.outline = '3px solid #4a90e2';
-    post.style.outlineOffset = '4px';
-    setTimeout(() => { post.style.outline = ''; }, 3000);
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    el.style.outline = '3px solid #4a90e2';
+    el.style.outlineOffset = '4px';
+    setTimeout(() => { el.style.outline = ''; }, 3000);
 }
 
 /* ─────────────────────────────────────────
-   Load feed for a given date (± neighbours)
+   Fetch one day's posts
 ───────────────────────────────────────── */
 
 function showAllMode() {
@@ -516,63 +412,72 @@ function showAllMode() {
 }
 
 async function fetchDayPosts(date) {
-    const mmdd = toMMDD(date);
-    const fileName = `${mmdd}.json`;
+    const mmdd     = toMMDD(date);
+    const label    = formatDayMonth(date);
+    const showAll  = showAllMode();
 
     try {
-        const response = await fetch(`cache/notes/${fileName}`);
-        if (!response.ok) return [];               // file may not exist — that's fine
+        const resp = await fetch(`cache/notes/${mmdd}.json`);
+        if (!resp.ok) return [];
 
-        const data = await response.json();
-        const showAll = showAllMode();
+        const data    = await resp.json();
         const results = [];
 
-        const label = formatDayMonth(date);
-
         for (const [sourceUrl, post] of Object.entries(data)) {
-            const isPublished = post && post.published && post.published.date;
-            if (!showAll && !isPublished) continue;
-
+            const published = post && post.published && post.published.date;
+            if (!showAll && !published) continue;
             results.push({ mmdd, label, sourceUrl, post });
         }
 
         return results;
-
     } catch (err) {
-        console.error(`Error loading ${fileName}:`, err);
+        console.error(`Error loading ${mmdd}.json:`, err);
         return [];
     }
 }
 
-async function loadFeed() {
+/* ─────────────────────────────────────────
+   Load feed  (yesterday + selectedDate + tomorrow)
+   targetAnchor: if set, scroll there after render
+───────────────────────────────────────── */
+
+async function loadFeed(targetAnchor) {
     feed.innerHTML = '<div class="loading">Загрузка…</div>';
 
     try {
-        // Load yesterday, today, tomorrow relative to selectedDate
-        const dates = [-1, 0, 1].map(n => {
-            const d = new Date(selectedDate);
-            d.setDate(d.getDate() + n);
-            return d;
-        });
+        const dates = [-1, 0, 1].map(n => dateOffsetFrom(selectedDate, n));
 
-        // Fetch all three in parallel
+        // Fetch in parallel; keep per-day ordering for sequential numbering
         const groups = await Promise.all(dates.map(fetchDayPosts));
-        const all = groups.flat();
 
         feed.innerHTML = '';
 
-        if (!all.length) {
+        // Build counters per mmdd so numbering resets each day
+        const dayCounters = {};
+
+        let totalRendered = 0;
+
+        for (const group of groups) {
+            for (const { mmdd, label, sourceUrl, post } of group) {
+                dayCounters[mmdd] = (dayCounters[mmdd] || 0) + 1;
+                const postNum = dayCounters[mmdd];
+
+                const card = createPost(mmdd, postNum, label, sourceUrl, post);
+                feed.appendChild(card);
+                initSlider(card);
+                totalRendered++;
+            }
+        }
+
+        if (!totalRendered) {
             feed.innerHTML = '<div class="error">Нет опубликованных материалов за эти даты</div>';
             return;
         }
 
-        for (const { mmdd, label, sourceUrl, post } of all) {
-            const card = createPost(mmdd, label, sourceUrl, post);
-            feed.appendChild(card);
-            initSlider(card);
+        // Scroll after a short paint delay
+        if (targetAnchor) {
+            setTimeout(() => scrollToPost(targetAnchor), 80);
         }
-
-        scrollToHashPost();
 
     } catch (err) {
         console.error(err);
@@ -584,50 +489,71 @@ async function loadFeed() {
    Date navigation UI
 ───────────────────────────────────────── */
 
-const dateInput  = document.getElementById('customDateInput');
-const todayBtn   = document.getElementById('today-btn');
-const dateTabs   = document.querySelectorAll('.date-tab');
+const dateInput = document.getElementById('customDateInput');
+const todayBtn  = document.getElementById('today-btn');
+const dateTabs  = document.querySelectorAll('.date-tab');
 
-/** Set the selected date and refresh everything */
-function setDate(date) {
-    date.setHours(0, 0, 0, 0);
-    selectedDate = date;
-
+function syncUI() {
     // Sync <input type=date>
-    dateInput.value = toISODate(date);
+    dateInput.value = toISODate(selectedDate);
 
-    // Sync tab highlights
-    const todayStr = toISODate(new Date());
-    const selStr   = toISODate(date);
+    // Highlight the matching tab (yesterday / today / tomorrow) if applicable
+    const selStr   = toISODate(selectedDate);
+    const todayStr = toISODate(localToday());
 
     dateTabs.forEach(tab => {
-        const offset = parseInt(tab.dataset.offset, 10);
-        const tabDate = dateOffset(offset);
-        tabDate.setHours(0, 0, 0, 0);
+        const offset  = parseInt(tab.dataset.offset, 10);
+        const tabDate = dateOffsetFrom(localToday(), offset);
         tab.classList.toggle('active', toISODate(tabDate) === selStr);
     });
-
-    loadFeed();
 }
 
-// Tab clicks
+/** Change the selected date, sync UI, reload feed */
+function setDate(date, targetAnchor) {
+    date.setHours(0, 0, 0, 0);
+    selectedDate = date;
+    syncUI();
+    loadFeed(targetAnchor);
+}
+
 dateTabs.forEach(tab => {
     tab.addEventListener('click', () => {
         const offset = parseInt(tab.dataset.offset, 10);
-        setDate(dateOffset(offset));
+        setDate(dateOffsetFrom(localToday(), offset));
     });
 });
 
-// Custom date picker change
 dateInput.addEventListener('change', () => {
     if (!dateInput.value) return;
     const [y, m, d] = dateInput.value.split('-').map(Number);
-    setDate(new Date(y, m - 1, d));
+    setDate(new Date(y, m - 1, d, 0, 0, 0, 0));
 });
 
-// "↺ Сегодня" button
-todayBtn.addEventListener('click', () => {
-    setDate(new Date());
+todayBtn.addEventListener('click', () => setDate(localToday()));
+
+/* ─────────────────────────────────────────
+   Share button  — copies  #MM-DD-N  URL
+───────────────────────────────────────── */
+
+document.addEventListener('click', async (e) => {
+    const btn = e.target.closest('.share-btn');
+    if (!btn) return;
+
+    const anchor = btn.dataset.anchor;   // e.g. "06-07-3"
+    const url    = `${location.origin}${location.pathname}#${anchor}`;
+
+    if (navigator.share) {
+        try { await navigator.share({ title: 'The Past and English Books', url }); return; }
+        catch (_) {}
+    }
+
+    try {
+        await navigator.clipboard.writeText(url);
+        //alert('Ссылка скопирована');
+        btn.innerHTML = '✅ Ссылка скопирована';
+    } catch (_) {
+        prompt('Скопируйте ссылку:', url);
+    }
 });
 
 /* ─────────────────────────────────────────
@@ -637,66 +563,43 @@ todayBtn.addEventListener('click', () => {
 const themeButton = document.getElementById('themeToggle');
 
 function applyTheme(theme) {
-    if (theme === 'dark') {
-        document.body.classList.add('dark');
-        if (themeButton) themeButton.textContent = '☀️';
-    } else {
-        document.body.classList.remove('dark');
-        if (themeButton) themeButton.textContent = '🌙';
-    }
+    document.body.classList.toggle('dark', theme === 'dark');
+    themeButton.textContent = theme === 'dark' ? '☀️' : '🌙';
 }
 
 function initTheme() {
     const saved = localStorage.getItem('theme');
     if (saved) { applyTheme(saved); return; }
-
     const hour = new Date().getHours();
-    applyTheme((hour >= 20 || hour < 7) ? 'dark' : 'light');
+    applyTheme(hour >= 20 || hour < 7 ? 'dark' : 'light');
 }
 
 themeButton.addEventListener('click', () => {
-    const dark = document.body.classList.contains('dark');
-    const next = dark ? 'light' : 'dark';
+    const next = document.body.classList.contains('dark') ? 'light' : 'dark';
     localStorage.setItem('theme', next);
     applyTheme(next);
 });
 
 /* ─────────────────────────────────────────
-   Share button
-───────────────────────────────────────── */
-
-document.addEventListener('click', async (e) => {
-    const btn = e.target.closest('.share-btn');
-    if (!btn) return;
-
-    // Build URL without year — postId is already "mm-dd|sourceUrl"
-    const url =
-        location.origin +
-        location.pathname +
-        '#' +
-        btn.dataset.postId;
-
-    if (navigator.share) {
-        try {
-            await navigator.share({ title: 'The Past and English Books', url });
-            return;
-        } catch (_) {}
-    }
-
-    try {
-        await navigator.clipboard.writeText(url);
-        alert('Ссылка скопирована');
-    } catch (_) {
-        prompt('Скопируйте ссылку:', url);
-    }
-});
-
-/* ─────────────────────────────────────────
-   Boot
+   Boot  — honour #MM-DD-N in the URL
 ───────────────────────────────────────── */
 
 initTheme();
-setDate(new Date());   // triggers loadFeed()
+
+(function boot() {
+    const raw    = decodeURIComponent(location.hash.slice(1));  // e.g. "06-07-3"
+    const parsed = parsePostHash(raw);
+
+    if (parsed) {
+        // The link contains a specific post: set the calendar to that day
+        // and scroll to the post once the feed is loaded.
+        const targetDate   = dateFromMMDD(parsed.mmdd);
+        const targetAnchor = raw;          // "MM-DD-N"
+        setDate(targetDate, targetAnchor);
+    } else {
+        setDate(localToday());
+    }
+})();
 </script>
 
 </body>

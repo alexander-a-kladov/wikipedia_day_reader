@@ -1,3 +1,5 @@
+Сначала использовал chatgpt
+
 prompt update 1 (done)
 сделай отображение на мобильных устройствах таким, чтобы область с постом занимала большую часть экрана, чтобы картинка была большая, сделай переключение между картинками одного поста по стрелочкам влево/вправо. Сделай шрифт поста больше.
 update:
@@ -9,9 +11,17 @@ prompt update 2 (done)
 prompt update 3 (done)
 при переключении на дневную схему, фон у картинок должен становится белым
 
+с этого момента  claude ai
 prompt update 4
 придумай как можно сделать ссылку на конкретный пост, добавь кнопку поделиться
+update:
+используй формат для ссылки "Поделиться" mm-dd-number , где number это номер поста по порядку для заданного дня, при переходе по ссылке содержащей дополнительную информацию о посте,
+устанавливать этот день в качестве сегодня на календаре и перемещать отображение страницы к этому посту
+use the mm-dd-number format for the "Share" link, where "number" is the number of the post in order for a given day. When clicking on the link containing additional information about the post,
+set this day as today on the calendar and move the page display to this post.
 
-prompt update 5
+prompt update 5 (done)
 требуется сделать доработку логики работы страницы, события теперь должны отображаться только те, что были вчера, сегодня и завтра относительно виджета календаря,
 при этом в верхней строке надо добавить виджет выбора даты который при загрузке автоматически устанавливается в текущую дату, файлы с событиями теперь называются mm-dd.json и не зависят от года, поэтому в заголовке постов теперь надо отображать "день и месяц", из ссылки "поделиться" надо убрать год, при смене даты в календаре должны отображаться соответствующие посты
+It is necessary to refine the logic of the page, events should now be displayed only those that were yesterday, today and tomorrow relative to the calendar widget,
+while in the top row you need to add a date selection widget that is automatically set to the current date when loading, event files are now called mm-dd.json and do not depend on the year, so now you need to display "day and month" in the title of posts, remove the year from the "share" link, and when the date changes, the corresponding posts should be displayed in the calendar.
