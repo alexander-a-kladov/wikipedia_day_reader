@@ -72,10 +72,10 @@ header h1 {
 
 .slide img {
     width: 100%;
-    height: 500px;
+    height: 750px;
     object-fit: contain;
     display: block;
-    background: #111;
+    background: #fff;
 }
 
 .slider-btn {
@@ -120,14 +120,6 @@ header h1 {
     text-decoration: underline;
 }
 
-.publish-info {
-    border-top: 1px solid #eee;
-    padding: 14px 20px;
-    color: #777;
-    font-size: 14px;
-    background: #fafafa;
-}
-
 .loading,
 .error {
     text-align: center;
@@ -148,7 +140,7 @@ header h1 {
     }
 
     .slide img {
-        height: 55vh;
+        height: 82vh;
         object-fit: contain;
     }
 
@@ -212,18 +204,16 @@ body.dark .file-date {
     color: #ccc;
 }
 
-body.dark .publish-info {
-    background: #252525;
-    border-color: #333;
-    color: #bbb;
-}
-
 body.dark .content {
     color: #e0e0e0;
 }
 
 body.dark .content a {
     color: #66b3ff;
+}
+
+body.dark .slide img {
+    background: #111;
 }
 
 body.dark .theme-toggle {
@@ -306,9 +296,6 @@ function createPost(fileDate, sourceUrl, post) {
         `;
     }
 
-    const publishDate = post.published?.date || fileDate;
-    const publishUrl = post.published?.url || sourceUrl;
-
     article.innerHTML = `
         <div class="file-date">
             ${fileDate}
@@ -322,17 +309,6 @@ function createPost(fileDate, sourceUrl, post) {
 
         <div class="content">
             ${textToHtml(post.text || '')}
-        </div>
-
-        <div class="publish-info">
-            Источник:
-            <a href="${publishUrl}"
-               target="_blank"
-               rel="noopener noreferrer">
-               открыть
-            </a>
-            <br>
-            Дата публикации: ${publishDate}
         </div>
     `;
 
