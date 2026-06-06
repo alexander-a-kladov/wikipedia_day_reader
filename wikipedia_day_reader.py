@@ -53,6 +53,8 @@ AI_PROVIDERS = {
 
 KEYS_FILE  = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ai_keys.json")
 CACHE_DIR  = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache")
+NOTES_DIR  = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache", "notes")
+IMAGES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache", "images")
 
 
 def load_keys() -> dict:
@@ -115,6 +117,55 @@ def cache_info(date_str: str) -> dict:
         return {"exists": True, "saved_at": d.get("_saved_at")}
     except Exception:
         return {"exists": False, "saved_at": None}
+
+
+# ── NOTES (per-entry annotations) ─────────────────────────────────────────────
+
+def _notes_path(date_str: str) -> str:
+    os.makedirs(NOTES_DIR, exist_ok=True)
+    return os.path.join(NOTES_DIR, f"{date_str}.json")
+
+
+def notes_load(date_str: str) -> dict:
+    """Load notes dict {wiki_url: {text, images[]}} for date."""
+    p = _notes_path(date_str)
+    if not os.path.exists(p):
+        return {}
+    try:
+        with open(p, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return {}
+
+
+def notes_save(date_str: str, notes: dict):
+    with open(_notes_path(date_str), "w", encoding="utf-8") as f:
+        json.dump(notes, f, ensure_ascii=False, indent=2)
+
+
+# ── IMAGE STORAGE ─────────────────────────────────────────────────────────────
+
+def image_save(date_str: str, wiki_key: str, filename: str, data: bytes) -> str:
+    """Save image bytes, return relative URL path served by the app."""
+    import hashlib
+    os.makedirs(IMAGES_DIR, exist_ok=True)
+    ext  = os.path.splitext(filename)[1].lower() or ".jpg"
+    h    = hashlib.md5(data).hexdigest()[:10]
+    name = f"{date_str}_{h}{ext}"
+    path = os.path.join(IMAGES_DIR, name)
+    with open(path, "wb") as f:
+        f.write(data)
+    return f"/images/{name}"
+
+
+def image_delete(url_path: str) -> bool:
+    """Delete image by its /images/<name> path. Returns True if deleted."""
+    name = url_path.lstrip("/images/").lstrip("images/")
+    path = os.path.join(IMAGES_DIR, os.path.basename(name))
+    if os.path.exists(path):
+        os.remove(path)
+        return True
+    return False
 
 
 _UA = ("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
@@ -812,8 +863,54 @@ HTML_PAGE = r"""<!DOCTYPE html>
   .ss{font-size:11px;color:var(--tx2);margin-left:auto;}
   .entry{padding:6px 10px;border-left:3px solid transparent;margin-bottom:2px;border-radius:0 4px 4px 0;font-size:14px;line-height:1.6;transition:background .1s;}
   .entry:hover{background:var(--sf2);}
+  .entry:hover .note-btn{opacity:1;}
   .entry a{color:var(--ac);text-decoration:none;}
   .entry a:hover{text-decoration:underline;}
+  /* note button on entry */
+  .note-btn{opacity:0;transition:opacity .15s;border:none;background:none;cursor:pointer;
+    font-size:13px;padding:1px 4px;border-radius:3px;margin-left:4px;vertical-align:middle;color:var(--tx2);}
+  .note-btn:hover{background:var(--sf2);color:var(--ac);}
+  .note-btn.has-note{opacity:1;color:var(--ac2);}
+  /* note post preview under entry */
+  .note-post{margin:4px 10px 8px 14px;border:1.5px solid var(--bd);border-radius:6px;
+    overflow:hidden;background:var(--sf);}
+  .note-post-text{padding:8px 12px;font-size:13px;line-height:1.6;color:var(--tx);}
+  .note-post-text a{color:var(--ac);}
+  .note-post-imgs{display:flex;flex-wrap:wrap;gap:6px;padding:0 10px 10px;}
+  .note-post-imgs img{height:90px;width:auto;border-radius:4px;object-fit:cover;cursor:pointer;
+    border:1.5px solid var(--bd);}
+  /* note editor modal */
+  .note-modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;
+    align-items:center;justify-content:center;z-index:200;}
+  .note-modal.open{display:flex;}
+  .note-box{background:var(--sf);border-radius:10px;padding:22px;width:640px;
+    max-width:96vw;max-height:90vh;overflow-y:auto;box-shadow:0 12px 40px rgba(0,0,0,.25);}
+  .note-box h3{font-family:'Playfair Display',serif;font-size:16px;color:var(--ac);margin-bottom:4px;}
+  .note-source{font-size:12px;color:var(--tx2);margin-bottom:12px;word-break:break-all;}
+  .note-source a{color:var(--ai);}
+  .note-editor{width:100%;min-height:110px;font-family:'Source Serif 4',serif;font-size:14px;
+    padding:9px;border:1.5px solid var(--bd);border-radius:6px;resize:vertical;
+    background:var(--bg);color:var(--tx);line-height:1.6;}
+  .note-editor:focus{outline:none;border-color:var(--ac2);}
+  .note-imgs-wrap{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;}
+  .note-img-thumb{position:relative;display:inline-block;}
+  .note-img-thumb img{height:80px;width:auto;border-radius:5px;object-fit:cover;
+    border:1.5px solid var(--bd);cursor:pointer;}
+  .note-img-thumb img:hover{border-color:var(--ac2);}
+  .note-img-del{position:absolute;top:-5px;right:-5px;width:18px;height:18px;
+    border-radius:50%;background:#c0392b;color:#fff;border:none;cursor:pointer;
+    font-size:10px;display:flex;align-items:center;justify-content:center;line-height:1;}
+  .note-img-del:hover{background:#a02020;}
+  .note-upload-btn{font-size:12px;padding:5px 12px;color:var(--tx2);border-color:var(--bd);
+    cursor:pointer;display:inline-flex;align-items:center;gap:5px;}
+  .note-upload-btn:hover{border-color:var(--ac2);color:var(--ac);}
+  .note-actions{display:flex;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid var(--bd);}
+  .note-actions .spacer{flex:1;}
+  /* image lightbox */
+  .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.82);display:none;
+    align-items:center;justify-content:center;z-index:300;cursor:zoom-out;}
+  .lightbox.open{display:flex;}
+  .lightbox img{max-width:92vw;max-height:90vh;border-radius:6px;box-shadow:0 4px 30px rgba(0,0,0,.6);}
   .rb{display:inline-block;font-size:9px;padding:1px 5px;background:#fce8e8;color:var(--ru);border-radius:9px;border:1px solid #f5c0c0;margin-left:5px;vertical-align:middle;}
   .empty{color:var(--tx2);font-style:italic;font-size:13px;padding:5px 10px;}
   .ptitle{font-family:'Playfair Display',serif;font-size:23px;color:var(--ac);margin-bottom:3px;}
@@ -861,6 +958,17 @@ HTML_PAGE = r"""<!DOCTYPE html>
 </style>
 </head>
 <body>
+<script>
+// Set today's date immediately so calendar isn't blank before init() runs
+(function(){
+  const d=new Date();
+  const s=d.toISOString().split('T')[0];
+  document.addEventListener('DOMContentLoaded',function(){
+    const dp=document.getElementById('datePicker');
+    if(dp&&!dp.value) dp.value=s;
+  });
+})();
+</script>
 <header>
   <div>
     <h1>📖 Читатель Дней Истории</h1>
@@ -933,8 +1041,37 @@ HTML_PAGE = r"""<!DOCTYPE html>
   </div>
 </div>
 
+<!-- Note editor modal -->
+<div class="note-modal" id="noteModal" onclick="noteModalOutClick(event)">
+  <div class="note-box">
+    <h3 id="noteTitle">Дополнительная информация</h3>
+    <div class="note-source" id="noteSource"></div>
+    <textarea class="note-editor" id="noteEditor" placeholder="Введите текст с гиперссылками..."></textarea>
+    <div class="note-imgs-wrap" id="noteImgs"></div>
+    <label class="bs note-upload-btn" style="border:1.5px solid;border-radius:var(--r)">
+      📎 Добавить картинку
+      <input type="file" id="noteFileInput" accept="image/*" multiple style="display:none" onchange="uploadImages(event)">
+    </label>
+    <div class="note-actions">
+      <button class="bp" onclick="saveNote()">💾 Сохранить</button>
+      <button class="bs" style="color:#c0392b;border-color:#f5c0c0" onclick="deleteNote()">🗑 Удалить заметку</button>
+      <div class="spacer"></div>
+      <button class="bs" onclick="closeNoteModal()">Закрыть</button>
+    </div>
+  </div>
+</div>
+
+<!-- Image lightbox -->
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('open')">
+  <img id="lightboxImg" src="" alt="">
+</div>
+
 <script>
 let config=null, data=null, sseSource=null, keysData={};
+let notesData={};        // {wiki_url: {text, images[]}}
+let _noteKey='';         // wiki_url currently being edited
+let _noteDate='';        // date string of current edit session
+let _pendingImgDels=[];  // image URLs queued for deletion on save
 let activeFilters={events:{},births:{}}, activeTab='events';
 
 const EC=['#2d5986','#8b3a62','#2d7a4a','#6b4c8b','#7a6b2d','#2d6b7a'];
@@ -948,7 +1085,15 @@ async function init(){
   config=await (await fetch('/api/config')).json();
   keysData=await (await fetch('/api/keys')).json();
   renderFilters();
-  await checkCacheForDate(document.getElementById('datePicker').value);
+  const dv=document.getElementById('datePicker').value;
+  await loadNotesForDate(dv);
+  await checkCacheForDate(dv);
+}
+
+async function loadNotesForDate(dv){
+  if(!dv){notesData={};return;}
+  const r=await fetch('/api/notes?date='+dv);
+  notesData=await r.json();
 }
 
 // ── AI TOGGLE ────────────────────────────────────────────────────────────────
@@ -1012,7 +1157,9 @@ async function checkCacheForDate(dv){
 }
 
 async function onDateChange(){
-  await checkCacheForDate(document.getElementById('datePicker').value);
+  const dv=document.getElementById('datePicker').value;
+  await loadNotesForDate(dv);
+  await checkCacheForDate(dv);
 }
 
 function showSavedBadge(dv, savedAt){
@@ -1065,6 +1212,7 @@ async function uploadResult(){
     const resp = await r.json();
     if(resp.error) throw new Error(resp.error);
     data = resp;
+    await loadNotesForDate(dv);
     updCounts(data);
     renderContent(data, 'загружено из файла · ' + fmtDate(dv));
     showSavedBadge(dv, resp._saved_at);
@@ -1161,12 +1309,13 @@ async function loadData(){
     } else if(m.type==='done'){
       sseSource.close();sseSource=null;
       data={...m.result,wiki_url,wiki_title};
-      updCounts(data);renderContent(data,modeLabel());
+      const dv2=document.getElementById('datePicker').value;
+      loadNotesForDate(dv2).then(()=>{
+        updCounts(data);renderContent(data,modeLabel());
+      });
       btn.disabled=false;btn.textContent='Загрузить';
       // refresh cache state
-      const dv2=document.getElementById('datePicker').value;
       checkCacheForDate(dv2);
-      setSaveUploadBtns(true, document.getElementById('uploadBtn').disabled===false||false);
       document.getElementById('saveBtn').disabled=false;
     } else if(m.type==='error'){
       sseSource.close();sseSource=null;
@@ -1210,12 +1359,47 @@ function renderContent(d, modeLabel){
       <div class="si" style="background:#8b2d2d">🏳️</div>
       <div class="st" style="color:#8b2d2d">Русские и Советские</div>
       <div class="ss">${rSet.size} чел.</div></div>`;
-    rSet.forEach(e=>{h+=`<div class="entry" style="border-left-color:#8b2d2d">${e}</div>`;});
+    rSet.forEach(e=>{
+      const wk=entryWikiKey(e);
+      h+=`<div class="entry" style="border-left-color:#8b2d2d">${e}${noteBtn(wk)}</div>${notePost(wk)}`;
+    });
     h+=`</div>`;
   }
   d.births.forEach((c,i)=>{if(!activeFilters.births[c.id])return;h+=sec(c,BC[i%BC.length],BI[i%BI.length],true,rSet);});
   h+=`</div>`;
   document.getElementById('content').innerHTML=h;
+}
+
+// Extract the first Wikipedia href from an entry HTML string
+function entryWikiKey(html){
+  const m=html.match(/href="(https:\/\/en\.wikipedia\.org\/wiki\/[^"]+)"/);
+  return m?m[1]:'';
+}
+
+function noteBtn(wikiKey){
+  if(!wikiKey) return '';
+  const has=notesData[wikiKey]&&(notesData[wikiKey].text||(notesData[wikiKey].images||[]).length);
+  return `<button class="note-btn${has?' has-note':''}" title="${has?'Редактировать':'Добавить'} заметку"
+    onclick="openNoteModal(event,'${wikiKey.replace(/'/g,"\\'")}')">📝</button>`;
+}
+
+function notePost(wikiKey){
+  if(!wikiKey||!notesData[wikiKey]) return '';
+  const n=notesData[wikiKey];
+  const hasText=n.text&&n.text.trim();
+  const imgs=(n.images||[]);
+  if(!hasText&&!imgs.length) return '';
+  let h=`<div class="note-post">`;
+  if(hasText) h+=`<div class="note-post-text">${n.text}</div>`;
+  if(imgs.length){
+    h+=`<div class="note-post-imgs">`;
+    imgs.forEach(url=>{
+      h+=`<img src="${url}" loading="lazy" onclick="openLightbox('${url}')" title="Открыть">`;
+    });
+    h+=`</div>`;
+  }
+  h+=`</div>`;
+  return h;
 }
 
 function sec(cat,color,icon,markRu,rSet){
@@ -1230,12 +1414,154 @@ function sec(cat,color,icon,markRu,rSet){
     <div class="ss">${cat.entries.length} зап.</div></div>`;
   cat.entries.forEach(e=>{
     const ru=markRu&&rSet.has(e);
-    h+=`<div class="entry" style="border-left-color:${color}">${e}${ru?'<span class="rb">🇷🇺 рус.</span>':''}</div>`;
+    const wk=entryWikiKey(e);
+    h+=`<div class="entry" style="border-left-color:${color}">${e}${ru?'<span class="rb">🇷🇺 рус.</span>':''}${noteBtn(wk)}</div>${notePost(wk)}`;
   });
   return h+`</div>`;
 }
 
 function swTab(t){activeTab=t;if(data)renderContent(data);}
+
+// ── NOTE MODAL ────────────────────────────────────────────────────────────────
+
+function openLightbox(url){
+  document.getElementById('lightboxImg').src=url;
+  document.getElementById('lightbox').classList.add('open');
+}
+
+function openNoteModal(evt, wikiKey){
+  evt.stopPropagation();
+  _noteKey=wikiKey;
+  _noteDate=document.getElementById('datePicker').value;
+  _pendingImgDels=[];
+
+  // Title: strip wiki URL to readable name
+  const title=decodeURIComponent(wikiKey.split('/wiki/').pop().replace(/_/g,' '));
+  document.getElementById('noteTitle').textContent='📝 '+title;
+  document.getElementById('noteSource').innerHTML=
+    `Запись: <a href="${wikiKey}" target="_blank">${wikiKey}</a>`;
+
+  const existing=notesData[wikiKey];
+  if(existing){
+    document.getElementById('noteEditor').value=existing.text||'';
+    renderNoteImgs(existing.images||[]);
+  } else {
+    // First open: copy entry plain text as starter
+    const entryEl=[...document.querySelectorAll('.entry')].find(el=>el.innerHTML.includes(wikiKey));
+    let starter='';
+    if(entryEl){
+      // Copy the entry HTML (with hyperlinks preserved)
+      starter=entryEl.innerHTML
+        .replace(/<span[^>]*>.*?<\/span>/g,'')
+        .replace(/<button[^>]*>.*?<\/button>/g,'')
+        .trim();
+    }
+    document.getElementById('noteEditor').value='';
+    // Put HTML into editor as plain seed — user can edit
+    document.getElementById('noteEditor').value=
+      entryEl ? entryEl.innerText.replace(/📝/,'').trim() : '';
+    renderNoteImgs([]);
+  }
+  document.getElementById('noteModal').classList.add('open');
+  document.getElementById('noteEditor').focus();
+}
+
+function renderNoteImgs(imgs){
+  const wrap=document.getElementById('noteImgs');
+  wrap.innerHTML='';
+  imgs.forEach(url=>{
+    const thumb=document.createElement('div');
+    thumb.className='note-img-thumb';
+    thumb.innerHTML=`<img src="${url}" onclick="openLightbox('${url}')">
+      <button class="note-img-del" onclick="removeNoteImg('${url}',this.parentNode)" title="Удалить">✕</button>`;
+    wrap.appendChild(thumb);
+  });
+}
+
+function removeNoteImg(url, thumbEl){
+  _pendingImgDels.push(url);
+  thumbEl.remove();
+}
+
+async function uploadImages(evt){
+  const files=[...evt.target.files];
+  if(!files.length) return;
+  const dv=document.getElementById('datePicker').value;
+  for(const file of files){
+    const fd=new FormData();
+    fd.append('date', dv);
+    fd.append('wiki_key', _noteKey);
+    fd.append('file', file, file.name);
+    const r=await fetch('/api/upload_image',{method:'POST',body:fd});
+    const res=await r.json();
+    if(res.url){
+      // Append to current note images in modal
+      const existing=notesData[_noteKey]||{text:'',images:[]};
+      existing.images=existing.images||[];
+      existing.images.push(res.url);
+      notesData[_noteKey]=existing;
+      renderNoteImgs(existing.images);
+    } else {
+      alert('Ошибка загрузки: '+(res.error||'?'));
+    }
+  }
+  evt.target.value='';
+}
+
+async function saveNote(){
+  const text=document.getElementById('noteEditor').value.trim();
+  // Collect current images from thumbs (excluding deleted)
+  const thumbImgs=[...document.getElementById('noteImgs').querySelectorAll('img')]
+    .map(img=>img.src.replace(location.origin,''));
+
+  // Execute pending deletions
+  for(const url of _pendingImgDels){
+    await fetch('/api/delete_image',{method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({url})});
+  }
+  _pendingImgDels=[];
+
+  const note={text, images: thumbImgs};
+  const r=await fetch('/api/notes',{method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({date:_noteDate, key:_noteKey, note})});
+  const res=await r.json();
+  if(res.ok){
+    notesData[_noteKey]=note;
+    closeNoteModal();
+    if(data) renderContent(data);
+  } else {
+    alert('Ошибка сохранения: '+(res.error||'?'));
+  }
+}
+
+async function deleteNote(){
+  if(!confirm('Удалить заметку и все прикреплённые картинки?')) return;
+  // Delete images
+  const imgs=(notesData[_noteKey]||{}).images||[];
+  for(const url of imgs){
+    await fetch('/api/delete_image',{method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({url})});
+  }
+  // Delete note record
+  await fetch('/api/notes',{method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({date:_noteDate, key:_noteKey, note:null})});
+  delete notesData[_noteKey];
+  closeNoteModal();
+  if(data) renderContent(data);
+}
+
+function closeNoteModal(){
+  document.getElementById('noteModal').classList.remove('open');
+  _pendingImgDels=[];
+}
+
+function noteModalOutClick(evt){
+  if(evt.target===document.getElementById('noteModal')) closeNoteModal();
+}
 
 // ── SETTINGS MODAL ────────────────────────────────────────────────────────────
 function openSettings(){renderME();document.getElementById('MO').classList.add('open');}
@@ -1445,6 +1771,28 @@ class Handler(BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(body)
 
+        elif path.startswith('/images/'):
+            name  = os.path.basename(path)
+            fpath = os.path.join(IMAGES_DIR, name)
+            if not os.path.exists(fpath):
+                self.send_response(404); self.end_headers(); return
+            ext   = os.path.splitext(name)[1].lower()
+            ctype = {"jpg": "image/jpeg", ".jpg": "image/jpeg",
+                     ".jpeg": "image/jpeg", ".png": "image/png",
+                     ".gif": "image/gif",  ".webp": "image/webp"}.get(ext, "application/octet-stream")
+            with open(fpath, "rb") as f:
+                body = f.read()
+            self.send_response(200)
+            self.send_header("Content-Type", ctype)
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+
+        elif path == '/api/notes':
+            params   = parse_qs(urlparse(self.path).query)
+            date_str = params.get('date', [''])[0]
+            self._json(notes_load(date_str) if date_str else {})
+
         elif path == '/api/cache_info':
             params   = parse_qs(urlparse(self.path).query)
             date_str = params.get('date', [''])[0]
@@ -1523,7 +1871,63 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self):
         body = self.rfile.read(int(self.headers.get('Content-Length', 0)))
 
-        if self.path == '/api/save':
+        if self.path == '/api/notes':
+            try:
+                payload  = json.loads(body)
+                date_str = payload.get("date", "")
+                key      = payload.get("key", "")
+                note     = payload.get("note")          # {text, images[]} or null=delete
+                if not date_str or not key:
+                    self._json({"error": "missing date or key"}); return
+                notes = notes_load(date_str)
+                if note is None:
+                    notes.pop(key, None)
+                else:
+                    notes[key] = note
+                notes_save(date_str, notes)
+                self._json({"ok": True})
+            except Exception as e:
+                self._json({"error": str(e)})
+
+        elif self.path == '/api/upload_image':
+            try:
+                ctype    = self.headers.get('Content-Type', '')
+                boundary = ctype.split('boundary=')[-1].strip().encode()
+                parts    = body.split(b'--' + boundary)
+                fields   = {}
+                file_data, file_name = None, 'upload.jpg'
+                for part in parts:
+                    if b'Content-Disposition' not in part:
+                        continue
+                    header, _, content = part.partition(b'\r\n\r\n')
+                    content = content.rstrip(b'\r\n')
+                    hstr    = header.decode(errors='replace')
+                    name_m  = re.search(r'name="([^"]+)"', hstr)
+                    fname_m = re.search(r'filename="([^"]+)"', hstr)
+                    if not name_m:
+                        continue
+                    if fname_m:
+                        file_data = content
+                        file_name = fname_m.group(1)
+                    else:
+                        fields[name_m.group(1)] = content.decode(errors='replace')
+                if file_data is None:
+                    self._json({"error": "no file"}); return
+                url = image_save(fields.get('date',''), fields.get('wiki_key',''),
+                                 file_name, file_data)
+                self._json({"ok": True, "url": url})
+            except Exception as e:
+                self._json({"error": str(e)})
+
+        elif self.path == '/api/delete_image':
+            try:
+                payload = json.loads(body)
+                ok      = image_delete(payload.get("url", ""))
+                self._json({"ok": ok})
+            except Exception as e:
+                self._json({"error": str(e)})
+
+        elif self.path == '/api/save':
             try:
                 payload  = json.loads(body)
                 date_str = payload.get("date", "")
