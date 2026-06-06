@@ -3,9 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>The Past and English Books</title>
-
 <style>
 * {
     box-sizing: border-box;
@@ -24,7 +22,7 @@ header {
     z-index: 100;
     background: #fff;
     border-bottom: 1px solid #ddd;
-    padding: 16px 24px;
+    padding: 14px 24px;
 }
 
 header h1 {
@@ -32,6 +30,96 @@ header h1 {
     font-size: 24px;
 }
 
+/* ── date navigator ── */
+.date-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.date-nav-btn {
+    border: none;
+    background: #eee;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 18px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.date-nav-btn:hover {
+    background: #ddd;
+}
+
+.date-tabs {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.date-tab {
+    border: 2px solid transparent;
+    background: #eee;
+    border-radius: 8px;
+    padding: 5px 13px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .15s, border-color .15s;
+    white-space: nowrap;
+}
+
+.date-tab:hover {
+    background: #ddd;
+}
+
+.date-tab.active {
+    background: #1565c0;
+    color: #fff;
+    border-color: #1565c0;
+}
+
+/* custom date picker */
+#customDateWrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+#customDateInput {
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 5px 10px;
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    background: #fff;
+    color: inherit;
+}
+
+#customDateInput:focus {
+    outline: none;
+    border-color: #1565c0;
+}
+
+#today-btn {
+    margin-left: 6px;
+    border: none;
+    background: #eee;
+    border-radius: 8px;
+    padding: 5px 10px;
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+#today-btn:hover {
+    background: #ddd;
+}
+
+/* ── feed ── */
 #feed {
     max-width: 1400px;
     margin: 24px auto;
@@ -58,7 +146,6 @@ header h1 {
     font-size: 16px;
 }
 
-
 .file-date {
     padding: 14px 20px;
     background: #fafafa;
@@ -68,6 +155,7 @@ header h1 {
     color: #666;
 }
 
+/* ── slider ── */
 .slider {
     position: relative;
     width: 100%;
@@ -106,13 +194,8 @@ header h1 {
     z-index: 10;
 }
 
-.slider-btn.prev {
-    left: 10px;
-}
-
-.slider-btn.next {
-    right: 10px;
-}
+.slider-btn.prev { left: 10px; }
+.slider-btn.next { right: 10px; }
 
 .slider-btn:hover {
     background: rgba(0,0,0,.75);
@@ -133,48 +216,13 @@ header h1 {
     text-decoration: underline;
 }
 
-.loading,
-.error {
+.loading, .error {
     text-align: center;
     padding: 40px;
     color: #666;
 }
 
-@media (max-width: 768px) {
-
-    #feed {
-        padding: 0;
-        margin: 0;
-    }
-
-    .post {
-        border-radius: 0;
-        margin-bottom: 18px;
-    }
-
-    .slide img {
-        height: 82vh;
-        object-fit: contain;
-    }
-
-    .content {
-        font-size: 20px;
-        line-height: 1.6;
-        padding: 18px;
-    }
-
-    .file-date,
-    .publish-info {
-        font-size: 16px;
-    }
-
-    .slider-btn {
-        width: 52px;
-        height: 52px;
-        font-size: 28px;
-    }
-}
-
+/* ── header row ── */
 .header-row {
     display: flex;
     justify-content: space-between;
@@ -188,18 +236,13 @@ header h1 {
     cursor: pointer;
     padding: 8px 12px;
     font-size: 20px;
+    flex-shrink: 0;
 }
 
-.theme-toggle:hover {
-    opacity: .9;
-}
+.theme-toggle:hover { opacity: .9; }
 
-/* ===== ТЕМНАЯ ТЕМА ===== */
-
-body.dark {
-    background: #121212;
-    color: #e0e0e0;
-}
+/* ── dark theme ── */
+body.dark { background: #121212; color: #e0e0e0; }
 
 body.dark header {
     background: #1e1e1e;
@@ -217,31 +260,62 @@ body.dark .file-date {
     color: #ccc;
 }
 
-body.dark .content {
+body.dark .content { color: #e0e0e0; }
+body.dark .content a { color: #66b3ff; }
+body.dark .slide img { background: #111; }
+
+body.dark .theme-toggle,
+body.dark .date-nav-btn,
+body.dark .date-tab,
+body.dark #today-btn {
+    background: #333;
     color: #e0e0e0;
 }
 
-body.dark .content a {
-    color: #66b3ff;
-}
+body.dark .date-nav-btn:hover,
+body.dark .date-tab:hover,
+body.dark #today-btn:hover { background: #444; }
 
-body.dark .slide img {
-    background: #111;
-}
-
-body.dark .theme-toggle {
-    background: #333;
+body.dark .date-tab.active {
+    background: #1976d2;
+    border-color: #1976d2;
     color: #fff;
 }
 
-body.dark .loading,
-body.dark .error {
-    color: #bbb;
+body.dark #customDateInput {
+    background: #2a2a2a;
+    border-color: #555;
+    color: #e0e0e0;
 }
+
+body.dark #customDateInput:focus { border-color: #66b3ff; }
+
+body.dark .loading, body.dark .error { color: #bbb; }
 
 body.dark .share-btn {
     background: #333;
     color: white;
+}
+
+/* ── responsive ── */
+@media (max-width: 768px) {
+    #feed { padding: 0; margin: 0; }
+
+    .post { border-radius: 0; margin-bottom: 18px; }
+
+    .slide img { height: 82vh; object-fit: contain; }
+
+    .content { font-size: 20px; line-height: 1.6; padding: 18px; }
+
+    .file-date { font-size: 16px; }
+
+    .slider-btn { width: 52px; height: 52px; font-size: 28px; }
+
+    header { padding: 12px 16px; }
+
+    header h1 { font-size: 20px; }
+
+    .date-nav { gap: 6px; }
 }
 </style>
 </head>
@@ -250,19 +324,76 @@ body.dark .share-btn {
 <header>
     <div class="header-row">
         <h1>The Past and English Books</h1>
+        <button id="themeToggle" class="theme-toggle">🌙</button>
+    </div>
 
-        <button id="themeToggle" class="theme-toggle">
-            🌙
-        </button>
+    <div class="date-nav">
+        <!-- quick tabs: yesterday / today / tomorrow -->
+        <div class="date-tabs">
+            <button class="date-tab" data-offset="-1" type="button">← Вчера</button>
+            <button class="date-tab active" data-offset="0" type="button">Сегодня</button>
+            <button class="date-tab" data-offset="1" type="button">Завтра →</button>
+        </div>
+
+        <!-- custom date picker -->
+        <div id="customDateWrap">
+            <input type="date" id="customDateInput" title="Выбрать дату">
+            <button id="today-btn" type="button">↺ Сегодня</button>
+        </div>
     </div>
 </header>
 
 <div id="feed">
-    <div class="loading">Загрузка...</div>
+    <div class="loading">Загрузка…</div>
 </div>
 
 <script>
+/* ─────────────────────────────────────────
+   Helpers
+───────────────────────────────────────── */
+
+/** Format a Date as "DD Month" in Russian, no year */
+function formatDayMonth(date) {
+    return date.toLocaleDateString('ru-RU', {
+        day:   'numeric',
+        month: 'long'
+    });
+}
+
+/** Format a Date as "MM-DD" (the filename key) */
+function toMMDD(date) {
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const dd = String(date.getDate()).padStart(2, '0');
+    return `${mm}-${dd}`;
+}
+
+/** Format a Date as "YYYY-MM-DD" for <input type=date> */
+function toISODate(date) {
+    return date.toISOString().slice(0, 10);
+}
+
+/** Offset today by N days */
+function dateOffset(n) {
+    const d = new Date();
+    d.setDate(d.getDate() + n);
+    return d;
+}
+
+/* ─────────────────────────────────────────
+   State
+───────────────────────────────────────── */
+
 const feed = document.getElementById('feed');
+
+// The currently selected date (default = today)
+let selectedDate = new Date();
+
+// Remove time part for clean comparisons
+selectedDate.setHours(0, 0, 0, 0);
+
+/* ─────────────────────────────────────────
+   HTML helpers
+───────────────────────────────────────── */
 
 function escapeHtml(text) {
     const div = document.createElement('div');
@@ -272,10 +403,8 @@ function escapeHtml(text) {
 
 function textToHtml(text) {
     return escapeHtml(text)
-        .replace(
-            /(https?:\/\/[^\s<]+)/g,
-            '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'
-        )
+        .replace(/(https?:\/\/[^\s<]+)/g,
+            '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>')
         .replace(/\n/g, '<br>');
 }
 
@@ -284,266 +413,58 @@ function getImagePath(src) {
     return `cache/images/${filename}`;
 }
 
-function createPost(fileDate, sourceUrl, post) {
+/* ─────────────────────────────────────────
+   Post card
+───────────────────────────────────────── */
+
+function createPost(mmdd, displayLabel, sourceUrl, post) {
 
     const article = document.createElement('article');
     article.className = 'post';
 
-    const postId = encodeURIComponent(
-        fileDate + '|' + sourceUrl
-    );
-
+    // Share id: mmdd|sourceUrl  (no year)
+    const postId = encodeURIComponent(`${mmdd}|${sourceUrl}`);
     article.id = postId;
 
     let imagesHtml = '';
 
     if ((post.images || []).length) {
-
         const slides = post.images.map(img => `
             <div class="slide">
-                <img
-                    src="${getImagePath(img)}"
-                    loading="lazy"
-                    alt=""
-                >
+                <img src="${getImagePath(img)}" loading="lazy" alt="">
             </div>
         `).join('');
 
         imagesHtml = `
             <div class="slider">
-
-                <button
-                    class="slider-btn prev"
-                    type="button">
-                    ‹
-                </button>
-
-                <div class="slider-track">
-                    ${slides}
-                </div>
-
-                <button
-                    class="slider-btn next"
-                    type="button">
-                    ›
-                </button>
-
+                <button class="slider-btn prev" type="button">‹</button>
+                <div class="slider-track">${slides}</div>
+                <button class="slider-btn next" type="button">›</button>
             </div>
         `;
     }
 
     article.innerHTML = `
-        <div class="file-date">
-            ${fileDate}
-        </div>
-
+        <div class="file-date">${displayLabel}</div>
         ${imagesHtml}
-
-        <div class="content">
-            ${textToHtml(post.text || '')}
-        </div>
-
+        <div class="content">${textToHtml(post.text || '')}</div>
         <div class="post-actions">
-            <button
-                class="share-btn"
-                data-post-id="${postId}"
-                type="button">
-                🔗 Поделиться
-            </button>
+            <button class="share-btn" data-post-id="${postId}" type="button">🔗 Поделиться</button>
         </div>
     `;
 
     return article;
 }
 
-function showAllMode() {
-    const params = new URLSearchParams(window.location.search);
-    return params.get('show_all') === 'true';
-}
-
-function scrollToHashPost() {
-
-    const hash =
-        decodeURIComponent(
-            location.hash.slice(1)
-        );
-
-    if (!hash) return;
-
-    const post =
-        document.getElementById(hash);
-
-    if (!post) return;
-
-    post.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-    });
-
-    post.style.outline =
-        '3px solid #4a90e2';
-
-    post.style.outlineOffset =
-        '4px';
-
-    setTimeout(() => {
-        post.style.outline = '';
-    }, 3000);
-}
-
-async function loadFeed() {
-
-    try {
-
-        const indexResponse =
-            await fetch('cache/index.json');
-
-        if (!indexResponse.ok) {
-            throw new Error(
-                'Не удалось загрузить cache/index.json'
-            );
-        }
-
-        const files =
-            await indexResponse.json();
-
-        files.sort((a, b) =>
-            b.localeCompare(a)
-        );
-
-        feed.innerHTML = '';
-
-        const showAll =
-            showAllMode();
-
-        for (const fileName of files) {
-
-            try {
-
-                const response =
-                    await fetch(
-                        `cache/notes/${fileName}`
-                    );
-
-                if (!response.ok) {
-                    continue;
-                }
-
-                const data =
-                    await response.json();
-
-                const fileDate =
-                    fileName.replace(
-                        /\.json$/i,
-                        ''
-                    );
-
-                for (const [sourceUrl, post]
-                    of Object.entries(data)) {
-
-                    const isPublished =
-                        post &&
-                        post.published &&
-                        post.published.date;
-
-                    if (
-                        !showAll &&
-                        !isPublished
-                    ) {
-                        continue;
-                    }
-
-                    const card =
-                        createPost(
-                            fileDate,
-                            sourceUrl,
-                            post
-                        );
-
-                    feed.appendChild(card);
-
-                    initSlider(card);
-                }
-
-            } catch (err) {
-
-                console.error(
-                    fileName,
-                    err
-                );
-            }
-        }
-
-        if (!feed.children.length) {
-
-            feed.innerHTML = `
-                <div class="error">
-                    Нет опубликованных материалов
-                </div>
-            `;
-        }
-
-       // после того как всё отрисовалось
-        scrollToHashPost();
-
-    } catch (err) {
-
-        console.error(err);
-
-        feed.innerHTML = `
-            <div class="error">
-                Ошибка загрузки ленты
-            </div>
-        `;
-    }
-}
-
-function applyTheme(theme) {
-
-    if (theme === 'dark') {
-
-        document.body.classList.add('dark');
-
-        if (themeButton) {
-            themeButton.textContent = '☀️';
-        }
-
-    } else {
-
-        document.body.classList.remove('dark');
-
-        if (themeButton) {
-            themeButton.textContent = '🌙';
-        }
-    }
-}
-
-function initTheme() {
-
-    const saved =
-        localStorage.getItem('theme');
-
-    if (saved) {
-        applyTheme(saved);
-        return;
-    }
-
-    const hour = new Date().getHours();
-
-    if (hour >= 20 || hour < 7) {
-        applyTheme('dark');
-    } else {
-        applyTheme('light');
-    }
-}
+/* ─────────────────────────────────────────
+   Slider init
+───────────────────────────────────────── */
 
 function initSlider(card) {
-
     const slider = card.querySelector('.slider');
-
     if (!slider) return;
 
-    const track = slider.querySelector('.slider-track');
+    const track  = slider.querySelector('.slider-track');
     const slides = slider.querySelectorAll('.slide');
 
     if (slides.length <= 1) {
@@ -555,108 +476,227 @@ function initSlider(card) {
     let index = 0;
 
     function update() {
-        track.style.transform =
-            `translateX(-${index * 100}%)`;
+        track.style.transform = `translateX(-${index * 100}%)`;
     }
 
-    slider.querySelector('.next')
-        .addEventListener('click', () => {
+    slider.querySelector('.next').addEventListener('click', () => {
+        index = (index + 1) % slides.length;
+        update();
+    });
 
-            index++;
-
-            if (index >= slides.length) {
-                index = 0;
-            }
-
-            update();
-        });
-
-    slider.querySelector('.prev')
-        .addEventListener('click', () => {
-
-            index--;
-
-            if (index < 0) {
-                index = slides.length - 1;
-            }
-
-            update();
-        });
+    slider.querySelector('.prev').addEventListener('click', () => {
+        index = (index - 1 + slides.length) % slides.length;
+        update();
+    });
 }
 
-const themeButton =
-    document.getElementById('themeToggle');
+/* ─────────────────────────────────────────
+   Scroll to hash post
+───────────────────────────────────────── */
 
-themeButton.addEventListener('click', () => {
+function scrollToHashPost() {
+    const hash = decodeURIComponent(location.hash.slice(1));
+    if (!hash) return;
 
-    const dark =
-        document.body.classList.contains('dark');
+    const post = document.getElementById(hash);
+    if (!post) return;
 
-    const nextTheme =
-        dark ? 'light' : 'dark';
+    post.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    post.style.outline = '3px solid #4a90e2';
+    post.style.outlineOffset = '4px';
+    setTimeout(() => { post.style.outline = ''; }, 3000);
+}
 
-    localStorage.setItem(
-        'theme',
-        nextTheme
-    );
+/* ─────────────────────────────────────────
+   Load feed for a given date (± neighbours)
+───────────────────────────────────────── */
 
-    applyTheme(nextTheme);
+function showAllMode() {
+    return new URLSearchParams(window.location.search).get('show_all') === 'true';
+}
+
+async function fetchDayPosts(date) {
+    const mmdd = toMMDD(date);
+    const fileName = `${mmdd}.json`;
+
+    try {
+        const response = await fetch(`cache/notes/${fileName}`);
+        if (!response.ok) return [];               // file may not exist — that's fine
+
+        const data = await response.json();
+        const showAll = showAllMode();
+        const results = [];
+
+        const label = formatDayMonth(date);
+
+        for (const [sourceUrl, post] of Object.entries(data)) {
+            const isPublished = post && post.published && post.published.date;
+            if (!showAll && !isPublished) continue;
+
+            results.push({ mmdd, label, sourceUrl, post });
+        }
+
+        return results;
+
+    } catch (err) {
+        console.error(`Error loading ${fileName}:`, err);
+        return [];
+    }
+}
+
+async function loadFeed() {
+    feed.innerHTML = '<div class="loading">Загрузка…</div>';
+
+    try {
+        // Load yesterday, today, tomorrow relative to selectedDate
+        const dates = [-1, 0, 1].map(n => {
+            const d = new Date(selectedDate);
+            d.setDate(d.getDate() + n);
+            return d;
+        });
+
+        // Fetch all three in parallel
+        const groups = await Promise.all(dates.map(fetchDayPosts));
+        const all = groups.flat();
+
+        feed.innerHTML = '';
+
+        if (!all.length) {
+            feed.innerHTML = '<div class="error">Нет опубликованных материалов за эти даты</div>';
+            return;
+        }
+
+        for (const { mmdd, label, sourceUrl, post } of all) {
+            const card = createPost(mmdd, label, sourceUrl, post);
+            feed.appendChild(card);
+            initSlider(card);
+        }
+
+        scrollToHashPost();
+
+    } catch (err) {
+        console.error(err);
+        feed.innerHTML = '<div class="error">Ошибка загрузки ленты</div>';
+    }
+}
+
+/* ─────────────────────────────────────────
+   Date navigation UI
+───────────────────────────────────────── */
+
+const dateInput  = document.getElementById('customDateInput');
+const todayBtn   = document.getElementById('today-btn');
+const dateTabs   = document.querySelectorAll('.date-tab');
+
+/** Set the selected date and refresh everything */
+function setDate(date) {
+    date.setHours(0, 0, 0, 0);
+    selectedDate = date;
+
+    // Sync <input type=date>
+    dateInput.value = toISODate(date);
+
+    // Sync tab highlights
+    const todayStr = toISODate(new Date());
+    const selStr   = toISODate(date);
+
+    dateTabs.forEach(tab => {
+        const offset = parseInt(tab.dataset.offset, 10);
+        const tabDate = dateOffset(offset);
+        tabDate.setHours(0, 0, 0, 0);
+        tab.classList.toggle('active', toISODate(tabDate) === selStr);
+    });
+
+    loadFeed();
+}
+
+// Tab clicks
+dateTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        const offset = parseInt(tab.dataset.offset, 10);
+        setDate(dateOffset(offset));
+    });
 });
 
-initTheme();
+// Custom date picker change
+dateInput.addEventListener('change', () => {
+    if (!dateInput.value) return;
+    const [y, m, d] = dateInput.value.split('-').map(Number);
+    setDate(new Date(y, m - 1, d));
+});
 
-document.addEventListener(
-    'click',
-    async (e) => {
+// "↺ Сегодня" button
+todayBtn.addEventListener('click', () => {
+    setDate(new Date());
+});
 
-        const btn =
-            e.target.closest('.share-btn');
+/* ─────────────────────────────────────────
+   Theme
+───────────────────────────────────────── */
 
-        if (!btn) return;
+const themeButton = document.getElementById('themeToggle');
 
-        const url =
-            location.origin +
-            location.pathname +
-            '#' +
-            btn.dataset.postId;
-
-        if (navigator.share) {
-
-            try {
-
-                await navigator.share({
-                    title:
-                        'События истории и личности',
-                    url
-                });
-
-                return;
-
-            } catch (err) {}
-        }
-
-        try {
-
-            await navigator.clipboard
-                .writeText(url);
-
-            alert(
-                'Ссылка скопирована'
-            );
-
-        } catch (err) {
-
-            prompt(
-                'Скопируйте ссылку:',
-                url
-            );
-        }
+function applyTheme(theme) {
+    if (theme === 'dark') {
+        document.body.classList.add('dark');
+        if (themeButton) themeButton.textContent = '☀️';
+    } else {
+        document.body.classList.remove('dark');
+        if (themeButton) themeButton.textContent = '🌙';
     }
-);
+}
 
-loadFeed();
+function initTheme() {
+    const saved = localStorage.getItem('theme');
+    if (saved) { applyTheme(saved); return; }
 
+    const hour = new Date().getHours();
+    applyTheme((hour >= 20 || hour < 7) ? 'dark' : 'light');
+}
 
+themeButton.addEventListener('click', () => {
+    const dark = document.body.classList.contains('dark');
+    const next = dark ? 'light' : 'dark';
+    localStorage.setItem('theme', next);
+    applyTheme(next);
+});
+
+/* ─────────────────────────────────────────
+   Share button
+───────────────────────────────────────── */
+
+document.addEventListener('click', async (e) => {
+    const btn = e.target.closest('.share-btn');
+    if (!btn) return;
+
+    // Build URL without year — postId is already "mm-dd|sourceUrl"
+    const url =
+        location.origin +
+        location.pathname +
+        '#' +
+        btn.dataset.postId;
+
+    if (navigator.share) {
+        try {
+            await navigator.share({ title: 'The Past and English Books', url });
+            return;
+        } catch (_) {}
+    }
+
+    try {
+        await navigator.clipboard.writeText(url);
+        alert('Ссылка скопирована');
+    } catch (_) {
+        prompt('Скопируйте ссылку:', url);
+    }
+});
+
+/* ─────────────────────────────────────────
+   Boot
+───────────────────────────────────────── */
+
+initTheme();
+setDate(new Date());   // triggers loadFeed()
 </script>
 
 </body>

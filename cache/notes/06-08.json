@@ -2,21 +2,28 @@
   "https://en.wikipedia.org/wiki/1949": {
     "text": "1949 – George Orwell's dystopian novel Nineteen Eighty-Four is published in the United States",
     "images": [
-      "/images/2026-06-08_a59d6c81ea.jpg"
+      "/images/06-08_a59d6c81ea.jpg"
     ],
     "pub_status": "draft"
   },
   "https://en.wikipedia.org/wiki/Kenneth_G._Wilson": {
     "text": "1936 – Kenneth G. Wilson, American physicist and academic, Nobel Prize laureate",
     "images": [
-      "/images/2026-06-08_76e99c58f1.jpg"
+      "/images/06-08_76e99c58f1.jpg"
     ],
     "pub_status": "draft"
   },
   "https://en.wikipedia.org/wiki/1955": {
     "text": "1955 – Tim Berners-Lee, English computer scientist, invented the World Wide Web",
     "images": [
-      "/images/2026-06-08_b7907d45cd.jpg"
+      "/images/06-08_b7907d45cd.jpg"
+    ],
+    "pub_status": "draft"
+  },
+  "https://en.wikipedia.org/wiki/Space_Shuttle_Atlantis": {
+    "text": "2007 – Space Shuttle Atlantis is launched on STS-117 carrying two truss segments and solar arrays to the International Space Station.",
+    "images": [
+      "/images/06-08_7004a72120.jpg"
     ],
     "pub_status": "draft"
   }

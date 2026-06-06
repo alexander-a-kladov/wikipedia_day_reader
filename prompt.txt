@@ -31,13 +31,21 @@ prompt update 4 done
 Отображай картинки над текстом заметки при редактировании и сделай картинки в 3 раза больше визуально. 
 Display pictures above the text of the note when editing and make the pictures 3 times bigger visually.
 
-prompt update 5
+prompt update 5 done
 добавь признаки готовности заметки к публикации, когда добаляется "черновик", потом можно выбрать "готова к публикации", если опубликована, то тот признак то есть сейчас. 
 add parameter of the note's readiness for publication when new the "черновик", then you can select "готова к публикации", if published, then that same as now "опубликовано", date and link.
 
-prompt update 6
+prompt update 6 done
 поменяй кнопки "Открыть" и "Загрузить" местами.
 в поле где отображается дата и время сохранения страницы, отображается не дата из сохраненного файла, а дата события.
 swap the "Открыть" and "Загрузить" buttons.
 the field where the date and time of saved page are displayed does not display the date from the saved file "_saved_at" field, but the date of the event.
+update:
+перемести кнопку загрузить рядом (слева) к чекбоксу "AI события"
+
+prompt update 7 done
+страницы и заметки должны сохраняться и загружаться только по "месяцу и числу", год не учитывается, также и файлы должны назваться mm-dd.json, а в дате сохранения год-месяц-день
+pages and notes should be saved and uploaded only by "month and date", the year is not taken into account, and the files should also be named mm-dd.json, in the "save date" year stay, so the year-month-day as it is now
+
+prompt update 8 
 

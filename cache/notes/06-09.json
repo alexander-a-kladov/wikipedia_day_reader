@@ -1,0 +1,16 @@
+{
+  "https://en.wikipedia.org/wiki/1672": {
+    "text": "1672 – Peter the Great, Russian emperor (died 1725)",
+    "images": [
+      "/images/06-09_49d43f56b3.jpg"
+    ],
+    "pub_status": "draft"
+  },
+  "https://en.wikipedia.org/wiki/1311": {
+    "text": "1311 – Duccio's Maestà, a seminal artwork of the early Italian Renaissance, is unveiled and installed in Siena Cathedral in Siena, Italy.",
+    "images": [
+      "/images/06-09_346405e27f.jpg"
+    ],
+    "pub_status": "draft"
+  }
+}

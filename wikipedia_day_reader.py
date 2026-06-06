@@ -79,9 +79,17 @@ def save_keys(keys: dict):
 
 # ── RESULT CACHE ──────────────────────────────────────────────────────────────
 
+def _date_key(date_str: str) -> str:
+    """Return MM-DD from a YYYY-MM-DD string (year ignored for file naming)."""
+    parts = date_str.split("-")
+    if len(parts) == 3:
+        return f"{parts[1]}-{parts[2]}"
+    return date_str  # fallback: return as-is
+
+
 def _cache_path(date_str: str) -> str:
     os.makedirs(CACHE_DIR, exist_ok=True)
-    return os.path.join(CACHE_DIR, f"{date_str}.json")
+    return os.path.join(CACHE_DIR, f"{_date_key(date_str)}.json")
 
 
 def cache_save(date_str: str, payload: dict) -> str:
@@ -123,7 +131,7 @@ def cache_info(date_str: str) -> dict:
 
 def _notes_path(date_str: str) -> str:
     os.makedirs(NOTES_DIR, exist_ok=True)
-    return os.path.join(NOTES_DIR, f"{date_str}.json")
+    return os.path.join(NOTES_DIR, f"{_date_key(date_str)}.json")
 
 
 def notes_load(date_str: str) -> dict:
@@ -151,7 +159,7 @@ def image_save(date_str: str, wiki_key: str, filename: str, data: bytes) -> str:
     os.makedirs(IMAGES_DIR, exist_ok=True)
     ext  = os.path.splitext(filename)[1].lower() or ".jpg"
     h    = hashlib.md5(data).hexdigest()[:10]
-    name = f"{date_str}_{h}{ext}"
+    name = f"{_date_key(date_str)}_{h}{ext}"
     path = os.path.join(IMAGES_DIR, name)
     with open(path, "wb") as f:
         f.write(data)
