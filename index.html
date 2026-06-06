@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>События истории и личности</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f3f4f6;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #222;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+    padding: 16px 24px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+#feed {
+    max-width: 1100px;
+    margin: 24px auto;
+    padding: 0 16px;
+}
+
+.post {
+    background: #fff;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
+
+.file-date {
+    padding: 14px 20px;
+    background: #fafafa;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    font-weight: bold;
+    color: #666;
+}
+
+.images {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding: 16px;
+}
+
+.images img {
+    height: 240px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: #eee;
+}
+
+.content {
+    padding: 0 20px 20px;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+.content a {
+    color: #1565c0;
+    text-decoration: none;
+}
+
+.content a:hover {
+    text-decoration: underline;
+}
+
+.publish-info {
+    border-top: 1px solid #eee;
+    padding: 14px 20px;
+    color: #777;
+    font-size: 14px;
+    background: #fafafa;
+}
+
+.loading,
+.error {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
+
+@media (max-width: 768px) {
+    .images img {
+        height: 180px;
+    }
+
+    .content {
+        font-size: 15px;
+    }
+}
+
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.theme-toggle {
+    border: none;
+    background: #eee;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 8px 12px;
+    font-size: 20px;
+}
+
+.theme-toggle:hover {
+    opacity: .9;
+}
+
+/* ===== ТЕМНАЯ ТЕМА ===== */
+
+body.dark {
+    background: #121212;
+    color: #e0e0e0;
+}
+
+body.dark header {
+    background: #1e1e1e;
+    border-color: #333;
+}
+
+body.dark .post {
+    background: #1e1e1e;
+    box-shadow: 0 2px 12px rgba(0,0,0,.4);
+}
+
+body.dark .file-date {
+    background: #252525;
+    border-color: #333;
+    color: #ccc;
+}
+
+body.dark .publish-info {
+    background: #252525;
+    border-color: #333;
+    color: #bbb;
+}
+
+body.dark .content {
+    color: #e0e0e0;
+}
+
+body.dark .content a {
+    color: #66b3ff;
+}
+
+body.dark .theme-toggle {
+    background: #333;
+    color: #fff;
+}
+
+body.dark .loading,
+body.dark .error {
+    color: #bbb;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="header-row">
+        <h1>События истории и личности</h1>
+
+        <button id="themeToggle" class="theme-toggle">
+            🌙
+        </button>
+    </div>
+</header>
+
+<div id="feed">
+    <div class="loading">Загрузка...</div>
+</div>
+
+<script>
+const feed = document.getElementById('feed');
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+function textToHtml(text) {
+    return escapeHtml(text)
+        .replace(
+            /(https?:\/\/[^\s<]+)/g,
+            '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'
+        )
+        .replace(/\n/g, '<br>');
+}
+
+function getImagePath(src) {
+    const filename = src.split('/').pop();
+    return `cache/images/${filename}`;
+}
+
+function createPost(fileDate, sourceUrl, post) {
+
+    const article = document.createElement('article');
+    article.className = 'post';
+
+    const imagesHtml = (post.images || [])
+        .map(img => `
+            <img
+                src="${getImagePath(img)}"
+                loading="lazy"
+                alt=""
+            >
+        `)
+        .join('');
+
+    const publishDate = post.published?.date || fileDate;
+    const publishUrl = post.published?.url || sourceUrl;
+
+    article.innerHTML = `
+        <div class="file-date">
+            ${fileDate}
+        </div>
+
+        ${
+            imagesHtml
+                ? `<div class="images">${imagesHtml}</div>`
+                : ''
+        }
+
+        <div class="content">
+            ${textToHtml(post.text || '')}
+        </div>
+
+        <div class="publish-info">
+            Источник:
+            <a href="${publishUrl}"
+               target="_blank"
+               rel="noopener noreferrer">
+               открыть
+            </a>
+            <br>
+            Дата публикации: ${publishDate}
+        </div>
+    `;
+
+    return article;
+}
+
+function showAllMode() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('show_all') === 'true';
+}
+
+async function loadFeed() {
+
+    try {
+
+        const indexResponse = await fetch('cache/index.json');
+
+        if (!indexResponse.ok) {
+            throw new Error('Не удалось загрузить cache/index.json');
+        }
+
+        const files = await indexResponse.json();
+
+        files.sort((a, b) => b.localeCompare(a));
+
+        feed.innerHTML = '';
+
+        for (const fileName of files) {
+
+            try {
+
+                const response = await fetch(
+                    `cache/notes/${fileName}`
+                );
+
+                if (!response.ok) {
+                    console.error(
+                        'Ошибка загрузки файла:',
+                        fileName
+                    );
+                    continue;
+                }
+
+                const data = await response.json();
+
+                const fileDate = fileName.replace(
+                    /\.json$/i,
+                    ''
+                );
+
+                const showAll = showAllMode();
+
+                for (const [sourceUrl, post] of Object.entries(data)) {
+
+                    const isPublished =
+                        post.published &&
+                        post.published.date;
+
+                    if (!showAll && !isPublished) {
+                        continue;
+                    }
+
+                    const card = createPost(
+                        fileDate,
+                        sourceUrl,
+                        post
+                    );
+
+                    feed.appendChild(card);
+                }
+
+            } catch (err) {
+
+                console.error(
+                    'Ошибка обработки файла',
+                    fileName,
+                    err
+                );
+            }
+        }
+
+        if (!feed.children.length) {
+            feed.innerHTML =
+                '<div class="error">Публикации не найдены</div>';
+        }
+
+    } catch (err) {
+
+        console.error(err);
+
+        feed.innerHTML = `
+            <div class="error">
+                Ошибка загрузки ленты
+            </div>
+        `;
+    }
+}
+
+const themeButton =
+    document.getElementById('themeToggle');
+
+function applyTheme(theme) {
+
+    if (theme === 'dark') {
+        document.body.classList.add('dark');
+        themeButton.textContent = '☀️';
+    } else {
+        document.body.classList.remove('dark');
+        themeButton.textContent = '🌙';
+    }
+}
+
+function initTheme() {
+
+    const saved =
+        localStorage.getItem('theme');
+
+    if (saved) {
+        applyTheme(saved);
+        return;
+    }
+
+    const hour = new Date().getHours();
+
+    if (hour >= 20 || hour < 7) {
+        applyTheme('dark');
+    } else {
+        applyTheme('light');
+    }
+}
+
+themeButton.addEventListener('click', () => {
+
+    const dark =
+        document.body.classList.contains('dark');
+
+    const nextTheme =
+        dark ? 'light' : 'dark';
+
+    localStorage.setItem(
+        'theme',
+        nextTheme
+    );
+
+    applyTheme(nextTheme);
+});
+
+initTheme();
+
+loadFeed();
+</script>
+
+</body>
+</html>
