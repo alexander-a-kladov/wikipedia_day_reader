@@ -906,23 +906,36 @@ HTML_PAGE = r"""<!DOCTYPE html>
   .note-upload-btn:hover{border-color:var(--ac2);color:var(--ac);}
   .note-actions{display:flex;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid var(--bd);}
   .note-actions .spacer{flex:1;}
-  /* published block */
+  /* publication status block */
   .pub-block{margin-top:10px;padding:10px 12px;background:var(--sf2);border-radius:6px;
-    border:1px solid var(--bd);display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
-  .pub-block label{font-size:12px;color:var(--tx2);white-space:nowrap;}
-  .pub-block input[type=date],.pub-block input[type=url]{font-family:'Source Serif 4',serif;
+    border:1px solid var(--bd);}
+  .pub-status-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .pub-status-row label{font-size:12px;color:var(--tx2);white-space:nowrap;}
+  .pub-status-btns{display:flex;gap:0;border:1.5px solid var(--bd);border-radius:var(--r);overflow:hidden;}
+  .pub-status-btns button{font-family:'Source Serif 4',serif;font-size:12px;padding:5px 12px;
+    border:none;border-right:1px solid var(--bd);background:var(--sf);color:var(--tx2);
+    cursor:pointer;transition:all .15s;white-space:nowrap;}
+  .pub-status-btns button:last-child{border-right:none;}
+  .pub-status-btns button:hover{background:var(--sf2);}
+  .pub-status-btns button.active-draft{background:#f5f2ec;color:#5c5244;font-weight:600;}
+  .pub-status-btns button.active-ready{background:#fff8e0;color:#7a5a00;font-weight:600;}
+  .pub-status-btns button.active-published{background:#edf7ed;color:#1a5c2a;font-weight:600;}
+  .pub-date-url{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px;}
+  .pub-date-url label{font-size:12px;color:var(--tx2);white-space:nowrap;}
+  .pub-date-url input[type=date],.pub-date-url input[type=url]{font-family:'Source Serif 4',serif;
     font-size:13px;padding:4px 8px;border:1px solid var(--bd);border-radius:4px;
     background:var(--sf);color:var(--tx);}
-  .pub-block input[type=date]{width:150px;}
-  .pub-block input[type=url]{flex:1;min-width:180px;}
-  .pub-toggle{font-size:12px;color:var(--ai);cursor:pointer;text-decoration:underline;
-    background:none;border:none;padding:0;margin-top:6px;}
-  /* published badge on post */
+  .pub-date-url input[type=date]{width:150px;}
+  .pub-date-url input[type=url]{flex:1;min-width:180px;}
+  /* status badges on post */
   .note-pub-badge{display:flex;align-items:center;gap:6px;padding:5px 12px;
     font-size:12px;color:var(--tx2);border-top:1px solid var(--bd);}
   .note-pub-badge a{color:var(--ai);text-decoration:none;}
   .note-pub-badge a:hover{text-decoration:underline;}
-  .note-pub-badge .pub-dot{width:6px;height:6px;border-radius:50%;background:#5a8a5a;flex-shrink:0;}
+  .status-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+  .status-dot.draft{background:#aaa;}
+  .status-dot.ready{background:#c8a800;}
+  .status-dot.published{background:#5a8a5a;}
   /* image lightbox */
   .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.82);display:none;
     align-items:center;justify-content:center;z-index:300;cursor:zoom-out;}
@@ -1069,13 +1082,22 @@ HTML_PAGE = r"""<!DOCTYPE html>
       <input type="file" id="noteFileInput" accept="image/*" multiple style="display:none" onchange="uploadImages(event)">
     </label>
     <textarea class="note-editor" id="noteEditor" placeholder="Введите текст с гиперссылками..."></textarea>
-    <!-- Published block -->
-    <button class="pub-toggle" id="pubToggleBtn" onclick="togglePubBlock()">＋ Добавить публикацию</button>
-    <div class="pub-block" id="pubBlock" style="display:none">
-      <label>📅 Дата публикации:</label>
-      <input type="date" id="pubDate">
-      <label>🔗 Ссылка:</label>
-      <input type="url" id="pubUrl" placeholder="https://...">
+    <!-- Publication status block -->
+    <div class="pub-block">
+      <div class="pub-status-row">
+        <label>Статус:</label>
+        <div class="pub-status-btns">
+          <button id="sDraft"     onclick="setPubStatus('draft')"     title="Черновик">✏️ Черновик</button>
+          <button id="sReady"     onclick="setPubStatus('ready')"     title="Готова к публикации">📋 Готова</button>
+          <button id="sPublished" onclick="setPubStatus('published')" title="Опубликовано">✅ Опубликовано</button>
+        </div>
+      </div>
+      <div class="pub-date-url" id="pubDateUrl" style="display:none">
+        <label>📅 Дата:</label>
+        <input type="date" id="pubDate">
+        <label>🔗 Ссылка:</label>
+        <input type="url" id="pubUrl" placeholder="https://...">
+      </div>
     </div>
     <div class="note-actions">
       <button class="bp" onclick="saveNote()">💾 Сохранить</button>
@@ -1403,9 +1425,13 @@ function entryWikiKey(html){
 
 function noteBtn(wikiKey){
   if(!wikiKey) return '';
-  const has=notesData[wikiKey]&&(notesData[wikiKey].text||(notesData[wikiKey].images||[]).length);
+  const n=notesData[wikiKey];
+  const has=n&&(n.text||(n.images||[]).length||n.pub_status);
+  const status=n?n.pub_status||'draft':'';
+  const icons={draft:'✏️',ready:'📋',published:'✅'};
+  const icon=icons[status]||'';
   return `<button class="note-btn${has?' has-note':''}" title="${has?'Редактировать':'Добавить'} заметку"
-    onclick="openNoteModal(event,'${wikiKey.replace(/'/g,"\\'")}')">📝</button>`;
+    onclick="openNoteModal(event,'${wikiKey.replace(/'/g,"\\'")}')">📝${has&&icon?' '+icon:''}</button>`;
 }
 
 function notePost(wikiKey){
@@ -1414,8 +1440,8 @@ function notePost(wikiKey){
   const hasText=n.text&&n.text.trim();
   const imgs=(n.images||[]);
   const pub=n.published||{};
-  const hasPub=pub.date||pub.url;
-  if(!hasText&&!imgs.length&&!hasPub) return '';
+  const status=n.pub_status||'draft';
+  if(!hasText&&!imgs.length&&status==='draft') return '';
   let h=`<div class="note-post">`;
   if(hasText) h+=`<div class="note-post-text">${n.text}</div>`;
   if(imgs.length){
@@ -1425,14 +1451,15 @@ function notePost(wikiKey){
     });
     h+=`</div>`;
   }
-  if(hasPub){
-    const dateStr=pub.date?new Date(pub.date+'T00:00:00').toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'}):'';
-    h+=`<div class="note-pub-badge"><span class="pub-dot"></span>`;
-    h+=`<span>Опубликовано${dateStr?' '+dateStr:''}</span>`;
-    if(pub.url) h+=`<a href="${pub.url}" target="_blank" title="${pub.url}">🔗 Ссылка на публикацию</a>`;
-    h+=`</div>`;
+  const labels={draft:'Черновик',ready:'Готова к публикации',published:'Опубликовано'};
+  h+=`<div class="note-pub-badge"><span class="status-dot ${status}"></span><span>${labels[status]||status}</span>`;
+  if(status==='published'){
+    const dateStr=pub.date?new Date(pub.date+'T00:00:00').toLocaleDateString('ru-RU',
+      {day:'numeric',month:'long',year:'numeric'}):'';
+    if(dateStr) h+=`<span>${dateStr}</span>`;
+    if(pub.url) h+=`<a href="${pub.url}" target="_blank">🔗 Ссылка на публикацию</a>`;
   }
-  h+=`</div>`;
+  h+=`</div></div>`;
   return h;
 }
 
@@ -1479,24 +1506,21 @@ function openNoteModal(evt, wikiKey){
   if(existing){
     document.getElementById('noteEditor').value=existing.text||'';
     renderNoteImgs(existing.images||[]);
-    // Published info
+    // Restore publication status
     const pub=existing.published||{};
+    const status=existing.pub_status||( (pub.date||pub.url)?'published':'draft' );
+    setPubStatus(status);
     document.getElementById('pubDate').value=pub.date||'';
     document.getElementById('pubUrl').value=pub.url||'';
-    const hasPub=pub.date||pub.url;
-    document.getElementById('pubBlock').style.display=hasPub?'flex':'none';
-    document.getElementById('pubToggleBtn').textContent=hasPub?'— Скрыть публикацию':'＋ Добавить публикацию';
   } else {
     // First open: copy entry plain text as starter
     const entryEl=[...document.querySelectorAll('.entry')].find(el=>el.innerHTML.includes(wikiKey));
-    document.getElementById('noteEditor').value='';
     document.getElementById('noteEditor').value=
       entryEl ? entryEl.innerText.replace(/📝/,'').trim() : '';
     renderNoteImgs([]);
+    setPubStatus('draft');
     document.getElementById('pubDate').value='';
     document.getElementById('pubUrl').value='';
-    document.getElementById('pubBlock').style.display='none';
-    document.getElementById('pubToggleBtn').textContent='＋ Добавить публикацию';
   }
   document.getElementById('noteModal').classList.add('open');
   document.getElementById('noteEditor').focus();
@@ -1544,13 +1568,15 @@ async function uploadImages(evt){
   evt.target.value='';
 }
 
-function togglePubBlock(){
-  const blk=document.getElementById('pubBlock');
-  const btn=document.getElementById('pubToggleBtn');
-  const visible=blk.style.display!=='none';
-  blk.style.display=visible?'none':'flex';
-  btn.textContent=visible?'＋ Добавить публикацию':'— Скрыть публикацию';
-  if(!visible) document.getElementById('pubDate').focus();
+let _pubStatus='draft';  // 'draft' | 'ready' | 'published'
+
+function setPubStatus(status){
+  _pubStatus=status;
+  ['draft','ready','published'].forEach(s=>{
+    const btn=document.getElementById('s'+s.charAt(0).toUpperCase()+s.slice(1));
+    if(btn) btn.className=(s===status?'active-'+s:'');
+  });
+  document.getElementById('pubDateUrl').style.display=(status==='published'?'flex':'none');
 }
 
 async function saveNote(){
@@ -1567,12 +1593,13 @@ async function saveNote(){
   }
   _pendingImgDels=[];
 
-  // Published info
+  // Publication status
   const pubDate=document.getElementById('pubDate').value.trim();
   const pubUrl=document.getElementById('pubUrl').value.trim();
-  const published=(pubDate||pubUrl)?{date:pubDate, url:pubUrl}:null;
+  const published=(_pubStatus==='published'&&(pubDate||pubUrl))?{date:pubDate, url:pubUrl}:null;
 
-  const note={text, images: thumbImgs, ...(published?{published}:{})};
+  const note={text, images: thumbImgs, pub_status: _pubStatus,
+    ...(published?{published}:{})};
   const r=await fetch('/api/notes',{method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({date:_noteDate, key:_noteKey, note})});
