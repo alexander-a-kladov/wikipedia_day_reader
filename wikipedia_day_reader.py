@@ -892,17 +892,17 @@ HTML_PAGE = r"""<!DOCTYPE html>
     padding:9px;border:1.5px solid var(--bd);border-radius:6px;resize:vertical;
     background:var(--bg);color:var(--tx);line-height:1.6;}
   .note-editor:focus{outline:none;border-color:var(--ac2);}
-  .note-imgs-wrap{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;}
+  .note-imgs-wrap{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px;}
   .note-img-thumb{position:relative;display:inline-block;}
-  .note-img-thumb img{height:80px;width:auto;border-radius:5px;object-fit:cover;
+  .note-img-thumb img{height:240px;width:auto;max-width:100%;border-radius:6px;object-fit:cover;
     border:1.5px solid var(--bd);cursor:pointer;}
   .note-img-thumb img:hover{border-color:var(--ac2);}
-  .note-img-del{position:absolute;top:-5px;right:-5px;width:18px;height:18px;
+  .note-img-del{position:absolute;top:-7px;right:-7px;width:22px;height:22px;
     border-radius:50%;background:#c0392b;color:#fff;border:none;cursor:pointer;
-    font-size:10px;display:flex;align-items:center;justify-content:center;line-height:1;}
+    font-size:12px;display:flex;align-items:center;justify-content:center;line-height:1;}
   .note-img-del:hover{background:#a02020;}
   .note-upload-btn{font-size:12px;padding:5px 12px;color:var(--tx2);border-color:var(--bd);
-    cursor:pointer;display:inline-flex;align-items:center;gap:5px;}
+    cursor:pointer;display:inline-flex;align-items:center;gap:5px;margin-bottom:10px;}
   .note-upload-btn:hover{border-color:var(--ac2);color:var(--ac);}
   .note-actions{display:flex;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid var(--bd);}
   .note-actions .spacer{flex:1;}
@@ -1063,12 +1063,12 @@ HTML_PAGE = r"""<!DOCTYPE html>
   <div class="note-box">
     <h3 id="noteTitle">Дополнительная информация</h3>
     <div class="note-source" id="noteSource"></div>
-    <textarea class="note-editor" id="noteEditor" placeholder="Введите текст с гиперссылками..."></textarea>
     <div class="note-imgs-wrap" id="noteImgs"></div>
     <label class="bs note-upload-btn" style="border:1.5px solid;border-radius:var(--r)">
       📎 Добавить картинку
       <input type="file" id="noteFileInput" accept="image/*" multiple style="display:none" onchange="uploadImages(event)">
     </label>
+    <textarea class="note-editor" id="noteEditor" placeholder="Введите текст с гиперссылками..."></textarea>
     <!-- Published block -->
     <button class="pub-toggle" id="pubToggleBtn" onclick="togglePubBlock()">＋ Добавить публикацию</button>
     <div class="pub-block" id="pubBlock" style="display:none">

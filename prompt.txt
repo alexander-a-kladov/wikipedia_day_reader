@@ -1,0 +1,34 @@
+prompt update 1 done
+добавь кнопку "Сохранить" и "Загрузить", которые сохраняют и загружают результаты для выбранного дня.
+При выборе дня если для него есть файл с сохраненными результатами он загружается автоматически.
+Отображать признак того что результаты загружены (отображать дату сохранения).
+Add the "Save" and "Upload" buttons, which save and upload the results for the selected day.
+When you select a day, if there is a file with saved results for it, it is uploaded automatically.
+To display a sign that the results have been uploaded (to display the date of saving).
+update:
+при попытке "Открыть" файл появляется ошибка: "Ошибка загрузки: updateCounts is not defined"
+
+prompt update 2 done
+добавь возможность добавлять дополнительную информацию к отобранным записям, в дополнительную информацию может входить текст с гиперссылками,
+картинки, картинки можно загружать/удалять (они сохраняются в папку images), дополнительная информация с картинкой образует пост (для соцсети),
+в режиме редактирования доп. информации отображаются загруженные картинки (привязанные к данному посту) и гипертекст. Кнопки "Сохранить"/"Удалить"
+в режиме редактирования позволяют сохранить или удалить доп. информацию, она сохраняется в отдельный json файл привязанный к дате, ключем для привязки
+доп. информации к записи служит ссылка на статью Wikipedia, при первом переходе на добавление доп. информации туда копируется текст записи.
+add the ability to add additional information to selected posts, additional information may include hyperlinked text,
+pictures, pictures can be uploaded/deleted (they are saved to the images folder), additional information with the picture forms a post (for social networks),
+in the edit mode of additional information, uploaded pictures (linked to this post) and hypertext are displayed.. The "Save"/"Delete" buttons
+in editing mode allow you to save or delete additional information, it is saved in a separate json file linked to the date, the key for binding
+The additional information to the entry is a link to the Wikipedia article. The first time you click to add additional information, the text of the entry is copied there.
+update:
+страница открывается, но не одна кнопка ничего не делает, календарь был без числа на открытой странице, число выбирается.
+the page opens, but not a single button does anything, the calendar was without a date on the open page, the date is being selected.
+
+prompt update 3 done
+добавь возможность добавлять дополнительную информацию к заметке, "опубликована" + дата, ссылка на публикацию
+add the ability to add additional information to the note, "published" + date, link to the publication
+
+prompt update 4 done
+Отображай картинки над текстом заметки при редактировании и сделай картинки в 3 раза больше визуально. 
+Display pictures above the text of the note when editing and make the pictures 3 times bigger visually.
+
+
