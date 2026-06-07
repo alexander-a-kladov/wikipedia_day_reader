@@ -48,4 +48,4 @@ prompt update 7 done
 pages and notes should be saved and uploaded only by "month and date", the year is not taken into account, and the files should also be named mm-dd.json, in the "save date" year stay, so the year-month-day as it is now
 
 prompt update 8 
-
+How I could add html-links in the notes editor that could work like <a html-address>Text</a>?

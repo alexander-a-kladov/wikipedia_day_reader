@@ -1,6 +1,6 @@
 {
   "https://en.wikipedia.org/wiki/1799": {
-    "text": "Today was a birthday of famous Russian author and poet Alexander Pushkin\nWikipedia page: https://en.wikipedia.org/wiki/Alexander_Pushkin\nRuslan and Ludmila page: https://en.wikipedia.org/wiki/Ruslan_and_Ludmila\nThe Prose Tales: https://gutenberg.org/cache/epub/55219/pg55219-images.html",
+    "text": "<div>Today was a birthday of famous Russian author and poet Alexander Pushkin</div><div><a href=\"https://en.wikipedia.org/wiki/Alexander_Pushkin\" target=\"_blank\">Wikipedia page</a></div><div><a href=\"https://en.wikipedia.org/wiki/Ruslan_and_Ludmila\" target=\"_blank\">Ruslan and Ludmila page</a></div><div><a href=\"https://gutenberg.org/cache/epub/55219/pg55219-images.html\" target=\"_blank\">The Prose Tales on Gutenberg.org</a></div>",
     "images": [
       "/images/06-06_22aaccd3b5.jpeg",
       "/images/06-06_f6de4abf69.jpg",
@@ -10,8 +10,8 @@
     ],
     "pub_status": "published",
     "published": {
-      "date": "06-06",
-      "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#2026-06-06%7Chttps%3A%2F%2Fen.wikipedia.org%2Fwiki%2F1799"
+      "date": "2026-06-06",
+      "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#06-06-1"
     }
   },
   "https://en.wikipedia.org/wiki/1923": {

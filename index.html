@@ -299,14 +299,43 @@ let selectedDate = localToday();  // will be overridden by hash on boot
    HTML helpers
 ───────────────────────────────────────── */
 
-function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
+function fixBrokenAnchors(html) {
+    // Some exporters produce: <a https:="" en.wikipedia.org="" wiki="" page="">
+    // instead of:             <a href="https://en.wikipedia.org/wiki/page">
+    // We reconstruct a valid href by joining the broken attribute "keys".
+    return html.replace(/<a\s([^>]*)>/gi, (match, attrs) => {
+        // Already has a proper href — just ensure target="_blank"
+        if (/href\s*=/i.test(attrs)) {
+            return `<a ${attrs} target="_blank" rel="noopener noreferrer">`;
+        }
+        // Broken form: URL was split into attribute name=value pairs by the exporter.
+        // E.g. attrs = 'https:="" en.wikipedia.org="" wiki="" tim_berners-lee=""'
+        // Collect every token before the "=" signs and join them with "/".
+        const parts = [];
+        const re = /([^\s=>"']+)\s*=\s*["'][^"']*["']/g;
+        let m;
+        while ((m = re.exec(attrs)) !== null) {
+            parts.push(m[1]);
+        }
+        if (parts.length) {
+            // Re-join: ["https:", "en.wikipedia.org", "wiki", "page"] -> "https://en.wikipedia.org/wiki/page"
+            let href = parts.join('/');
+            // Fix double-slashes that appear after the protocol colon
+            href = href.replace(/^([a-z]+):\/([^/])/, '$1://$2');
+            return `<a href="${href}" target="_blank" rel="noopener noreferrer">`;
+        }
+        return `<a ${attrs} target="_blank" rel="noopener noreferrer">`;
+    });
 }
 
 function textToHtml(text) {
-    return escapeHtml(text)
+    if (/<[a-z][\s\S]*>/i.test(text)) {
+        return fixBrokenAnchors(text);
+    }
+    // Plain text fallback
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML
         .replace(/(https?:\/\/[^\s<]+)/g,
             '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>')
         .replace(/\n/g, '<br>');
@@ -547,13 +576,15 @@ document.addEventListener('click', async (e) => {
         catch (_) {}
     }
 
+    const original = btn.innerHTML;
     try {
         await navigator.clipboard.writeText(url);
-        //alert('Ссылка скопирована');
-        btn.innerHTML = '✅ Ссылка скопирована';
     } catch (_) {
         prompt('Скопируйте ссылку:', url);
     }
+    btn.innerHTML = '✅ Ссылка скопирована';
+    btn.disabled = true;
+    setTimeout(() => { btn.innerHTML = original; btn.disabled = false; }, 2500);
 });
 
 /* ─────────────────────────────────────────

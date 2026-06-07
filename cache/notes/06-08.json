@@ -14,11 +14,15 @@
     "pub_status": "draft"
   },
   "https://en.wikipedia.org/wiki/1955": {
-    "text": "1955 – Tim Berners-Lee, English computer scientist, invented the World Wide Web",
+    "text": "<div>Today is a birthday of Tim Berners-Lee, English computer scientist, invented the World Wide Web</div><div><a https:=\"\" en.wikipedia.org=\"\" wiki=\"\" tim_berners-lee=\"\">Wikipedia page</a></div><div><a https:=\"\" archive.org=\"\" details=\"\" weavingweborigin00bern_0=\"\">His 1999's book: Weaving the Web</a></div>",
     "images": [
       "/images/06-08_b7907d45cd.jpg"
     ],
-    "pub_status": "draft"
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-07",
+      "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/il#06-08-1"
+    }
   },
   "https://en.wikipedia.org/wiki/Space_Shuttle_Atlantis": {
     "text": "2007 – Space Shuttle Atlantis is launched on STS-117 carrying two truss segments and solar arrays to the International Space Station.",

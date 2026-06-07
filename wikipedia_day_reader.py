@@ -896,10 +896,30 @@ HTML_PAGE = r"""<!DOCTYPE html>
   .note-box h3{font-family:'Playfair Display',serif;font-size:16px;color:var(--ac);margin-bottom:4px;}
   .note-source{font-size:12px;color:var(--tx2);margin-bottom:12px;word-break:break-all;}
   .note-source a{color:var(--ai);}
+  /* note editor - contenteditable */
   .note-editor{width:100%;min-height:110px;font-family:'Source Serif 4',serif;font-size:14px;
-    padding:9px;border:1.5px solid var(--bd);border-radius:6px;resize:vertical;
-    background:var(--bg);color:var(--tx);line-height:1.6;}
-  .note-editor:focus{outline:none;border-color:var(--ac2);}
+    padding:9px;border:1.5px solid var(--bd);border-radius:6px;
+    background:var(--bg);color:var(--tx);line-height:1.6;outline:none;
+    cursor:text;}
+  .note-editor:focus{border-color:var(--ac2);}
+  .note-editor a{color:var(--ac);text-decoration:underline;}
+  .note-editor:empty:before{content:attr(placeholder);color:#aaa;pointer-events:none;}
+  /* editor toolbar */
+  .note-toolbar{display:flex;gap:5px;margin-bottom:5px;flex-wrap:wrap;}
+  .note-toolbar button{font-size:12px;padding:3px 9px;border:1px solid var(--bd);
+    border-radius:4px;background:var(--sf);color:var(--tx2);cursor:pointer;
+    font-family:'Source Serif 4',serif;}
+  .note-toolbar button:hover{background:var(--sf2);border-color:var(--ac2);color:var(--ac);}
+  /* link insert popup */
+  .link-popup{position:fixed;z-index:250;background:var(--sf);border:1.5px solid var(--bd);
+    border-radius:8px;padding:12px;box-shadow:0 6px 24px rgba(0,0,0,.18);width:340px;
+    display:none;}
+  .link-popup.open{display:block;}
+  .link-popup label{font-size:12px;color:var(--tx2);display:block;margin-bottom:3px;}
+  .link-popup input{width:100%;font-size:13px;padding:5px 8px;border:1px solid var(--bd);
+    border-radius:4px;background:var(--bg);font-family:'Source Serif 4',serif;
+    margin-bottom:8px;}
+  .link-popup-btns{display:flex;gap:7px;justify-content:flex-end;}
   .note-imgs-wrap{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px;}
   .note-img-thumb{position:relative;display:inline-block;}
   .note-img-thumb img{height:240px;width:auto;max-width:100%;border-radius:6px;object-fit:cover;
@@ -1089,7 +1109,26 @@ HTML_PAGE = r"""<!DOCTYPE html>
       📎 Добавить картинку
       <input type="file" id="noteFileInput" accept="image/*" multiple style="display:none" onchange="uploadImages(event)">
     </label>
-    <textarea class="note-editor" id="noteEditor" placeholder="Введите текст с гиперссылками..."></textarea>
+    <div class="note-toolbar">
+      <button onclick="insertLink()" title="Вставить ссылку">🔗 Ссылка</button>
+      <button onclick="document.execCommand('bold')" title="Жирный"><b>Ж</b></button>
+      <button onclick="document.execCommand('italic')" title="Курсив"><i>К</i></button>
+      <button onclick="clearNoteFormat()" title="Очистить форматирование">✕ Формат</button>
+    </div>
+    <div class="note-editor" id="noteEditor" contenteditable="true"
+      placeholder="Введите текст. Для ссылки: выделите слово и нажмите 🔗 Ссылка..."></div>
+
+    <!-- Link insert popup -->
+    <div class="link-popup" id="linkPopup">
+      <label>Текст ссылки:</label>
+      <input type="text" id="linkText" placeholder="Текст который будет кликабельным">
+      <label>URL адрес:</label>
+      <input type="url" id="linkUrl" placeholder="https://...">
+      <div class="link-popup-btns">
+        <button class="bs" style="font-size:12px;padding:4px 10px" onclick="closeLinkPopup()">Отмена</button>
+        <button class="bp" style="font-size:12px;padding:4px 10px" onclick="confirmInsertLink()">Вставить</button>
+      </div>
+    </div>
     <!-- Publication status block -->
     <div class="pub-block">
       <div class="pub-status-row">
@@ -1525,25 +1564,24 @@ function openNoteModal(evt, wikiKey){
     `Запись: <a href="${wikiKey}" target="_blank">${wikiKey}</a>`;
 
   const existing=notesData[wikiKey];
+  const editor=document.getElementById('noteEditor');
   if(existing){
-    document.getElementById('noteEditor').value=existing.text||'';
+    editor.innerHTML=existing.text||'';
     renderNoteImgs(existing.images||[]);
-    // Restore publication status
     const pub=existing.published||{};
     const status=existing.pub_status||( (pub.date||pub.url)?'published':'draft' );
     setPubStatus(status);
     document.getElementById('pubDate').value=pub.date||'';
     document.getElementById('pubUrl').value=pub.url||'';
   } else {
-    // First open: copy entry plain text as starter
     const entryEl=[...document.querySelectorAll('.entry')].find(el=>el.innerHTML.includes(wikiKey));
-    document.getElementById('noteEditor').value=
-      entryEl ? entryEl.innerText.replace(/📝/,'').trim() : '';
+    editor.innerHTML=entryEl ? entryEl.innerText.replace(/📝/,'').trim() : '';
     renderNoteImgs([]);
     setPubStatus('draft');
     document.getElementById('pubDate').value='';
     document.getElementById('pubUrl').value='';
   }
+  editor.focus();
   document.getElementById('noteModal').classList.add('open');
   document.getElementById('noteEditor').focus();
 }
@@ -1590,7 +1628,60 @@ async function uploadImages(evt){
   evt.target.value='';
 }
 
-let _pubStatus='draft';  // 'draft' | 'ready' | 'published'
+let _savedRange = null;  // saved selection before popup opens
+
+function insertLink(){
+  // Save current selection so we can insert at that position
+  const sel = window.getSelection();
+  if(sel && sel.rangeCount > 0){
+    _savedRange = sel.getRangeAt(0).cloneRange();
+    // Pre-fill text field with selected text
+    const selected = sel.toString().trim();
+    document.getElementById('linkText').value = selected;
+  } else {
+    _savedRange = null;
+    document.getElementById('linkText').value = '';
+  }
+  document.getElementById('linkUrl').value = '';
+  // Position popup near the toolbar button
+  const popup = document.getElementById('linkPopup');
+  const box = document.querySelector('.note-toolbar').getBoundingClientRect();
+  popup.style.top  = (box.bottom + window.scrollY + 4) + 'px';
+  popup.style.left = (box.left  + window.scrollX)      + 'px';
+  popup.classList.add('open');
+  document.getElementById('linkUrl').focus();
+}
+
+function closeLinkPopup(){
+  document.getElementById('linkPopup').classList.remove('open');
+  _savedRange = null;
+}
+
+function confirmInsertLink(){
+  const text = document.getElementById('linkText').value.trim();
+  const url  = document.getElementById('linkUrl').value.trim();
+  if(!url){ closeLinkPopup(); return; }
+  const label = text || url;
+  const link  = `<a href="${url}" target="_blank">${label}</a>`;
+  const editor = document.getElementById('noteEditor');
+  editor.focus();
+  if(_savedRange){
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(_savedRange);
+    // Replace selection (or insert at cursor) with link HTML
+    document.execCommand('insertHTML', false, link);
+  } else {
+    // Append at end
+    editor.innerHTML += link;
+  }
+  closeLinkPopup();
+}
+
+function clearNoteFormat(){
+  document.execCommand('removeFormat');
+}
+
 
 function setPubStatus(status){
   _pubStatus=status;
@@ -1602,7 +1693,7 @@ function setPubStatus(status){
 }
 
 async function saveNote(){
-  const text=document.getElementById('noteEditor').value.trim();
+  const text=document.getElementById('noteEditor').innerHTML.trim();
   // Collect current images from thumbs (excluding deleted)
   const thumbImgs=[...document.getElementById('noteImgs').querySelectorAll('img')]
     .map(img=>img.src.replace(location.origin,''));
@@ -1655,6 +1746,7 @@ async function deleteNote(){
 
 function closeNoteModal(){
   document.getElementById('noteModal').classList.remove('open');
+  closeLinkPopup();
   _pendingImgDels=[];
 }
 
