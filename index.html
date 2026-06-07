@@ -436,14 +436,9 @@ function scrollToPost(anchorId) {
    Fetch one day's posts
 ───────────────────────────────────────── */
 
-function showAllMode() {
-    return new URLSearchParams(window.location.search).get('show_all') === 'true';
-}
-
 async function fetchDayPosts(date) {
     const mmdd     = toMMDD(date);
     const label    = formatDayMonth(date);
-    const showAll  = showAllMode();
 
     try {
         const resp = await fetch(`cache/notes/${mmdd}.json`);
@@ -454,7 +449,7 @@ async function fetchDayPosts(date) {
 
         for (const [sourceUrl, post] of Object.entries(data)) {
             const published = post && post.published && post.published.date;
-            if (!showAll && !published) continue;
+            if (!published) continue;
             results.push({ mmdd, label, sourceUrl, post });
         }
 

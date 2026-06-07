@@ -1,10 +1,14 @@
 {
   "https://en.wikipedia.org/wiki/1949": {
-    "text": "1949 – George Orwell's dystopian novel Nineteen Eighty-Four is published in the United States",
+    "text": "<div>Today the George Orwell's dystopian novel Nineteen Eighty-Four was published in the United States</div><div><a href=\"https://en.wikipedia.org/wiki/Nineteen_Eighty-Four\" target=\"_blank\">Wikipedia page</a></div><div><a href=\"https://archive.org/details/NineteenEightyFour-Novel-GeorgeOrwell/mode/2up\" target=\"_blank\">Nineteen eighty-four</a></div>",
     "images": [
       "/images/06-08_a59d6c81ea.jpg"
     ],
-    "pub_status": "draft"
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-07",
+      "url": ""
+    }
   },
   "https://en.wikipedia.org/wiki/Kenneth_G._Wilson": {
     "text": "1936 – Kenneth G. Wilson, American physicist and academic, Nobel Prize laureate",
