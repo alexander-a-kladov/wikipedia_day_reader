@@ -7,10 +7,14 @@
     "pub_status": "draft"
   },
   "https://en.wikipedia.org/wiki/1311": {
-    "text": "1311 – Duccio's Maestà, a seminal artwork of the early Italian Renaissance, is unveiled and installed in Siena Cathedral in Siena, Italy.",
+    "text": "<div>1311 – Duccio's Maestà, a seminal artwork of the early Italian Renaissance, is unveiled and installed in Siena Cathedral in Siena, Italy.</div><div><a href=\"https://en.wikipedia.org/wiki/Maest%C3%A0_(Duccio)\" target=\"_blank\">Wikipedia page</a></div><div><a href=\"https://artsandculture.google.com/entity/duccio/m01fsh6?hl=en\" target=\"_blank\">Works of Duccio on Google Arts</a></div>",
     "images": [
       "/images/06-09_346405e27f.jpg"
     ],
-    "pub_status": "draft"
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-07",
+      "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#06-09-1"
+    }
   }
 }

@@ -25,3 +25,6 @@ prompt update 5 (done)
 при этом в верхней строке надо добавить виджет выбора даты который при загрузке автоматически устанавливается в текущую дату, файлы с событиями теперь называются mm-dd.json и не зависят от года, поэтому в заголовке постов теперь надо отображать "день и месяц", из ссылки "поделиться" надо убрать год, при смене даты в календаре должны отображаться соответствующие посты
 It is necessary to refine the logic of the page, events should now be displayed only those that were yesterday, today and tomorrow relative to the calendar widget,
 while in the top row you need to add a date selection widget that is automatically set to the current date when loading, event files are now called mm-dd.json and do not depend on the year, so now you need to display "day and month" in the title of posts, remove the year from the "share" link, and when the date changes, the corresponding posts should be displayed in the calendar.
+
+prompt update 7
+убери режим show_all
