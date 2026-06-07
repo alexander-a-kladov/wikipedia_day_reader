@@ -1,7 +1,15 @@
 {
   "https://en.wikipedia.org/wiki/1928": {
-    "text": "1928 – Maurice Sendak, American author and illustrator (died 2012)",
-    "images": [],
-    "pub_status": "draft"
+    "text": "<div>1928 – Maurice Sendak, American author and illustrator (died 2012)</div><div><a href=\"https://en.wikipedia.org/wiki/Maurice_Sendak\" target=\"_blank\">Wikipedia page</a></div><div><a href=\"https://en.wikipedia.org/wiki/Where_the_Wild_Things_Are\" target=\"_blank\">Where the WIld Things Are</a></div>",
+    "images": [
+      "/images/06-10_1233d4268d.jpg",
+      "/images/06-10_8160a6ad35.gif",
+      "/images/06-10_24bd576e33.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-07",
+      "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#06-10-1"
+    }
   }
 }

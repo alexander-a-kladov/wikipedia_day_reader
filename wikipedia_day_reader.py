@@ -1646,7 +1646,7 @@ function insertLink(){
   // Position popup near the toolbar button
   const popup = document.getElementById('linkPopup');
   const box = document.querySelector('.note-toolbar').getBoundingClientRect();
-  popup.style.top  = (box.bottom + window.scrollY + 4) + 'px';
+  popup.style.top  = (box.bottom + 4) + 'px';
   popup.style.left = (box.left  + window.scrollX)      + 'px';
   popup.classList.add('open');
   document.getElementById('linkUrl').focus();
