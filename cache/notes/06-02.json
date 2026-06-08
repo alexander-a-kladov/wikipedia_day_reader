@@ -1,8 +1,16 @@
 {
   "https://en.wikipedia.org/wiki/1896": {
-    "text": "1896 – Guglielmo Marconi applies for a patent for his wireless telegraph.",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1896\" target=\"_blank\">1896</a> – <a href=\"https://en.wikipedia.org/wiki/Guglielmo_Marconi\" target=\"_blank\">Guglielmo Marconi</a> applies for a <a href=\"https://en.wikipedia.org/wiki/Patent\" target=\"_blank\">patent</a> for his <a href=\"https://en.wikipedia.org/wiki/Wireless_telegraphy\" target=\"_blank\">wireless telegraph</a></div><div><a href=\"https://archive.org/details/historyofradio0000matt/mode/2up\" target=\"_blank\">The History of Radio by Mattern, Joanne 2002</a></div>",
     "images": [
-      "/images/06-02_e14a86a997.jpg"
-    ]
+      "/images/06-02_e14a86a997.jpg",
+      "/images/06-02_14a51b20ec.jpg",
+      "/images/06-02_0b29d77e0b.jpg",
+      "/images/06-02_7a3dfc4111.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-02",
+      "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#06-02-1"
+    }
   }
 }
