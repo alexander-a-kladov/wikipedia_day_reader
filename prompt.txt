@@ -51,3 +51,5 @@ prompt update 8 done
 How I could add html-links in the notes editor that could work like <a html-address>Text</a>?
 update:
 pop up links editor depends on how low is event on the event page if it very low this widget not display at all or display beyond bottom edge of screen, fix it
+
+prompt update 

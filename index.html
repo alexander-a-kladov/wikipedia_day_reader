@@ -33,27 +33,20 @@ header h1 { margin: 0; font-size: 24px; }
     flex-wrap: wrap;
 }
 
-.date-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
-
-.date-tab {
+.step-btn {
     border: 2px solid transparent;
     background: #eee;
     border-radius: 8px;
-    padding: 5px 13px;
-    font-size: 14px;
+    padding: 5px 16px;
+    font-size: 15px;
     font-weight: 600;
     cursor: pointer;
-    transition: background .15s, border-color .15s;
+    transition: background .15s;
     white-space: nowrap;
 }
 
-.date-tab:hover { background: #ddd; }
-
-.date-tab.active {
-    background: #1565c0;
-    color: #fff;
-    border-color: #1565c0;
-}
+.step-btn:hover { background: #ddd; }
+.step-btn:active { background: #ccc; }
 
 #customDateWrap { position: relative; display: flex; align-items: center; }
 
@@ -179,27 +172,56 @@ body.dark .content { color: #e0e0e0; }
 body.dark .content a { color: #66b3ff; }
 body.dark .slide img { background: #111; }
 body.dark .theme-toggle,
-body.dark .date-tab,
+body.dark .step-btn,
 body.dark #today-btn { background: #333; color: #e0e0e0; }
-body.dark .date-tab:hover,
+body.dark .step-btn:hover,
 body.dark #today-btn:hover { background: #444; }
-body.dark .date-tab.active { background: #1976d2; border-color: #1976d2; color: #fff; }
 body.dark #customDateInput { background: #2a2a2a; border-color: #555; color: #e0e0e0; }
 body.dark #customDateInput:focus { border-color: #66b3ff; }
 body.dark .loading, body.dark .error { color: #bbb; }
 body.dark .share-btn { background: #333; color: white; }
 
-/* ── responsive ── */
+/* ── responsive: all phones ── */
 @media (max-width: 768px) {
     #feed { padding: 0; margin: 0; }
     .post { border-radius: 0; margin-bottom: 18px; }
     .slide img { height: 82vh; object-fit: contain; }
-    .content { font-size: 20px; line-height: 1.6; padding: 18px; }
+    .content { font-size: 20px; line-height: 1.7; padding: 18px; }
     .file-date { font-size: 16px; }
     .slider-btn { width: 52px; height: 52px; font-size: 28px; }
     header { padding: 12px 16px; }
     header h1 { font-size: 20px; }
     .date-nav { gap: 6px; }
+    .share-btn { font-size: 17px; padding: 12px 18px; }
+}
+
+/* ── high-DPI phones (≥2x, e.g. iPhone, modern Android) ── */
+@media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 2),
+       (max-width: 768px) and (min-resolution: 192dpi) {
+    header h1 { font-size: 24px; }
+    .content { font-size: 23px; line-height: 1.8; }
+    .file-date { font-size: 18px; padding: 16px 22px; }
+    .step-btn { font-size: 18px; padding: 9px 20px; }
+    #customDateInput { font-size: 17px; padding: 8px 14px; }
+    #today-btn { font-size: 16px; padding: 8px 14px; }
+    .theme-toggle { font-size: 24px; padding: 10px 15px; }
+    .slider-btn { width: 60px; height: 60px; font-size: 32px; }
+    .share-btn { font-size: 19px; padding: 14px 20px; }
+    .post-actions { padding: 0 22px 22px; }
+}
+
+/* ── very high-DPI / large phones (≥3x, e.g. iPhone Pro Max) ── */
+@media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 3),
+       (max-width: 768px) and (min-resolution: 288dpi) {
+    header h1 { font-size: 28px; }
+    .content { font-size: 26px; line-height: 1.85; }
+    .file-date { font-size: 21px; padding: 18px 24px; }
+    .step-btn { font-size: 21px; padding: 11px 24px; }
+    #customDateInput { font-size: 20px; padding: 10px 16px; }
+    #today-btn { font-size: 19px; padding: 10px 16px; }
+    .theme-toggle { font-size: 28px; padding: 12px 18px; }
+    .slider-btn { width: 68px; height: 68px; font-size: 36px; }
+    .share-btn { font-size: 22px; padding: 16px 24px; }
 }
 </style>
 </head>
@@ -211,11 +233,8 @@ body.dark .share-btn { background: #333; color: white; }
         <button id="themeToggle" class="theme-toggle">🌙</button>
     </div>
     <div class="date-nav">
-        <div class="date-tabs">
-            <button class="date-tab" data-offset="-1" type="button">← Вчера</button>
-            <button class="date-tab active" data-offset="0" type="button">Сегодня</button>
-            <button class="date-tab" data-offset="1" type="button">Завтра →</button>
-        </div>
+        <button id="prev-day" class="step-btn" type="button">← Вчера</button>
+        <button id="next-day" class="step-btn" type="button">Завтра →</button>
         <div id="customDateWrap">
             <input type="date" id="customDateInput" title="Выбрать дату">
             <button id="today-btn" type="button">↺ Сегодня</button>
@@ -437,8 +456,8 @@ function scrollToPost(anchorId) {
 ───────────────────────────────────────── */
 
 async function fetchDayPosts(date) {
-    const mmdd     = toMMDD(date);
-    const label    = formatDayMonth(date);
+    const mmdd  = toMMDD(date);
+    const label = formatDayMonth(date);
 
     try {
         const resp = await fetch(`cache/notes/${mmdd}.json`);
@@ -515,21 +534,9 @@ async function loadFeed(targetAnchor) {
 
 const dateInput = document.getElementById('customDateInput');
 const todayBtn  = document.getElementById('today-btn');
-const dateTabs  = document.querySelectorAll('.date-tab');
 
 function syncUI() {
-    // Sync <input type=date>
     dateInput.value = toISODate(selectedDate);
-
-    // Highlight the matching tab (yesterday / today / tomorrow) if applicable
-    const selStr   = toISODate(selectedDate);
-    const todayStr = toISODate(localToday());
-
-    dateTabs.forEach(tab => {
-        const offset  = parseInt(tab.dataset.offset, 10);
-        const tabDate = dateOffsetFrom(localToday(), offset);
-        tab.classList.toggle('active', toISODate(tabDate) === selStr);
-    });
 }
 
 /** Change the selected date, sync UI, reload feed */
@@ -540,11 +547,12 @@ function setDate(date, targetAnchor) {
     loadFeed(targetAnchor);
 }
 
-dateTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-        const offset = parseInt(tab.dataset.offset, 10);
-        setDate(dateOffsetFrom(localToday(), offset));
-    });
+document.getElementById('prev-day').addEventListener('click', () => {
+    setDate(dateOffsetFrom(selectedDate, -1));
+});
+
+document.getElementById('next-day').addEventListener('click', () => {
+    setDate(dateOffsetFrom(selectedDate, 1));
 });
 
 dateInput.addEventListener('change', () => {
