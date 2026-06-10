@@ -725,6 +725,114 @@ themeButton.addEventListener('click', () => {
    Boot  — honour #MM-DD-N in the URL
 ───────────────────────────────────────── */
 
+/* ─────────────────────────────────────────
+   Pull-down at bottom → next day
+───────────────────────────────────────── */
+
+(function initPullNextDay() {
+    const THRESHOLD   = 80;   // px of overscroll needed to trigger
+    const INDICATOR_H = 52;   // height of the hint bar in px
+
+    // Create a hint bar fixed at the bottom
+    const hint = document.createElement('div');
+    hint.id = 'pull-hint';
+    Object.assign(hint.style, {
+        position:       'fixed',
+        bottom:         '0',
+        left:           '0',
+        right:          '0',
+        height:         INDICATOR_H + 'px',
+        display:        'flex',
+        alignItems:     'center',
+        justifyContent: 'center',
+        fontSize:       '15px',
+        fontWeight:     '600',
+        fontFamily:     'Arial, sans-serif',
+        background:     'rgba(21,101,192,0.92)',
+        color:          '#fff',
+        transform:      'translateY(100%)',
+        transition:     'transform .2s ease',
+        zIndex:         '999',
+        pointerEvents:  'none',
+        userSelect:     'none',
+    });
+    hint.textContent = '\u2193 \u0421\u043b\u0435\u0434\u0443\u044e\u0449\u0438\u0439 \u0434\u0435\u043d\u044c';
+    document.body.appendChild(hint);
+
+    function updateHintTheme() {
+        hint.style.background = document.body.classList.contains('dark')
+            ? 'rgba(25,118,210,0.95)'
+            : 'rgba(21,101,192,0.92)';
+    }
+
+    new MutationObserver(updateHintTheme)
+        .observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+    function atBottom() {
+        return window.innerHeight + window.scrollY >= document.body.scrollHeight - 4;
+    }
+
+    // ── Touch handling ──
+    let touchStartY = 0;
+    let pulling     = false;
+    let triggered   = false;
+
+    document.addEventListener('touchstart', (e) => {
+        if (!atBottom()) return;
+        touchStartY = e.touches[0].clientY;
+        pulling     = true;
+        triggered   = false;
+    }, { passive: true });
+
+    document.addEventListener('touchmove', (e) => {
+        if (!pulling) return;
+        const delta = touchStartY - e.touches[0].clientY; // negative = pulling down
+        if (delta >= 0) { hint.style.transform = 'translateY(100%)'; return; }
+
+        const progress = Math.min(-delta / THRESHOLD, 1);
+        hint.style.transform = `translateY(${(1 - progress) * 100}%)`;
+        hint.textContent = progress >= 1
+            ? '\u2713 \u041e\u0442\u043f\u0443\u0441\u0442\u0438\u0442\u0435'
+            : '\u2193 \u0421\u043b\u0435\u0434\u0443\u044e\u0449\u0438\u0439 \u0434\u0435\u043d\u044c';
+        if (progress >= 1) triggered = true;
+    }, { passive: true });
+
+    document.addEventListener('touchend', () => {
+        if (!pulling) return;
+        pulling = false;
+        hint.style.transform = 'translateY(100%)';
+        hint.textContent = '\u2193 \u0421\u043b\u0435\u0434\u0443\u044e\u0449\u0438\u0439 \u0434\u0435\u043d\u044c';
+        if (triggered) {
+            triggered = false;
+            setTimeout(() => setDate(dateOffsetFrom(selectedDate, 1)), 120);
+        }
+    }, { passive: true });
+
+    // ── Mouse-wheel overscroll (desktop) ──
+    let wheelAccum = 0;
+    let wheelTimer = null;
+
+    window.addEventListener('wheel', (e) => {
+        if (!atBottom() || e.deltaY <= 0) { wheelAccum = 0; return; }
+
+        wheelAccum += e.deltaY;
+        const progress = Math.min(wheelAccum / (THRESHOLD * 4), 1);
+        hint.style.transform = `translateY(${(1 - progress) * 100}%)`;
+        hint.textContent = progress >= 1
+            ? '\u2713 \u0421\u043b\u0435\u0434\u0443\u044e\u0449\u0438\u0439 \u0434\u0435\u043d\u044c\u2026'
+            : '\u2193 \u0421\u043b\u0435\u0434\u0443\u044e\u0449\u0438\u0439 \u0434\u0435\u043d\u044c';
+
+        clearTimeout(wheelTimer);
+        wheelTimer = setTimeout(() => {
+            const go = wheelAccum >= THRESHOLD * 4;
+            wheelAccum = 0;
+            hint.style.transform = 'translateY(100%)';
+            hint.textContent = '\u2193 \u0421\u043b\u0435\u0434\u0443\u044e\u0449\u0438\u0439 \u0434\u0435\u043d\u044c';
+            if (go) setDate(dateOffsetFrom(selectedDate, 1));
+        }, 400);
+    }, { passive: true });
+})();
+
 initTheme();
 
 (function boot() {
