@@ -261,47 +261,61 @@ footer a:hover { text-decoration: underline; }
 
 body.dark footer { color: #555; }
 
-/* ── responsive: all phones ── */
+/* ── responsive: all phones (base) ── */
 @media (max-width: 768px) {
     #feed { padding: 0; margin: 0; }
     .post { border-radius: 0; margin-bottom: 18px; }
     .slide img { height: 82vh; object-fit: contain; }
-    .content { font-size: 20px; line-height: 1.7; padding: 18px; }
-    .file-date { font-size: 16px; }
-    .slider-btn { width: 52px; height: 52px; font-size: 28px; }
-    header { padding: 12px 16px; }
-    header h1 { font-size: 20px; }
-    .date-nav { gap: 6px; }
-    .share-btn { font-size: 17px; padding: 12px 18px; }
+    .content { font-size: 16px; line-height: 1.6; padding: 16px; }
+    .file-date { font-size: 13px; }
+    .slider-btn { width: 44px; height: 44px; font-size: 24px; }
+    header { padding: 10px 14px; }
+    header h1 { font-size: 16px; }
+    .header-logo { height: 36px; }
+    .date-nav { gap: 5px; }
+    .step-btn { font-size: 13px; padding: 5px 11px; }
+    #customDateInput { font-size: 13px; padding: 5px 9px; }
+    #today-btn { font-size: 12px; padding: 5px 9px; }
+    .share-btn { font-size: 15px; padding: 10px 15px; }
 }
 
-/* ── high-DPI phones (≥2x, e.g. iPhone, modern Android) ── */
+/* ── medium-DPI phones (1x–1.9x, e.g. budget Android, older devices) ── */
+@media (max-width: 768px) and (-webkit-max-device-pixel-ratio: 1.9),
+       (max-width: 768px) and (max-resolution: 182dpi) {
+    header h1 { font-size: 17px; }
+    .content { font-size: 16px; line-height: 1.65; }
+    .file-date { font-size: 13px; }
+}
+
+/* ── high-DPI phones (≥2x, e.g. standard iPhone, modern Android) ── */
 @media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 2),
        (max-width: 768px) and (min-resolution: 192dpi) {
-    header h1 { font-size: 24px; }
-    .content { font-size: 23px; line-height: 1.8; }
-    .file-date { font-size: 18px; padding: 16px 22px; }
-    .step-btn { font-size: 18px; padding: 9px 20px; }
-    #customDateInput { font-size: 17px; padding: 8px 14px; }
-    #today-btn { font-size: 16px; padding: 8px 14px; }
-    .theme-toggle { font-size: 24px; padding: 10px 15px; }
-    .slider-btn { width: 60px; height: 60px; font-size: 32px; }
-    .share-btn { font-size: 19px; padding: 14px 20px; }
-    .post-actions { padding: 0 22px 22px; }
+    header h1 { font-size: 20px; }
+    .header-logo { height: 40px; }
+    .content { font-size: 19px; line-height: 1.75; }
+    .file-date { font-size: 15px; padding: 14px 20px; }
+    .step-btn { font-size: 15px; padding: 7px 16px; }
+    #customDateInput { font-size: 15px; padding: 7px 12px; }
+    #today-btn { font-size: 14px; padding: 7px 12px; }
+    .theme-toggle { font-size: 22px; padding: 9px 13px; }
+    .slider-btn { width: 54px; height: 54px; font-size: 28px; }
+    .share-btn { font-size: 17px; padding: 12px 18px; }
+    .post-actions { padding: 0 20px 20px; }
 }
 
 /* ── very high-DPI / large phones (≥3x, e.g. iPhone Pro Max) ── */
 @media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 3),
        (max-width: 768px) and (min-resolution: 288dpi) {
-    header h1 { font-size: 28px; }
-    .content { font-size: 26px; line-height: 1.85; }
-    .file-date { font-size: 21px; padding: 18px 24px; }
-    .step-btn { font-size: 21px; padding: 11px 24px; }
-    #customDateInput { font-size: 20px; padding: 10px 16px; }
-    #today-btn { font-size: 19px; padding: 10px 16px; }
-    .theme-toggle { font-size: 28px; padding: 12px 18px; }
-    .slider-btn { width: 68px; height: 68px; font-size: 36px; }
-    .share-btn { font-size: 22px; padding: 16px 24px; }
+    header h1 { font-size: 24px; }
+    .header-logo { height: 44px; }
+    .content { font-size: 22px; line-height: 1.8; }
+    .file-date { font-size: 18px; padding: 16px 22px; }
+    .step-btn { font-size: 18px; padding: 9px 20px; }
+    #customDateInput { font-size: 17px; padding: 8px 14px; }
+    #today-btn { font-size: 16px; padding: 8px 14px; }
+    .theme-toggle { font-size: 26px; padding: 11px 16px; }
+    .slider-btn { width: 62px; height: 62px; font-size: 32px; }
+    .share-btn { font-size: 20px; padding: 14px 20px; }
 }
 </style>
 </head>
