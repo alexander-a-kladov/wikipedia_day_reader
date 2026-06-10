@@ -55,3 +55,7 @@ make the date switch to the next day if the user pulls down when reaching the bo
 prompt update 13
 отображай посты только текущего дня на странице
 display only the posts of the current day on the page.
+
+prompt update 14
+увеличь шрифты для смартфонов предпоследней величиной разрешения
+increase fonts for smartphones of pre-highest resolution value
