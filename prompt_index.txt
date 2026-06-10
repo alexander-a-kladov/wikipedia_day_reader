@@ -37,6 +37,9 @@ prompt update 8 (done)
 Используй для значения переменной anchorId при создании поста значение из поля published.url, после #
 Use the value from the published.url field after # for the anchorId variable when creating a post
 
-prompt update 9
+prompt update 9 (done)
 Add image before Title of page, and link to social network page https://vk.com/ak8englishbooks
 update: Align the Title beside image to the left
+
+prompt update 10
+Add liveinternet.ru counter to the page and some meta information to enhance search visibility of the site
