@@ -595,32 +595,21 @@ async function loadFeed(targetAnchor) {
     feed.innerHTML = '<div class="loading">Загрузка…</div>';
 
     try {
-        const dates = [-1, 0, 1].map(n => dateOffsetFrom(selectedDate, n));
-
-        // Fetch in parallel; keep per-day ordering for sequential numbering
-        const groups = await Promise.all(dates.map(fetchDayPosts));
+        const posts = await fetchDayPosts(selectedDate);
 
         feed.innerHTML = '';
 
-        // Build counters per mmdd so numbering resets each day
-        const dayCounters = {};
+        let postNum = 0;
 
-        let totalRendered = 0;
-
-        for (const group of groups) {
-            for (const { mmdd, label, sourceUrl, post } of group) {
-                dayCounters[mmdd] = (dayCounters[mmdd] || 0) + 1;
-                const postNum = dayCounters[mmdd];
-
-                const card = createPost(mmdd, postNum, label, sourceUrl, post);
-                feed.appendChild(card);
-                initSlider(card);
-                totalRendered++;
-            }
+        for (const { mmdd, label, sourceUrl, post } of posts) {
+            postNum++;
+            const card = createPost(mmdd, postNum, label, sourceUrl, post);
+            feed.appendChild(card);
+            initSlider(card);
         }
 
-        if (!totalRendered) {
-            feed.innerHTML = '<div class="error">Нет опубликованных материалов за эти даты</div>';
+        if (!postNum) {
+            feed.innerHTML = '<div class="error">Нет опубликованных материалов за этот день</div>';
             return;
         }
 

@@ -41,5 +41,17 @@ prompt update 9 (done)
 Add image before Title of page, and link to social network page https://vk.com/ak8englishbooks
 update: Align the Title beside image to the left
 
-prompt update 10
+prompt update 10 (done)
 Add liveinternet.ru counter to the page and some meta information to enhance search visibility of the site
+
+prompt update 11 (done)
+на смартфонах с средним разрешением заголовок сайта и стандартный шрифт постов слишком большие
+On medium-resolution smartphones, the website title and the standard font of posts are too large.
+
+prompt update 12 
+сделай переход даты на следующий день, если пользователь тянет вниз при достижении низа страницы
+make the date switch to the next day if the user pulls down when reaching the bottom of the page.
+
+prompt update 13
+отображай посты только текущего дня на странице
+display only the posts of the current day on the page.
