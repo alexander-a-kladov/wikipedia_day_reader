@@ -33,6 +33,9 @@ prompt update 7 (done)
 Замени кнопки "Вчера", "Сегодня", "Завтра" на кнопки "Вчера" и "Завтра" и поменяй логику их работы "Вчера" должна переключать календарь на один день назад, "Завтра" переключать календарь на один день вперед, увеличь размер элементов интерфейса и шрифта по умолчанию на смартфонах с высоким разрешением.
 Replace the buttons "Yesterday", "Today", "Tomorrow" with the buttons "Yesterday" and "Tomorrow" and change the logic of their operation. "Yesterday" should switch the calendar one day back, "Tomorrow" should switch the calendar one day forward, increase the size of the interface elements and the default font on smartphones with high resolution.
 
-prompt update 8
+prompt update 8 (done)
 Используй для значения переменной anchorId при создании поста значение из поля published.url, после #
 Use the value from the published.url field after # for the anchorId variable when creating a post
+
+prompt update 9
+Add image before Title of page, and link to social network page https://vk.com/ak8englishbooks

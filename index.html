@@ -25,6 +25,29 @@ header {
 
 header h1 { margin: 0; font-size: 24px; }
 
+.header-logo {
+    height: 48px;
+    width: auto;
+    border-radius: 6px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.vk-link {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    color: #0077ff;
+    text-decoration: none;
+    transition: opacity .15s;
+}
+
+.vk-link:hover { opacity: .75; }
+
+.vk-link svg { display: block; }
+
+body.dark .vk-link { color: #5aabff; }
+
 .date-nav {
     display: flex;
     align-items: center;
@@ -149,7 +172,9 @@ header h1 { margin: 0; font-size: 24px; }
 
 .loading, .error { text-align: center; padding: 40px; color: #666; }
 
-.header-row { display: flex; justify-content: space-between; align-items: center; }
+.header-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+
+.header-title-group { display: flex; align-items: center; gap: 12px; }
 
 .theme-toggle {
     border: none;
@@ -229,8 +254,19 @@ body.dark .share-btn { background: #333; color: white; }
 
 <header>
     <div class="header-row">
-        <h1>The Past and English Books</h1>
-        <button id="themeToggle" class="theme-toggle">🌙</button>
+        <div class="header-title-group">
+            <img src="thePastandEnglish.jpg" alt="The Past and English Books" class="header-logo">
+            <h1>The Past and English Books</h1>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
+            <a href="https://vk.com/ak8englishbooks" target="_blank" rel="noopener noreferrer" class="vk-link" title="VK сообщество">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="32" height="32" rx="7" fill="currentColor"/>
+                    <path d="M16.742 22c-6.197 0-9.738-4.25-9.88-11.333H9.9c.099 5.199 2.394 7.4 4.212 7.85V10.667h2.86v4.4c1.797-.193 3.685-2.24 4.322-4.4h2.815c-.49 2.783-2.532 4.83-3.984 5.667 1.452.666 3.776 2.466 4.667 5.666h-3.093c-.7-2.183-2.44-3.866-4.707-4.083V22h-.25z" fill="white"/>
+                </svg>
+            </a>
+            <button id="themeToggle" class="theme-toggle">🌙</button>
+        </div>
     </div>
     <div class="date-nav">
         <button id="prev-day" class="step-btn" type="button">← Вчера</button>
