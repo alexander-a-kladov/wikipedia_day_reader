@@ -52,4 +52,13 @@ How I could add html-links in the notes editor that could work like <a html-addr
 update:
 pop up links editor depends on how low is event on the event page if it very low this widget not display at all or display beyond bottom edge of screen, fix it
 
-prompt update 
+prompt update 9 done
+Когда создается новая заметка, текст темы должен копироваться туда с ссылками
+When a new note is created, the text of the topic should be copied there with links.
+
+prompt update 10 done
+Неправильно работает удаление картинки из заметки, она визуально удаляется, но при открытии заметки она снова появляется
+Deleting an image from a note does not work correctly, it is visually deleted, but when you open the note, it appears again.
+update
+я добавлял в заметку несколько картинок, в процессе удалял часть из них, и добавлял их снова, в итоге только 4 картинки из 6 сохранились на сервере, 2 последних не сохранились
+I added several pictures to the note, deleted some of them in the process, and added them again, as a result, only 4 of the 6 pictures were saved on the server, the last 2 were not saved.

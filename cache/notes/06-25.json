@@ -1,0 +1,41 @@
+{
+  "https://en.wikipedia.org/wiki/1947": {
+    "text": "<a href=\"https://en.wikipedia.org/wiki/1947\" target=\"_blank\">1947</a> – <a href=\"https://en.wikipedia.org/wiki/The_Diary_of_a_Young_Girl\" target=\"_blank\">The Diary of a Young Girl</a> (better known as The Diary of Anne Frank) is published.",
+    "images": [],
+    "pub_status": "draft"
+  },
+  "https://en.wikipedia.org/wiki/1900": {
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1900\" target=\"_blank\">1900</a> – The <a href=\"https://en.wikipedia.org/wiki/Taoism\" target=\"_blank\">Taoist</a> monk <a href=\"https://en.wikipedia.org/wiki/Wang_Yuanlu\" target=\"_blank\">Wang Yuanlu</a> discovers the <a href=\"https://en.wikipedia.org/wiki/Dunhuang_manuscripts\" target=\"_blank\">Dunhuang manuscripts</a>, a cache of ancient texts that are of great historical and religious significance, in the <a href=\"https://en.wikipedia.org/wiki/Mogao_Caves\" target=\"_blank\">Mogao Caves</a> of <a href=\"https://en.wikipedia.org/wiki/Dunhuang\" target=\"_blank\">Dunhuang</a>, China</div><div><a href=\"https://archive.org/details/classicalchinese0000unse_e1p8/mode/2up\" target=\"_blank\">Classical Chinese literature Columbia University Press 2000</a></div>",
+    "images": [
+      "/images/06-25_b4f65a656a.jpg",
+      "/images/06-25_f50710cfbc.jpg",
+      "/images/06-25_d0b63e41ca.jpg",
+      "/images/06-25_9f8301f4b0.jpg",
+      "/images/06-25_eac2383b29.jpg",
+      "/images/06-25_834c6a4ece.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-10",
+      "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#06-25-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Igor_Stravinsky": {
+    "text": "<div>1910   – <a href=\"https://en.wikipedia.org/wiki/Igor_Stravinsky\" target=\"_blank\">Igor Stravinsky</a>'s ballet <a href=\"https://en.wikipedia.org/wiki/The_Firebird\" target=\"_blank\">The Firebird</a> is premiered in Paris, bringing him to prominence as a composer</div><div><a href=\"https://upload.wikimedia.org/wikipedia/commons/a/ab/Infernal_Dance_from_The_Firebird_by_Stravinsky.ogg\" target=\"_blank\">\"Infernal Dance\" from The Firebird</a></div>",
+    "images": [
+      "/images/06-25_8231b4ce7d.jpg",
+      "/images/06-25_3dba495b92.jpg",
+      "/images/06-25_8aaaa0961e.jpg",
+      "/images/06-25_f5ab39d221.jpg",
+      "/images/06-25_1f7ea03e05.jpg",
+      "/images/06-25_6da30942b7.jpg",
+      "/images/06-25_205de72a8e.jpg",
+      "/images/06-25_e6712bca22.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-10",
+      "url": "http://localhost:8080/index.html#06-25-2"
+    }
+  }
+}

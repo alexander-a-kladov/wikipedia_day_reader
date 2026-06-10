@@ -1575,7 +1575,15 @@ function openNoteModal(evt, wikiKey){
     document.getElementById('pubUrl').value=pub.url||'';
   } else {
     const entryEl=[...document.querySelectorAll('.entry')].find(el=>el.innerHTML.includes(wikiKey));
-    editor.innerHTML=entryEl ? entryEl.innerText.replace(/📝/,'').trim() : '';
+    if(entryEl){
+      // Clone node to safely strip the 📝 button without modifying the DOM
+      const clone=entryEl.cloneNode(true);
+      clone.querySelectorAll('button.note-btn').forEach(b=>b.remove());
+      clone.querySelectorAll('span.rb').forEach(s=>s.remove());
+      editor.innerHTML=clone.innerHTML.trim();
+    } else {
+      editor.innerHTML='';
+    }
     renderNoteImgs([]);
     setPubStatus('draft');
     document.getElementById('pubDate').value='';
@@ -1599,7 +1607,7 @@ function renderNoteImgs(imgs){
 }
 
 function removeNoteImg(url, thumbEl){
-  _pendingImgDels.push(url);
+  // Just remove from DOM — saveNote will diff and delete from server
   thumbEl.remove();
 }
 
@@ -1615,12 +1623,13 @@ async function uploadImages(evt){
     const r=await fetch('/api/upload_image',{method:'POST',body:fd});
     const res=await r.json();
     if(res.url){
-      // Append to current note images in modal
-      const existing=notesData[_noteKey]||{text:'',images:[]};
-      existing.images=existing.images||[];
-      existing.images.push(res.url);
-      notesData[_noteKey]=existing;
-      renderNoteImgs(existing.images);
+      // Only update the DOM — notesData is updated on save
+      const wrap=document.getElementById('noteImgs');
+      const thumb=document.createElement('div');
+      thumb.className='note-img-thumb';
+      thumb.innerHTML=`<img src="${res.url}" onclick="openLightbox('${res.url}')">
+        <button class="note-img-del" onclick="removeNoteImg('${res.url}',this.parentNode)" title="Удалить">✕</button>`;
+      wrap.appendChild(thumb);
     } else {
       alert('Ошибка загрузки: '+(res.error||'?'));
     }
@@ -1631,11 +1640,9 @@ async function uploadImages(evt){
 let _savedRange = null;  // saved selection before popup opens
 
 function insertLink(){
-  // Save current selection so we can insert at that position
   const sel = window.getSelection();
   if(sel && sel.rangeCount > 0){
     _savedRange = sel.getRangeAt(0).cloneRange();
-    // Pre-fill text field with selected text
     const selected = sel.toString().trim();
     document.getElementById('linkText').value = selected;
   } else {
@@ -1643,12 +1650,37 @@ function insertLink(){
     document.getElementById('linkText').value = '';
   }
   document.getElementById('linkUrl').value = '';
-  // Position popup near the toolbar button
+
   const popup = document.getElementById('linkPopup');
-  const box = document.querySelector('.note-toolbar').getBoundingClientRect();
-  popup.style.top  = (box.bottom + 4) + 'px';
-  popup.style.left = (box.left  + window.scrollX)      + 'px';
+  // Show offscreen first to measure its height
+  popup.style.visibility = 'hidden';
+  popup.style.top = '0px';
+  popup.style.left = '0px';
   popup.classList.add('open');
+  const popH = popup.offsetHeight;
+  const popW = popup.offsetWidth;
+  popup.style.visibility = '';
+
+  const box = document.querySelector('.note-toolbar').getBoundingClientRect();
+  const vpH = window.innerHeight;
+  const vpW = window.innerWidth;
+
+  // Prefer below toolbar, flip above if not enough room
+  let top = box.bottom + 4;
+  if(box.bottom + popH + 8 > vpH){
+    top = box.top - popH - 4;
+  }
+  if(top < 4) top = 4;
+
+  // Align left with toolbar, but don't overflow right edge
+  let left = box.left;
+  if(left + popW + 8 > vpW){
+    left = vpW - popW - 8;
+  }
+  if(left < 4) left = 4;
+
+  popup.style.top  = top  + 'px';
+  popup.style.left = left + 'px';
   document.getElementById('linkUrl').focus();
 }
 
@@ -1694,15 +1726,30 @@ function setPubStatus(status){
 
 async function saveNote(){
   const text=document.getElementById('noteEditor').innerHTML.trim();
-  // Collect current images from thumbs (excluding deleted)
-  const thumbImgs=[...document.getElementById('noteImgs').querySelectorAll('img')]
-    .map(img=>img.src.replace(location.origin,''));
 
-  // Execute pending deletions
-  for(const url of _pendingImgDels){
+  // Collect current images from DOM thumbs (these are the ones the user wants to keep)
+  const currentImgs=[...document.getElementById('noteImgs').querySelectorAll('img')]
+    .map(img=>{
+      // img.src is absolute (http://localhost:8765/images/...), convert to relative
+      try { return new URL(img.src).pathname; }
+      catch(e){ return img.src; }
+    });
+
+  // Delete images that were in the previously saved note but are no longer in DOM
+  const previousImgs=(notesData[_noteKey]||{}).images||[];
+  const toDelete=previousImgs.filter(url=>!currentImgs.includes(url));
+  for(const url of toDelete){
     await fetch('/api/delete_image',{method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({url})});
+  }
+  // Also delete anything still pending from upload-then-remove cycles
+  for(const url of _pendingImgDels){
+    if(!currentImgs.includes(url)){
+      await fetch('/api/delete_image',{method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({url})});
+    }
   }
   _pendingImgDels=[];
 
@@ -1711,8 +1758,9 @@ async function saveNote(){
   const pubUrl=document.getElementById('pubUrl').value.trim();
   const published=(_pubStatus==='published'&&(pubDate||pubUrl))?{date:pubDate, url:pubUrl}:null;
 
-  const note={text, images: thumbImgs, pub_status: _pubStatus,
+  const note={text, images: currentImgs, pub_status: _pubStatus,
     ...(published?{published}:{})};
+
   const r=await fetch('/api/notes',{method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({date:_noteDate, key:_noteKey, note})});
@@ -1728,14 +1776,23 @@ async function saveNote(){
 
 async function deleteNote(){
   if(!confirm('Удалить заметку и все прикреплённые картинки?')) return;
-  // Delete images
+  // Delete all saved images (from notesData, not DOM — user may not have saved latest changes)
   const imgs=(notesData[_noteKey]||{}).images||[];
   for(const url of imgs){
     await fetch('/api/delete_image',{method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({url})});
   }
-  // Delete note record
+  // Also delete any freshly uploaded but unsaved images still in DOM
+  const domImgs=[...document.getElementById('noteImgs').querySelectorAll('img')]
+    .map(img=>{ try{return new URL(img.src).pathname;}catch(e){return img.src;} });
+  for(const url of domImgs){
+    if(!imgs.includes(url)){
+      await fetch('/api/delete_image',{method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({url})});
+    }
+  }
   await fetch('/api/notes',{method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({date:_noteDate, key:_noteKey, note:null})});

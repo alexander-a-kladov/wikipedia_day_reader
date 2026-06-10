@@ -1,0 +1,22 @@
+{
+  "https://en.wikipedia.org/wiki/1926": {
+    "text": "1926 – The College Board administers the first SAT exam.",
+    "images": [],
+    "pub_status": "draft"
+  },
+  "https://en.wikipedia.org/wiki/1868": {
+    "text": "1868 – Christopher Latham Sholes received a patent for an invention he called the \"Type-Writer\".",
+    "images": [],
+    "pub_status": "draft"
+  },
+  "https://en.wikipedia.org/wiki/1889": {
+    "text": "1889 – Anna Akhmatova, Ukrainian-Russian poet and author (died 1966)",
+    "images": [],
+    "pub_status": "draft"
+  },
+  "https://en.wikipedia.org/wiki/1912": {
+    "text": "1912 – Alan Turing, English mathematician and computer scientist (died 1954)",
+    "images": [],
+    "pub_status": "draft"
+  }
+}
