@@ -372,8 +372,10 @@ function createPost(mmdd, postNum, displayLabel, sourceUrl, post) {
     const article = document.createElement('article');
     article.className = 'post';
 
-    // Stable, year-free anchor: MM-DD-N
-    const anchorId = `${mmdd}-${postNum}`;
+    // Use the fragment from published.url if available, otherwise fall back to MM-DD-N
+    const publishedUrl = post.published && post.published.url;
+    const urlFragment  = publishedUrl ? publishedUrl.split('#')[1] : null;
+    const anchorId     = urlFragment || `${mmdd}-${postNum}`;
     article.id = anchorId;
 
     let imagesHtml = '';

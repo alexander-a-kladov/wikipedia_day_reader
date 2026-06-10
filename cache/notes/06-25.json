@@ -1,8 +1,16 @@
 {
   "https://en.wikipedia.org/wiki/1947": {
-    "text": "<a href=\"https://en.wikipedia.org/wiki/1947\" target=\"_blank\">1947</a> – <a href=\"https://en.wikipedia.org/wiki/The_Diary_of_a_Young_Girl\" target=\"_blank\">The Diary of a Young Girl</a> (better known as The Diary of Anne Frank) is published.",
-    "images": [],
-    "pub_status": "draft"
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1947\" target=\"_blank\">1947</a> – <a href=\"https://en.wikipedia.org/wiki/The_Diary_of_a_Young_Girl\" target=\"_blank\">The Diary of a Young Girl</a> (better known as The Diary of Anne Frank) is published</div><a href=\"https://archive.org/details/readingdiaryofan0000heim/mode/2up\" target=\"_blank\">Reading The diary of Anne Frank by Heims, Neil 2006</a>",
+    "images": [
+      "/images/06-25_01a4068857.jpg",
+      "/images/06-25_1c7b449a7b.jpg",
+      "/images/06-25_737465eb00.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-10",
+      "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#06-09-3"
+    }
   },
   "https://en.wikipedia.org/wiki/1900": {
     "text": "<div><a href=\"https://en.wikipedia.org/wiki/1900\" target=\"_blank\">1900</a> – The <a href=\"https://en.wikipedia.org/wiki/Taoism\" target=\"_blank\">Taoist</a> monk <a href=\"https://en.wikipedia.org/wiki/Wang_Yuanlu\" target=\"_blank\">Wang Yuanlu</a> discovers the <a href=\"https://en.wikipedia.org/wiki/Dunhuang_manuscripts\" target=\"_blank\">Dunhuang manuscripts</a>, a cache of ancient texts that are of great historical and religious significance, in the <a href=\"https://en.wikipedia.org/wiki/Mogao_Caves\" target=\"_blank\">Mogao Caves</a> of <a href=\"https://en.wikipedia.org/wiki/Dunhuang\" target=\"_blank\">Dunhuang</a>, China</div><div><a href=\"https://archive.org/details/classicalchinese0000unse_e1p8/mode/2up\" target=\"_blank\">Classical Chinese literature Columbia University Press 2000</a></div>",
@@ -35,7 +43,7 @@
     "pub_status": "published",
     "published": {
       "date": "2026-06-10",
-      "url": "http://localhost:8080/index.html#06-25-2"
+      "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#06-25-2"
     }
   }
 }
