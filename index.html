@@ -771,6 +771,10 @@ themeButton.addEventListener('click', () => {
     function atTop() {
         return window.scrollY <= 2;
     }
+    // Page fits entirely in viewport (short content: 0 or 1 posts)
+    function pageIsShort() {
+        return document.body.scrollHeight <= window.innerHeight + 6;
+    }
 
     function showHint(el, progress, readyText, pullText) {
         const pct = (1 - Math.min(progress, 1)) * 100;
@@ -793,32 +797,33 @@ themeButton.addEventListener('click', () => {
     document.addEventListener('touchstart', (e) => {
         touchStartY = e.touches[0].clientY;
         triggered   = false;
-        if (atBottom()) { edge = 'next'; return; }
-        if (atTop())    { edge = 'prev'; return; }
-        edge = null;
+        edge        = null; // resolved on first move
     }, { passive: true });
 
     document.addEventListener('touchmove', (e) => {
-        if (!edge) return;
         const dy = touchStartY - e.touches[0].clientY; // + = swipe up, - = swipe down
 
+        // Resolve edge on first meaningful move if not yet set
+        if (!edge) {
+            if (Math.abs(dy) < 6) return; // ignore tiny jitter
+            if (dy > 0 && atBottom())  { edge = 'next'; }
+            else if (dy < 0 && atTop()) { edge = 'prev'; }
+            // Short page: direction alone decides
+            else if (pageIsShort() && dy > 0) { edge = 'next'; }
+            else if (pageIsShort() && dy < 0) { edge = 'prev'; }
+            else { edge = 'none'; }
+        }
+
         if (edge === 'next' && dy > 0) {
-            // Swiping UP at bottom → next day (natural "scroll past end")
             e.preventDefault();
             const p = dy / THRESHOLD;
             showHint(hintNext, p, '✓ Отпустите', '↓ Следующий день');
             if (p >= 1) triggered = true;
         } else if (edge === 'prev' && dy < 0) {
-            // Swiping DOWN at top → previous day
             e.preventDefault();
             const p = (-dy) / THRESHOLD;
             showHint(hintPrev, p, '✓ Отпустите', '↑ Предыдущий день');
             if (p >= 1) triggered = true;
-        } else {
-            // Wrong direction — cancel
-            edge = null;
-            hideHint(hintNext, '↓ Следующий день');
-            hideHint(hintPrev, '↑ Предыдущий день');
         }
     }, { passive: false });
 
