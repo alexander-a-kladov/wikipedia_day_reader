@@ -71,6 +71,26 @@ header h1 { margin: 0; font-size: 24px; }
     border-radius: 6px;
     object-fit: cover;
     flex-shrink: 0;
+    cursor: pointer;
+    transition: opacity .15s;
+}
+
+.header-logo:hover { opacity: .82; }
+.header-logo:active { opacity: .65; }
+
+header h1 {
+    cursor: pointer;
+    user-select: none;
+}
+
+header h1:hover { opacity: .75; }
+
+#hiddenDateInput {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0;
 }
 
 .vk-link {
@@ -88,56 +108,8 @@ header h1 { margin: 0; font-size: 24px; }
 
 body.dark .vk-link { color: #5aabff; }
 
-.date-nav {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 10px;
-    flex-wrap: wrap;
-}
 
-.step-btn {
-    border: 2px solid transparent;
-    background: #eee;
-    border-radius: 8px;
-    padding: 5px 16px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background .15s;
-    white-space: nowrap;
-}
 
-.step-btn:hover { background: #ddd; }
-.step-btn:active { background: #ccc; }
-
-#customDateWrap { position: relative; display: flex; align-items: center; }
-
-#customDateInput {
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    padding: 5px 10px;
-    font-size: 14px;
-    font-family: inherit;
-    cursor: pointer;
-    background: #fff;
-    color: inherit;
-}
-
-#customDateInput:focus { outline: none; border-color: #1565c0; }
-
-#today-btn {
-    margin-left: 6px;
-    border: none;
-    background: #eee;
-    border-radius: 8px;
-    padding: 5px 10px;
-    font-size: 13px;
-    cursor: pointer;
-    font-weight: 600;
-}
-
-#today-btn:hover { background: #ddd; }
 
 #feed {
     max-width: 1400px;
@@ -236,11 +208,7 @@ body.dark .file-date { background: #252525; border-color: #333; color: #ccc; }
 body.dark .content { color: #e0e0e0; }
 body.dark .content a { color: #66b3ff; }
 body.dark .slide img { background: #111; }
-body.dark .theme-toggle,
-body.dark .step-btn,
-body.dark #today-btn { background: #333; color: #e0e0e0; }
-body.dark .step-btn:hover,
-body.dark #today-btn:hover { background: #444; }
+body.dark .theme-toggle { background: #333; color: #e0e0e0; }
 body.dark #customDateInput { background: #2a2a2a; border-color: #555; color: #e0e0e0; }
 body.dark #customDateInput:focus { border-color: #66b3ff; }
 body.dark .loading, body.dark .error { color: #bbb; }
@@ -278,9 +246,6 @@ body.dark footer { color: #555; }
     header h1 { font-size: 16px; }
     .header-logo { height: 36px; }
     .date-nav { gap: 5px; }
-    .step-btn { font-size: 13px; padding: 5px 11px; }
-    #customDateInput { font-size: 13px; padding: 5px 9px; }
-    #today-btn { font-size: 12px; padding: 5px 9px; }
     .share-btn { font-size: 15px; padding: 10px 15px; }
 }
 
@@ -315,9 +280,6 @@ body.dark footer { color: #555; }
     .header-logo { height: 44px; }
     .content { font-size: 22px; line-height: 1.8; }
     .file-date { font-size: 18px; padding: 16px 22px; }
-    .step-btn { font-size: 18px; padding: 9px 20px; }
-    #customDateInput { font-size: 17px; padding: 8px 14px; }
-    #today-btn { font-size: 16px; padding: 8px 14px; }
     .theme-toggle { font-size: 26px; padding: 11px 16px; }
     .slider-btn { width: 62px; height: 62px; font-size: 32px; }
     .share-btn { font-size: 20px; padding: 14px 20px; }
@@ -329,8 +291,9 @@ body.dark footer { color: #555; }
 <header>
     <div class="header-row">
         <div class="header-title-group">
-            <img src="thePastandEnglish.jpg" alt="The Past and English Books" class="header-logo">
-            <h1>The Past and English Books</h1>
+            <img src="thePastandEnglish.jpg" alt="The Past and English Books" class="header-logo" id="logoBtn" title="Вернуться к сегодняшней дате">
+            <h1 id="titleBtn" title="Выбрать дату">The Past and English Books 📅</h1>
+            <input type="date" id="hiddenDateInput" tabindex="-1">
         </div>
         <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
             <a href="https://vk.com/ak8englishbooks" target="_blank" rel="noopener noreferrer" class="vk-link" title="VK сообщество">
@@ -340,14 +303,6 @@ body.dark footer { color: #555; }
                 </svg>
             </a>
             <button id="themeToggle" class="theme-toggle">🌙</button>
-        </div>
-    </div>
-    <div class="date-nav">
-        <button id="prev-day" class="step-btn" type="button">← Вчера</button>
-        <button id="next-day" class="step-btn" type="button">Завтра →</button>
-        <div id="customDateWrap">
-            <input type="date" id="customDateInput" title="Выбрать дату">
-            <button id="today-btn" type="button">↺ Сегодня</button>
         </div>
     </div>
 </header>
@@ -633,11 +588,10 @@ async function loadFeed(targetAnchor) {
    Date navigation UI
 ───────────────────────────────────────── */
 
-const dateInput = document.getElementById('customDateInput');
-const todayBtn  = document.getElementById('today-btn');
+const hiddenDateInput = document.getElementById('hiddenDateInput');
 
 function syncUI() {
-    dateInput.value = toISODate(selectedDate);
+    hiddenDateInput.value = toISODate(selectedDate);
 }
 
 /** Change the selected date, sync UI, reload feed */
@@ -648,21 +602,22 @@ function setDate(date, targetAnchor) {
     loadFeed(targetAnchor);
 }
 
-document.getElementById('prev-day').addEventListener('click', () => {
-    setDate(dateOffsetFrom(selectedDate, -1));
+// Click on logo → go to today
+document.getElementById('logoBtn').addEventListener('click', () => {
+    setDate(localToday());
 });
 
-document.getElementById('next-day').addEventListener('click', () => {
-    setDate(dateOffsetFrom(selectedDate, 1));
+// Click on title → open hidden date picker
+document.getElementById('titleBtn').addEventListener('click', () => {
+    hiddenDateInput.value = toISODate(selectedDate);
+    hiddenDateInput.showPicker ? hiddenDateInput.showPicker() : hiddenDateInput.click();
 });
 
-dateInput.addEventListener('change', () => {
-    if (!dateInput.value) return;
-    const [y, m, d] = dateInput.value.split('-').map(Number);
+hiddenDateInput.addEventListener('change', () => {
+    if (!hiddenDateInput.value) return;
+    const [y, m, d] = hiddenDateInput.value.split('-').map(Number);
     setDate(new Date(y, m - 1, d, 0, 0, 0, 0));
 });
-
-todayBtn.addEventListener('click', () => setDate(localToday()));
 
 /* ─────────────────────────────────────────
    Share button  — copies  #MM-DD-N  URL
