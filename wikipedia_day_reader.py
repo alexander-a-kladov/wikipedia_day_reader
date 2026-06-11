@@ -644,49 +644,94 @@ def parse_wikipedia_raw(content):
     class WP(HTMLParser):
         def __init__(self):
             super().__init__()
-            self.in_ev = self.in_bi = self.in_h2 = self.in_li = False
-            self.events = []; self.births = []
-            self.li_html = ""; self.h2t = ""
-            self.skip = {"sup", "style", "script"}; self.sd = 0
+            self.in_ev=self.in_bi=self.in_ho=self.in_h2=self.in_li=False
+            self.events=[]; self.births=[]; self.holidays=[]
+            self.li_html=""; self.h2t=""
+            # holiday-specific
+            self.ul_depth=0
+            self.parent_html=""
+            self.child_html=""
+            self.cur_top=None
+            self.in_child_li=False
+            self.skip={"sup","style","script"}; self.sd=0
 
-        def handle_starttag(self, tag, attrs):
-            ad = dict(attrs)
-            if tag in self.skip: self.sd += 1; return
-            if self.sd: return
-            if tag == "h2": self.in_h2 = True; self.h2t = ""
-            elif tag == "li" and (self.in_ev or self.in_bi):
-                self.in_li = True; self.li_html = ""
-            elif tag == "a" and self.in_li:
-                href = ad.get("href", "")
-                if href.startswith("/wiki/"):
-                    href = "https://en.wikipedia.org" + href
-                self.li_html += f'<a href="{href}" target="_blank">'
+        def _href(self,attrs):
+            h=dict(attrs).get("href","")
+            return "https://en.wikipedia.org"+h if h.startswith("/wiki/") else h
 
-        def handle_endtag(self, tag):
-            if tag in self.skip: self.sd = max(0, self.sd - 1); return
+        def handle_starttag(self,tag,attrs):
+            ad=dict(attrs)
+            if tag in self.skip: self.sd+=1; return
             if self.sd: return
-            if tag == "h2":
-                t = self.h2t.strip().lower()
-                self.in_ev = "event" in t
-                self.in_bi = "birth" in t
-                self.in_h2 = False
-            elif tag == "li" and self.in_li:
-                e = self.li_html.strip()
+            if tag=="h2": self.in_h2=True; self.h2t=""
+            # ── events / births ──
+            elif tag=="li" and (self.in_ev or self.in_bi):
+                self.in_li=True; self.li_html=""
+            elif tag=="a" and self.in_li:
+                href=self._href(attrs)
+                self.li_html+=f'<a href="{href}" target="_blank">'
+            # ── holidays (nested) ──
+            elif tag=="ul" and self.in_ho:
+                self.ul_depth+=1
+            elif tag=="li" and self.in_ho:
+                if self.ul_depth==1:
+                    self.cur_top={"text":"","children":[]}
+                    self.parent_html=""; self.in_child_li=False
+                elif self.ul_depth==2:
+                    self.in_child_li=True; self.child_html=""
+            elif tag=="a" and self.in_ho:
+                link=f'<a href="{self._href(attrs)}" target="_blank">'
+                if self.in_child_li: self.child_html+=link
+                else: self.parent_html+=link
+
+        def handle_endtag(self,tag):
+            if tag in self.skip: self.sd=max(0,self.sd-1); return
+            if self.sd: return
+            if tag=="h2":
+                t=self.h2t.strip().lower()
+                self.in_ev="event" in t and "observ" not in t
+                self.in_bi="birth" in t
+                self.in_ho="holiday" in t or "observ" in t
+                if self.in_ho: self.ul_depth=0
+                self.in_h2=False
+            # ── events / births ──
+            elif tag=="li" and self.in_li:
+                e=self.li_html.strip()
                 if e:
                     (self.events if self.in_ev else self.births).append(e)
-                self.in_li = False
-            elif tag == "a" and self.in_li:
-                self.li_html += "</a>"
+                self.in_li=False
+            elif tag=="a" and self.in_li:
+                self.li_html+="</a>"
+            # ── holidays (nested) ──
+            elif tag=="ul" and self.in_ho:
+                self.ul_depth=max(0,self.ul_depth-1)
+            elif tag=="li" and self.in_ho:
+                if self.ul_depth==2 and self.cur_top is not None:
+                    t=self.child_html.strip()
+                    if t: self.cur_top["children"].append(t)
+                    self.in_child_li=False
+                elif self.ul_depth==1 and self.cur_top is not None:
+                    self.cur_top["text"]=self.parent_html.strip()
+                    if self.cur_top["text"] or self.cur_top["children"]:
+                        self.holidays.append(self.cur_top)
+                    self.cur_top=None
+            elif tag=="a" and self.in_ho:
+                if self.in_child_li: self.child_html+="</a>"
+                else: self.parent_html+="</a>"
 
-        def handle_data(self, data):
+        def handle_data(self,data):
             if self.sd: return
-            if self.in_h2: self.h2t += data
-            elif self.in_li: self.li_html += html_module.escape(data)
+            if self.in_h2: self.h2t+=data
+            elif self.in_li: self.li_html+=html_module.escape(data)
+            elif self.in_ho:
+                esc=html_module.escape(data)
+                if self.in_child_li: self.child_html+=esc
+                else: self.parent_html+=esc
 
-    p = WP()
+    p=WP()
     try: p.feed(content)
     except Exception: pass
-    return p.events, p.births
+    return p.events, p.births, p.holidays
 
 
 # ── JOB STATE ─────────────────────────────────────────────────────────────────
@@ -696,7 +741,7 @@ config_store = dict(DEFAULT_CONFIG)
 _keys_store:  dict = {}   # loaded at startup
 
 
-def run_job(events_raw, births_raw, cfg,
+def run_job(events_raw, births_raw, holidays_raw, cfg,
             use_ai_events=False, use_ai_births=False, ai_provider="gemini"):
     _job_queue.queue.clear()
 
@@ -788,6 +833,7 @@ def run_job(events_raw, births_raw, cfg,
                     for c in cfg["birth_categories"]
                 ],
                 "births_russian": bi_res.get("russians", []),
+                "holidays": holidays_raw,
             }})
         except Exception as ex:
             push({"type": "error", "text": str(ex)})
@@ -969,6 +1015,17 @@ HTML_PAGE = r"""<!DOCTYPE html>
     align-items:center;justify-content:center;z-index:300;cursor:zoom-out;}
   .lightbox.open{display:flex;}
   .lightbox img{max-width:92vw;max-height:90vh;border-radius:6px;box-shadow:0 4px 30px rgba(0,0,0,.6);}
+  /* holiday spoilers */
+  .spoiler{margin:2px 0 4px 0;}
+  .spoiler-hdr{display:flex;align-items:center;gap:7px;padding:5px 10px;
+    border-left:3px solid #8b5e2d;cursor:pointer;font-size:14px;
+    line-height:1.5;border-radius:0 4px 4px 0;transition:background .1s;user-select:none;}
+  .spoiler-hdr:hover{background:var(--sf2);}
+  .spoiler-arrow{font-size:10px;color:var(--tx2);transition:transform .2s;flex-shrink:0;}
+  .spoiler-arrow.open{transform:rotate(90deg);}
+  .spoiler-body{display:none;padding-left:14px;border-left:2px solid #ddd0c0;margin-left:10px;margin-bottom:4px;}
+  .spoiler-body.open{display:block;}
+  .spoiler-body .entry{font-size:13px;}
   .rb{display:inline-block;font-size:9px;padding:1px 5px;background:#fce8e8;color:var(--ru);border-radius:9px;border:1px solid #f5c0c0;margin-left:5px;vertical-align:middle;}
   .empty{color:var(--tx2);font-style:italic;font-size:13px;padding:5px 10px;}
   .ptitle{font-family:'Playfair Display',serif;font-size:23px;color:var(--ac);margin-bottom:3px;}
@@ -1064,6 +1121,7 @@ HTML_PAGE = r"""<!DOCTYPE html>
 <div class="main">
   <div class="sidebar">
     <div class="ssec"><div class="stitle">События</div><div id="EF"></div></div>
+    <div class="ssec"><div class="stitle">Праздники</div><div id="HF"></div></div>
     <div class="ssec"><div class="stitle">Рождения</div><div id="BF"></div></div>
   </div>
   <div class="content" id="content">
@@ -1166,7 +1224,7 @@ let notesData={};        // {wiki_url: {text, images[]}}
 let _noteKey='';         // wiki_url currently being edited
 let _noteDate='';        // date string of current edit session
 let _pendingImgDels=[];  // image URLs queued for deletion on save
-let activeFilters={events:{},births:{}}, activeTab='events';
+let activeFilters={events:{},births:{},holidays:{all:true}}, activeTab='events';
 
 const EC=['#2d5986','#8b3a62','#2d7a4a','#6b4c8b','#7a6b2d','#2d6b7a'];
 const BC=['#4a6b36','#8b5e2d','#2d6b7a','#7a4a2d','#6b2d8b','#2d5e6b'];
@@ -1332,12 +1390,30 @@ async function uploadResult(){
   }
 }
 function renderFilters(){
-  const ef=document.getElementById('EF'),bf=document.getElementById('BF');
-  ef.innerHTML='';bf.innerHTML='';
+  const ef=document.getElementById('EF');
+  const hf=document.getElementById('HF');
+  const bf=document.getElementById('BF');
+  ef.innerHTML=''; hf.innerHTML=''; bf.innerHTML='';
   config.event_categories.forEach((c,i)=>{
     if(!(c.id in activeFilters.events))activeFilters.events[c.id]=true;
     ef.appendChild(mkCI(c,EC[i%EC.length],'events'));
   });
+  // Holidays — single toggle
+  if(!('all' in (activeFilters.holidays||{}))){ activeFilters.holidays={all:true}; }
+  const hci=document.createElement('div'); hci.className='ci';
+  const hon=activeFilters.holidays.all;
+  hci.innerHTML=`<div class="cdot" style="background:#8b5e2d"></div>
+    <div class="clbl">Праздники и памятные даты</div>
+    <span class="ccnt" id="cnt_holidays_all">—</span>
+    <div class="ctgl ${hon?'on':''}" id="tgl_holidays_all">${hon?'✓':''}</div>`;
+  hci.onclick=()=>{
+    activeFilters.holidays.all=!activeFilters.holidays.all;
+    const t=document.getElementById('tgl_holidays_all');
+    t.className='ctgl'+(activeFilters.holidays.all?' on':'');
+    t.textContent=activeFilters.holidays.all?'✓':'';
+    if(data) renderContent(data);
+  };
+  hf.appendChild(hci);
   const ru={id:'russians',label:'Русские / Советские'};
   if(!('russians' in activeFilters.births))activeFilters.births['russians']=true;
   bf.appendChild(mkCI(ru,'#8b2d2d','births'));
@@ -1445,6 +1521,8 @@ function fmtDate(v){
 
 function updCounts(d){
   d.events.forEach(c=>{const e=document.getElementById('cnt_events_'+c.id);if(e)e.textContent=c.entries.length;});
+  const he=document.getElementById('cnt_holidays_all');
+  if(he) he.textContent=(d.holidays||[]).length;
   const re=document.getElementById('cnt_births_russians');if(re)re.textContent=(d.births_russian||[]).length;
   d.births.forEach(c=>{const e=document.getElementById('cnt_births_'+c.id);if(e)e.textContent=c.entries.length;});
 }
@@ -1457,11 +1535,52 @@ function renderContent(d, modeLabel){
     &nbsp;·&nbsp; <span style="color:var(--ai)">${mode}</span></div>
     <div class="tabs">
       <div class="tab ${activeTab==='events'?'active':''}" onclick="swTab('events')">📅 События</div>
+      <div class="tab ${activeTab==='holidays'?'active':''}" onclick="swTab('holidays')">🎉 Праздники</div>
       <div class="tab ${activeTab==='births'?'active':''}" onclick="swTab('births')">👤 Рождения</div>
     </div>
     <div class="tc ${activeTab==='events'?'active':''}" id="tE">`;
   d.events.forEach((c,i)=>{if(!activeFilters.events[c.id])return;h+=sec(c,EC[i%EC.length],EI[i%EI.length],false,new Set());});
-  h+=`</div><div class="tc ${activeTab==='births'?'active':''}" id="tB">`;
+  h+=`</div>
+
+    <div class="tc ${activeTab==='holidays'?'active':''}" id="tH">`;
+  const holidays=d.holidays||[];
+  if(activeFilters.holidays&&activeFilters.holidays.all&&holidays.length){
+    h+=`<div class="sb"><div class="sh" style="border-color:#8b5e2d">
+      <div class="si" style="background:#8b5e2d">🎉</div>
+      <div class="st" style="color:#8b5e2d">Праздники и памятные даты</div>
+      <div class="ss">${holidays.length} зап.</div></div>`;
+    holidays.forEach((item,idx)=>{
+      // item is either a string (legacy) or {text, children:[]}
+      const text=typeof item==='string'?item:(item.text||'');
+      const children=typeof item==='object'?(item.children||[]):[];
+      const wk=entryWikiKey(text);
+      if(children.length>0){
+        // Has sub-items — render as spoiler; no note button on header
+        const sid='spl_'+idx;
+        // Strip trailing colon from header text for display
+        const headerText=text.replace(/:\s*$/,'');
+        h+=`<div class="spoiler">
+          <div class="spoiler-hdr" onclick="toggleSpoiler('${sid}')">
+            <span class="spoiler-arrow" id="arr_${sid}">▶</span>
+            <span>${headerText}</span>
+          </div>
+          <div class="spoiler-body" id="${sid}">`;
+        children.forEach(child=>{
+          const cwk=entryWikiKey(child);
+          h+=`<div class="entry" style="border-left-color:#8b5e2d">${child}${noteBtn(cwk)}</div>${notePost(cwk)}`;
+        });
+        h+=`</div></div>`;
+      } else {
+        h+=`<div class="entry" style="border-left-color:#8b5e2d">${text}${noteBtn(wk)}</div>${notePost(wk)}`;
+      }
+    });
+    h+=`</div>`;
+  } else if(!holidays.length){
+    h+=`<div class="empty" style="padding:20px">Праздники и памятные даты не найдены для этого дня.</div>`;
+  }
+  h+=`</div>
+
+    <div class="tc ${activeTab==='births'?'active':''}" id="tB">`;
   if(activeFilters.births['russians']&&rSet.size){
     h+=`<div class="sb"><div class="sh" style="border-color:#8b2d2d">
       <div class="si" style="background:#8b2d2d">🏳️</div>
@@ -1543,6 +1662,14 @@ function sec(cat,color,icon,markRu,rSet){
 }
 
 function swTab(t){activeTab=t;if(data)renderContent(data);}
+
+function toggleSpoiler(id){
+  const body=document.getElementById(id);
+  const arr=document.getElementById('arr_'+id);
+  if(!body) return;
+  const open=body.classList.toggle('open');
+  if(arr) arr.classList.toggle('open', open);
+}
 
 // ── NOTE MODAL ────────────────────────────────────────────────────────────────
 
@@ -2229,8 +2356,8 @@ class Handler(BaseHTTPRequestHandler):
                 if html_content is None:
                     self._json({"error": f"Не удалось загрузить Wikipedia: {err}"}); return
 
-                events_raw, births_raw = parse_wikipedia_raw(html_content)
-                run_job(events_raw, births_raw, cfg,
+                events_raw, births_raw, holidays_raw = parse_wikipedia_raw(html_content)
+                run_job(events_raw, births_raw, holidays_raw, cfg,
                         use_ai_events=use_ai_events,
                         use_ai_births=use_ai_births,
                         ai_provider=ai_provider)
@@ -2241,6 +2368,7 @@ class Handler(BaseHTTPRequestHandler):
                     "wiki_title": title.replace("_", " "),
                     "total_events": len(events_raw),
                     "total_births": len(births_raw),
+                    "total_holidays": len(holidays_raw),
                 })
             except Exception as e:
                 self._json({"error": str(e)})
