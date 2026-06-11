@@ -723,107 +723,154 @@ themeButton.addEventListener('click', () => {
    Pull-down at bottom → next day
 ───────────────────────────────────────── */
 
-(function initPullNextDay() {
-    const THRESHOLD   = 80;   // px of overscroll needed to trigger
-    const INDICATOR_H = 52;   // height of the hint bar in px
+(function initEdgeNavigation() {
+    const THRESHOLD = 72; // px drag needed to trigger
 
-    // Create a hint bar fixed at the bottom
-    const hint = document.createElement('div');
-    hint.id = 'pull-hint';
-    Object.assign(hint.style, {
-        position:       'fixed',
-        bottom:         '0',
-        left:           '0',
-        right:          '0',
-        height:         INDICATOR_H + 'px',
-        display:        'flex',
-        alignItems:     'center',
-        justifyContent: 'center',
-        fontSize:       '15px',
-        fontWeight:     '600',
-        fontFamily:     'Arial, sans-serif',
-        background:     'rgba(21,101,192,0.92)',
-        color:          '#fff',
-        transform:      'translateY(100%)',
-        transition:     'transform .2s ease',
-        zIndex:         '999',
-        pointerEvents:  'none',
-        userSelect:     'none',
-    });
-    hint.textContent = '\u2193 \u0421\u043b\u0435\u0434\u0443\u044e\u0449\u0438\u0439 \u0434\u0435\u043d\u044c';
-    document.body.appendChild(hint);
-
-    function updateHintTheme() {
-        hint.style.background = document.body.classList.contains('dark')
-            ? 'rgba(25,118,210,0.95)'
-            : 'rgba(21,101,192,0.92)';
+    // ── Hint bars ──
+    function makeHint(edge) {
+        const el = document.createElement('div');
+        Object.assign(el.style, {
+            position:       'fixed',
+            [edge]:         '0',
+            left:           '0',
+            right:          '0',
+            height:         '52px',
+            display:        'flex',
+            alignItems:     'center',
+            justifyContent: 'center',
+            fontSize:       '15px',
+            fontWeight:     '600',
+            fontFamily:     'Arial, sans-serif',
+            color:          '#fff',
+            transform:      edge === 'bottom' ? 'translateY(100%)' : 'translateY(-100%)',
+            transition:     'transform .18s ease',
+            zIndex:         '999',
+            pointerEvents:  'none',
+            userSelect:     'none',
+        });
+        document.body.appendChild(el);
+        return el;
     }
 
-    new MutationObserver(updateHintTheme)
+    const hintNext = makeHint('bottom');
+    const hintPrev = makeHint('top');
+
+    function updateTheme() {
+        const bg = document.body.classList.contains('dark')
+            ? 'rgba(25,118,210,0.95)' : 'rgba(21,101,192,0.92)';
+        hintNext.style.background = bg;
+        hintPrev.style.background = bg;
+    }
+    updateTheme();
+    new MutationObserver(updateTheme)
         .observe(document.body, { attributes: true, attributeFilter: ['class'] });
 
     function atBottom() {
-        return window.innerHeight + window.scrollY >= document.body.scrollHeight - 4;
+        return window.innerHeight + window.scrollY >= document.body.scrollHeight - 6;
+    }
+    function atTop() {
+        return window.scrollY <= 2;
     }
 
-    // ── Touch handling ──
+    function showHint(el, progress, readyText, pullText) {
+        const pct = (1 - Math.min(progress, 1)) * 100;
+        const isBottom = el === hintNext;
+        el.style.transform = `translateY(${isBottom ? pct : -pct}%)`;
+        el.textContent = progress >= 1 ? readyText : pullText;
+    }
+
+    function hideHint(el, defaultText) {
+        const isBottom = el === hintNext;
+        el.style.transform = isBottom ? 'translateY(100%)' : 'translateY(-100%)';
+        el.textContent = defaultText;
+    }
+
+    // ── Touch ──
     let touchStartY = 0;
-    let pulling     = false;
+    let edge        = null; // 'next' | 'prev' | null
     let triggered   = false;
 
     document.addEventListener('touchstart', (e) => {
-        if (!atBottom()) return;
         touchStartY = e.touches[0].clientY;
-        pulling     = true;
         triggered   = false;
+        if (atBottom()) { edge = 'next'; return; }
+        if (atTop())    { edge = 'prev'; return; }
+        edge = null;
     }, { passive: true });
 
     document.addEventListener('touchmove', (e) => {
-        if (!pulling) return;
-        const delta = touchStartY - e.touches[0].clientY; // negative = pulling down
-        if (delta >= 0) { hint.style.transform = 'translateY(100%)'; return; }
+        if (!edge) return;
+        const dy = touchStartY - e.touches[0].clientY; // + = swipe up, - = swipe down
 
-        const progress = Math.min(-delta / THRESHOLD, 1);
-        hint.style.transform = `translateY(${(1 - progress) * 100}%)`;
-        hint.textContent = progress >= 1
-            ? '\u2713 \u041e\u0442\u043f\u0443\u0441\u0442\u0438\u0442\u0435'
-            : '\u2193 \u0421\u043b\u0435\u0434\u0443\u044e\u0449\u0438\u0439 \u0434\u0435\u043d\u044c';
-        if (progress >= 1) triggered = true;
-        e.preventDefault();
+        if (edge === 'next' && dy > 0) {
+            // Swiping UP at bottom → next day (natural "scroll past end")
+            e.preventDefault();
+            const p = dy / THRESHOLD;
+            showHint(hintNext, p, '✓ Отпустите', '↓ Следующий день');
+            if (p >= 1) triggered = true;
+        } else if (edge === 'prev' && dy < 0) {
+            // Swiping DOWN at top → previous day
+            e.preventDefault();
+            const p = (-dy) / THRESHOLD;
+            showHint(hintPrev, p, '✓ Отпустите', '↑ Предыдущий день');
+            if (p >= 1) triggered = true;
+        } else {
+            // Wrong direction — cancel
+            edge = null;
+            hideHint(hintNext, '↓ Следующий день');
+            hideHint(hintPrev, '↑ Предыдущий день');
+        }
     }, { passive: false });
 
     document.addEventListener('touchend', () => {
-        if (!pulling) return;
-        pulling = false;
-        hint.style.transform = 'translateY(100%)';
-        hint.textContent = '\u2193 \u0421\u043b\u0435\u0434\u0443\u044e\u0449\u0438\u0439 \u0434\u0435\u043d\u044c';
-        if (triggered) {
-            triggered = false;
-            setTimeout(() => setDate(dateOffsetFrom(selectedDate, 1)), 120);
+        const wasEdge     = edge;
+        const wasTriggered = triggered;
+        edge      = null;
+        triggered = false;
+        hideHint(hintNext, '↓ Следующий день');
+        hideHint(hintPrev, '↑ Предыдущий день');
+        if (wasTriggered) {
+            setTimeout(() => {
+                setDate(dateOffsetFrom(selectedDate, wasEdge === 'next' ? 1 : -1));
+            }, 120);
         }
     }, { passive: true });
 
-    // ── Mouse-wheel overscroll (desktop) ──
+    // ── Mouse wheel (desktop) ──
     let wheelAccum = 0;
+    let wheelDir   = null;
     let wheelTimer = null;
 
     window.addEventListener('wheel', (e) => {
-        if (!atBottom() || e.deltaY <= 0) { wheelAccum = 0; return; }
+        const goingDown = e.deltaY > 0;
+        const goingUp   = e.deltaY < 0;
 
-        wheelAccum += e.deltaY;
-        const progress = Math.min(wheelAccum / (THRESHOLD * 4), 1);
-        hint.style.transform = `translateY(${(1 - progress) * 100}%)`;
-        hint.textContent = progress >= 1
-            ? '\u2713 \u0421\u043b\u0435\u0434\u0443\u044e\u0449\u0438\u0439 \u0434\u0435\u043d\u044c\u2026'
-            : '\u2193 \u0421\u043b\u0435\u0434\u0443\u044e\u0449\u0438\u0439 \u0434\u0435\u043d\u044c';
+        if (goingDown && atBottom()) {
+            wheelDir = 'next';
+        } else if (goingUp && atTop()) {
+            wheelDir = 'prev';
+        } else {
+            wheelAccum = 0; wheelDir = null;
+            hideHint(hintNext, '↓ Следующий день');
+            hideHint(hintPrev, '↑ Предыдущий день');
+            return;
+        }
+
+        wheelAccum += Math.abs(e.deltaY);
+        const hint = wheelDir === 'next' ? hintNext : hintPrev;
+        const p    = wheelAccum / (THRESHOLD * 4);
+        showHint(hint, p,
+            wheelDir === 'next' ? '✓ Следующий день…' : '✓ Предыдущий день…',
+            wheelDir === 'next' ? '↓ Следующий день' : '↑ Предыдущий день');
 
         clearTimeout(wheelTimer);
         wheelTimer = setTimeout(() => {
-            const go = wheelAccum >= THRESHOLD * 4;
-            wheelAccum = 0;
-            hint.style.transform = 'translateY(100%)';
-            hint.textContent = '\u2193 \u0421\u043b\u0435\u0434\u0443\u044e\u0449\u0438\u0439 \u0434\u0435\u043d\u044c';
-            if (go) setDate(dateOffsetFrom(selectedDate, 1));
+            const go  = wheelAccum >= THRESHOLD * 4;
+            const dir = wheelDir;
+            wheelAccum = 0; wheelDir = null;
+            hideHint(hintNext, '↓ Следующий день');
+            hideHint(hintPrev, '↑ Предыдущий день');
+            if (go) setDate(dateOffsetFrom(selectedDate, dir === 'next' ? 1 : -1));
         }, 400);
     }, { passive: true });
 })();
