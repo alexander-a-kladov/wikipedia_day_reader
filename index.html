@@ -136,13 +136,16 @@ body.dark .vk-link { color: #5aabff; }
 }
 
 .file-date {
-    padding: 14px 20px;
+    padding: 10px 20px;
     background: #fafafa;
     border-bottom: 1px solid #eee;
     font-size: 14px;
     font-weight: bold;
     color: #666;
 }
+
+/* No gap between slider and adjacent elements */
+.slider { display: block; font-size: 0; line-height: 0; }
 
 .slider { position: relative; width: 100%; overflow: hidden; }
 
@@ -178,6 +181,12 @@ body.dark .vk-link { color: #5aabff; }
 .slider-btn:hover { background: rgba(0,0,0,.75); }
 
 .content { padding: 24px; line-height: 1.9; font-size: 22px; }
+
+/* Remove default block margins that cause gaps around images */
+.content div:first-child { margin-top: 0; }
+.content div:last-child  { margin-bottom: 0; }
+.content div { margin-top: 0; margin-bottom: 0; }
+.content p   { margin-top: 0; margin-bottom: 0; }
 
 .content a { color: #1565c0; text-decoration: none; }
 .content a:hover { text-decoration: underline; }
