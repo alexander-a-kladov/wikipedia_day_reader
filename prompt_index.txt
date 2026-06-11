@@ -51,6 +51,8 @@ On medium-resolution smartphones, the website title and the standard font of pos
 prompt update 12 
 сделай переход даты на следующий день, если пользователь тянет вниз при достижении низа страницы
 make the date switch to the next day if the user pulls down when reaching the bottom of the page.
+update:
+on a smartphone, the transition to the next date is interrupted by a page refresh, which also happens if you pull down, what can you do?
 
 prompt update 13
 отображай посты только текущего дня на странице
@@ -59,3 +61,9 @@ display only the posts of the current day on the page.
 prompt update 14
 увеличь шрифты для смартфонов предпоследней величиной разрешения
 increase fonts for smartphones of pre-highest resolution value
+
+prompt update 15
+На смартфонах переключение на следующий день работает не логично, сделай чтобы при достижении низа страницы, при попытке пролистнуть дальше происходило переключение на след день,
+а при нахождении на верху страницы при попытке перелистнуть выше происходило переключение на предыдущий день
+On smartphones, switching to the next day does not work logically, make sure that when you reach the bottom of the page, when you try to scroll further, you switch to the next day,
+and when you are at the top of the page, when you try to scroll higher, you switch to the previous day.

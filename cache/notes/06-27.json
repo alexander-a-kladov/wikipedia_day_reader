@@ -1,0 +1,38 @@
+{
+  "https://en.wikipedia.org/wiki/1995": {
+    "text": "<a href=\"https://en.wikipedia.org/wiki/1995\" target=\"_blank\">1995</a> – <a href=\"https://en.wikipedia.org/wiki/Space_Shuttle_Atlantis\" target=\"_blank\">Space Shuttle Atlantis</a> launches on <a href=\"https://en.wikipedia.org/wiki/STS-71\" target=\"_blank\">STS-71</a>, the first space shuttle mission to dock with the Russian space station <a href=\"https://en.wikipedia.org/wiki/Mir\" target=\"_blank\">Mir</a>.",
+    "images": [
+      "/images/06-27_a4695d64b4.jpg",
+      "/images/06-27_d53f2721fa.jpg",
+      "/images/06-27_471854939e.png",
+      "/images/06-27_21c1350245.jpg",
+      "/images/06-27_3d4e6f3ac0.jpg",
+      "/images/06-27_bb04b358d4.jpg"
+    ],
+    "pub_status": "draft"
+  },
+  "https://en.wikipedia.org/wiki/2013": {
+    "text": "<a href=\"https://en.wikipedia.org/wiki/2013\" target=\"_blank\">2013</a> – <a href=\"https://en.wikipedia.org/wiki/NASA\" target=\"_blank\">NASA</a> launches the <a href=\"https://en.wikipedia.org/wiki/Interface_Region_Imaging_Spectrograph\" target=\"_blank\">Interface Region Imaging Spectrograph</a> space probe to observe the Sun.",
+    "images": [
+      "/images/06-27_f976d4d915.png",
+      "/images/06-27_a8d134fd53.png",
+      "/images/06-27_c59aea311d.jpg",
+      "/images/06-27_7255604846.gif"
+    ],
+    "pub_status": "draft"
+  },
+  "https://en.wikipedia.org/wiki/1954": {
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1954\" target=\"_blank\">1954</a> – The <a href=\"https://en.wikipedia.org/wiki/Obninsk_Nuclear_Power_Plant\" target=\"_blank\">Obninsk Nuclear Power Plant</a>, the <a href=\"https://en.wikipedia.org/wiki/Soviet_Union\" target=\"_blank\">Soviet Union</a>'s first <a href=\"https://en.wikipedia.org/wiki/Nuclear_power_station\" target=\"_blank\">nuclear power station</a>, opens in <a href=\"https://en.wikipedia.org/wiki/Obninsk\" target=\"_blank\">Obninsk</a>, near Moscow.</div><div><a href=\"https://books.google.com/books?id=Y3MJq8w8sKsC&amp;pg=PA25\" target=\"_blank\">Red Atom: Russia's Nuclear Power Program from Stalin to Today</a></div>",
+    "images": [
+      "/images/06-27_f3092961da.jpg",
+      "/images/06-27_40f61a3c9a.jpg",
+      "/images/06-27_ac2cd186c1.jpg",
+      "/images/06-27_76dc93c5d3.jpeg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-11",
+      "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#06-27-1"
+    }
+  }
+}
