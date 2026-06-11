@@ -1,6 +1,6 @@
 {
   "https://en.wikipedia.org/wiki/1995": {
-    "text": "<a href=\"https://en.wikipedia.org/wiki/1995\" target=\"_blank\">1995</a> – <a href=\"https://en.wikipedia.org/wiki/Space_Shuttle_Atlantis\" target=\"_blank\">Space Shuttle Atlantis</a> launches on <a href=\"https://en.wikipedia.org/wiki/STS-71\" target=\"_blank\">STS-71</a>, the first space shuttle mission to dock with the Russian space station <a href=\"https://en.wikipedia.org/wiki/Mir\" target=\"_blank\">Mir</a>.",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1995\" target=\"_blank\">1995</a> – <a href=\"https://en.wikipedia.org/wiki/Space_Shuttle_Atlantis\" target=\"_blank\">Space Shuttle Atlantis</a> launches on <a href=\"https://en.wikipedia.org/wiki/STS-71\" target=\"_blank\">STS-71</a>, the first space shuttle mission to dock with the Russian space station <a href=\"https://en.wikipedia.org/wiki/Mir\" target=\"_blank\">Mir</a>.</div><div><a href=\"https://archive.org/details/spaceshuttle00fich/mode/2up\" target=\"_blank\">The space shuttle by Fichter, George S 1990</a></div><div><a href=\"https://archive.org/details/offplanetsurvivi00line/mode/2up\" target=\"_blank\">Off the planet : surviving five perilous months aboard the space station Mir by Linenger, Jerry M 2000</a></div>",
     "images": [
       "/images/06-27_a4695d64b4.jpg",
       "/images/06-27_d53f2721fa.jpg",
@@ -9,7 +9,11 @@
       "/images/06-27_3d4e6f3ac0.jpg",
       "/images/06-27_bb04b358d4.jpg"
     ],
-    "pub_status": "draft"
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-11",
+      "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#06-27-2"
+    }
   },
   "https://en.wikipedia.org/wiki/2013": {
     "text": "<a href=\"https://en.wikipedia.org/wiki/2013\" target=\"_blank\">2013</a> – <a href=\"https://en.wikipedia.org/wiki/NASA\" target=\"_blank\">NASA</a> launches the <a href=\"https://en.wikipedia.org/wiki/Interface_Region_Imaging_Spectrograph\" target=\"_blank\">Interface Region Imaging Spectrograph</a> space probe to observe the Sun.",

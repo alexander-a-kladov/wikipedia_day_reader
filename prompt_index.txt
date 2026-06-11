@@ -48,22 +48,46 @@ prompt update 11 (done)
 на смартфонах с средним разрешением заголовок сайта и стандартный шрифт постов слишком большие
 On medium-resolution smartphones, the website title and the standard font of posts are too large.
 
-prompt update 12 
+prompt update 12 (done) 
 сделай переход даты на следующий день, если пользователь тянет вниз при достижении низа страницы
 make the date switch to the next day if the user pulls down when reaching the bottom of the page.
 update:
 on a smartphone, the transition to the next date is interrupted by a page refresh, which also happens if you pull down, what can you do?
 
-prompt update 13
+prompt update 13 (done)
 отображай посты только текущего дня на странице
 display only the posts of the current day on the page.
 
-prompt update 14
+prompt update 14 (done)
 увеличь шрифты для смартфонов предпоследней величиной разрешения
 increase fonts for smartphones of pre-highest resolution value
 
-prompt update 15
+prompt update 15 (done)
 На смартфонах переключение на следующий день работает не логично, сделай чтобы при достижении низа страницы, при попытке пролистнуть дальше происходило переключение на след день,
 а при нахождении на верху страницы при попытке перелистнуть выше происходило переключение на предыдущий день
 On smartphones, switching to the next day does not work logically, make sure that when you reach the bottom of the page, when you try to scroll further, you switch to the next day,
 and when you are at the top of the page, when you try to scroll higher, you switch to the previous day.
+update:
+на смартфоне на странице с одной записью и с нулем записей не активируется листание на предыдущий день
+On a smartphone, scrolling for the previous day is not activated on a page with one entry and zero entries.
+
+prompt update 16 (done)
+Убери кнопки управления "Вчера", "Завтра", выбор даты, "Обновить сегодня", Выбор дыты сделай по нажатию на заголовок "The Past and English Books", "Обновить сегодня" по нажатию на картинку перед заголовком thePastEnglish.jpg
+Remove the control buttons "Yesterday", "Tomorrow", date selection, "Update today", Make date selection by clicking on the title "The Past and English Books", "Update today" by clicking on the picture  thePastEnglish.jpg
+update:
+добавь в конец к заголовку "The Past and English Books" эмодзи календаря
+add a calendar emoji to the end of the title "The Past and English Books".
+
+prompt update 17 (done)
+на смартфонах отображаются большие пустые промежутки между заголовком поста с датой и картинками, а также между картинками и текстом поста, надо их убрать.
+smartphones display large empty spaces between the title of the post with the date and the pictures, as well as between the pictures and the text of the post, you need to remove them.
+
+prompt update 18
+как добавить счетчик лайков к постам, при условии что сайт будет размещен на хостинге с php и бд, по протоколу http и не будет регистрации пользователей
+how to add a like counter to posts, provided that the site will be hosted with php and a database over http and there will be no user registration
+update:
+update index.html to support this like's mechanism
+update:
+make color of like counter's text white in night mode. If other users liked this post draw like sign pink, when I liked it it become red
+update:
+return emoji heart for likes dismiss pink requirement if it can't be implemented with emoji

@@ -125,7 +125,35 @@ body.dark .vk-link { color: #5aabff; }
     box-shadow: 0 2px 10px rgba(0,0,0,.08);
 }
 
-.post-actions { padding: 0 24px 24px; }
+.post-actions {
+    padding: 0 24px 24px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.like-btn {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 16px;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background .15s, transform .1s;
+}
+
+
+.like-btn.liked  { background: #fdecea; }
+.like-btn:active { transform: scale(.93); }
+.like-btn:disabled { cursor: default; opacity: .7; }
+
+body.dark .like-btn             { background: #2a2a2a; color: #fff; }
+body.dark .like-btn .like-count { color: #fff; }
+body.dark .like-btn.liked       { background: #3b1f1f; }
 
 .share-btn {
     border: none;
@@ -474,6 +502,10 @@ function createPost(mmdd, postNum, displayLabel, sourceUrl, post) {
         <div class="content">${textToHtml(post.text || '')}</div>
         <div class="post-actions">
             <button class="share-btn" data-anchor="${anchorId}" type="button">🔗 Поделиться</button>
+            <button class="like-btn" data-post-id="${anchorId}" type="button">
+                <span class="like-icon">🤍</span>
+                <span class="like-count"></span>
+            </button>
         </div>
     `;
 
@@ -583,6 +615,8 @@ async function loadFeed(targetAnchor) {
         }
 
         // Scroll after a short paint delay
+        loadLikes();
+
         if (targetAnchor) {
             setTimeout(() => scrollToPost(targetAnchor), 80);
         }
@@ -653,6 +687,88 @@ document.addEventListener('click', async (e) => {
     btn.innerHTML = '✅ Ссылка скопирована';
     btn.disabled = true;
     setTimeout(() => { btn.innerHTML = original; btn.disabled = false; }, 2500);
+});
+
+/* ─────────────────────────────────────────
+   Likes
+───────────────────────────────────────── */
+
+function getDeviceToken() {
+    let token = localStorage.getItem('device_token');
+    if (!token) {
+        const bytes = new Uint8Array(32);
+        crypto.getRandomValues(bytes);
+        token = Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('');
+        localStorage.setItem('device_token', token);
+    }
+    return token;
+}
+
+async function likesRequest(postId, method, action) {
+    const token = getDeviceToken();
+    const url   = `likes.php?post_id=${encodeURIComponent(postId)}&device_token=${token}`;
+
+    if (method === 'GET') {
+        const r = await fetch(url);
+        return r.json();
+    }
+
+    const body = new FormData();
+    body.append('action', action);
+    body.append('device_token', token);
+    const r = await fetch(url, { method: 'POST', body });
+    return r.json();
+}
+
+async function loadLikes() {
+    document.querySelectorAll('.like-btn').forEach(async btn => {
+        const postId = btn.dataset.postId;
+        try {
+            const d = await likesRequest(postId, 'GET');
+            const countEl = btn.querySelector('.like-count');
+            const iconEl  = btn.querySelector('.like-icon');
+            countEl.textContent = d.count || '';
+            iconEl.textContent  = d.liked ? '❤️' : '🤍';
+            btn.classList.toggle('liked',     d.liked);
+            btn.classList.toggle('has-likes', d.count > 0);
+        } catch (_) {}
+    });
+}
+
+document.addEventListener('click', async (e) => {
+    const btn = e.target.closest('.like-btn');
+    if (!btn) return;
+
+    const postId  = btn.dataset.postId;
+    const isLiked = btn.classList.contains('liked');
+    const action  = isLiked ? 'unlike' : 'like';
+    const countEl = btn.querySelector('.like-count');
+    const iconEl  = btn.querySelector('.like-icon');
+    const current = parseInt(countEl.textContent) || 0;
+
+    // Optimistic update
+    const newCount = !isLiked ? current + 1 : Math.max(0, current - 1);
+    btn.classList.toggle('liked',     !isLiked);
+    btn.classList.toggle('has-likes', newCount > 0);
+    iconEl.textContent  = !isLiked ? '❤️' : '🤍';
+    countEl.textContent = newCount || '';
+    btn.disabled = true;
+
+    try {
+        const d = await likesRequest(postId, 'POST', action);
+        btn.classList.toggle('liked',     d.liked);
+        btn.classList.toggle('has-likes', d.count > 0);
+        iconEl.textContent  = d.liked ? '❤️' : '🤍';
+        countEl.textContent = d.count || '';
+    } catch (_) {
+        // Revert on failure
+        btn.classList.toggle('liked',     isLiked);
+        btn.classList.toggle('has-likes', current > 0);
+        iconEl.textContent  = isLiked ? '❤️' : '🤍';
+        countEl.textContent = current || '';
+    } finally {
+        btn.disabled = false;
+    }
 });
 
 /* ─────────────────────────────────────────
