@@ -1,0 +1,40 @@
+{
+  "https://en.wikipedia.org/wiki/1841": {
+    "text": "<a href=\"https://en.wikipedia.org/wiki/1841\" target=\"_blank\">1841</a> – The <a href=\"https://en.wikipedia.org/wiki/Paris_Opera_Ballet\" target=\"_blank\">Paris Opera Ballet</a> premieres <a href=\"https://en.wikipedia.org/wiki/Giselle\" target=\"_blank\">Giselle</a> in the <a href=\"https://en.wikipedia.org/wiki/Salle_Le_Peletier\" target=\"_blank\">Salle Le Peletier</a>.",
+    "images": [],
+    "pub_status": "draft"
+  },
+  "https://en.wikipedia.org/wiki/1577": {
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1577\" target=\"_blank\">1577</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Peter_Paul_Rubens\" target=\"_blank\">Peter Paul Rubens</a>, Flemish painter and diplomat (died 1640)</div><div><a href=\"https://archive.org/details/rubens0000flet/mode/2up\" target=\"_blank\">Rubens by Fletcher, Jennifer 1971</a></div>",
+    "images": [
+      "/images/06-28_75633a0811.jpg",
+      "/images/06-28_5276ea5ed7.jpg",
+      "/images/06-28_a205bfabf7.jpg",
+      "/images/06-28_0c3799b64b.jpg",
+      "/images/06-28_6420f77d43.jpg",
+      "/images/06-28_3b8a7aad51.jpg",
+      "/images/06-28_83139bc659.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-11",
+      "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#06-28-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Elon_Musk": {
+    "text": "<div>1971   – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Elon_Musk\" target=\"_blank\">Elon Musk</a>, South African-born American entrepreneur</div><div><a href=\"https://www.newyorker.com/magazine/2023/08/28/elon-musks-shadow-rule\" target=\"_blank\">\"Elon Musk's Shadow Rule\"</a></div>",
+    "images": [
+      "/images/06-28_7717d7935c.jpg",
+      "/images/06-28_7647eae223.jpg",
+      "/images/06-28_0677e723e1.jpg",
+      "/images/06-28_43a40f7523.jpg",
+      "/images/06-28_9c0cd40140.jpg",
+      "/images/06-28_5099770e60.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-11",
+      "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#06-28-2"
+    }
+  }
+}

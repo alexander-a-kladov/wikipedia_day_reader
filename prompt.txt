@@ -62,3 +62,6 @@ Deleting an image from a note does not work correctly, it is visually deleted, b
 update
 я добавлял в заметку несколько картинок, в процессе удалял часть из них, и добавлял их снова, в итоге только 4 картинки из 6 сохранились на сервере, 2 последних не сохранились
 I added several pictures to the note, deleted some of them in the process, and added them again, as a result, only 4 of the 6 pictures were saved on the server, the last 2 were not saved.
+
+prompt update 11 
+Добавь еще один раздел в парсинге страницы Википедии и добавляй его целиком при любом способе загрузки "Holidays and observances"
