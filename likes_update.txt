@@ -1,0 +1,63 @@
+CREATE TABLE likes (
+  id           INT AUTO_INCREMENT PRIMARY KEY,
+  post_id      VARCHAR(100) NOT NULL,
+  device_token CHAR(64)     NOT NULL,
+  ip_hash      CHAR(64)     NOT NULL,
+  created_at   DATETIME DEFAULT NOW(),
+  UNIQUE KEY one_per_device (post_id, device_token)
+);
+
+likes.php
+<?php
+header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
+
+$pdo = new PDO('mysql:host=localhost;dbname=default;charset=utf8', 'default', '');
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+$post_id = trim($_GET['post_id'] ?? '');
+if (!preg_match('/^\d{2}-\d{2}-/', $post_id)) {
+    http_response_code(400);
+    echo json_encode(['error' => 'invalid post_id']);
+    exit;
+}
+
+$device_token = trim($_POST['device_token'] ?? $_GET['device_token'] ?? '');
+if (!preg_match('/^[a-f0-9]{64}$/', $device_token)) {
+    http_response_code(400);
+    echo json_encode(['error' => 'invalid token']);
+    exit;
+}
+
+$ip_hash = hash('sha256',
+    ($_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'])
+    . 'YOUR_SECRET_SALT'
+);
+
+$action = $_POST['action'] ?? null;
+
+if ($action === 'like') {
+    // One like per device token, regardless of IP
+    try {
+        $pdo->prepare('INSERT INTO likes (post_id, device_token, ip_hash) VALUES (?, ?, ?)')
+            ->execute([$post_id, $device_token, $ip_hash]);
+    } catch (PDOException $e) {
+        // Duplicate device_token for this post — already liked
+    }
+} elseif ($action === 'unlike') {
+    $pdo->prepare('DELETE FROM likes WHERE post_id = ? AND device_token = ?')
+        ->execute([$post_id, $device_token]);
+}
+
+$count = $pdo->prepare('SELECT COUNT(*) FROM likes WHERE post_id = ?');
+$count->execute([$post_id]);
+
+$mine = $pdo->prepare('SELECT 1 FROM likes WHERE post_id = ? AND device_token = ?');
+$mine->execute([$post_id, $device_token]);
+
+echo json_encode([
+    'count' => (int) $count->fetchColumn(),
+    'liked' => (bool) $mine->fetchColumn(),
+]);
+
+

@@ -82,7 +82,7 @@ prompt update 17 (done)
 на смартфонах отображаются большие пустые промежутки между заголовком поста с датой и картинками, а также между картинками и текстом поста, надо их убрать.
 smartphones display large empty spaces between the title of the post with the date and the pictures, as well as between the pictures and the text of the post, you need to remove them.
 
-prompt update 18
+prompt update 18 (done)
 как добавить счетчик лайков к постам, при условии что сайт будет размещен на хостинге с php и бд, по протоколу http и не будет регистрации пользователей
 how to add a like counter to posts, provided that the site will be hosted with php and a database over http and there will be no user registration
 update:
@@ -91,3 +91,6 @@ update:
 make color of like counter's text white in night mode. If other users liked this post draw like sign pink, when I liked it it become red
 update:
 return emoji heart for likes dismiss pink requirement if it can't be implemented with emoji
+
+prompt update 19
+перевел сайт на хостинг http://thepastenglish.ru, кнопка "Поделиться" стала работатать не удобно, требует копировать текст ссылки самостоятельно
