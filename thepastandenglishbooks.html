@@ -170,7 +170,28 @@ body.dark .like-btn.liked       { background: #3b1f1f; }
     font-size: 14px;
     font-weight: bold;
     color: #666;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 3px;
 }
+
+.file-date-day {
+    font-size: 13px;
+    color: #999;
+    font-weight: normal;
+}
+
+.file-date-title {
+    font-size: 15px;
+    color: #333;
+    font-weight: bold;
+    line-height: 1.3;
+}
+
+body.dark .file-date-day   { color: #777; }
+body.dark .file-date-title { color: #e0e0e0; }
 
 /* No gap between slider and adjacent elements */
 .slider { display: block; font-size: 0; line-height: 0; }
@@ -497,7 +518,10 @@ function createPost(mmdd, postNum, displayLabel, sourceUrl, post) {
     }
 
     article.innerHTML = `
-        <div class="file-date">${displayLabel}</div>
+        <div class="file-date">
+            <span class="file-date-day">${displayLabel}</span>${post.title ? `
+            <span class="file-date-title">${post.title}</span>` : ''}
+        </div>
         ${imagesHtml}
         <div class="content">${textToHtml(post.text || '')}</div>
         <div class="post-actions">

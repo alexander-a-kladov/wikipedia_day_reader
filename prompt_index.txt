@@ -92,5 +92,9 @@ make color of like counter's text white in night mode. If other users liked this
 update:
 return emoji heart for likes dismiss pink requirement if it can't be implemented with emoji
 
-prompt update 19
+prompt update 19 (done)
 перевел сайт на хостинг http://thepastenglish.ru, кнопка "Поделиться" стала работатать не удобно, требует копировать текст ссылки самостоятельно
+I transferred the website to hosting http://thepastenglish.ru The "Share" button has become inconvenient to work with, requiring you to copy the link text yourself
+
+prompt update 20
+добавь в заголовок поста текст из поля "title" в строке где отображается число-месяц, с align в середине поля

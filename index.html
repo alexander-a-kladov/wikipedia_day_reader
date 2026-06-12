@@ -25,23 +25,24 @@
     }
 
     .container {
-        max-width: 700px;
+        max-width: 800px;
         width: 100%;
     }
 
-    .image {
-        width: min(260px, 60vw);
-        margin: 0 auto 30px;
+    .logo {
+        width: min(320px, 80vw);
+        border-radius: 12px;
+        box-shadow: 0 15px 40px rgba(0,0,0,.35);
+        margin-bottom: 30px;
     }
 
     h1 {
-        font-size: clamp(2rem, 5vw, 3.5rem);
+        font-size: clamp(2.2rem, 5vw, 4rem);
         margin-bottom: 20px;
-        font-weight: 700;
     }
 
     p {
-        font-size: clamp(1rem, 2vw, 1.3rem);
+        font-size: clamp(1.1rem, 2vw, 1.4rem);
         color: #cbd5e1;
         margin-bottom: 30px;
         line-height: 1.6;
@@ -49,15 +50,15 @@
 
     .btn {
         display: inline-block;
-        padding: 16px 32px;
-        font-size: 1.1rem;
+        padding: 18px 36px;
+        font-size: 1.2rem;
         font-weight: bold;
         text-decoration: none;
         color: white;
         background: #2563eb;
         border-radius: 12px;
-        transition: all 0.3s ease;
-        box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
+        transition: all .3s ease;
+        box-shadow: 0 10px 25px rgba(37,99,235,.35);
     }
 
     .btn:hover {
@@ -67,9 +68,18 @@
 
     .url {
         display: block;
-        margin-top: 20px;
+        margin-top: 30px;
+        font-size: clamp(1.4rem, 3vw, 2rem);
+        font-weight: bold;
         color: #93c5fd;
         word-break: break-word;
+    }
+
+    @media (max-width: 600px) {
+        .btn {
+            width: 100%;
+            max-width: 350px;
+        }
     }
 </style>
 </head>
@@ -77,22 +87,19 @@
 
 <div class="container">
 
-    <div class="image">
-        <svg viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="256" cy="256" r="220" fill="#2563EB"/>
-            <path d="M150 256H340" stroke="white" stroke-width="28" stroke-linecap="round"/>
-            <path d="M290 186L360 256L290 326" stroke="white" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    </div>
+    <!-- Поместите рядом файл logo.jpg или замените путь -->
+    <img src="thePastandEnglish.jpg" alt="The Past & English Books" class="logo">
 
     <h1>Site has moved</h1>
 
     <p>
         This website has been moved to a new address.
-        Please use the link below to continue.
+        Please continue using the link below.
     </p>
 
-    <a class="btn" href="http://thepastandenglishbooks.ru">
+    <a id="moveLink"
+       class="btn"
+       href="http://thepastandenglishbooks.ru">
         Go to the new website
     </a>
 
@@ -101,6 +108,20 @@
     </span>
 
 </div>
+
+<script>
+(function() {
+    const targetBase = "http://thepastandenglishbooks.ru";
+    const hash = window.location.hash || "";
+
+    // передаём только хеши вида #mm-dd-number
+    const pattern = /^#\d{2}-\d{2}-\d+$/;
+
+    if (pattern.test(hash)) {
+        document.getElementById("moveLink").href = targetBase + hash;
+    }
+})();
+</script>
 
 </body>
 </html>

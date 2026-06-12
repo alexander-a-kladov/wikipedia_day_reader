@@ -940,8 +940,13 @@ HTML_PAGE = r"""<!DOCTYPE html>
   .note-box{background:var(--sf);border-radius:10px;padding:22px;width:640px;
     max-width:96vw;max-height:90vh;overflow-y:auto;box-shadow:0 12px 40px rgba(0,0,0,.25);}
   .note-box h3{font-family:'Playfair Display',serif;font-size:16px;color:var(--ac);margin-bottom:4px;}
-  .note-source{font-size:12px;color:var(--tx2);margin-bottom:12px;word-break:break-all;}
+  .note-source{font-size:12px;color:var(--tx2);margin-bottom:10px;word-break:break-all;}
   .note-source a{color:var(--ai);}
+  .note-title-field{width:100%;font-family:'Source Serif 4',serif;font-size:15px;
+    padding:7px 10px;border:1.5px solid var(--bd);border-radius:var(--r);
+    background:var(--bg);color:var(--tx);margin-bottom:10px;}
+  .note-title-field:focus{outline:none;border-color:var(--ac2);}
+  .note-title-field::placeholder{color:#bbb;}
   /* note editor - contenteditable */
   .note-editor{width:100%;min-height:110px;font-family:'Source Serif 4',serif;font-size:14px;
     padding:9px;border:1.5px solid var(--bd);border-radius:6px;
@@ -1162,6 +1167,8 @@ HTML_PAGE = r"""<!DOCTYPE html>
   <div class="note-box">
     <h3 id="noteTitle">Дополнительная информация</h3>
     <div class="note-source" id="noteSource"></div>
+    <input type="text" class="note-title-field" id="noteTitleField"
+      placeholder="✏️ Заголовок заметки (с эмодзи)…" maxlength="120">
     <div class="note-imgs-wrap" id="noteImgs"></div>
     <label class="bs note-upload-btn" style="border:1.5px solid;border-radius:var(--r)">
       📎 Добавить картинку
@@ -1621,8 +1628,10 @@ function notePost(wikiKey){
   const imgs=(n.images||[]);
   const pub=n.published||{};
   const status=n.pub_status||'draft';
-  if(!hasText&&!imgs.length&&status==='draft') return '';
+  if(!n.title&&!hasText&&!imgs.length&&status==='draft') return '';
   let h=`<div class="note-post">`;
+  if(n.title) h+=`<div style="font-family:'Playfair Display',serif;font-size:15px;
+    font-weight:600;padding:8px 12px 2px;color:var(--tx)">${n.title}</div>`;
   if(hasText) h+=`<div class="note-post-text">${n.text}</div>`;
   if(imgs.length){
     h+=`<div class="note-post-imgs">`;
@@ -1692,6 +1701,7 @@ function openNoteModal(evt, wikiKey){
 
   const existing=notesData[wikiKey];
   const editor=document.getElementById('noteEditor');
+  document.getElementById('noteTitleField').value = existing ? (existing.title||'') : '';
   if(existing){
     editor.innerHTML=existing.text||'';
     renderNoteImgs(existing.images||[]);
@@ -1853,6 +1863,7 @@ function setPubStatus(status){
 
 async function saveNote(){
   const text=document.getElementById('noteEditor').innerHTML.trim();
+  const title=document.getElementById('noteTitleField').value.trim();
 
   // Collect current images from DOM thumbs (these are the ones the user wants to keep)
   const currentImgs=[...document.getElementById('noteImgs').querySelectorAll('img')]
@@ -1885,7 +1896,7 @@ async function saveNote(){
   const pubUrl=document.getElementById('pubUrl').value.trim();
   const published=(_pubStatus==='published'&&(pubDate||pubUrl))?{date:pubDate, url:pubUrl}:null;
 
-  const note={text, images: currentImgs, pub_status: _pubStatus,
+  const note={title, text, images: currentImgs, pub_status: _pubStatus,
     ...(published?{published}:{})};
 
   const r=await fetch('/api/notes',{method:'POST',
