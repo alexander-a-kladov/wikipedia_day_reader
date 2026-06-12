@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Site Moved</title>
+<title>The Past & English Books - Site Moved</title>
 
 <style>
     * {
@@ -18,67 +18,84 @@
         justify-content: center;
         align-items: center;
         font-family: Arial, Helvetica, sans-serif;
-        background: linear-gradient(135deg, #0f172a, #1e293b);
-        color: white;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        color: #fff;
         text-align: center;
         padding: 20px;
     }
 
     .container {
-        max-width: 800px;
         width: 100%;
+        max-width: 850px;
     }
 
     .logo {
-        width: min(320px, 80vw);
+        width: min(420px, 90vw);
+        max-width: 100%;
         border-radius: 12px;
         box-shadow: 0 15px 40px rgba(0,0,0,.35);
-        margin-bottom: 30px;
+        margin-bottom: 32px;
     }
 
     h1 {
         font-size: clamp(2.2rem, 5vw, 4rem);
         margin-bottom: 20px;
+        line-height: 1.15;
     }
 
-    p {
+    .message {
         font-size: clamp(1.1rem, 2vw, 1.4rem);
         color: #cbd5e1;
-        margin-bottom: 30px;
         line-height: 1.6;
+        margin-bottom: 30px;
     }
 
     .btn {
         display: inline-block;
-        padding: 18px 36px;
-        font-size: 1.2rem;
-        font-weight: bold;
-        text-decoration: none;
-        color: white;
+        padding: 18px 40px;
         background: #2563eb;
+        color: white;
+        text-decoration: none;
+        font-size: 1.2rem;
+        font-weight: 700;
         border-radius: 12px;
-        transition: all .3s ease;
+        transition: all .25s ease;
         box-shadow: 0 10px 25px rgba(37,99,235,.35);
     }
 
     .btn:hover {
         background: #3b82f6;
-        transform: translateY(-3px);
+        transform: translateY(-2px);
     }
 
     .url {
         display: block;
-        margin-top: 30px;
-        font-size: clamp(1.4rem, 3vw, 2rem);
+        margin-top: 32px;
+        font-size: clamp(1.6rem, 3.5vw, 2.4rem);
         font-weight: bold;
         color: #93c5fd;
         word-break: break-word;
     }
 
+    .countdown {
+        margin-top: 24px;
+        font-size: 1.2rem;
+        color: #cbd5e1;
+    }
+
+    .countdown span {
+        color: #93c5fd;
+        font-weight: bold;
+    }
+
     @media (max-width: 600px) {
         .btn {
             width: 100%;
-            max-width: 350px;
+            max-width: 360px;
+        }
+
+        .countdown {
+            font-size: 1rem;
         }
     }
 </style>
@@ -87,39 +104,59 @@
 
 <div class="container">
 
-    <!-- Поместите рядом файл logo.jpg или замените путь -->
+    <!-- Сохраните присланную картинку как logo.jpg рядом с этим HTML -->
     <img src="thePastandEnglish.jpg" alt="The Past & English Books" class="logo">
 
     <h1>Site has moved</h1>
 
-    <p>
-        This website has been moved to a new address.
-        Please continue using the link below.
-    </p>
+    <div class="message">
+        This website has moved to a new address.<br>
+        You will be redirected automatically.
+    </div>
 
-    <a id="moveLink"
-       class="btn"
-       href="http://thepastandenglishbooks.ru">
+    <a id="moveLink" class="btn" href="http://thepastandenglishbooks.ru">
         Go to the new website
     </a>
 
-    <span class="url">
+    <div class="url">
         http://thepastandenglishbooks.ru
-    </span>
+    </div>
+
+    <div class="countdown">
+        Redirecting in <span id="seconds">5</span> seconds...
+    </div>
 
 </div>
 
 <script>
-(function() {
-    const targetBase = "http://thepastandenglishbooks.ru";
+(function () {
+
+    const TARGET = "http://thepastandenglishbooks.ru";
     const hash = window.location.hash || "";
 
-    // передаём только хеши вида #mm-dd-number
-    const pattern = /^#\d{2}-\d{2}-\d+$/;
+    let destination = TARGET;
 
-    if (pattern.test(hash)) {
-        document.getElementById("moveLink").href = targetBase + hash;
+    // Передаем только хеши вида #mm-dd-number
+    if (/^#\d{2}-\d{2}-\d+$/.test(hash)) {
+        destination += hash;
     }
+
+    const link = document.getElementById("moveLink");
+    link.href = destination;
+
+    let seconds = 5;
+    const counter = document.getElementById("seconds");
+
+    const timer = setInterval(function() {
+        seconds--;
+        counter.textContent = seconds;
+
+        if (seconds <= 0) {
+            clearInterval(timer);
+            window.location.replace(destination);
+        }
+    }, 1000);
+
 })();
 </script>
 
