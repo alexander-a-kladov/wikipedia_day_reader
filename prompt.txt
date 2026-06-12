@@ -65,3 +65,5 @@ I added several pictures to the note, deleted some of them in the process, and a
 
 prompt update 11 
 Добавь еще один раздел в парсинге страницы Википедии и добавляй его целиком при любом способе загрузки "Holidays and observances"
+update:
+помести все праздники которые являются подпунктами какого-то общего раздела, например 'Christian feast day' под спойлер этого раздела, у названия раздела меню заметок не нужно
