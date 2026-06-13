@@ -1006,6 +1006,24 @@ HTML_PAGE = r"""<!DOCTYPE html>
     background:var(--sf);color:var(--tx);}
   .pub-date-url input[type=date]{width:150px;}
   .pub-date-url input[type=url]{flex:1;min-width:180px;}
+  /* tags */
+  .tag-editor-wrap{margin-bottom:10px;}
+  .tag-editor-label{font-size:12px;color:var(--tx2);margin-bottom:5px;display:block;}
+  .tag-list{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px;min-height:22px;}
+  .tag{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;border-radius:12px;
+    font-size:12px;background:var(--sf2);border:1px solid var(--bd);color:var(--tx2);}
+  .tag.auto{background:#e8f2fb;border-color:#8ab8d8;color:#1a4060;}
+  .tag-del{background:none;border:none;cursor:pointer;font-size:10px;color:inherit;
+    opacity:.7;padding:0;line-height:1;}
+  .tag-del:hover{opacity:1;}
+  .tag-input-row{display:flex;gap:6px;}
+  .tag-input-row input{flex:1;font-size:13px;padding:4px 8px;border:1px solid var(--bd);
+    border-radius:4px;background:var(--sf);font-family:'Source Serif 4',serif;}
+  .tag-input-row button{font-size:12px;padding:4px 10px;}
+  /* tags in post */
+  .note-tags{display:flex;flex-wrap:wrap;gap:4px;padding:5px 10px 8px;}
+  .note-tag{font-size:11px;padding:1px 8px;border-radius:10px;
+    background:var(--sf2);border:1px solid var(--bd);color:var(--tx2);}
   /* status badges on post */
   .note-pub-badge{display:flex;align-items:center;gap:6px;padding:5px 12px;
     font-size:12px;color:var(--tx2);border-top:1px solid var(--bd);}
@@ -1169,6 +1187,16 @@ HTML_PAGE = r"""<!DOCTYPE html>
     <div class="note-source" id="noteSource"></div>
     <input type="text" class="note-title-field" id="noteTitleField"
       placeholder="✏️ Заголовок заметки (с эмодзи)…" maxlength="120">
+    <!-- Tags -->
+    <div class="tag-editor-wrap">
+      <span class="tag-editor-label">🏷 Теги:</span>
+      <div class="tag-list" id="tagList"></div>
+      <div class="tag-input-row">
+        <input type="text" id="tagInput" placeholder="Добавить тег…" maxlength="40"
+          onkeydown="if(event.key==='Enter'){event.preventDefault();addTag();}">
+        <button class="bs" onclick="addTag()">+ Добавить</button>
+      </div>
+    </div>
     <div class="note-imgs-wrap" id="noteImgs"></div>
     <label class="bs note-upload-btn" style="border:1.5px solid;border-radius:var(--r)">
       📎 Добавить картинку
@@ -1641,6 +1669,13 @@ function notePost(wikiKey){
     h+=`</div>`;
   }
   const labels={draft:'Черновик',ready:'Готова к публикации',published:'Опубликовано'};
+  // Tags
+  const tags=n.tags||[];
+  if(tags.length){
+    h+=`<div class="note-tags">`;
+    tags.forEach(t=>{ h+=`<span class="note-tag">${t}</span>`; });
+    h+=`</div>`;
+  }
   h+=`<div class="note-pub-badge"><span class="status-dot ${status}"></span><span>${labels[status]||status}</span>`;
   if(status==='published'){
     const dateStr=pub.date?new Date(pub.date+'T00:00:00').toLocaleDateString('ru-RU',
@@ -1702,6 +1737,9 @@ function openNoteModal(evt, wikiKey){
   const existing=notesData[wikiKey];
   const editor=document.getElementById('noteEditor');
   document.getElementById('noteTitleField').value = existing ? (existing.title||'') : '';
+  // Tags: load saved or auto-detect for new note
+  _tags = existing ? [...(existing.tags||[])] : detectAutoTags(wikiKey);
+  renderTagList();
   if(existing){
     editor.innerHTML=existing.text||'';
     renderNoteImgs(existing.images||[]);
@@ -1851,9 +1889,79 @@ function clearNoteFormat(){
   document.execCommand('removeFormat');
 }
 
+// ── TAGS ──────────────────────────────────────────────────────────────────────
+
+let _tags = [];       // current tag list while modal is open
+let _pubStatus = 'draft';  // 'draft' | 'ready' | 'published'
+
+function detectAutoTags(wikiKey){
+  const tags = [];
+  if(!data || !wikiKey) return tags;
+
+  // Map Russian category labels to English tags
+  const labelMap = {
+    'Наука':        'Science',
+    'Искусство':    'Art',
+    'Образование':  'Education',
+    'Литература':   'Literature',
+    'Учёные':       'Scientists',
+    'Художники':    'Artists',
+    'Композиторы':  'Composers',
+    'Изобретатели': 'Inventors',
+  };
+
+  // Event categories
+  (data.events||[]).forEach(cat=>{
+    if(cat.entries && cat.entries.some(e=>e.includes(wikiKey)))
+      tags.push(labelMap[cat.label] || cat.label);
+  });
+  // Birth categories
+  (data.births||[]).forEach(cat=>{
+    if(cat.entries && cat.entries.some(e=>e.includes(wikiKey)))
+      tags.push(labelMap[cat.label] || cat.label);
+  });
+  // Russians
+  if((data.births_russian||[]).some(e=>e.includes(wikiKey)))
+    tags.push('Russian');
+  // Holidays
+  if((data.holidays||[]).some(item=>{
+    const text=typeof item==='string'?item:(item.text||'');
+    const children=typeof item==='object'?(item.children||[]):[];
+    return text.includes(wikiKey)||children.some(c=>c.includes(wikiKey));
+  })) tags.push('Holiday');
+  return [...new Set(tags)];
+}
+
+function renderTagList(){
+  const wrap = document.getElementById('tagList');
+  if(!wrap) return;
+  wrap.innerHTML = '';
+  _tags.forEach((tag, i) => {
+    const el = document.createElement('span');
+    el.className = 'tag';
+    el.innerHTML = `${tag} <button class="tag-del" onclick="removeTag(${i})" title="Удалить">✕</button>`;
+    wrap.appendChild(el);
+  });
+}
+
+function addTag(){
+  const inp = document.getElementById('tagInput');
+  const val = inp.value.trim();
+  if(val && !_tags.includes(val)){
+    _tags.push(val);
+    renderTagList();
+  }
+  inp.value = '';
+  inp.focus();
+}
+
+function removeTag(idx){
+  _tags.splice(idx, 1);
+  renderTagList();
+}
 
 function setPubStatus(status){
-  _pubStatus=status;
+  _pubStatus = status;
   ['draft','ready','published'].forEach(s=>{
     const btn=document.getElementById('s'+s.charAt(0).toUpperCase()+s.slice(1));
     if(btn) btn.className=(s===status?'active-'+s:'');
@@ -1896,7 +2004,7 @@ async function saveNote(){
   const pubUrl=document.getElementById('pubUrl').value.trim();
   const published=(_pubStatus==='published'&&(pubDate||pubUrl))?{date:pubDate, url:pubUrl}:null;
 
-  const note={title, text, images: currentImgs, pub_status: _pubStatus,
+  const note={title, text, tags: [..._tags], images: currentImgs, pub_status: _pubStatus,
     ...(published?{published}:{})};
 
   const r=await fetch('/api/notes',{method:'POST',

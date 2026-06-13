@@ -71,3 +71,10 @@ update:
 prompt update 12 done
 Добавь поле заголовок для заметки, короткая текстовая строка с эмодзи
 Add a title field for the note, a short text string with emojis
+
+prompt update 13
+Добавь возможность добавлять тэги к заметкам, при создании новой заметки они добавляются автоматически из тех категорий в которой находится событие, праздник или день рождения
+т.е. это будет Science,Art,Education,Literature,Holiday,Birthday,Russian
+Add the function to add tags to notes in editor. When creating a new note, they are added automatically from those categories in which the event, holiday or birthday is located, i.e. it will be Science,Art,Music,Education,Literature,Holiday,Birthday,Russian
+update:
+name tags in English

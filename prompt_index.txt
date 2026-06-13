@@ -98,3 +98,34 @@ I transferred the website to hosting http://thepastenglish.ru The "Share" button
 
 prompt update 20
 добавь в заголовок поста текст из поля "title" в строке где отображается число-месяц, с align в середине поля
+add the text from the "title" field to the title of the post in the line where the date-month is displayed, with align in the middle of the field.
+
+prompt update 21
+Вместо кнопки "vk" сделай кнопку с иконкой, которая изображает темы, по нажатию появляется меню содержащие togglebutton тэги, которые влияют какие посты будут отображаться, если пост содержит хоть один из нажатых тэгов он отображается, по умолчанию все кнопки в меню нажаты
+Instead of the "vk" button, make a button with an icon that depicts topics, when clicked, a menu appears containing togglebutton tags that affect which posts will be displayed, if the post contains at least one of the pressed tags, it is displayed, by default all buttons in the menu are pressed
+update:
+тэги: Science (Scientists),Art (Artists),Music (Musicians), Education (Educators), Literature (Writers), Russian (Russians)
+поле находится в json файлах заметок
+"tags": [
+      "Science"
+    ]
+если меток нет у поста он отображается всегда
+update:
+in the menu all possible tags that I describe earlier should be visible they control not the current post display but logic of posts visibility
+update:
+add two themes Inventions (Inventors), Exploration (Explorers)
+update:
+🔬Science (Scientists)
+🎨Art (Artists)
+🎶Music (Musicians)
+📚Education (Educators)
+📖Literature (Writers)
+🇷🇺Russian (Russians)
+💡Inventions (Inventors)
+🧭Exploration (Explorers)
+update:
+сохраняй выбранные темы между запусками страницы (также как день/ночь)
+replace Russian (Russians) theme for Politics (Politicians), use emoji 🗣️ for it
+
+prompt update 22
+доработай алгоритм отображения постов, так что если в текущий день с условием выбора тем, нет подходящих для отображения постов, пытаться найти их в следущем дне и так далее пока не будет достигнут день в котором есть подходящие посты. Если ни одна из тем не выбрана на экране должно отображаться сообщение "Выберите хотя бы одну тему", дни в этом случае не переключаются.

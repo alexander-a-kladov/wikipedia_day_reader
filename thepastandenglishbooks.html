@@ -49,9 +49,6 @@ html {
 body {
     margin: 0;
     background: #f3f4f6;
-    background-image: url('light-background.jpg');
-    background-repeat: repeat;
-    background-size: auto;   
     font-family: Arial, Helvetica, sans-serif;
     color: #222;
     overscroll-behavior-y: none;
@@ -96,20 +93,103 @@ header h1:hover { opacity: .75; }
     height: 0;
 }
 
-.vk-link {
-    display: inline-flex;
-    align-items: center;
-    flex-shrink: 0;
-    color: #0077ff;
-    text-decoration: none;
-    transition: opacity .15s;
+.topics-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,.15);
+    min-width: 220px;
+    max-width: 320px;
+    z-index: 200;
+    overflow: hidden;
 }
 
-.vk-link:hover { opacity: .75; }
+.topics-menu-header {
+    padding: 10px 14px 6px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: #999;
+}
 
-.vk-link svg { display: block; }
+.topics-list {
+    padding: 4px 10px 6px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    max-height: 360px;
+    overflow-y: auto;
+}
 
-body.dark .vk-link { color: #5aabff; }
+.topic-tag {
+    border: 2px solid #1565c0;
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    background: #1565c0;
+    color: #fff;
+    transition: background .15s, color .15s;
+    white-space: nowrap;
+}
+
+.topic-tag.off {
+    background: transparent;
+    color: #1565c0;
+}
+
+.topics-menu-footer {
+    display: flex;
+    gap: 6px;
+    padding: 8px 10px;
+    border-top: 1px solid #eee;
+}
+
+.topics-menu-footer button {
+    flex: 1;
+    border: none;
+    border-radius: 8px;
+    padding: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    background: #eee;
+}
+
+.topics-menu-footer button:hover { background: #ddd; }
+
+body.dark .topics-menu {
+    background: #1e1e1e;
+    border-color: #333;
+    box-shadow: 0 4px 20px rgba(0,0,0,.5);
+}
+
+body.dark .topics-menu-header { color: #777; }
+
+body.dark .topic-tag {
+    border-color: #5aabff;
+    background: #5aabff;
+    color: #000;
+}
+
+body.dark .topic-tag.off {
+    background: transparent;
+    color: #5aabff;
+}
+
+body.dark .topics-menu-footer { border-color: #333; }
+
+body.dark .topics-menu-footer button {
+    background: #333;
+    color: #e0e0e0;
+}
+
+body.dark .topics-menu-footer button:hover { background: #444; }
 
 
 
@@ -165,6 +245,23 @@ body.dark .like-btn.liked       { background: #3b1f1f; }
     cursor: pointer;
     font-size: 16px;
 }
+
+.post-tag-badges {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    padding: 0 24px 14px;
+}
+
+.post-tag-badge {
+    font-size: 20px;
+    line-height: 1;
+    cursor: default;
+    user-select: none;
+}
+
+.post-tag-badge[title] { cursor: default; }
 
 .file-date {
     padding: 10px 20px;
@@ -261,10 +358,24 @@ body.dark .file-date-title { color: #e0e0e0; }
 
 .theme-toggle:hover { opacity: .9; }
 
+.topics-toggle {
+    border: none;
+    background: #eee;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.topics-toggle:hover { opacity: .9; }
+
+body.dark .topics-toggle { background: #333; color: #e0e0e0; }
+
 /* ── dark theme ── */
-body.dark {  background: #121212;  background-image: url('dark-background.jpg');
-    background-repeat: repeat;
-    background-size: auto; color: #e0e0e0; }
+body.dark { background: #121212; color: #e0e0e0; }
 body.dark header { background: #1e1e1e; border-color: #333; }
 body.dark .post { background: #1e1e1e; box-shadow: 0 2px 12px rgba(0,0,0,.4); }
 body.dark .file-date { background: #252525; border-color: #333; color: #ccc; }
@@ -358,13 +469,16 @@ body.dark footer { color: #555; }
             <h1 id="titleBtn" title="Выбрать дату">The Past and English Books 📅</h1>
             <input type="date" id="hiddenDateInput" tabindex="-1">
         </div>
-        <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
-            <a href="https://vk.com/ak8englishbooks" target="_blank" rel="noopener noreferrer" class="vk-link" title="VK сообщество">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="32" height="32" rx="7" fill="currentColor"/>
-                    <path d="M16.742 22c-6.197 0-9.738-4.25-9.88-11.333H9.9c.099 5.199 2.394 7.4 4.212 7.85V10.667h2.86v4.4c1.797-.193 3.685-2.24 4.322-4.4h2.815c-.49 2.783-2.532 4.83-3.984 5.667 1.452.666 3.776 2.466 4.667 5.666h-3.093c-.7-2.183-2.44-3.866-4.707-4.083V22h-.25z" fill="white"/>
-                </svg>
-            </a>
+        <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;position:relative;">
+            <button id="topicsBtn" class="topics-toggle" title="Фильтр по темам">📂 Темы</button>
+            <div id="topicsMenu" class="topics-menu" hidden>
+                <div class="topics-menu-header">Темы</div>
+                <div id="topicsList" class="topics-list"></div>
+                <div class="topics-menu-footer">
+                    <button id="topicsSelectAll" type="button">Все</button>
+                    <button id="topicsSelectNone" type="button">Сбросить</button>
+                </div>
+            </div>
             <button id="themeToggle" class="theme-toggle">🌙</button>
         </div>
     </div>
@@ -493,6 +607,42 @@ function getImagePath(src) {
 }
 
 /* ─────────────────────────────────────────
+   Tag definitions (needed by post card + filter)
+───────────────────────────────────────── */
+
+const TAG_LABELS = new Map([
+    ['Science',     '🔬 Science (Scientists)'],
+    ['Art',         '🎨 Art (Artists)'],
+    ['Music',       '🎶 Music (Musicians)'],
+    ['Education',   '📚 Education (Educators)'],
+    ['Literature',  '📖 Literature (Writers)'],
+    ['Politics',    '🗣️ Politics (Politicians)'],
+    ['Inventions',  '💡 Inventions (Inventors)'],
+    ['Exploration', '🧭 Exploration (Explorers)'],
+]);
+
+const TAG_EMOJI = new Map([
+    ['Science',     '🔬'],
+    ['Art',         '🎨'],
+    ['Music',       '🎶'],
+    ['Education',   '📚'],
+    ['Literature',  '📖'],
+    ['Politics',    '🗣️'],
+    ['Inventions',  '💡'],
+    ['Exploration', '🧭'],
+]);
+
+function buildTagBadges(tags) {
+    if (!Array.isArray(tags) || !tags.length) return '';
+    const spans = tags.map(t => {
+        const emoji = TAG_EMOJI.get(t);
+        const label = TAG_LABELS.get(t) || t;
+        return emoji ? '<span class="post-tag-badge" title="' + label + '">' + emoji + '</span>' : '';
+    }).join('');
+    return spans ? '<div class="post-tag-badges">' + spans + '</div>' : '';
+}
+
+/* ─────────────────────────────────────────
    Post card  — id = "MM-DD-N"
 ───────────────────────────────────────── */
 
@@ -536,6 +686,7 @@ function createPost(mmdd, postNum, displayLabel, sourceUrl, post) {
                 <span class="like-count"></span>
             </button>
         </div>
+        ${buildTagBadges(post.tags)}
     `;
 
     return article;
@@ -621,38 +772,50 @@ async function fetchDayPosts(date) {
    targetAnchor: if set, scroll there after render
 ───────────────────────────────────────── */
 
+// Posts for current day — cached to allow re-filtering without re-fetching
+let cachedPosts = [];
+
 async function loadFeed(targetAnchor) {
     feed.innerHTML = '<div class="loading">Загрузка…</div>';
-
     try {
-        const posts = await fetchDayPosts(selectedDate);
-
-        feed.innerHTML = '';
-
-        let postNum = 0;
-
-        for (const { mmdd, label, sourceUrl, post } of posts) {
-            postNum++;
-            const card = createPost(mmdd, postNum, label, sourceUrl, post);
-            feed.appendChild(card);
-            initSlider(card);
-        }
-
-        if (!postNum) {
-            feed.innerHTML = '<div class="error">Нет опубликованных материалов за этот день</div>';
-            return;
-        }
-
-        // Scroll after a short paint delay
-        loadLikes();
-
-        if (targetAnchor) {
-            setTimeout(() => scrollToPost(targetAnchor), 80);
-        }
-
+        cachedPosts = await fetchDayPosts(selectedDate);
+        rebuildTagMenu();
+        renderFeed(targetAnchor);
     } catch (err) {
         console.error(err);
         feed.innerHTML = '<div class="error">Ошибка загрузки ленты</div>';
+    }
+}
+
+function renderFeed(targetAnchor) {
+    feed.innerHTML = '';
+
+    const activeTags = getActiveTags();
+
+    let postNum = 0;
+
+    for (const { mmdd, label, sourceUrl, post } of cachedPosts) {
+        // Posts with no tags are always shown regardless of filter
+        const postTags = Array.isArray(post.tags) ? post.tags : [];
+        if (activeTags !== null && postTags.length > 0) {
+            if (!postTags.some(t => activeTags.has(t))) continue;
+        }
+
+        postNum++;
+        const card = createPost(mmdd, postNum, label, sourceUrl, post);
+        feed.appendChild(card);
+        initSlider(card);
+    }
+
+    if (!postNum) {
+        feed.innerHTML = '<div class="error">Нет материалов по выбранным темам</div>';
+        return;
+    }
+
+    loadLikes();
+
+    if (targetAnchor) {
+        setTimeout(() => scrollToPost(targetAnchor), 80);
     }
 }
 
@@ -742,6 +905,88 @@ document.addEventListener('click', async (e) => {
         // Last resort — user copies manually
         prompt('Скопируйте ссылку:', url);
     }
+});
+
+/* ─────────────────────────────────────────
+   Topics / Tag filter
+───────────────────────────────────────── */
+
+// tag key → boolean (on/off); all canonical tags always present, all ON by default
+function loadTagState() {
+    try {
+        const saved = localStorage.getItem('tagState');
+        if (saved) {
+            const obj = JSON.parse(saved);
+            return new Map([...TAG_LABELS.keys()].map(k => [k, k in obj ? obj[k] : true]));
+        }
+    } catch (_) {}
+    return new Map([...TAG_LABELS.keys()].map(k => [k, true]));
+}
+
+function saveTagState() {
+    const obj = {};
+    tagState.forEach((v, k) => { obj[k] = v; });
+    localStorage.setItem('tagState', JSON.stringify(obj));
+}
+
+const tagState = loadTagState();
+
+function getActiveTags() {
+    const allOn = [...tagState.values()].every(v => v);
+    if (allOn) return null;  // no filter — show everything
+    return new Set([...tagState.entries()].filter(([, v]) => v).map(([k]) => k));
+}
+
+function rebuildTagMenu() {
+    const list = document.getElementById('topicsList');
+    renderTagButtons(list);
+}
+
+function renderTagButtons(list) {
+    list.innerHTML = '';
+    [...TAG_LABELS.keys()].forEach(tag => {
+        const label = TAG_LABELS.get(tag) || tag;
+        const btn = document.createElement('button');
+        btn.className = 'topic-tag' + (tagState.get(tag) ? '' : ' off');
+        btn.type = 'button';
+        btn.textContent = label;
+        btn.title = tag;
+        btn.addEventListener('click', () => {
+            tagState.set(tag, !tagState.get(tag));
+            btn.classList.toggle('off', !tagState.get(tag));
+            saveTagState();
+            renderFeed();
+        });
+        list.appendChild(btn);
+    });
+}
+
+const topicsBtn  = document.getElementById('topicsBtn');
+const topicsMenu = document.getElementById('topicsMenu');
+
+topicsBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    topicsMenu.hidden = !topicsMenu.hidden;
+});
+
+document.addEventListener('click', (e) => {
+    if (!topicsMenu.hidden && !topicsMenu.contains(e.target) && e.target !== topicsBtn) {
+        topicsMenu.hidden = true;
+    }
+});
+
+document.getElementById('topicsSelectAll').addEventListener('click', () => {
+    tagState.forEach((_, k) => tagState.set(k, true));
+    saveTagState();
+    renderTagButtons(document.getElementById('topicsList'));
+    renderFeed();
+});
+
+document.getElementById('topicsSelectNone').addEventListener('click', () => {
+    tagState.forEach((_, k) => tagState.set(k, false));
+    saveTagState();
+    renderTagButtons(document.getElementById('topicsList'));
+    renderFeed();
 });
 
 /* ─────────────────────────────────────────
