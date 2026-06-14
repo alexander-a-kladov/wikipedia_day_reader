@@ -951,17 +951,28 @@ function renderFeed(targetAnchor) {
         return;
     }
 
-    const visible = filterPosts(cachedPosts);
-    let postNum = 0;
+    const activeTags = getActiveTags(); // null = no filter
+    let shownCount = 0;
 
-    for (const { mmdd, label, sourceUrl, post } of visible) {
-        postNum++;
+    // postNum is the post's fixed position within the FULL day list (1-based),
+    // independent of the active filter — this keeps fallback anchor IDs
+    // ("MM-DD-N") stable no matter which tags are currently selected.
+    cachedPosts.forEach(({ mmdd, label, sourceUrl, post }, idx) => {
+        const postTags = Array.isArray(post.tags) ? post.tags : [];
+        const visible  = activeTags === null
+            || postTags.length === 0
+            || postTags.some(t => activeTags.has(t));
+
+        if (!visible) return;
+
+        const postNum = idx + 1;
         const card = createPost(mmdd, postNum, label, sourceUrl, post);
         feed.appendChild(card);
         initSlider(card);
-    }
+        shownCount++;
+    });
 
-    if (!postNum) {
+    if (!shownCount) {
         // Shouldn't normally reach here (loadFeed already skips empty days)
         feed.innerHTML = '<div class="error">Нет материалов по выбранным темам</div>';
         return;
@@ -1127,6 +1138,45 @@ function renderTagButtons(list) {
         });
         list.appendChild(btn);
     });
+}
+
+/**
+ * Called on boot when the page is opened via a "#MM-DD-N" share link.
+ * If the linked post's tags don't intersect the viewer's currently
+ * active tags, temporarily (session-only, not saved to localStorage)
+ * enable one of that post's tags so the post is visible.
+ */
+async function applyHashTagOverride(mmdd, anchorId) {
+    try {
+        const posts = await fetchDayPosts(mmdd); // unfiltered, full day list
+
+        // Find the linked post using the same anchor-id scheme as createPost:
+        // published.url fragment if present, else "MM-DD-<position>".
+        let target = null;
+        posts.forEach(({ post }, idx) => {
+            const urlFragment = post.published && post.published.url
+                ? post.published.url.split('#')[1]
+                : null;
+            const id = urlFragment || `${mmdd}-${idx + 1}`;
+            if (id === anchorId) target = post;
+        });
+
+        if (!target) return;
+
+        const tags = Array.isArray(target.tags) ? target.tags : [];
+        if (tags.length === 0) return; // post with no tags is always visible
+
+        const activeTags    = getActiveTags(); // null = all tags on
+        const alreadyVisible = activeTags === null || tags.some(t => activeTags.has(t));
+        if (alreadyVisible) return;
+
+        // Prefer a canonical tag (known to the UI); fall back to the first tag.
+        const tagToEnable = tags.find(t => tagState.has(t)) || tags[0];
+        tagState.set(tagToEnable, true);
+        // Intentionally no saveTagState() — this override is session-only.
+    } catch (err) {
+        console.error('applyHashTagOverride failed:', err);
+    }
 }
 
 const topicsBtn  = document.getElementById('topicsBtn');
@@ -1441,11 +1491,16 @@ initTheme();
 // Populate tag menu immediately — doesn't depend on posts
 rebuildTagMenu();
 
-(function boot() {
+(async function boot() {
     const raw    = decodeURIComponent(location.hash.slice(1));  // e.g. "06-07-3"
     const parsed = parsePostHash(raw);
 
     if (parsed) {
+        // If the linked post's topics aren't currently shown, enable one
+        // of them for this session so the link actually reveals the post.
+        await applyHashTagOverride(parsed.mmdd, raw);
+        rebuildTagMenu();
+
         // The link contains a specific post: set the calendar to that day
         // and scroll to the post once the feed is loaded.
         setMMDD(parsed.mmdd, raw);
