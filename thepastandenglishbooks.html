@@ -491,37 +491,87 @@ body.dark footer { color: #555; }
 <script>
 /* ─────────────────────────────────────────
    Helpers
+   All post navigation is driven by "MM-DD" strings — the same strings
+   used in the notes filenames (MM-DD.json). Lexicographic order of
+   these strings equals calendar order within a year, INCLUDING
+   "02-29" which sorts correctly between "02-28" and "03-01".
+   The real year never enters this logic; it's only used to format the
+   <input type=date> picker for display/entry.
 ───────────────────────────────────────── */
 
-function formatDayMonth(date) {
-    return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
+// Fixed reference calendar — always treat February as having 29 days so
+// that "02-29" is a valid, navigable day regardless of the real year.
+const DAYS_IN_MONTH_LEAP = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+function pad2(n) {
+    return String(n).padStart(2, '0');
 }
 
+/** Convert a real Date object to a "MM-DD" string. */
 function toMMDD(date) {
-    const mm = String(date.getMonth() + 1).padStart(2, '0');
-    const dd = String(date.getDate()).padStart(2, '0');
-    return `${mm}-${dd}`;
+    return `${pad2(date.getMonth() + 1)}-${pad2(date.getDate())}`;
 }
 
-function toISODate(date) {
-    // Use local date parts to avoid UTC-offset surprises
-    const y  = date.getFullYear();
-    const mm = String(date.getMonth() + 1).padStart(2, '0');
-    const dd = String(date.getDate()).padStart(2, '0');
-    return `${y}-${mm}-${dd}`;
+/** "MM-DD" → { mm, dd } as numbers */
+function mmddParts(mmdd) {
+    const [mm, dd] = mmdd.split('-').map(Number);
+    return { mm, dd };
 }
 
-function localToday() {
-    const d = new Date();
-    d.setHours(0, 0, 0, 0);
-    return d;
+/** Next day after "MM-DD" in the fixed 366-day reference calendar. */
+function nextMMDD(mmdd) {
+    let { mm, dd } = mmddParts(mmdd);
+    dd++;
+    if (dd > DAYS_IN_MONTH_LEAP[mm - 1]) {
+        dd = 1;
+        mm = (mm % 12) + 1;
+    }
+    return `${pad2(mm)}-${pad2(dd)}`;
 }
 
-function dateOffsetFrom(base, n) {
-    const d = new Date(base);
-    d.setDate(d.getDate() + n);
-    d.setHours(0, 0, 0, 0);
-    return d;
+/** Day before "MM-DD" in the fixed 366-day reference calendar. */
+function prevMMDD(mmdd) {
+    let { mm, dd } = mmddParts(mmdd);
+    dd--;
+    if (dd < 1) {
+        mm = mm === 1 ? 12 : mm - 1;
+        dd = DAYS_IN_MONTH_LEAP[mm - 1];
+    }
+    return `${pad2(mm)}-${pad2(dd)}`;
+}
+
+/**
+ * Display label "12 июня" for a "MM-DD" string. Uses a fixed leap
+ * reference year (2024) so "02-29" always formats correctly.
+ */
+function formatDayMonth(mmdd) {
+    const { mm, dd } = mmddParts(mmdd);
+    const d = new Date(2024, mm - 1, dd);
+    return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
+}
+
+/**
+ * Build the "YYYY-MM-DD" value for the <input type=date> picker from a
+ * "MM-DD" string, always using the REAL current year. If that MM-DD
+ * doesn't exist in the current year (i.e. "02-29" in a non-leap year),
+ * JS Date naturally rolls it over to "03-01" — which is acceptable.
+ */
+function mmddToPickerValue(mmdd) {
+    const { mm, dd } = mmddParts(mmdd);
+    const y = new Date().getFullYear();
+    const d = new Date(y, mm - 1, dd);
+    return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+}
+
+/** Parse the picker's "YYYY-MM-DD" value back into "MM-DD" (year discarded). */
+function pickerValueToMMDD(value) {
+    const [, m, d] = value.split('-').map(Number);
+    return `${pad2(m)}-${pad2(d)}`;
+}
+
+/** Today's date as "MM-DD". */
+function todayMMDD() {
+    return toMMDD(new Date());
 }
 
 /**
@@ -534,27 +584,14 @@ function parsePostHash(hash) {
     return { mmdd: m[1], num: parseInt(m[2], 10) };
 }
 
-/**
- * Given a "MM-DD" string, build a Date object for that day
- * in the CURRENT year (or next year if the date already passed
- * by more than 6 months — handles New Year edge cases).
- * We don't actually care about the year for display; we only need
- * the Date so setDate() can compute yesterday/today/tomorrow offsets.
- */
-function dateFromMMDD(mmdd) {
-    const [mm, dd] = mmdd.split('-').map(Number);
-    const now = new Date();
-    const d = new Date(now.getFullYear(), mm - 1, dd, 0, 0, 0, 0);
-    return d;
-}
-
 /* ─────────────────────────────────────────
    State
 ───────────────────────────────────────── */
 
 const feed = document.getElementById('feed');
 
-let selectedDate = localToday();  // will be overridden by hash on boot
+// Currently displayed day, as "MM-DD" — overridden by hash on boot.
+let selectedMMDD = todayMMDD();
 
 /* ─────────────────────────────────────────
    HTML helpers
@@ -740,12 +777,72 @@ function scrollToPost(anchorId) {
 }
 
 /* ─────────────────────────────────────────
+   Tag index — cache/index.json
+   Maps "MM-DD" → Set of tags present in that day's notes.
+   Lets the search loop skip days that can't possibly match
+   the active tag filter without fetching each notes file.
+───────────────────────────────────────── */
+
+let tagIndex        = null; // Map<"MM-DD", Set<string>> | null (null = unavailable, fall back)
+let tagIndexPromise = null;
+
+async function loadTagIndex() {
+    if (tagIndex !== null) return tagIndex;
+    if (tagIndexPromise) return tagIndexPromise;
+
+    tagIndexPromise = (async () => {
+        try {
+            const resp = await fetch('cache/index.json');
+            if (!resp.ok) throw new Error('index.json not ok');
+
+            const data = await resp.json();
+            const map  = new Map();
+
+            for (const entry of data) {
+                if (!entry || typeof entry.notes !== 'string') continue;
+                const m = entry.notes.match(/(\d{2}-\d{2})\.json$/);
+                if (!m) continue;
+                map.set(m[1], new Set(Array.isArray(entry.tags) ? entry.tags : []));
+            }
+
+            tagIndex = map;
+        } catch (err) {
+            console.error('Failed to load cache/index.json:', err);
+            tagIndex = false; // false = "tried and failed" — fall back to brute-force
+        }
+        return tagIndex;
+    })();
+
+    return tagIndexPromise;
+}
+
+/**
+ * Decide whether a day (identified by its aggregated tag set from the index)
+ * could possibly contain a post matching the active filter.
+ * Returns true if the day should be fetched and checked in full.
+ */
+function indexDayMayMatch(dayTags, activeTags) {
+    if (!dayTags) return false;          // no notes file for this day at all
+    if (activeTags === null) return true; // no filter — every existing day counts
+
+    // A post with no tags is always shown. We can't see per-post tags from the
+    // index, so treat a day with an empty aggregated tag set as "may contain
+    // untagged posts" → must be checked.
+    if (dayTags.size === 0) return true;
+
+    // Otherwise the day matches only if at least one of its tags is active.
+    for (const t of dayTags) {
+        if (activeTags.has(t)) return true;
+    }
+    return false;
+}
+
+/* ─────────────────────────────────────────
    Fetch one day's posts
 ───────────────────────────────────────── */
 
-async function fetchDayPosts(date) {
-    const mmdd  = toMMDD(date);
-    const label = formatDayMonth(date);
+async function fetchDayPosts(mmdd) {
+    const label = formatDayMonth(mmdd);
 
     try {
         const resp = await fetch(`cache/notes/${mmdd}.json`);
@@ -768,19 +865,78 @@ async function fetchDayPosts(date) {
 }
 
 /* ─────────────────────────────────────────
-   Load feed  (yesterday + selectedDate + tomorrow)
+   Load feed for selectedMMDD, searching neighboring days if needed
    targetAnchor: if set, scroll there after render
 ───────────────────────────────────────── */
 
 // Posts for current day — cached to allow re-filtering without re-fetching
 let cachedPosts = [];
 
-async function loadFeed(targetAnchor) {
+function filterPosts(posts) {
+    const activeTags = getActiveTags();
+    return posts.filter(({ post }) => {
+        const postTags = Array.isArray(post.tags) ? post.tags : [];
+        if (activeTags !== null && postTags.length > 0) {
+            return postTags.some(t => activeTags.has(t));
+        }
+        return true;
+    });
+}
+
+function noTagsSelected() {
+    return [...tagState.values()].every(v => !v);
+}
+
+// direction: 1 = search forward (next day), -1 = search backward (prev day)
+async function loadFeed(targetAnchor, direction = 1) {
+    // If no topics selected — don't switch days, just show message
+    if (noTagsSelected()) {
+        feed.innerHTML = '<div class="error">Выберите хотя бы одну тему</div>';
+        return;
+    }
+
     feed.innerHTML = '<div class="loading">Загрузка…</div>';
+
     try {
-        cachedPosts = await fetchDayPosts(selectedDate);
-        rebuildTagMenu();
-        renderFeed(targetAnchor);
+        // Load the lightweight day→tags index once; speeds up the search
+        // below by letting us skip days that can't possibly match without
+        // fetching their full notes file.
+        const index       = await loadTagIndex();   // Map | false
+        const activeTags  = getActiveTags();         // null = no filter
+
+        const step = direction === -1 ? prevMMDD : nextMMDD;
+
+        const MAX_SEARCH = 366; // full cycle of the fixed reference calendar
+        let searchMMDD = selectedMMDD;
+
+        for (let i = 0; i < MAX_SEARCH; i++) {
+            if (index) {
+                const dayTags = index.get(searchMMDD);
+                if (!indexDayMayMatch(dayTags, activeTags)) {
+                    searchMMDD = step(searchMMDD);
+                    continue;
+                }
+            }
+
+            const posts = await fetchDayPosts(searchMMDD);
+            const filtered = filterPosts(posts);
+
+            if (filtered.length > 0) {
+                if (i > 0) {
+                    selectedMMDD = searchMMDD;
+                    syncUI();
+                }
+                cachedPosts = posts;
+                rebuildTagMenu();
+                renderFeed(targetAnchor);
+                return;
+            }
+
+            searchMMDD = step(searchMMDD);
+        }
+
+        feed.innerHTML = '<div class="error">Нет материалов по выбранным темам</div>';
+
     } catch (err) {
         console.error(err);
         feed.innerHTML = '<div class="error">Ошибка загрузки ленты</div>';
@@ -790,17 +946,15 @@ async function loadFeed(targetAnchor) {
 function renderFeed(targetAnchor) {
     feed.innerHTML = '';
 
-    const activeTags = getActiveTags();
+    if (noTagsSelected()) {
+        feed.innerHTML = '<div class="error">Выберите хотя бы одну тему</div>';
+        return;
+    }
 
+    const visible = filterPosts(cachedPosts);
     let postNum = 0;
 
-    for (const { mmdd, label, sourceUrl, post } of cachedPosts) {
-        // Posts with no tags are always shown regardless of filter
-        const postTags = Array.isArray(post.tags) ? post.tags : [];
-        if (activeTags !== null && postTags.length > 0) {
-            if (!postTags.some(t => activeTags.has(t))) continue;
-        }
-
+    for (const { mmdd, label, sourceUrl, post } of visible) {
         postNum++;
         const card = createPost(mmdd, postNum, label, sourceUrl, post);
         feed.appendChild(card);
@@ -808,6 +962,7 @@ function renderFeed(targetAnchor) {
     }
 
     if (!postNum) {
+        // Shouldn't normally reach here (loadFeed already skips empty days)
         feed.innerHTML = '<div class="error">Нет материалов по выбранным темам</div>';
         return;
     }
@@ -826,32 +981,31 @@ function renderFeed(targetAnchor) {
 const hiddenDateInput = document.getElementById('hiddenDateInput');
 
 function syncUI() {
-    hiddenDateInput.value = toISODate(selectedDate);
+    hiddenDateInput.value = mmddToPickerValue(selectedMMDD);
 }
 
-/** Change the selected date, sync UI, reload feed */
-function setDate(date, targetAnchor) {
-    date.setHours(0, 0, 0, 0);
-    selectedDate = date;
+/** Change the selected day ("MM-DD"), sync UI, reload feed.
+ *  direction: 1 = forward search (default), -1 = backward search */
+function setMMDD(mmdd, targetAnchor, direction = 1) {
+    selectedMMDD = mmdd;
     syncUI();
-    loadFeed(targetAnchor);
+    loadFeed(targetAnchor, direction);
 }
 
 // Click on logo → go to today
 document.getElementById('logoBtn').addEventListener('click', () => {
-    setDate(localToday());
+    setMMDD(todayMMDD());
 });
 
 // Click on title → open hidden date picker
 document.getElementById('titleBtn').addEventListener('click', () => {
-    hiddenDateInput.value = toISODate(selectedDate);
+    hiddenDateInput.value = mmddToPickerValue(selectedMMDD);
     hiddenDateInput.showPicker ? hiddenDateInput.showPicker() : hiddenDateInput.click();
 });
 
 hiddenDateInput.addEventListener('change', () => {
     if (!hiddenDateInput.value) return;
-    const [y, m, d] = hiddenDateInput.value.split('-').map(Number);
-    setDate(new Date(y, m - 1, d, 0, 0, 0, 0));
+    setMMDD(pickerValueToMMDD(hiddenDateInput.value));
 });
 
 /* ─────────────────────────────────────────
@@ -942,6 +1096,20 @@ function rebuildTagMenu() {
     renderTagButtons(list);
 }
 
+/** After a tag change: render from cache if possible, else search forward */
+function applyTagChange() {
+    if (noTagsSelected()) {
+        renderFeed();  // will show "Выберите хотя бы одну тему"
+        return;
+    }
+    const visible = filterPosts(cachedPosts);
+    if (visible.length > 0) {
+        renderFeed();
+    } else {
+        loadFeed(undefined, 1);  // search forward from current selectedMMDD
+    }
+}
+
 function renderTagButtons(list) {
     list.innerHTML = '';
     [...TAG_LABELS.keys()].forEach(tag => {
@@ -955,7 +1123,7 @@ function renderTagButtons(list) {
             tagState.set(tag, !tagState.get(tag));
             btn.classList.toggle('off', !tagState.get(tag));
             saveTagState();
-            renderFeed();
+            applyTagChange();
         });
         list.appendChild(btn);
     });
@@ -979,7 +1147,7 @@ document.getElementById('topicsSelectAll').addEventListener('click', () => {
     tagState.forEach((_, k) => tagState.set(k, true));
     saveTagState();
     renderTagButtons(document.getElementById('topicsList'));
-    renderFeed();
+    applyTagChange();
 });
 
 document.getElementById('topicsSelectNone').addEventListener('click', () => {
@@ -1216,7 +1384,11 @@ themeButton.addEventListener('click', () => {
         hideHint(hintPrev, '↑ Предыдущий день');
         if (wasTriggered) {
             setTimeout(() => {
-                setDate(dateOffsetFrom(selectedDate, wasEdge === 'next' ? 1 : -1));
+                if (!noTagsSelected()) {
+                    const dir = wasEdge === 'next' ? 1 : -1;
+                    const next = dir === 1 ? nextMMDD(selectedMMDD) : prevMMDD(selectedMMDD);
+                    setMMDD(next, undefined, dir);
+                }
             }, 120);
         }
     }, { passive: true });
@@ -1255,12 +1427,19 @@ themeButton.addEventListener('click', () => {
             wheelAccum = 0; wheelDir = null;
             hideHint(hintNext, '↓ Следующий день');
             hideHint(hintPrev, '↑ Предыдущий день');
-            if (go) setDate(dateOffsetFrom(selectedDate, dir === 'next' ? 1 : -1));
+            if (go) {
+                const d = dir === 'next' ? 1 : -1;
+                const next = d === 1 ? nextMMDD(selectedMMDD) : prevMMDD(selectedMMDD);
+                setMMDD(next, undefined, d);
+            }
         }, 400);
     }, { passive: true });
 })();
 
 initTheme();
+
+// Populate tag menu immediately — doesn't depend on posts
+rebuildTagMenu();
 
 (function boot() {
     const raw    = decodeURIComponent(location.hash.slice(1));  // e.g. "06-07-3"
@@ -1269,11 +1448,9 @@ initTheme();
     if (parsed) {
         // The link contains a specific post: set the calendar to that day
         // and scroll to the post once the feed is loaded.
-        const targetDate   = dateFromMMDD(parsed.mmdd);
-        const targetAnchor = raw;          // "MM-DD-N"
-        setDate(targetDate, targetAnchor);
+        setMMDD(parsed.mmdd, raw);
     } else {
-        setDate(localToday());
+        setMMDD(todayMMDD());
     }
 })();
 </script>
