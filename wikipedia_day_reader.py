@@ -1196,6 +1196,7 @@ HTML_PAGE = r"""<!DOCTYPE html>
           onkeydown="if(event.key==='Enter'){event.preventDefault();addTag();}">
         <button class="bs" onclick="addTag()">+ Добавить</button>
       </div>
+      <div class="tag-list" id="tagSuggestions" style="margin-top:6px"></div>
     </div>
     <div class="note-imgs-wrap" id="noteImgs"></div>
     <label class="bs note-upload-btn" style="border:1.5px solid;border-radius:var(--r)">
@@ -1898,39 +1899,45 @@ function detectAutoTags(wikiKey){
   const tags = [];
   if(!data || !wikiKey) return tags;
 
-  // Map Russian category labels to English tags
-  const labelMap = {
-    'Наука':        'Science',
-    'Искусство':    'Art',
-    'Образование':  'Education',
-    'Литература':   'Literature',
-    'Учёные':       'Scientists',
-    'Художники':    'Artists',
-    'Композиторы':  'Composers',
-    'Изобретатели': 'Inventors',
+  // Unified tag names by stable category id — same vocabulary across
+  // events, births and holidays.
+  const idMap = {
+    science:     'Science',
+    art:         'Art',
+    education:   'Education',
+    literature:  'Literature',
+    scientists:  'Science',
+    artists:     'Art',
+    composers:   'Music',
+    inventors:   'Inventions',
   };
 
   // Event categories
   (data.events||[]).forEach(cat=>{
     if(cat.entries && cat.entries.some(e=>e.includes(wikiKey)))
-      tags.push(labelMap[cat.label] || cat.label);
+      tags.push(idMap[cat.id] || cat.label);
   });
   // Birth categories
   (data.births||[]).forEach(cat=>{
     if(cat.entries && cat.entries.some(e=>e.includes(wikiKey)))
-      tags.push(labelMap[cat.label] || cat.label);
+      tags.push(idMap[cat.id] || cat.label);
   });
-  // Russians
-  if((data.births_russian||[]).some(e=>e.includes(wikiKey)))
-    tags.push('Russian');
   // Holidays
   if((data.holidays||[]).some(item=>{
     const text=typeof item==='string'?item:(item.text||'');
     const children=typeof item==='object'?(item.children||[]):[];
     return text.includes(wikiKey)||children.some(c=>c.includes(wikiKey));
   })) tags.push('Holiday');
+
   return [...new Set(tags)];
 }
+
+// Quick-pick suggestions shown in the tag editor — same vocabulary
+// used everywhere, plus a few extra topics not tied to a category.
+const TAG_SUGGESTIONS = [
+  'Science','Art','Music','Education','Literature',
+  'Exploration','Inventions','Politics','Holiday'
+];
 
 function renderTagList(){
   const wrap = document.getElementById('tagList');
@@ -1940,6 +1947,23 @@ function renderTagList(){
     const el = document.createElement('span');
     el.className = 'tag';
     el.innerHTML = `${tag} <button class="tag-del" onclick="removeTag(${i})" title="Удалить">✕</button>`;
+    wrap.appendChild(el);
+  });
+  renderTagSuggestions();
+}
+
+function renderTagSuggestions(){
+  const wrap = document.getElementById('tagSuggestions');
+  if(!wrap) return;
+  wrap.innerHTML = '';
+  TAG_SUGGESTIONS.filter(t=>!_tags.includes(t)).forEach(tag=>{
+    const el = document.createElement('span');
+    el.className = 'tag';
+    el.style.cursor = 'pointer';
+    el.style.opacity = '0.65';
+    el.title = 'Добавить тег';
+    el.textContent = '+ ' + tag;
+    el.onclick = () => { _tags.push(tag); renderTagList(); };
     wrap.appendChild(el);
   });
 }

@@ -153,3 +153,6 @@ use the calendar only to display the date of the post displayed on the screen an
 prompt update 25
 при открытии страницы по ссылке поделиться например #06-05-2, нужно временно включать у пользователя отображение одной из тем к которой этот пост относится, если они таковы, что не попадают под темы выбранные пользователем открывающим ссылку
 when opening a page using a share link, for example #06-05-2, program have to temporarily (for this session) enable the user to display one of the topics to which this post refers, if they are such that they do not fall under the topics selected by the user opening the link.
+
+prompt update 26
+Add "🚀Space (Cosmonauts)" to themes (increase height of menu if needed), remove text from "Поделиться" and "Темы" spare only their icons, also for the text "Ссылка скопирована" spare only "tick" emoji 

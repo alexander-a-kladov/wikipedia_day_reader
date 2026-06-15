@@ -1,0 +1,39 @@
+{
+  "https://en.wikipedia.org/wiki/1862": {
+    "title": "🏛️📜 Russian State Library 📚🗄️",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1862\" target=\"_blank\">1862</a> – The <a href=\"https://en.wikipedia.org/wiki/Russian_State_Library\" target=\"_blank\">Russian State Library</a> is founded as the Library of the Moscow Public Museum.</div><div><a href=\"https://www.jstor.org/stable/20027399?seq=1\" target=\"_blank\">\"Problems of Russian Libraries in an Age of Social Change\" 1996</a></div>",
+    "tags": [
+      "Education"
+    ],
+    "images": [
+      "/images/07-01_162d831aec.jpg",
+      "/images/07-01_370607f5b7.jpg",
+      "/images/07-01_31e3daea8d.jpg",
+      "/images/07-01_6d901d63fe.jpg",
+      "/images/07-01_ee48bb8796.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-15",
+      "url": "http://thepastandenglishbooks.ru/#07-01-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1646": {
+    "title": "📜🏛️ Birthday of Gottfried Wilhelm Leibniz 📚🔗",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1646\" target=\"_blank\">1646</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Gottfried_Wilhelm_Leibniz\" target=\"_blank\">Gottfried Wilhelm Leibniz</a>, German mathematician and philosopher (died 1716)</div><div><a href=\"https://archive.org/details/TheHistoryOfComputing/mode/2up\" target=\"_blank\">The History Of Computing by Marguerite Zientara 1981</a></div>",
+    "tags": [
+      "Science"
+    ],
+    "images": [
+      "/images/07-01_1baa9c5e02.jpg",
+      "/images/07-01_490747b7f8.jpg",
+      "/images/07-01_c7d105b083.jpg",
+      "/images/07-01_c64293fbe1.jpeg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-15",
+      "url": "http://thepastandenglishbooks.ru/#07-01-2"
+    }
+  }
+}

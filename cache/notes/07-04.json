@@ -1,0 +1,56 @@
+{
+  "https://en.wikipedia.org/wiki/2012": {
+    "title": "🔬💥 The discovery of the Higgs boson ⚛️📈",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/2012\" target=\"_blank\">2012</a> – The discovery of particles consistent with the <a href=\"https://en.wikipedia.org/wiki/Higgs_boson\" target=\"_blank\">Higgs boson</a> at the <a href=\"https://en.wikipedia.org/wiki/Large_Hadron_Collider\" target=\"_blank\">Large Hadron Collider</a> is announced at <a href=\"https://en.wikipedia.org/wiki/CERN\" target=\"_blank\">CERN</a>.</div><div><a href=\"https://archive.org/details/TheHiggsBosonAndBeyond/mode/2up\" target=\"_blank\">The Higgs Boson and Beyond</a></div>",
+    "tags": [
+      "Science"
+    ],
+    "images": [
+      "/images/07-04_c4e71170d6.png",
+      "/images/07-04_ae457027b2.png",
+      "/images/07-04_b65c385d1d.png",
+      "/images/07-04_634e0c7571.jpg",
+      "/images/07-04_4702dd2e17.png"
+    ],
+    "pub_status": "ready"
+  },
+  "https://en.wikipedia.org/wiki/1802": {
+    "title": "🧑‍🎓📚 The United States Military Academy ⚔️🛡️",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1802\" target=\"_blank\">1802</a> – The <a href=\"https://en.wikipedia.org/wiki/United_States_Military_Academy\" target=\"_blank\">United States Military Academy</a> opens at <a href=\"https://en.wikipedia.org/wiki/West_Point,_New_York\" target=\"_blank\">West Point, New York</a>.</div><div><a href=\"https://archive.org/details/isbn_9780375729195/mode/2up\" target=\"_blank\">Absolutely American: Four Years at West Point by David Lipsky 2004</a></div>",
+    "tags": [
+      "Education"
+    ],
+    "images": [
+      "/images/07-04_ee63080a85.png",
+      "/images/07-04_d871ac7e5e.jpg",
+      "/images/07-04_7431bb0171.jpg",
+      "/images/07-04_587ac6cc72.jpg",
+      "/images/07-04_9d5ab2eaf4.jpg",
+      "/images/07-04_e8738eb0ba.jpg",
+      "/images/07-04_fe79174aa0.jpg",
+      "/images/07-04_30a56b06a6.jpg"
+    ],
+    "pub_status": "ready"
+  },
+  "https://en.wikipedia.org/wiki/1997": {
+    "title": "🧭🧊 Mars Pathfinder 🏜️🔴",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1997\" target=\"_blank\">1997</a> – <a href=\"https://en.wikipedia.org/wiki/NASA\" target=\"_blank\">NASA</a>'s <a href=\"https://en.wikipedia.org/wiki/Mars_Pathfinder\" target=\"_blank\">Pathfinder</a> space probe lands on the surface of <a href=\"https://en.wikipedia.org/wiki/Mars\" target=\"_blank\">Mars</a>.</div><div><a href=\"https://archive.org/details/sojournerinsider00mish\" target=\"_blank\">Sojourner : an insider's view of the Mars Pathfinder mission by Mishkin, Andrew 2003</a></div>",
+    "tags": [
+      "Space"
+    ],
+    "images": [
+      "/images/07-04_90d36c501d.jpg",
+      "/images/07-04_4a2b39f2ad.jpg",
+      "/images/07-04_c48bf4b689.jpg",
+      "/images/07-04_10eb93e901.jpg",
+      "/images/07-04_ed0916bed1.jpg",
+      "/images/07-04_9b649eb9f8.jpg",
+      "/images/07-04_27a0fe0672.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-15",
+      "url": "http://thepastandenglishbooks.ru/#07-04-1"
+    }
+  }
+}

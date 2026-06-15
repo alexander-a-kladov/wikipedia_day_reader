@@ -78,3 +78,7 @@ prompt update 13
 Add the function to add tags to notes in editor. When creating a new note, they are added automatically from those categories in which the event, holiday or birthday is located, i.e. it will be Science,Art,Music,Education,Literature,Holiday,Birthday,Russian
 update:
 name tags in English
+update:
+use the same tags for birthdays, events and holidays: Science,Art,Music,Education,Literature and so on
+remove tags: Birthday, Russian
+add tags: Exploration, Inventions, Politics

@@ -189,5 +189,20 @@
     "tags": [
       "Science"
     ]
+  },
+  {
+    "notes": "notes/07-01.json",
+    "tags": [
+      "Education",
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/07-04.json",
+    "tags": [
+      "Education",
+      "Science",
+      "Space"
+    ]
   }
 ]
