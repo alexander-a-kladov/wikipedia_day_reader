@@ -8,7 +8,7 @@
 <meta name="keywords" content="history, English books, historical events, biographies, English literature, education, past events">
 <meta name="author" content="The Past and English Books">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://vk.com/ak8englishbooks">
+<link rel="canonical" href="http://thepastandenglishbooks">
 
 <!-- Open Graph / VK / Facebook -->
 <meta property="og:type" content="website">
@@ -32,10 +32,10 @@
   "@type": "Blog",
   "name": "The Past and English Books",
   "description": "Daily historical facts, events and biographies paired with English books.",
-  "url": "https://vk.com/ak8englishbooks",
+  "url": "http://thepastandenglishbooks",
   "image": "thePastandEnglish.jpg",
   "inLanguage": ["ru", "en"],
-  "sameAs": ["https://vk.com/ak8englishbooks"]
+  "sameAs": ["http://thepastandenglishbooks"]
 }
 </script>
 
@@ -388,6 +388,69 @@ body.dark #customDateInput:focus { border-color: #66b3ff; }
 body.dark .loading, body.dark .error { color: #bbb; }
 body.dark .share-btn { background: #333; color: white; }
 
+.help-btn {
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    background: #1565c0;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.help-btn:hover {
+    opacity: 0.9;
+}
+
+.help-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.help-modal[hidden] {
+    display: none !important;
+}
+
+.help-modal-content {
+    position: relative;
+    background: white;
+    padding: 24px;
+    border-radius: 14px;
+    max-width: 600px;
+    width: calc(100% - 30px);
+    font-size: 16px;
+    line-height: 1.7;
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+
+.help-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: transparent;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+body.dark .help-modal-content {
+    background: #1e1e1e;
+    color: #e0e0e0;
+}
+
+body.dark .help-btn {
+    background: #5aabff;
+    color: #000;
+}
+
 /* ── footer / counter ── */
 footer {
     text-align: center;
@@ -480,10 +543,33 @@ body.dark footer { color: #555; }
                 </div>
             </div>
             <button id="themeToggle" class="theme-toggle">🌙</button>
+            <button id="helpBtn" class="help-btn" title="Help">?</button>
         </div>
     </div>
 </header>
+<div id="helpModal" class="help-modal" hidden>
+            <div class="help-modal-content">
+                <button id="closeHelp" class="help-close">✕</button>
 
+                <h3>How to use this site</h3>
+
+                <p>
+                    This site is for browsing historical events in several categories.
+                    You can select categories you are interested in using
+                    <strong>📕</strong>.
+                </p>
+
+                <p>
+                    To change the date, scroll to the bottom or top of the page and keep
+                    scrolling until the date changes. On PC, use the mouse wheel.
+                </p>
+
+                <p>
+                    You can also choose a date from the calendar. Just click the title
+                    <strong>"The Past and English Books"</strong>.
+                </p>
+            </div>
+</div>
 <div id="feed">
     <div class="loading">Загрузка…</div>
 </div>
@@ -649,7 +735,7 @@ function getImagePath(src) {
 
 const TAG_LABELS = new Map([
     ['Science',     '🔬 Science (Scientists)'],
-    ['Space', '🚀Space (Cosmonauts)'],
+    ['Space', '🚀Space (Cosmonautics)'],
     ['Art',         '🎨 Art (Artists)'],
     ['Music',       '🎶 Music (Musicians)'],
     ['Education',   '📚 Education (Educators)'],
@@ -1065,7 +1151,7 @@ document.addEventListener('click', async (e) => {
     const original = btn.innerHTML;
     try {
         await copyToClipboard(url);
-        btn.innerHTML = '✅';
+        btn.innerHTML = '🔗✅';
         btn.disabled  = true;
         setTimeout(() => { btn.innerHTML = original; btn.disabled = false; }, 2500);
     } catch (_) {
@@ -1487,6 +1573,24 @@ themeButton.addEventListener('click', () => {
         }, 400);
     }, { passive: true });
 })();
+
+const helpBtn = document.getElementById('helpBtn');
+const helpModal = document.getElementById('helpModal');
+const closeHelp = document.getElementById('closeHelp');
+
+helpBtn.addEventListener('click', () => {
+    helpModal.hidden = false;
+});
+
+closeHelp.addEventListener('click', () => {
+    helpModal.hidden = true;
+});
+
+helpModal.addEventListener('click', (e) => {
+    if (e.target === helpModal) {
+        helpModal.hidden = true;
+    }
+});
 
 initTheme();
 
