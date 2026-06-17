@@ -876,7 +876,8 @@ let tagIndexPromise = null;
 let notesCacheBust  = '';
 
 /**
- * Parse index.json data into a Map and return it.
+ * Parse index.json data into a Map and a sorted keys array.
+ * Returns { map, keys } where keys is sorted lexicographically (= calendar order).
  */
 function parseTagIndex(data) {
     const map = new Map();
@@ -886,7 +887,9 @@ function parseTagIndex(data) {
         if (!m) continue;
         map.set(m[1], new Set(Array.isArray(entry.tags) ? entry.tags : []));
     }
-    return map;
+    // Sort lexicographically — "MM-DD" strings sort correctly in calendar order
+    const keys = [...map.keys()].sort();
+    return { map, keys };
 }
 
 /**
@@ -923,7 +926,7 @@ async function loadTagIndex() {
                 }
             }
 
-            tagIndex = parseTagIndex(JSON.parse(text));
+            tagIndex = parseTagIndex(JSON.parse(text));  // { map, keys }
         } catch (err) {
             console.error('Failed to load cache/index.json:', err);
             tagIndex = false; // fall back to brute-force (fetch every notes file)
@@ -1056,28 +1059,53 @@ async function loadFeed(targetAnchor, direction = 1) {
         const index       = await loadTagIndex();   // Map | false
         const activeTags  = getActiveTags();         // null = no filter
 
-        const step = direction === -1 ? prevMMDD : nextMMDD;
+        // Build the candidate list from the index (fast, no network).
+        // Falls back to brute-force day-stepping only when index failed to load.
+        let candidates;
 
-        const MAX_SEARCH = 366; // full cycle of the fixed reference calendar
-        let searchMMDD = selectedMMDD;
+        if (index && index.keys) {
+            // Index available: filter to days that may match, then order by
+            // direction starting from selectedMMDD, wrapping around year end once.
+            const allKeys = index.keys; // already sorted "MM-DD" lexicographically
+            const matching = allKeys.filter(k => indexDayMayMatch(index.map.get(k), activeTags));
 
-        for (let i = 0; i < MAX_SEARCH; i++) {
-            // Use the index to skip days that definitely can't match.
-            // When index is a Map: undefined entry = unknown (new) day → must fetch.
-            // When index is false (failed to load): fetch every day.
-            if (index instanceof Map) {
-                const dayTags = index.get(searchMMDD);
-                if (!indexDayMayMatch(dayTags, activeTags)) {
-                    searchMMDD = step(searchMMDD);
-                    continue;
+            if (direction === 1) {
+                // Forward: keys >= selectedMMDD, then keys < selectedMMDD (wrap)
+                const from  = matching.filter(k => k >= selectedMMDD);
+                const wrap  = matching.filter(k => k <  selectedMMDD);
+                candidates  = [...from, ...wrap];
+            } else {
+                // Backward: keys <= selectedMMDD descending, then wrap
+                const from  = matching.filter(k => k <= selectedMMDD).reverse();
+                const wrap  = matching.filter(k => k >  selectedMMDD).reverse();
+                candidates  = [...from, ...wrap];
+            }
+        } else {
+            // Fallback: step through all days in direction, wrap once
+            candidates = [];
+            const step      = direction === 1 ? nextMMDD : prevMMDD;
+            const boundary  = direction === 1 ? '12-31'  : '01-01';
+            const wrapStart = direction === 1 ? '01-01'  : '12-31';
+            let cur = selectedMMDD;
+            let wrapped = false;
+            for (let i = 0; i < 366; i++) {
+                candidates.push(cur);
+                if (cur === boundary) {
+                    if (wrapped) break;
+                    cur = wrapStart;
+                    wrapped = true;
+                } else {
+                    cur = step(cur);
                 }
             }
+        }
 
-            const posts = await fetchDayPosts(searchMMDD);
+        for (const searchMMDD of candidates) {
+            const posts    = await fetchDayPosts(searchMMDD);
             const filtered = filterPosts(posts);
 
             if (filtered.length > 0) {
-                if (i > 0) {
+                if (searchMMDD !== selectedMMDD) {
                     selectedMMDD = searchMMDD;
                     syncUI();
                 }
@@ -1086,14 +1114,6 @@ async function loadFeed(targetAnchor, direction = 1) {
                 renderFeed(targetAnchor);
                 return;
             }
-
-            // Day fetched but no matching posts — if using index, mark as
-            // explicitly empty so we don't re-fetch it in the same session.
-            if (index instanceof Map && !index.has(searchMMDD)) {
-                index.set(searchMMDD, null);
-            }
-
-            searchMMDD = step(searchMMDD);
         }
 
         feed.innerHTML = '<div class="error">Нет материалов по выбранным темам</div>';
