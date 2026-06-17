@@ -157,10 +157,13 @@ when opening a page using a share link, for example #06-05-2, program have to te
 prompt update 26 done
 Add "🚀Space (Cosmonautics)" to themes (increase height of menu if needed), remove text from "Поделиться" and "Темы" spare only their icons, also for the text "Ссылка скопирована" spare only "tick" emoji 
 
-prompt update 27
+prompt update 27 done
 let's return to the version before scrolling feed, I've update it a little, check my script and add there some mechanism to force update for index.json and probably notes json files for user if they are changed on the server.
-
-prompt update 28
-remove Politics (Politicians) theme from the themes
-update
+update done done
 I've update index.json and when I've started site locally it shows me "Нет материалов по выбранным темам" thought all themes are checked
+
+prompt update 28 done
+remove Politics (Politicians) theme from the themes
+
+prompt update 29
+now site has a problem, when I scroll to the end of notes and site has to switch to the start of notes it stays on "Загрузка" screen very long time.

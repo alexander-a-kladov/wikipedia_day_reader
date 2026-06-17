@@ -1,0 +1,19 @@
+{
+  "https://en.wikipedia.org/wiki/2019": {
+    "title": "🚗🐞 Volkswagen Beetle 🌼🇩🇪",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/2019\" target=\"_blank\">2019</a> – The final <a href=\"https://en.wikipedia.org/wiki/Volkswagen_Beetle\" target=\"_blank\">Volkswagen Beetle</a> rolls off the line in <a href=\"https://en.wikipedia.org/wiki/Puebla_(city)\" target=\"_blank\">Puebla</a>, Mexico; the last of 5,961 \"Special Edition\" cars will be exhibited in a museum.</div><div><a href=\"https://archive.org/details/ultimateclassicc00quen/mode/2up\" target=\"_blank\">The ultimate classic car book by Willson, Quentin; Selby, David 1995</a></div>",
+    "tags": [
+      "Inventions"
+    ],
+    "images": [
+      "/images/07-10_8aaf17e386.jpg",
+      "/images/07-10_869bc6633d.jpg",
+      "/images/07-10_6b9b8bb008.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-17",
+      "url": "http://localhost:8080/thepastandenglishbooks.html#07-10-1"
+    }
+  }
+}
