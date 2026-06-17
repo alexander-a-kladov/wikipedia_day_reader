@@ -12,7 +12,11 @@
       "/images/07-04_634e0c7571.jpg",
       "/images/07-04_4702dd2e17.png"
     ],
-    "pub_status": "ready"
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-16",
+      "url": "http://thepastandenglishbooks.ru/#07-04-2"
+    }
   },
   "https://en.wikipedia.org/wiki/1802": {
     "title": "🧑‍🎓📚 The United States Military Academy ⚔️🛡️",
@@ -30,7 +34,11 @@
       "/images/07-04_fe79174aa0.jpg",
       "/images/07-04_30a56b06a6.jpg"
     ],
-    "pub_status": "ready"
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-16",
+      "url": "http://thepastandenglishbooks.ru/#07-04-3"
+    }
   },
   "https://en.wikipedia.org/wiki/1997": {
     "title": "🧭🧊 Mars Pathfinder 🏜️🔴",

@@ -1,0 +1,40 @@
+{
+  "https://en.wikipedia.org/wiki/1859": {
+    "title": "🦅🌿 Midway Atoll 🏕️🌅",
+    "text": "<a href=\"https://en.wikipedia.org/wiki/1859\" target=\"_blank\">1859</a> – The United States discovers and claims <a href=\"https://en.wikipedia.org/wiki/Midway_Atoll\" target=\"_blank\">Midway Atoll</a>.",
+    "tags": [
+      "Exploration"
+    ],
+    "images": [
+      "/images/07-05_59d3c90c65.jpg",
+      "/images/07-05_8d35836831.png",
+      "/images/07-05_57b0f1e58e.jpg",
+      "/images/07-05_672e214e9e.jpg",
+      "/images/07-05_be6730277a.jpg",
+      "/images/07-05_858fabeb0e.jpg"
+    ],
+    "pub_status": "draft"
+  },
+  "https://en.wikipedia.org/wiki/2016": {
+    "title": "🛰️🪐 The Juno space probe 🌀📡",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/2016\" target=\"_blank\">2016</a> – The <a href=\"https://en.wikipedia.org/wiki/Juno_(spacecraft)\" target=\"_blank\">Juno</a> space probe arrives at <a href=\"https://en.wikipedia.org/wiki/Jupiter\" target=\"_blank\">Jupiter</a> and begins a 20-month survey of the planet.</div><div><a href=\"https://archive.org/details/jupitergiantplan02edbeeb/mode/2up\" target=\"_blank\">Jupiter : the giant planet by Beebe, Reta 1997</a></div>",
+    "tags": [
+      "Space"
+    ],
+    "images": [
+      "/images/07-05_9edbc504ea.jpg",
+      "/images/07-05_c6f7c727ae.jpg",
+      "/images/07-05_dce640c94b.jpg",
+      "/images/07-05_778c0119a0.png",
+      "/images/07-05_0c23d87947.png",
+      "/images/07-05_f6f4b741f9.png",
+      "/images/07-05_b00ecb41e5.png",
+      "/images/07-05_4d2fe0ca66.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-16",
+      "url": "http://thepastandenglishbooks.ru/#07-05-1"
+    }
+  }
+}

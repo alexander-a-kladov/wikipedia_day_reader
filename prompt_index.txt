@@ -141,7 +141,7 @@ prompt update 23 done
 программа на python которая берет json файлы из каталога (параметр командной строки) в лексиграфическом порядке, находит в каждом из них все различные значения полей tags и записывает результат в файл index.json, который содержит массив имен файлов в порядке их чтения и соответствующие им массивы уникальных тэгов.
 a python program that takes json files from a directory (a command line parameter) in lexographic order, finds in each of them all the different values of the "tags" fields and writes the result to an index file.json, which contains an array of file names in the order they are read and their corresponding arrays of unique tags.
 
-prompt update 24
+prompt update 24 done
 Исользуй содержимое файла cache/index.json для ускорения работы алгоритма поиска постов для заданного набора тем, этот файл содержит все доступные файлы заметок и содержащиеся в них теги тем
 Use the contents of the cache/index.json to speed up the algorithm for searching posts for a given set of topics, this file contains all available note files and the topic tags contained therein.
 update:
@@ -150,9 +150,17 @@ update:
 используй календарь только для отображения даты поста отображаемого на экране и для ввода даты, логику переключения постов привяжи к названиям их файлов (к их лексиграфическому порядку), год не играет никакого значения поэтому он должен всегда оставаться текущим, если только он не введен вручную другой, посты 29 февраля (02-29.json) отображаются в любой год при переключении к ним через перелистывание, при этом дата в календаре может оставаться либо 02.28, либо 03.01 если она не корректна для текущего года.
 use the calendar only to display the date of the post displayed on the screen and to enter the date, link the logic of switching posts to the names of their files (to their lexographic order), the year does not play any role, so it should always remain current, unless it is manually entered, posts on February 29 (02-29.json) are displayed in any year when switching to them via scrolling, while the date in the calendar can remain either 02.28 or 03.01 if it is not correct for the current year.
 
-prompt update 25
+prompt update 25 done
 при открытии страницы по ссылке поделиться например #06-05-2, нужно временно включать у пользователя отображение одной из тем к которой этот пост относится, если они таковы, что не попадают под темы выбранные пользователем открывающим ссылку
 when opening a page using a share link, for example #06-05-2, program have to temporarily (for this session) enable the user to display one of the topics to which this post refers, if they are such that they do not fall under the topics selected by the user opening the link.
 
-prompt update 26
-Add "🚀Space (Cosmonauts)" to themes (increase height of menu if needed), remove text from "Поделиться" and "Темы" spare only their icons, also for the text "Ссылка скопирована" spare only "tick" emoji 
+prompt update 26 done
+Add "🚀Space (Cosmonautics)" to themes (increase height of menu if needed), remove text from "Поделиться" and "Темы" spare only their icons, also for the text "Ссылка скопирована" spare only "tick" emoji 
+
+prompt update 27
+let's return to the version before scrolling feed, I've update it a little, check my script and add there some mechanism to force update for index.json and probably notes json files for user if they are changed on the server.
+
+prompt update 28
+remove Politics (Politicians) theme from the themes
+update
+I've update index.json and when I've started site locally it shows me "Нет материалов по выбранным темам" thought all themes are checked

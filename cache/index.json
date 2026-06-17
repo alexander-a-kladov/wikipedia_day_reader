@@ -183,8 +183,7 @@
   {
     "notes": "notes/06-29.json",
     "tags": [
-      "Art",
-      "Politics"
+      "Art"
     ]
   },
   {
@@ -205,6 +204,26 @@
     "tags": [
       "Education",
       "Science",
+      "Space"
+    ]
+  },
+  {
+    "notes": "notes/07-05.json",
+    "tags": [
+      "Exploration",
+      "Space"
+    ]
+  },
+  {
+    "notes": "notes/07-06.json",
+    "tags": [
+      "Art",
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/07-07.json",
+    "tags": [
       "Space"
     ]
   }

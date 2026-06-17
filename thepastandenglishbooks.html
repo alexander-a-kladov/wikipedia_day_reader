@@ -740,7 +740,6 @@ const TAG_LABELS = new Map([
     ['Music',       '🎶 Music (Musicians)'],
     ['Education',   '📚 Education (Educators)'],
     ['Literature',  '📖 Literature (Writers)'],
-    ['Politics',    '🗣️ Politics (Politicians)'],
     ['Inventions',  '💡 Inventions (Inventors)'],
     ['Exploration', '🧭 Exploration (Explorers)'],
 ]);
@@ -752,7 +751,6 @@ const TAG_EMOJI = new Map([
     ['Music',       '🎶'],
     ['Education',   '📚'],
     ['Literature',  '📖'],
-    ['Politics',    '🗣️'],
     ['Inventions',  '💡'],
     ['Exploration', '🧭'],
 ]);
@@ -874,29 +872,61 @@ function scrollToPost(anchorId) {
 let tagIndex        = null; // Map<"MM-DD", Set<string>> | null (null = unavailable, fall back)
 let tagIndexPromise = null;
 
+// Cache-busting version token appended to notes fetches when index changed
+let notesCacheBust  = '';
+
+/**
+ * Parse index.json data into a Map and return it.
+ */
+function parseTagIndex(data) {
+    const map = new Map();
+    for (const entry of data) {
+        if (!entry || typeof entry.notes !== 'string') continue;
+        const m = entry.notes.match(/(\d{2}-\d{2})\.json$/);
+        if (!m) continue;
+        map.set(m[1], new Set(Array.isArray(entry.tags) ? entry.tags : []));
+    }
+    return map;
+}
+
+/**
+ * Load cache/index.json.
+ * On first call: check server for updates vs. localStorage etag.
+ * If the content changed, invalidate cached notes so they get re-fetched.
+ */
 async function loadTagIndex() {
     if (tagIndex !== null) return tagIndex;
     if (tagIndexPromise) return tagIndexPromise;
 
     tagIndexPromise = (async () => {
         try {
-            const resp = await fetch('cache/index.json');
+            // Always revalidate — use no-cache so the browser asks the server
+            // whether the file changed (via ETag / Last-Modified) without
+            // necessarily re-downloading it.
+            const resp = await fetch('cache/index.json', { cache: 'no-cache' });
             if (!resp.ok) throw new Error('index.json not ok');
 
-            const data = await resp.json();
-            const map  = new Map();
+            const text = await resp.text();
 
-            for (const entry of data) {
-                if (!entry || typeof entry.notes !== 'string') continue;
-                const m = entry.notes.match(/(\d{2}-\d{2})\.json$/);
-                if (!m) continue;
-                map.set(m[1], new Set(Array.isArray(entry.tags) ? entry.tags : []));
+            // Detect changes by comparing a simple hash of the raw JSON text
+            // to what we stored last time.
+            const stored  = localStorage.getItem('indexJsonHash') || '';
+            const current = simpleHash(text);
+
+            if (current !== stored || !stored) {
+                // Content changed (or first visit) — invalidate cached notes
+                // by appending a timestamp query string to all notes fetches.
+                notesCacheBust = '?v=' + Date.now();
+                localStorage.setItem('indexJsonHash', current);
+                if (stored) {
+                    console.info('cache/index.json updated — notes will be re-fetched');
+                }
             }
 
-            tagIndex = map;
+            tagIndex = parseTagIndex(JSON.parse(text));
         } catch (err) {
             console.error('Failed to load cache/index.json:', err);
-            tagIndex = false; // false = "tried and failed" — fall back to brute-force
+            tagIndex = false; // fall back to brute-force (fetch every notes file)
         }
         return tagIndex;
     })();
@@ -905,12 +935,46 @@ async function loadTagIndex() {
 }
 
 /**
+ * Force-refresh index.json and the current day's notes regardless of cache.
+ * Call this e.g. from a developer console or a hidden admin gesture.
+ */
+async function forceRefresh() {
+    tagIndex        = null;
+    tagIndexPromise = null;
+    notesCacheBust  = '?v=' + Date.now();
+    localStorage.removeItem('indexJsonHash');
+    await loadTagIndex();
+    loadFeed();
+}
+
+/**
+ * Very fast non-cryptographic string hash (djb2) — only used to detect
+ * whether index.json content has changed between page loads.
+ */
+function simpleHash(str) {
+    let h = 5381;
+    for (let i = 0; i < str.length; i++) {
+        h = ((h << 5) + h) ^ str.charCodeAt(i);
+        h |= 0; // keep 32-bit
+    }
+    return (h >>> 0).toString(36);
+}
+
+/**
  * Decide whether a day (identified by its aggregated tag set from the index)
  * could possibly contain a post matching the active filter.
  * Returns true if the day should be fetched and checked in full.
  */
 function indexDayMayMatch(dayTags, activeTags) {
-    if (!dayTags) return false;          // no notes file for this day at all
+    // dayTags === undefined means this MM-DD is not in the index at all.
+    // This can happen when new note files are added to the server after the
+    // index was cached locally. We MUST fetch and check such days.
+    if (dayTags === undefined) return true;
+
+    // dayTags === null means we explicitly know there is no notes file for
+    // this day (sentinel value set below). Skip it.
+    if (dayTags === null) return false;
+
     if (activeTags === null) return true; // no filter — every existing day counts
 
     // A post with no tags is always shown. We can't see per-post tags from the
@@ -933,7 +997,7 @@ async function fetchDayPosts(mmdd) {
     const label = formatDayMonth(mmdd);
 
     try {
-        const resp = await fetch(`cache/notes/${mmdd}.json`);
+        const resp = await fetch(`cache/notes/${mmdd}.json${notesCacheBust}`);
         if (!resp.ok) return [];
 
         const data    = await resp.json();
@@ -998,7 +1062,10 @@ async function loadFeed(targetAnchor, direction = 1) {
         let searchMMDD = selectedMMDD;
 
         for (let i = 0; i < MAX_SEARCH; i++) {
-            if (index) {
+            // Use the index to skip days that definitely can't match.
+            // When index is a Map: undefined entry = unknown (new) day → must fetch.
+            // When index is false (failed to load): fetch every day.
+            if (index instanceof Map) {
                 const dayTags = index.get(searchMMDD);
                 if (!indexDayMayMatch(dayTags, activeTags)) {
                     searchMMDD = step(searchMMDD);
@@ -1018,6 +1085,12 @@ async function loadFeed(targetAnchor, direction = 1) {
                 rebuildTagMenu();
                 renderFeed(targetAnchor);
                 return;
+            }
+
+            // Day fetched but no matching posts — if using index, mark as
+            // explicitly empty so we don't re-fetch it in the same session.
+            if (index instanceof Map && !index.has(searchMMDD)) {
+                index.set(searchMMDD, null);
             }
 
             searchMMDD = step(searchMMDD);
