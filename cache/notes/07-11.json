@@ -1,0 +1,47 @@
+{
+  "https://en.wikipedia.org/wiki/1962": {
+    "title": "",
+    "text": "<a href=\"https://en.wikipedia.org/wiki/1962\" target=\"_blank\">1962</a> – First transatlantic <a href=\"https://en.wikipedia.org/wiki/Satellite_television\" target=\"_blank\">satellite television</a> transmission.",
+    "tags": [
+      "Inventions"
+    ],
+    "images": [],
+    "pub_status": "draft"
+  },
+  "https://en.wikipedia.org/wiki/1979": {
+    "title": "",
+    "text": "<a href=\"https://en.wikipedia.org/wiki/1979\" target=\"_blank\">1979</a> – America's first space station, <a href=\"https://en.wikipedia.org/wiki/Skylab\" target=\"_blank\">Skylab</a>, is destroyed as it re-enters the Earth's atmosphere over the Indian Ocean.",
+    "tags": [
+      "Space"
+    ],
+    "images": [],
+    "pub_status": "draft"
+  },
+  "https://en.wikipedia.org/wiki/1836": {
+    "title": "",
+    "text": "<a href=\"https://en.wikipedia.org/wiki/1836\" target=\"_blank\">1836</a> – <a href=\"https://en.wikipedia.org/wiki/The_Fly-fisher%27s_Entomology\" target=\"_blank\">The Fly-fisher's Entomology</a> is published by <a href=\"https://en.wikipedia.org/wiki/Alfred_Ronalds\" target=\"_blank\">Alfred Ronalds</a>. The book transformed the sport and went to many editions.",
+    "tags": [
+      "Literature"
+    ],
+    "images": [],
+    "pub_status": "draft"
+  },
+  "https://en.wikipedia.org/wiki/To_Kill_a_Mockingbird": {
+    "title": "",
+    "text": "1960   – <a href=\"https://en.wikipedia.org/wiki/To_Kill_a_Mockingbird\" target=\"_blank\">To Kill a Mockingbird</a> by <a href=\"https://en.wikipedia.org/wiki/Harper_Lee\" target=\"_blank\">Harper Lee</a> is first published, in the United States.",
+    "tags": [
+      "Literature"
+    ],
+    "images": [],
+    "pub_status": "draft"
+  },
+  "https://en.wikipedia.org/wiki/1886": {
+    "title": "",
+    "text": "<a href=\"https://en.wikipedia.org/wiki/1886\" target=\"_blank\">1886</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Boris_Grigoriev\" target=\"_blank\">Boris Grigoriev</a>, Russian painter and illustrator (died 1939)",
+    "tags": [
+      "Art"
+    ],
+    "images": [],
+    "pub_status": "draft"
+  }
+}

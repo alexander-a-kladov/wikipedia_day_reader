@@ -1,7 +1,7 @@
 {
   "https://en.wikipedia.org/wiki/1859": {
     "title": "🦅🌿 Midway Atoll 🏕️🌅",
-    "text": "<a href=\"https://en.wikipedia.org/wiki/1859\" target=\"_blank\">1859</a> – The United States discovers and claims <a href=\"https://en.wikipedia.org/wiki/Midway_Atoll\" target=\"_blank\">Midway Atoll</a>.",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1859\" target=\"_blank\">1859</a> – The United States discovers and claims <a href=\"https://en.wikipedia.org/wiki/Midway_Atoll\" target=\"_blank\">Midway Atoll</a>.</div><div><a href=\"https://www.gutenberg.org/ebooks/78017\" target=\"_blank\">The Swiss Family Robinson by Johann David Wyss 1812</a></div>",
     "tags": [
       "Exploration"
     ],
@@ -13,7 +13,11 @@
       "/images/07-05_be6730277a.jpg",
       "/images/07-05_858fabeb0e.jpg"
     ],
-    "pub_status": "draft"
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-17",
+      "url": "http://thepastandenglishbooks.ru/#07-05-2"
+    }
   },
   "https://en.wikipedia.org/wiki/2016": {
     "title": "🛰️🪐 The Juno space probe 🌀📡",

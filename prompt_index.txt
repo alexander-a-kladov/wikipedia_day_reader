@@ -165,5 +165,24 @@ I've update index.json and when I've started site locally it shows me "Нет м
 prompt update 28 done
 remove Politics (Politicians) theme from the themes
 
-prompt update 29
+prompt update 29 done
 now site has a problem, when I scroll to the end of notes and site has to switch to the start of notes it stays on "Загрузка" screen very long time.
+
+prompt update 30 done
+Добавь просмотр отдельных фотографий при нажатии на них
+Add a preview of individual photos when user press on them, more actual for PC version, because on smartphone user could zoom whole screen, but anyway
+update
+now this program don't work, it show "Загрузка..." forever and themes menu are empty
+update
+на компьютере некоторые фото в просмотре становятся меньше чем они отображались в ленте, сделай чтобы они были максимального увеличения все не зависимо от других фотографий в одном наборе.
+На смартфоне в режиме просмотра нет возможности масштабировать страницу. Еще наблюдал что при выходе из режима просмотра происходило перключение страницы как будто управление в этом режиме
+просачивалось на основную страницу.
+on the PC, some photos in the lightbox become smaller than they were displayed in the feed, make sure that they are maximized, regardless of the other photos in the same set.
+There is no way to scale the page on a smartphone in the lightbox mode. I also observed that when exiting the lightbox mode, the page was switched to another date, as if the control in this mode
+was leaking onto the main page.
+update
+maximise size of the pictures to fit in lightbox
+update
+On PC when displayed for the first time in lightbox images for a moment displays in one size then displays as they must be, later they display in right size not flicking, on Mobile better to allow panning with one finger and turn off swiping images in lightbox mode
+update
+now on Mobile zooming in lightbox mode stays when user returned to normal mode, probably it would be better if normal mode won't be affected by zoom in lightbox mode

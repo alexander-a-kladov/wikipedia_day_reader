@@ -1,0 +1,18 @@
+{
+  "https://en.wikipedia.org/wiki/Space_Shuttle_Columbia": {
+    "title": "🎖️🕰️ Space Shuttle Columbia 🌟📜",
+    "text": "1994   – <a href=\"https://en.wikipedia.org/wiki/Space_Shuttle_Columbia\" target=\"_blank\">Space Shuttle Columbia</a> is launched on <a href=\"https://en.wikipedia.org/wiki/STS-65\" target=\"_blank\">an international science mission</a>.",
+    "tags": [
+      "Space"
+    ],
+    "images": [
+      "/images/07-08_755e722909.jpg",
+      "/images/07-08_bd909e8d07.jpg",
+      "/images/07-08_1fd4b764c4.jpg",
+      "/images/07-08_ba3d9713fa.jpg",
+      "/images/07-08_97050474e5.jpg",
+      "/images/07-08_915b9d81c6.jpg"
+    ],
+    "pub_status": "draft"
+  }
+}
