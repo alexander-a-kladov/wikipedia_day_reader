@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta id="viewportMeta" name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Past and English Books</title>
 <meta name="description" content="Daily historical facts, events and biographies paired with classic and modern English books. Explore the past — one day at a time.">
 <meta name="keywords" content="history, English books, historical events, biographies, English literature, education, past events">
@@ -1779,10 +1779,21 @@ helpModal.addEventListener('click', (e) => {
         loadLbImage(gallery[galIdx]);
     }
 
+    const viewportMeta = document.getElementById('viewportMeta');
+
     function close() {
         lb.classList.remove('open');
         lbImg.src = '';
+        lbImg.style.visibility = '';
         document.body.style.overflow = '';
+        // Reset any pinch-zoom applied inside the lightbox:
+        // flip to no-zoom momentarily, then restore — browser resets scale to 1
+        if (viewportMeta) {
+            viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+            requestAnimationFrame(() => {
+                viewportMeta.content = 'width=device-width, initial-scale=1.0';
+            });
+        }
     }
 
     function updateNav() {
