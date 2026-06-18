@@ -1791,13 +1791,39 @@ helpModal.addEventListener('click', (e) => {
         lbNext.style.display = multi ? '' : 'none';
     }
 
+    // Scale image to fill as much of the lightbox as possible (up AND down)
+    function sizeLbImg() {
+        const maxW = window.innerWidth  * 0.95;
+        const maxH = window.innerHeight * 0.95;
+        const nw   = lbImg.naturalWidth;
+        const nh   = lbImg.naturalHeight;
+        if (!nw || !nh) return;
+        const scale = Math.min(maxW / nw, maxH / nh);
+        lbImg.style.width  = Math.round(nw * scale) + 'px';
+        lbImg.style.height = Math.round(nh * scale) + 'px';
+    }
+
     function loadLbImage(src) {
+        // Hide image until sized to avoid flash of wrong size
+        lbImg.style.visibility = 'hidden';
         lbImg.style.width  = '';
         lbImg.style.height = '';
-        // If already cached, 'load' may not fire — size immediately if complete
         lbImg.src = src;
-        if (lbImg.complete && lbImg.naturalWidth) sizeLbImg();
+        // If already cached naturalWidth is available synchronously
+        if (lbImg.complete && lbImg.naturalWidth) {
+            sizeLbImg();
+            lbImg.style.visibility = '';
+        }
     }
+
+    lbImg.addEventListener('load', () => {
+        sizeLbImg();
+        lbImg.style.visibility = '';
+    });
+
+    window.addEventListener('resize', () => {
+        if (lb.classList.contains('open')) sizeLbImg();
+    });
 
     function step(d) {
         galIdx = (galIdx + d + gallery.length) % gallery.length;
@@ -1816,50 +1842,18 @@ helpModal.addEventListener('click', (e) => {
         if (e.key === 'ArrowLeft')  step(-1);
     });
 
-    // Scale image to fill as much of the lightbox as possible (up AND down)
-    function sizeLbImg() {
-        const maxW = window.innerWidth  * 0.95;
-        const maxH = window.innerHeight * 0.95;
-        const nw   = lbImg.naturalWidth  || maxW;
-        const nh   = lbImg.naturalHeight || maxH;
-        // Scale to fill — always maximise, not capped at 1
-        const scale = Math.min(maxW / nw, maxH / nh);
-        lbImg.style.width  = Math.round(nw * scale) + 'px';
-        lbImg.style.height = Math.round(nh * scale) + 'px';
-    }
-
-    lbImg.addEventListener('load', sizeLbImg);
-    window.addEventListener('resize', () => { if (lb.classList.contains('open')) sizeLbImg(); });
-
-    // Touch swipe inside lightbox — stop ALL touches from reaching page handlers
-    let lbTouchX    = 0;
-    let lbTouchY    = 0;
-    let lbIsPinch   = false;
-
+    // Mobile touch: allow panning and pinch-zoom, no swipe navigation
     lb.addEventListener('touchstart', (e) => {
         e.stopPropagation();
-        lbIsPinch = e.touches.length > 1;
-        if (!lbIsPinch) {
-            lbTouchX = e.touches[0].clientX;
-            lbTouchY = e.touches[0].clientY;
-        }
     }, { passive: true });
 
     lb.addEventListener('touchmove', (e) => {
         e.stopPropagation();
-        // Prevent the page from scrolling while lightbox is open
-        if (e.touches.length === 1) e.preventDefault();
-    }, { passive: false });
+        // Allow natural panning/pinch — do not preventDefault
+    }, { passive: true });
 
     lb.addEventListener('touchend', (e) => {
         e.stopPropagation();
-        if (lbIsPinch) { lbIsPinch = false; return; }
-        const dx = e.changedTouches[0].clientX - lbTouchX;
-        const dy = e.changedTouches[0].clientY - lbTouchY;
-        // Only treat as horizontal swipe if mostly horizontal
-        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
-            step(dx < 0 ? 1 : -1);
-        }
     }, { passive: true });
 
     // Open lightbox on image click (delegated)
