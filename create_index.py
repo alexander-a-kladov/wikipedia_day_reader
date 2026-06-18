@@ -1,22 +1,25 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 
 import json
-import os
 import sys
 from pathlib import Path
 
 
 def collect_tags(obj, tags):
     """
-    Recursively traverse a JSON structure and collect values from all 'tags' fields.
+    Recursively traverse a JSON structure.
+    Collect tags only from objects where:
+        "pub_status": "published"
     """
     if isinstance(obj, dict):
-        for key, value in obj.items():
-            if key == "tags":
-                if isinstance(value, list):
-                    tags.update(str(item) for item in value)
-                else:
-                    tags.add(str(value))
+        if obj.get("pub_status") == "published" and "tags" in obj:
+            value = obj["tags"]
+            if isinstance(value, list):
+                tags.update(str(item) for item in value)
+            else:
+                tags.add(str(value))
+
+        for value in obj.values():
             collect_tags(value, tags)
 
     elif isinstance(obj, list):
@@ -25,11 +28,7 @@ def collect_tags(obj, tags):
 
 
 def main():
-    if len(sys.argv) != 2:
-        print(f"Usage: {sys.argv[0]} <directory>", file=sys.stderr)
-        sys.exit(1)
-
-    directory = Path(sys.argv[1])
+    directory = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("cache/notes")
 
     if not directory.is_dir():
         print(f"Error: '{directory}' is not a directory", file=sys.stderr)
@@ -51,10 +50,11 @@ def main():
             tags = set()
             collect_tags(data, tags)
 
-            index.append({
-                "notes": directory.name + "/" +json_file.name,
-                "tags": sorted(tags)
-            })
+            if tags:
+                index.append({
+                    "notes": f"{directory.name}/{json_file.name}",
+                    "tags": sorted(tags)
+                })
 
         except Exception as e:
             print(f"Warning: failed to process {json_file}: {e}", file=sys.stderr)
