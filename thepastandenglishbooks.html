@@ -471,6 +471,71 @@ footer a:hover { text-decoration: underline; }
 
 body.dark footer { color: #555; }
 
+/* ── Lightbox ── */
+#lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0,0,0,.92);
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+}
+
+#lightbox.open { display: flex; }
+
+#lightbox img {
+    max-width: 95vw;
+    max-height: 95vh;
+    object-fit: contain;
+    border-radius: 6px;
+    box-shadow: 0 8px 40px rgba(0,0,0,.6);
+    cursor: default;
+    user-select: none;
+    touch-action: none;
+}
+
+#lightboxClose {
+    position: fixed;
+    top: 16px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 36px;
+    line-height: 1;
+    cursor: pointer;
+    opacity: .8;
+    z-index: 10000;
+}
+
+#lightboxClose:hover { opacity: 1; }
+
+#lightboxPrev,
+#lightboxNext {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,.15);
+    border: none;
+    color: #fff;
+    font-size: 32px;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 10000;
+    line-height: 1;
+    opacity: .7;
+}
+
+#lightboxPrev { left: 12px; }
+#lightboxNext { right: 12px; }
+#lightboxPrev:hover,
+#lightboxNext:hover { opacity: 1; background: rgba(255,255,255,.25); }
+
+.slide img { cursor: zoom-in; }
+
 /* ── responsive: all phones (base) ── */
 @media (max-width: 768px) {
     #feed { padding: 0; margin: 0; }
@@ -570,6 +635,13 @@ body.dark footer { color: #555; }
                 </p>
             </div>
 </div>
+<div id="lightbox">
+    <button id="lightboxClose" title="Закрыть">✕</button>
+    <button id="lightboxPrev" title="Предыдущее">‹</button>
+    <img id="lightboxImg" src="" alt="">
+    <button id="lightboxNext" title="Следующее">›</button>
+</div>
+
 <div id="feed">
     <div class="loading">Загрузка…</div>
 </div>
@@ -1684,6 +1756,80 @@ helpModal.addEventListener('click', (e) => {
         helpModal.hidden = true;
     }
 });
+
+/* ─────────────────────────────────────────
+   Lightbox
+───────────────────────────────────────── */
+(function initLightbox() {
+    const lb      = document.getElementById('lightbox');
+    const lbImg   = document.getElementById('lightboxImg');
+    const lbClose = document.getElementById('lightboxClose');
+    const lbPrev  = document.getElementById('lightboxPrev');
+    const lbNext  = document.getElementById('lightboxNext');
+
+    let gallery = [];
+    let galIdx  = 0;
+
+    function show(srcs, idx) {
+        gallery = srcs;
+        galIdx  = Math.max(0, idx);
+        lbImg.src = gallery[galIdx];
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        updateNav();
+    }
+
+    function close() {
+        lb.classList.remove('open');
+        lbImg.src = '';
+        document.body.style.overflow = '';
+    }
+
+    function updateNav() {
+        const multi = gallery.length > 1;
+        lbPrev.style.display = multi ? '' : 'none';
+        lbNext.style.display = multi ? '' : 'none';
+    }
+
+    function step(d) {
+        galIdx = (galIdx + d + gallery.length) % gallery.length;
+        lbImg.src = gallery[galIdx];
+    }
+
+    lbClose.addEventListener('click', close);
+    lbPrev.addEventListener('click',  (e) => { e.stopPropagation(); step(-1); });
+    lbNext.addEventListener('click',  (e) => { e.stopPropagation(); step(1); });
+    lb.addEventListener('click',      (e) => { if (e.target === lb) close(); });
+
+    document.addEventListener('keydown', (e) => {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape')     close();
+        if (e.key === 'ArrowRight') step(1);
+        if (e.key === 'ArrowLeft')  step(-1);
+    });
+
+    // Touch swipe inside lightbox
+    let lbTouchX = 0;
+    lbImg.addEventListener('touchstart', (e) => {
+        lbTouchX = e.touches[0].clientX;
+    }, { passive: true });
+    lbImg.addEventListener('touchend', (e) => {
+        const dx = e.changedTouches[0].clientX - lbTouchX;
+        if (Math.abs(dx) > 40) step(dx < 0 ? 1 : -1);
+    }, { passive: true });
+
+    // Open lightbox on image click (delegated)
+    document.addEventListener('click', (e) => {
+        const img = e.target.closest('.slide img');
+        if (!img) return;
+        const slider = img.closest('.slider');
+        const srcs   = slider
+            ? [...slider.querySelectorAll('.slide img')].map(i => i.src)
+            : [img.src];
+        const idx = srcs.indexOf(img.src);
+        show(srcs, idx >= 0 ? idx : 0);
+    });
+})();
 
 initTheme();
 
