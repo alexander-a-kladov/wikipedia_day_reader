@@ -1,21 +1,22 @@
 {
   "https://en.wikipedia.org/wiki/1962": {
-    "title": "",
-    "text": "<a href=\"https://en.wikipedia.org/wiki/1962\" target=\"_blank\">1962</a> – First transatlantic <a href=\"https://en.wikipedia.org/wiki/Satellite_television\" target=\"_blank\">satellite television</a> transmission.",
+    "title": "📡📺 Satellite Television 🛰️🌏",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1962\" target=\"_blank\">1962</a> – First transatlantic <a href=\"https://en.wikipedia.org/wiki/Satellite_television\" target=\"_blank\">satellite television</a> transmission.</div><div><a href=\"https://archive.org/details/allabouthomesate00rick/mode/2up\" target=\"_blank\">All about home satellite television by Cook, Rick; Vaughan, Frank 1983</a></div>",
     "tags": [
       "Inventions"
     ],
-    "images": [],
-    "pub_status": "draft"
-  },
-  "https://en.wikipedia.org/wiki/1979": {
-    "title": "",
-    "text": "<a href=\"https://en.wikipedia.org/wiki/1979\" target=\"_blank\">1979</a> – America's first space station, <a href=\"https://en.wikipedia.org/wiki/Skylab\" target=\"_blank\">Skylab</a>, is destroyed as it re-enters the Earth's atmosphere over the Indian Ocean.",
-    "tags": [
-      "Space"
+    "images": [
+      "/images/07-11_05a7e01512.jpg",
+      "/images/07-11_7366fe11f5.png",
+      "/images/07-11_cb21002c5f.jpg",
+      "/images/07-11_112a1ccb9b.jpg",
+      "/images/07-11_f7ff652b3d.jpg"
     ],
-    "images": [],
-    "pub_status": "draft"
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-18",
+      "url": "http://thepastandenglishbooks.ru/#07-11-1"
+    }
   },
   "https://en.wikipedia.org/wiki/1836": {
     "title": "",

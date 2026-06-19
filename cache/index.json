@@ -121,7 +121,8 @@
   {
     "notes": "notes/06-20.json",
     "tags": [
-      "Education"
+      "Education",
+      "Literature"
     ]
   },
   {
@@ -222,7 +223,25 @@
     ]
   },
   {
+    "notes": "notes/07-07.json",
+    "tags": [
+      "Space"
+    ]
+  },
+  {
+    "notes": "notes/07-08.json",
+    "tags": [
+      "Space"
+    ]
+  },
+  {
     "notes": "notes/07-10.json",
+    "tags": [
+      "Inventions"
+    ]
+  },
+  {
+    "notes": "notes/07-11.json",
     "tags": [
       "Inventions"
     ]

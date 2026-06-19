@@ -1,7 +1,7 @@
 {
   "https://en.wikipedia.org/wiki/Space_Shuttle_Columbia": {
     "title": "🎖️🕰️ Space Shuttle Columbia 🌟📜",
-    "text": "1994   – <a href=\"https://en.wikipedia.org/wiki/Space_Shuttle_Columbia\" target=\"_blank\">Space Shuttle Columbia</a> is launched on <a href=\"https://en.wikipedia.org/wiki/STS-65\" target=\"_blank\">an international science mission</a>.",
+    "text": "<div>1994   – <a href=\"https://en.wikipedia.org/wiki/Space_Shuttle_Columbia\" target=\"_blank\">Space Shuttle Columbia</a> is launched on <a href=\"https://en.wikipedia.org/wiki/STS-65\" target=\"_blank\">an international science mission</a>.</div><div><a href=\"https://archive.org/details/columbiafirstfli0000cole/mode/2up\" target=\"_blank\">Columbia : first flight of the space shuttle by Cole, Michael D</a></div>",
     "tags": [
       "Space"
     ],
@@ -13,6 +13,10 @@
       "/images/07-08_97050474e5.jpg",
       "/images/07-08_915b9d81c6.jpg"
     ],
-    "pub_status": "draft"
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-18",
+      "url": "http://thepastandenglishbooks.ru/#07-08-1"
+    }
   }
 }

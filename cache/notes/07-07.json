@@ -1,7 +1,7 @@
 {
   "https://en.wikipedia.org/wiki/2003": {
     "title": "🏜️🔴 NASA Opportunity rover 🪨🔬",
-    "text": "<a href=\"https://en.wikipedia.org/wiki/2003\" target=\"_blank\">2003</a> – <a href=\"https://en.wikipedia.org/wiki/NASA\" target=\"_blank\">NASA</a> <a href=\"https://en.wikipedia.org/wiki/Opportunity_rover\" target=\"_blank\">Opportunity rover</a>, MER-B or Mars Exploration Rover–B, was launched into space aboard a <a href=\"https://en.wikipedia.org/wiki/Delta_II\" target=\"_blank\">Delta II</a> rocket.",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/2003\" target=\"_blank\">2003</a> – <a href=\"https://en.wikipedia.org/wiki/NASA\" target=\"_blank\">NASA</a> <a href=\"https://en.wikipedia.org/wiki/Opportunity_rover\" target=\"_blank\">Opportunity rover</a>, MER-B or Mars Exploration Rover–B, was launched into space aboard a <a href=\"https://en.wikipedia.org/wiki/Delta_II\" target=\"_blank\">Delta II</a> rocket.</div><div><a href=\"https://archive.org/details/marsroverdriver0000maxw/mode/2up\" target=\"_blank\">Mars rover driver by Maxwell, Scott 2014</a></div>",
     "tags": [
       "Space"
     ],
@@ -12,7 +12,11 @@
       "/images/07-07_67141ad2c5.jpg",
       "/images/07-07_f144dc8683.jpg"
     ],
-    "pub_status": "draft"
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-18",
+      "url": "http://thepastandenglishbooks.ru/#07-07-1"
+    }
   },
   "https://en.wikipedia.org/wiki/1907": {
     "title": "",

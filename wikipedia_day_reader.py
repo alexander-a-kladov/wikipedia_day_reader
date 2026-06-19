@@ -480,6 +480,20 @@ VOCAB = {
         "turbine","aerospace","electrical engineer","civil engineer",
         "mechanical engineer","chemical engineer",
     },
+    "cinema": {
+        "filmmaker","film director","director","actor","actress","screenwriter",
+        "cinematographer","producer","film producer","movie director",
+        "animated film","documentary","stuntman","stuntwoman","casting director",
+        "film editor","cinema","movie","film actor","film actress","tv actor",
+        "tv actress","television actor","television actress","voice actor",
+        "voice actress","film score composer","cinematography",
+    },
+    "writers": {
+        "author","writer","novelist","poet","playwright","essayist","biographer",
+        "journalist","columnist","scriptwriter","diarist","satirist","lyricist",
+        "short story writer","fiction writer","nonfiction writer","children's writer",
+        "screenwriter","memoirist","translator","editor",
+    },
     # russian detection
     "russians": {
         "russian","russians","soviet","russia","ussr","moscow","saint petersburg",
@@ -615,6 +629,22 @@ DEFAULT_CONFIG = {
             "description": (
                 "inventor engineer industrialist technologist pioneer patent "
                 "entrepreneur mechanical electrical aerospace locomotive automobile"
+            ),
+        },
+        {
+            "id": "cinema", "label": "Кино",
+            "description": (
+                "filmmaker film director actor actress screenwriter cinematographer "
+                "producer film producer movie director animated film documentary "
+                "stuntman casting director film editor"
+            ),
+        },
+        {
+            "id": "writers", "label": "Писатели",
+            "description": (
+                "author writer novelist poet playwright essayist biographer "
+                "journalist columnist scriptwriter diarist satirist lyricist "
+                "short story fiction nonfiction"
             ),
         },
     ],
@@ -1265,7 +1295,7 @@ let activeFilters={events:{},births:{},holidays:{all:true}}, activeTab='events';
 const EC=['#2d5986','#8b3a62','#2d7a4a','#6b4c8b','#7a6b2d','#2d6b7a'];
 const BC=['#4a6b36','#8b5e2d','#2d6b7a','#7a4a2d','#6b2d8b','#2d5e6b'];
 const EI=['🔬','🎨','🏫','📚','⚙','🌍'];
-const BI=['🔬','🎨','🎵','⚙','🏛','🌍'];
+const BI=['🔬','🎨','🎵','⚙','🎬','✍️'];
 
 async function init(){
   const d=new Date();
@@ -1910,6 +1940,8 @@ function detectAutoTags(wikiKey){
     artists:     'Art',
     composers:   'Music',
     inventors:   'Inventions',
+    cinema:      'Cinema',
+    writers:     'Writers',
   };
 
   // Event categories
@@ -1936,7 +1968,7 @@ function detectAutoTags(wikiKey){
 // used everywhere, plus a few extra topics not tied to a category.
 const TAG_SUGGESTIONS = [
   'Science','Art','Music','Education','Literature',
-  'Exploration','Inventions','Politics','Holiday'
+  'Exploration','Inventions','Space','Cinema','Writers','Holiday'
 ];
 
 function renderTagList(){
