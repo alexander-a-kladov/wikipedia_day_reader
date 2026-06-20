@@ -1940,8 +1940,8 @@ function detectAutoTags(wikiKey){
     artists:     'Art',
     composers:   'Music',
     inventors:   'Inventions',
-    cinema:      'Cinema',
-    writers:     'Writers',
+    cinema:      'Art',
+    writers:     'Literature',
   };
 
   // Event categories
@@ -1968,7 +1968,7 @@ function detectAutoTags(wikiKey){
 // used everywhere, plus a few extra topics not tied to a category.
 const TAG_SUGGESTIONS = [
   'Science','Art','Music','Education','Literature',
-  'Exploration','Inventions','Space','Cinema','Writers','Holiday'
+  'Exploration','Inventions','Space','Holiday'
 ];
 
 function renderTagList(){

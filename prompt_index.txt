@@ -186,3 +186,6 @@ update
 On PC when displayed for the first time in lightbox images for a moment displays in one size then displays as they must be, later they display in right size not flicking, on Mobile better to allow panning with one finger and turn off swiping images in lightbox mode
 update
 now on Mobile zooming in lightbox mode stays when user returned to normal mode, probably it would be better if normal mode won't be affected by zoom in lightbox mode
+
+prompt update 31
+use the same tags for people as for events Literature for Writers, Art for Cinema and so on

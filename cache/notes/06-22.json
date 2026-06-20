@@ -17,5 +17,42 @@
       "date": "2026-06-10",
       "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#06-22-1"
     }
+  },
+  "https://en.wikipedia.org/wiki/Meryl_Streep": {
+    "title": "🎭🎬 Birthday of Meryl Streep 🏅✨",
+    "text": "<div>1949   – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Meryl_Streep\" target=\"_blank\">Meryl Streep</a>, American actress</div><div><a href=\"https://archive.org/details/velveteenrabbit0000bian_x8m0/mode/2up\" target=\"_blank\">The velveteen rabbit by Bianco, Margery Williams 2006</a></div>",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/06-22_cb02ab057c.jpg",
+      "/images/06-22_020fef2337.jpg",
+      "/images/06-22_15341513e6.jpg",
+      "/images/06-22_221c0b445c.jpg",
+      "/images/06-22_42cb7ed192.jpg",
+      "/images/06-22_2d4a278a0d.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-19",
+      "url": "http://thepastandenglishbooks.ru/#06-22-2"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1898": {
+    "title": "🪖📜 Birthday of Erich Maria Remarque 🕰️🌫️",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1898\" target=\"_blank\">1898</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Erich_Maria_Remarque\" target=\"_blank\">Erich Maria Remarque</a>, German-Swiss soldier and author (died 1970)</div><div><a href=\"https://archive.org/details/allquietonwester0000fitc/mode/2up\" target=\"_blank\">All quiet on the western front by Fitch, Ken 1997 (comics book)</a></div>",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/06-22_b3b826577c.jpg",
+      "/images/06-22_37cd7e05fb.jpg",
+      "/images/06-22_fcc370e398.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-19",
+      "url": "http://thepastandenglishbooks.ru/#06-22-3"
+    }
   }
 }

@@ -128,12 +128,15 @@
   {
     "notes": "notes/06-21.json",
     "tags": [
+      "Literature",
       "Music"
     ]
   },
   {
     "notes": "notes/06-22.json",
     "tags": [
+      "Art",
+      "Literature",
       "Science",
       "Space"
     ]
@@ -142,6 +145,7 @@
     "notes": "notes/06-23.json",
     "tags": [
       "Education",
+      "Exploration",
       "Inventions",
       "Literature"
     ]

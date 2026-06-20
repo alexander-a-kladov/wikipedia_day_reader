@@ -60,5 +60,24 @@
       "date": "2026-06-10",
       "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#06-23-3"
     }
+  },
+  "https://en.wikipedia.org/wiki/Bill_King_(Royal_Navy_officer)": {
+    "title": "⛵️🇬🇧 Birthday of Bill King 🧭🌊",
+    "text": "<div>1910   – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Bill_King_(Royal_Navy_officer)\" target=\"_blank\">Bill King</a>, English yachtsman, naval commander and author (died 2012)</div><div><a href=\"https://archive.org/details/stickstars00king/mode/2up\" target=\"_blank\">The stick and the stars by King, William 1958</a></div>",
+    "tags": [
+      "Literature",
+      "Exploration"
+    ],
+    "images": [
+      "/images/06-23_578bdd3eff.png",
+      "/images/06-23_985277a4b4.jpg",
+      "/images/06-23_1e65347be0.jpg",
+      "/images/06-23_2d673f1df9.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-20",
+      "url": "http://thepastandenglishbooks.ru/#06-23-4"
+    }
   }
 }
