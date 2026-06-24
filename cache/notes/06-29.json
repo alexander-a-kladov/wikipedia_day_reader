@@ -2,6 +2,7 @@
   "https://en.wikipedia.org/wiki/1613": {
     "title": "🏛️🔥 The Globe Theatre Burned🎭📜",
     "text": "<div><a href=\"https://en.wikipedia.org/wiki/1613\" target=\"_blank\">1613</a> – The <a href=\"https://en.wikipedia.org/wiki/Globe_Theatre#Shakespeare's_Globe_Theatres\" target=\"_blank\">Globe Theatre</a> in London, built by <a href=\"https://en.wikipedia.org/wiki/William_Shakespeare\" target=\"_blank\">William Shakespeare</a>'s <a href=\"https://en.wikipedia.org/wiki/Playing_company\" target=\"_blank\">playing company</a>, the <a href=\"https://en.wikipedia.org/wiki/Lord_Chamberlain%27s_Men\" target=\"_blank\">Lord Chamberlain's Men</a>, burns to the ground.</div><div><a href=\"https://archive.org/details/globetheater0000nard/mode/2up\" target=\"_blank\">📖The Globe Theater by Nardo, Don 2005</a></div>",
+    "section": "events",
     "tags": [
       "Art"
     ],
@@ -17,6 +18,24 @@
     "published": {
       "date": "2026-06-11",
       "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#06-29-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1900": {
+    "title": "Birthday of Antoine de Saint-Exupéry",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1900\" target=\"_blank\">1900</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Antoine_de_Saint-Exup%C3%A9ry\" target=\"_blank\">Antoine de Saint-Exupéry</a>, French poet and pilot (died 1944)</div><div><a href=\"https://archive.org/details/bwb_KS-436-194/mode/2up\" target=\"_blank\">Le Petit Prince by Antoine De Saint - Exupery 1964</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/06-29_9ebcc7ada0.jpeg",
+      "/images/06-29_c38a766569.jpg",
+      "/images/06-29_2435652f28.jpeg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-24",
+      "url": "http://thepastandenglishbooks.ru/#06-29-2"
     }
   }
 }

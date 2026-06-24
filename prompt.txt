@@ -82,3 +82,13 @@ update:
 use the same tags for birthdays, events and holidays: Science,Art,Music,Education,Literature and so on
 remove tags: Birthday, Russian
 add tags: Exploration, Inventions, Politics
+update:
+use the same tags for people as for events Literature for Writers, Art for Cinema and so on
+
+prompt update 14
+добавь к заметки признак к чему она относится "События", "Праздники", "Рождения" и отображай ее только на соответствующей странице если такой признак есть. 
+Отображай в левой колонке количество заметок по категориям "События", "Праздники", "Рождения" и сколько опубликовано из них.
+add to the note a sign that it refers to "Events", "Holidays", "Births" and display it only on the corresponding page if there is such a sign. 
+In the left column, display the number of notes by category "Events", "Holidays", "Birthdays" and how many of them have been published.
+update:
+when I load a day data (that was saved earlier), notes section on the left info doesn't update

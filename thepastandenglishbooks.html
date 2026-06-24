@@ -630,6 +630,11 @@ body.dark footer { color: #555; }
                 </p>
 
                 <p>
+                    On PC, you can also press <strong>Page Down</strong> to go to the
+                    next day and <strong>Page Up</strong> to go to the previous day.
+                </p>
+
+                <p>
                     You can also choose a date from the calendar. Just click the title
                     <strong>"The Past and English Books"</strong>.
                 </p>
@@ -1695,6 +1700,31 @@ themeButton.addEventListener('click', () => {
             }, 120);
         }
     }, { passive: true });
+
+    // ── Keyboard: PageDown / PageUp switch day (desktop) ──
+    // Let the browser scroll normally; only switch days once the user
+    // is already at the very bottom/top and presses the key again.
+    document.addEventListener('keydown', (e) => {
+        if (e.key !== 'PageDown' && e.key !== 'PageUp') return;
+
+        // Don't hijack while the lightbox or help modal is open,
+        // or while focus is in a form control (e.g. the date picker).
+        const lightboxEl = document.getElementById('lightbox');
+        if (lightboxEl && lightboxEl.classList.contains('open')) return;
+        const helpModal = document.getElementById('helpModal');
+        if (helpModal && !helpModal.hidden) return;
+        const tag = (document.activeElement && document.activeElement.tagName) || '';
+        if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+
+        if (e.key === 'PageDown' && (atBottom() || pageIsShort())) {
+            e.preventDefault();
+            setMMDD(nextMMDD(selectedMMDD), undefined, 1);
+        } else if (e.key === 'PageUp' && (atTop() || pageIsShort())) {
+            e.preventDefault();
+            setMMDD(prevMMDD(selectedMMDD), undefined, -1);
+        }
+        // Otherwise: do nothing — let the browser perform its native PageDown/PageUp scroll.
+    });
 
     // ── Mouse wheel (desktop) ──
     let wheelAccum = 0;

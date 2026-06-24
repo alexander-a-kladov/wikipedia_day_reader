@@ -2,6 +2,7 @@
   "https://en.wikipedia.org/wiki/1978": {
     "title": "🌠🔍 Discovery of Charon ✨🌑",
     "text": "<div><a href=\"https://en.wikipedia.org/wiki/1978\" target=\"_blank\">1978</a> – <a href=\"https://en.wikipedia.org/wiki/Charon_(moon)\" target=\"_blank\">Charon</a>, the first of Pluto's satellites to be discovered, was first seen at the <a href=\"https://en.wikipedia.org/wiki/United_States_Naval_Observatory\" target=\"_blank\">United States Naval Observatory</a> by <a href=\"https://en.wikipedia.org/wiki/James_W._Christy\" target=\"_blank\">James W. Christy</a>.</div><div><a href=\"https://archive.org/details/plutowattslibrar00carm/mode/2up\" target=\"_blank\">📖Pluto by Bredeson, Carmen 2001</a></div>",
+    "section": "events",
     "tags": [
       "Science",
       "Space"
@@ -21,6 +22,7 @@
   "https://en.wikipedia.org/wiki/Meryl_Streep": {
     "title": "🎭🎬 Birthday of Meryl Streep 🏅✨",
     "text": "<div>1949   – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Meryl_Streep\" target=\"_blank\">Meryl Streep</a>, American actress</div><div><a href=\"https://archive.org/details/velveteenrabbit0000bian_x8m0/mode/2up\" target=\"_blank\">The velveteen rabbit by Bianco, Margery Williams 2006</a></div>",
+    "section": "births",
     "tags": [
       "Art"
     ],
@@ -41,6 +43,7 @@
   "https://en.wikipedia.org/wiki/1898": {
     "title": "🪖📜 Birthday of Erich Maria Remarque 🕰️🌫️",
     "text": "<div><a href=\"https://en.wikipedia.org/wiki/1898\" target=\"_blank\">1898</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Erich_Maria_Remarque\" target=\"_blank\">Erich Maria Remarque</a>, German-Swiss soldier and author (died 1970)</div><div><a href=\"https://archive.org/details/allquietonwester0000fitc/mode/2up\" target=\"_blank\">All quiet on the western front by Fitch, Ken 1997 (comics book)</a></div>",
+    "section": "births",
     "tags": [
       "Literature"
     ],

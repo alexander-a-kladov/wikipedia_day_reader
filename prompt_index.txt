@@ -188,4 +188,8 @@ update
 now on Mobile zooming in lightbox mode stays when user returned to normal mode, probably it would be better if normal mode won't be affected by zoom in lightbox mode
 
 prompt update 31
-use the same tags for people as for events Literature for Writers, Art for Cinema and so on
+На PC сделай переходы на следующий и предыдущий день по нажатию Page Down/Page UP добавь в Help
+update:
+It don't work, PgDown/PgUp still scroll page, but don't switch days, make an update they should scroll as they do and switch pages only when it on its bottom or top
+
+

@@ -921,6 +921,16 @@ HTML_PAGE = r"""<!DOCTYPE html>
   .sidebar{background:var(--sf);border-right:1px solid var(--bd);padding:14px 12px;overflow-y:auto;}
   .stitle{font-family:'Playfair Display',serif;font-size:11px;font-weight:600;color:var(--tx2);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;padding-bottom:5px;border-bottom:1px solid var(--bd);}
   .ssec{margin-bottom:18px;}
+  /* notes stats block */
+  .note-stat-row{display:flex;align-items:center;gap:7px;padding:5px 5px;
+    border-radius:4px;margin-bottom:2px;cursor:pointer;transition:background .1s;}
+  .note-stat-row:hover{background:var(--sf2);}
+  .note-stat-icon{font-size:13px;flex-shrink:0;width:16px;text-align:center;}
+  .note-stat-label{font-size:13px;flex:1;color:var(--tx);}
+  .note-stat-count{font-size:11px;color:var(--tx2);background:var(--sf2);
+    padding:1px 6px;border-radius:9px;min-width:18px;text-align:center;}
+  .note-stat-pub{font-size:10px;color:#1a5c2a;background:#edf7ed;
+    border:1px solid #a3d4ad;padding:0 6px;border-radius:9px;margin-left:3px;}
   .ci{display:flex;align-items:center;gap:7px;padding:4px 5px;border-radius:4px;margin-bottom:2px;cursor:pointer;transition:background .1s;}
   .ci:hover{background:var(--sf2);}
   .cdot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
@@ -1173,6 +1183,7 @@ HTML_PAGE = r"""<!DOCTYPE html>
 </div>
 <div class="main">
   <div class="sidebar">
+    <div class="ssec"><div class="stitle">Заметки</div><div id="NF"></div></div>
     <div class="ssec"><div class="stitle">События</div><div id="EF"></div></div>
     <div class="ssec"><div class="stitle">Праздники</div><div id="HF"></div></div>
     <div class="ssec"><div class="stitle">Рождения</div><div id="BF"></div></div>
@@ -1289,6 +1300,7 @@ let config=null, data=null, sseSource=null, keysData={};
 let notesData={};        // {wiki_url: {text, images[]}}
 let _noteKey='';         // wiki_url currently being edited
 let _noteDate='';        // date string of current edit session
+let _noteSection='';     // 'events' | 'holidays' | 'births' — which page this note belongs to
 let _pendingImgDels=[];  // image URLs queued for deletion on save
 let activeFilters={events:{},births:{},holidays:{all:true}}, activeTab='events';
 
@@ -1309,9 +1321,44 @@ async function init(){
 }
 
 async function loadNotesForDate(dv){
-  if(!dv){notesData={};return;}
+  if(!dv){notesData={};renderNoteStats();return;}
   const r=await fetch('/api/notes?date='+dv);
   notesData=await r.json();
+  renderNoteStats();
+}
+
+function renderNoteStats(){
+  const wrap=document.getElementById('NF');
+  if(!wrap) return;
+  const sections=[
+    {key:'events',   icon:'📅', label:'События',  color:'#2d5986'},
+    {key:'holidays', icon:'🎉', label:'Праздники', color:'#8b5e2d'},
+    {key:'births',   icon:'👤', label:'Рождения',  color:'#4a6b36'},
+  ];
+  const counts={events:{total:0,pub:0}, holidays:{total:0,pub:0}, births:{total:0,pub:0}};
+  Object.values(notesData).forEach(n=>{
+    if(!n) return;
+    const hasContent = n.title || (n.text&&n.text.trim()) || (n.images||[]).length || n.pub_status;
+    if(!hasContent) return;
+    const sec = n.section;
+    if(sec && counts[sec]){
+      counts[sec].total++;
+      if((n.pub_status||'draft')==='published') counts[sec].pub++;
+    }
+  });
+  wrap.innerHTML='';
+  sections.forEach(s=>{
+    const c=counts[s.key];
+    const row=document.createElement('div');
+    row.className='note-stat-row';
+    row.title='Перейти на вкладку «'+s.label+'»';
+    row.innerHTML=`<span class="note-stat-icon">${s.icon}</span>
+      <span class="note-stat-label">${s.label}</span>
+      <span class="note-stat-count">${c.total}</span>
+      ${c.pub>0?`<span class="note-stat-pub">✓ ${c.pub}</span>`:''}`;
+    row.onclick=()=>swTab(s.key);
+    wrap.appendChild(row);
+  });
 }
 
 // ── AI TOGGLE ────────────────────────────────────────────────────────────────
@@ -1605,7 +1652,7 @@ function renderContent(d, modeLabel){
       <div class="tab ${activeTab==='births'?'active':''}" onclick="swTab('births')">👤 Рождения</div>
     </div>
     <div class="tc ${activeTab==='events'?'active':''}" id="tE">`;
-  d.events.forEach((c,i)=>{if(!activeFilters.events[c.id])return;h+=sec(c,EC[i%EC.length],EI[i%EI.length],false,new Set());});
+  d.events.forEach((c,i)=>{if(!activeFilters.events[c.id])return;h+=sec(c,EC[i%EC.length],EI[i%EI.length],false,new Set(),'events');});
   h+=`</div>
 
     <div class="tc ${activeTab==='holidays'?'active':''}" id="tH">`;
@@ -1633,11 +1680,11 @@ function renderContent(d, modeLabel){
           <div class="spoiler-body" id="${sid}">`;
         children.forEach(child=>{
           const cwk=entryWikiKey(child);
-          h+=`<div class="entry" style="border-left-color:#8b5e2d">${child}${noteBtn(cwk)}</div>${notePost(cwk)}`;
+          h+=`<div class="entry" style="border-left-color:#8b5e2d">${child}${noteBtn(cwk,'holidays')}</div>${notePost(cwk,'holidays')}`;
         });
         h+=`</div></div>`;
       } else {
-        h+=`<div class="entry" style="border-left-color:#8b5e2d">${text}${noteBtn(wk)}</div>${notePost(wk)}`;
+        h+=`<div class="entry" style="border-left-color:#8b5e2d">${text}${noteBtn(wk,'holidays')}</div>${notePost(wk,'holidays')}`;
       }
     });
     h+=`</div>`;
@@ -1654,11 +1701,11 @@ function renderContent(d, modeLabel){
       <div class="ss">${rSet.size} чел.</div></div>`;
     rSet.forEach(e=>{
       const wk=entryWikiKey(e);
-      h+=`<div class="entry" style="border-left-color:#8b2d2d">${e}${noteBtn(wk)}</div>${notePost(wk)}`;
+      h+=`<div class="entry" style="border-left-color:#8b2d2d">${e}${noteBtn(wk,'births')}</div>${notePost(wk,'births')}`;
     });
     h+=`</div>`;
   }
-  d.births.forEach((c,i)=>{if(!activeFilters.births[c.id])return;h+=sec(c,BC[i%BC.length],BI[i%BI.length],true,rSet);});
+  d.births.forEach((c,i)=>{if(!activeFilters.births[c.id])return;h+=sec(c,BC[i%BC.length],BI[i%BI.length],true,rSet,'births');});
   h+=`</div>`;
   document.getElementById('content').innerHTML=h;
 }
@@ -1669,20 +1716,24 @@ function entryWikiKey(html){
   return m?m[1]:'';
 }
 
-function noteBtn(wikiKey){
+function noteBtn(wikiKey, section){
   if(!wikiKey) return '';
   const n=notesData[wikiKey];
   const has=n&&(n.text||(n.images||[]).length||n.pub_status);
   const status=n?n.pub_status||'draft':'';
   const icons={draft:'✏️',ready:'📋',published:'✅'};
   const icon=icons[status]||'';
+  const sec=section?section.replace(/'/g,"\\'"):'';
   return `<button class="note-btn${has?' has-note':''}" title="${has?'Редактировать':'Добавить'} заметку"
-    onclick="openNoteModal(event,'${wikiKey.replace(/'/g,"\\'")}')">📝${has&&icon?' '+icon:''}</button>`;
+    onclick="openNoteModal(event,'${wikiKey.replace(/'/g,"\\'")}','${sec}')">📝${has&&icon?' '+icon:''}</button>`;
 }
 
-function notePost(wikiKey){
+function notePost(wikiKey, section){
   if(!wikiKey||!notesData[wikiKey]) return '';
   const n=notesData[wikiKey];
+  // Only show this note's post on the page matching its assigned section
+  // (notes without a section, e.g. legacy data, are shown everywhere)
+  if(n.section && section && n.section!==section) return '';
   const hasText=n.text&&n.text.trim();
   const imgs=(n.images||[]);
   const pub=n.published||{};
@@ -1718,7 +1769,7 @@ function notePost(wikiKey){
   return h;
 }
 
-function sec(cat,color,icon,markRu,rSet){
+function sec(cat,color,icon,markRu,rSet,section){
   if(!cat.entries||!cat.entries.length)return`<div class="sb"><div class="sh" style="border-color:${color}">
     <div class="si" style="background:${color}">${icon}</div>
     <div class="st" style="color:${color}">${cat.label}</div>
@@ -1731,7 +1782,7 @@ function sec(cat,color,icon,markRu,rSet){
   cat.entries.forEach(e=>{
     const ru=markRu&&rSet.has(e);
     const wk=entryWikiKey(e);
-    h+=`<div class="entry" style="border-left-color:${color}">${e}${ru?'<span class="rb">🇷🇺 рус.</span>':''}${noteBtn(wk)}</div>${notePost(wk)}`;
+    h+=`<div class="entry" style="border-left-color:${color}">${e}${ru?'<span class="rb">🇷🇺 рус.</span>':''}${noteBtn(wk,section)}</div>${notePost(wk,section)}`;
   });
   return h+`</div>`;
 }
@@ -1753,17 +1804,24 @@ function openLightbox(url){
   document.getElementById('lightbox').classList.add('open');
 }
 
-function openNoteModal(evt, wikiKey){
+function openNoteModal(evt, wikiKey, section){
   evt.stopPropagation();
   _noteKey=wikiKey;
   _noteDate=document.getElementById('datePicker').value;
   _pendingImgDels=[];
+  // Section this note belongs to: 'events' | 'holidays' | 'births'.
+  // For existing notes, prefer the saved section (it shouldn't change
+  // just because the same wiki link happens to appear elsewhere).
+  const existingForSection=notesData[wikiKey];
+  _noteSection = existingForSection ? (existingForSection.section || section || '') : (section || '');
 
   // Title: strip wiki URL to readable name
   const title=decodeURIComponent(wikiKey.split('/wiki/').pop().replace(/_/g,' '));
   document.getElementById('noteTitle').textContent='📝 '+title;
+  const sectionLabels={events:'📅 Событие',holidays:'🎉 Праздник',births:'👤 Рождение'};
+  const sectionLbl=sectionLabels[_noteSection]||'';
   document.getElementById('noteSource').innerHTML=
-    `Запись: <a href="${wikiKey}" target="_blank">${wikiKey}</a>`;
+    `${sectionLbl?sectionLbl+' · ':''}Запись: <a href="${wikiKey}" target="_blank">${wikiKey}</a>`;
 
   const existing=notesData[wikiKey];
   const editor=document.getElementById('noteEditor');
@@ -2060,7 +2118,7 @@ async function saveNote(){
   const pubUrl=document.getElementById('pubUrl').value.trim();
   const published=(_pubStatus==='published'&&(pubDate||pubUrl))?{date:pubDate, url:pubUrl}:null;
 
-  const note={title, text, tags: [..._tags], images: currentImgs, pub_status: _pubStatus,
+  const note={title, text, section: _noteSection, tags: [..._tags], images: currentImgs, pub_status: _pubStatus,
     ...(published?{published}:{})};
 
   const r=await fetch('/api/notes',{method:'POST',
@@ -2069,6 +2127,7 @@ async function saveNote(){
   const res=await r.json();
   if(res.ok){
     notesData[_noteKey]=note;
+    renderNoteStats();
     closeNoteModal();
     if(data) renderContent(data);
   } else {
@@ -2099,6 +2158,7 @@ async function deleteNote(){
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({date:_noteDate, key:_noteKey, note:null})});
   delete notesData[_noteKey];
+  renderNoteStats();
   closeNoteModal();
   if(data) renderContent(data);
 }
