@@ -46,5 +46,26 @@
       "date": "2026-06-11",
       "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#06-28-2"
     }
+  },
+  "https://en.wikipedia.org/wiki/Mel_Brooks": {
+    "title": "Birthday of Mel Brooks",
+    "text": "<div>1926   – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Mel_Brooks\" target=\"_blank\">Mel Brooks</a>, American actor, director, producer, and screenwriter.</div><div><a href=\"https://archive.org/details/2000yearoldmanin00broo/mode/2up\" target=\"_blank\">The 2,000 year old man in the year 2,000 : the book by Brooks, Mel; Reiner, Carl 1997</a></div>",
+    "section": "births",
+    "tags": [
+      "Art",
+      "Literature"
+    ],
+    "images": [
+      "/images/06-28_2b849ba85c.jpg",
+      "/images/06-28_b565712cf4.jpg",
+      "/images/06-28_5f074c8f15.jpg",
+      "/images/06-28_b44796f4d4.jpg",
+      "/images/06-28_c566b63370.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-25",
+      "url": "http://thepastandenglishbooks.ru/#06-28-3"
+    }
   }
 }

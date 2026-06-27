@@ -2,6 +2,7 @@
   "https://en.wikipedia.org/wiki/1862": {
     "title": "🏛️📜 Russian State Library 📚🗄️",
     "text": "<div><a href=\"https://en.wikipedia.org/wiki/1862\" target=\"_blank\">1862</a> – The <a href=\"https://en.wikipedia.org/wiki/Russian_State_Library\" target=\"_blank\">Russian State Library</a> is founded as the Library of the Moscow Public Museum.</div><div><a href=\"https://www.jstor.org/stable/20027399?seq=1\" target=\"_blank\">\"Problems of Russian Libraries in an Age of Social Change\" 1996</a></div>",
+    "section": "events",
     "tags": [
       "Education"
     ],
@@ -21,6 +22,7 @@
   "https://en.wikipedia.org/wiki/1646": {
     "title": "📜🏛️ Birthday of Gottfried Wilhelm Leibniz 📚🔗",
     "text": "<div><a href=\"https://en.wikipedia.org/wiki/1646\" target=\"_blank\">1646</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Gottfried_Wilhelm_Leibniz\" target=\"_blank\">Gottfried Wilhelm Leibniz</a>, German mathematician and philosopher (died 1716)</div><div><a href=\"https://archive.org/details/TheHistoryOfComputing/mode/2up\" target=\"_blank\">The History Of Computing by Marguerite Zientara 1981</a></div>",
+    "section": "births",
     "tags": [
       "Science"
     ],
@@ -33,6 +35,25 @@
     "pub_status": "published",
     "published": {
       "date": "2026-06-15",
+      "url": "http://thepastandenglishbooks.ru/#07-01-2"
+    }
+  },
+  "https://en.wikipedia.org/wiki/George_Sand": {
+    "title": "Birthday of George Sand",
+    "text": "<div>1804   – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/George_Sand\" target=\"_blank\">George Sand</a>, French author and playwright (died 1876).</div><div>📖<a href=\"https://www.gutenberg.org/ebooks/21993\" target=\"_blank\">The Devil's Pool 1846</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/07-01_fe909142a3.jpg",
+      "/images/07-01_3a8b59fcb4.jpg",
+      "/images/07-01_c95599dc83.jpg",
+      "/images/07-01_cdb1047c0a.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-26",
       "url": "http://thepastandenglishbooks.ru/#07-01-2"
     }
   }

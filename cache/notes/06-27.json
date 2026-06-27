@@ -58,5 +58,23 @@
       "date": "2026-06-11",
       "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#06-27-1"
     }
+  },
+  "https://en.wikipedia.org/wiki/1499": {
+    "title": "Amerigo Vespucci sights Brazil",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1499\" target=\"_blank\">1499</a> – <a href=\"https://en.wikipedia.org/wiki/Amerigo_Vespucci\" target=\"_blank\">Amerigo Vespucci</a> sights what is now <a href=\"https://en.wikipedia.org/wiki/Amap%C3%A1\" target=\"_blank\">Amapá</a> State in Brazil.</div><div>📖<a href=\"https://archive.org/details/famousdiscoverer00john/page/n9/mode/2up\" target=\"_blank\">Famous discoverers and explorers of America by Johnston, Charles Haven Ladd 1917</a></div>",
+    "section": "events",
+    "tags": [
+      "Exploration"
+    ],
+    "images": [
+      "/images/06-27_db6c580433.jpg",
+      "/images/06-27_dc0ee77071.jpg",
+      "/images/06-27_95e8be356d.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-27",
+      "url": "http://thepastandenglishbooks.ru/#06-27-4"
+    }
   }
 }

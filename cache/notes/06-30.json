@@ -16,5 +16,24 @@
       "date": "2026-06-11",
       "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#06-30-1"
     }
+  },
+  "https://en.wikipedia.org/wiki/1942": {
+    "title": "Birthday of Robert Ballard",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1942\" target=\"_blank\">1942</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Robert_Ballard\" target=\"_blank\">Robert Ballard</a>, American lieutenant and oceanographer.</div><div><a href=\"https://archive.org/details/robertballardexp0000youn/mode/2up\" target=\"_blank\">Robert Ballard : explorer and undersea archaeologist by Yount, Lisa 2009</a></div>",
+    "section": "births",
+    "tags": [
+      "Science",
+      "Exploration"
+    ],
+    "images": [
+      "/images/06-30_f9cf1761f3.jpg",
+      "/images/06-30_73fbe6f906.jpg",
+      "/images/06-30_cad179bef6.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-25",
+      "url": "http://thepastandenglishbooks.ru/#06-30-2"
+    }
   }
 }
