@@ -987,6 +987,18 @@ HTML_PAGE = r"""<!DOCTYPE html>
     background:var(--bg);color:var(--tx);margin-bottom:10px;}
   .note-title-field:focus{outline:none;border-color:var(--ac2);}
   .note-title-field::placeholder{color:#bbb;}
+  /* emoji picker panel */
+  .emoji-panel{margin-bottom:10px;}
+  .emoji-panel-tabs{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:5px;}
+  .emoji-ptab{font-size:12px;padding:2px 9px;border:1px solid var(--bd);border-radius:12px;
+    background:var(--sf);cursor:pointer;color:var(--tx2);transition:all .12s;white-space:nowrap;}
+  .emoji-ptab:hover{border-color:var(--ac2);}
+  .emoji-ptab.active{background:var(--ac);border-color:var(--ac);color:#fff;}
+  .emoji-grid{display:flex;flex-wrap:wrap;gap:2px;min-height:34px;}
+  .emoji-btn{font-size:18px;width:32px;height:32px;border:1px solid transparent;
+    border-radius:5px;background:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;padding:0;transition:background .1s;}
+  .emoji-btn:hover{background:var(--sf2);border-color:var(--bd);}
   /* note editor - contenteditable */
   .note-editor{width:100%;min-height:110px;font-family:'Source Serif 4',serif;font-size:14px;
     padding:9px;border:1.5px solid var(--bd);border-radius:6px;
@@ -1228,6 +1240,11 @@ HTML_PAGE = r"""<!DOCTYPE html>
     <div class="note-source" id="noteSource"></div>
     <input type="text" class="note-title-field" id="noteTitleField"
       placeholder="✏️ Заголовок заметки (с эмодзи)…" maxlength="120">
+    <!-- Emoji panel -->
+    <div class="emoji-panel">
+      <div class="emoji-panel-tabs" id="emojiTabs"></div>
+      <div class="emoji-grid" id="emojiGrid"></div>
+    </div>
     <!-- Tags -->
     <div class="tag-editor-wrap">
       <span class="tag-editor-label">🏷 Теги:</span>
@@ -1336,11 +1353,13 @@ function renderNoteStats(){
     {key:'births',   icon:'👤', label:'Рождения',  color:'#4a6b36'},
   ];
   const counts={events:{total:0,pub:0}, holidays:{total:0,pub:0}, births:{total:0,pub:0}};
-  Object.values(notesData).forEach(n=>{
+  Object.entries(notesData).forEach(([wikiKey,n])=>{
     if(!n) return;
     const hasContent = n.title || (n.text&&n.text.trim()) || (n.images||[]).length || n.pub_status;
     if(!hasContent) return;
-    const sec = n.section;
+    // Legacy notes saved before the "section" field existed have no section —
+    // infer it from current page data so old notes still count correctly.
+    const sec = n.section || inferSection(wikiKey);
     if(sec && counts[sec]){
       counts[sec].total++;
       if((n.pub_status||'draft')==='published') counts[sec].pub++;
@@ -1359,6 +1378,20 @@ function renderNoteStats(){
     row.onclick=()=>swTab(s.key);
     wrap.appendChild(row);
   });
+}
+
+// Best-effort section lookup for notes that predate the "section" field.
+function inferSection(wikiKey){
+  if(!data || !wikiKey) return '';
+  if((data.events||[]).some(cat=>(cat.entries||[]).some(e=>e.includes(wikiKey)))) return 'events';
+  if((data.births||[]).some(cat=>(cat.entries||[]).some(e=>e.includes(wikiKey)))) return 'births';
+  if((data.births_russian||[]).some(e=>e.includes(wikiKey))) return 'births';
+  if((data.holidays||[]).some(item=>{
+    const text=typeof item==='string'?item:(item.text||'');
+    const children=typeof item==='object'?(item.children||[]):[];
+    return text.includes(wikiKey)||children.some(c=>c.includes(wikiKey));
+  })) return 'holidays';
+  return '';
 }
 
 // ── AI TOGGLE ────────────────────────────────────────────────────────────────
@@ -1829,6 +1862,7 @@ function openNoteModal(evt, wikiKey, section){
   // Tags: load saved or auto-detect for new note
   _tags = existing ? [...(existing.tags||[])] : detectAutoTags(wikiKey);
   renderTagList();
+  initEmojiPanel();
   if(existing){
     editor.innerHTML=existing.text||'';
     renderNoteImgs(existing.images||[]);
@@ -1974,6 +2008,119 @@ function confirmInsertLink(){
   closeLinkPopup();
 }
 
+// ── EMOJI PANEL ───────────────────────────────────────────────────────────────
+
+const EMOJI_CATS = [
+  { id:'suggested', label:'✨ Подходящие', emojis:[] }, // filled dynamically
+  { id:'science',   label:'🔬 Наука',      emojis:[
+    '🔬','🧪','🧫','🧬','⚗️','🔭','🌡️','💉','🩺','🧠','⚛️','🧲','💊',
+    '🦠','🧬','🏥','🔋','💡','🧪','📡','🌌','🌊','🌋','🌍','🧭' ] },
+  { id:'art',       label:'🎨 Искусство',  emojis:[
+    '🎨','🖼️','✏️','🖌️','🖍️','📸','🎭','🎬','🎞️','📽️','🎤','🎙️',
+    '🎼','🎹','🎸','🎺','🎻','🥁','🎷','🎶','🎵','🎤','🎧','🎪' ] },
+  { id:'history',   label:'🏛 История',    emojis:[
+    '🏛️','⚔️','🛡️','👑','🗺️','📜','🏰','⚓','🚂','🗽','🗼','🌉','🕌',
+    '🛕','⛪','🏯','🗿','⛵','🚀','✈️','🚢','🏹','🪖','🎖️','🏅' ] },
+  { id:'people',    label:'👤 Люди',       emojis:[
+    '👤','👑','🧑‍🔬','🧑‍🎨','🧑‍💻','🧑‍🏫','🧑‍⚕️','🧑‍🌾','👩','👨','🧒','👶',
+    '🧙','🤴','👸','🧑‍🚀','🦸','🕵️','🧑‍⚖️','🧑‍🎤','🧑‍🏭','👨‍👩‍👧','🫂' ] },
+  { id:'nature',    label:'🌿 Природа',    emojis:[
+    '🌿','🌸','🌺','🌻','🍃','🌲','🌳','🌴','🌵','🌾','🍀','🌹','🦋',
+    '🐦','🦅','🦁','🐘','🐬','🦋','🌊','🏔️','🌄','🌅','❄️','🌈' ] },
+  { id:'symbols',   label:'★ Символы',    emojis:[
+    '⭐','🌟','💫','✨','🔥','💎','❤️','💙','💛','💚','🖤','🤍','⚡',
+    '🎯','🏆','🥇','🎗️','📌','🔑','💰','📖','📚','✉️','📰','🗞️' ] },
+  { id:'time',      label:'📅 Время',      emojis:[
+    '📅','📆','🗓️','⏳','⌛','🕰️','🔔','📣','🎊','🎉','🎁','🎈',
+    '🕯️','🪔','🌙','☀️','🌤️','⛅','🌧️','⛄','🌺','🍂','🌸','❄️' ] },
+];
+
+// Tag → emoji category mapping for smart suggestions
+const TAG_EMOJI_MAP = {
+  Science:    ['🔬','⚗️','🔭','🧪','💡','⚛️','🧠','🌌','🧬','🌡️','📡','💊'],
+  Art:        ['🎨','🖼️','✏️','🖌️','🎭','📸','🎬','🎼','🎵','🎤','🎸','🎺'],
+  Music:      ['🎵','🎼','🎹','🎸','🎺','🥁','🎷','🎻','🎧','🎤','🎙️','🎶'],
+  Literature: ['📖','📚','✏️','📜','📰','🗞️','🖊️','📝','✍️','📕','📗','📘'],
+  Education:  ['🎓','🏫','📚','📝','✏️','🖊️','📐','📏','🔬','💡','🏛️','📖'],
+  Inventions: ['💡','⚙️','🔧','🔩','🛠️','🚀','⚗️','🔋','💻','📡','🤖','🛰️'],
+  Space:      ['🚀','🌌','⭐','🌙','🛸','🔭','🌍','🪐','☄️','🌠','🛰️','👨‍🚀'],
+  Exploration:['🗺️','⚓','🧭','🌏','🏔️','⛵','✈️','🚢','🌋','🌊','🏕️','🗺️'],
+  Cinema:     ['🎬','🎞️','📽️','🎥','🎭','🎤','🌟','🏆','🎬','📺','🎦','🎪'],
+  Holiday:    ['🎊','🎉','🎁','🎈','🕯️','🌟','🏆','🎗️','🥂','🎀','🎠','🎆'],
+  Writers:    ['✍️','📖','📚','📜','🖊️','📝','📕','📰','🗞️','📃','✒️','📄'],
+};
+
+let _emojiActiveTab = 'suggested';
+
+function initEmojiPanel(){
+  // Build suggested list from current tags
+  const suggestedSet = new Set();
+  _tags.forEach(tag => {
+    (TAG_EMOJI_MAP[tag]||[]).forEach(e => suggestedSet.add(e));
+  });
+  EMOJI_CATS[0].emojis = [...suggestedSet];
+
+  // Set active tab: 'suggested' if there are suggestions, else 'art'
+  _emojiActiveTab = suggestedSet.size > 0 ? 'suggested' : 'art';
+
+  renderEmojiTabs();
+  renderEmojiGrid();
+}
+
+function renderEmojiTabs(){
+  const wrap = document.getElementById('emojiTabs');
+  if(!wrap) return;
+  wrap.innerHTML = '';
+  EMOJI_CATS.forEach(cat => {
+    if(cat.id === 'suggested' && cat.emojis.length === 0) return;
+    const btn = document.createElement('button');
+    btn.className = 'emoji-ptab' + (cat.id === _emojiActiveTab ? ' active' : '');
+    btn.textContent = cat.label;
+    btn.onclick = () => { _emojiActiveTab = cat.id; renderEmojiTabs(); renderEmojiGrid(); };
+    wrap.appendChild(btn);
+  });
+}
+
+function renderEmojiGrid(){
+  const wrap = document.getElementById('emojiGrid');
+  if(!wrap) return;
+  const cat = EMOJI_CATS.find(c => c.id === _emojiActiveTab);
+  if(!cat){ wrap.innerHTML=''; return; }
+  wrap.innerHTML = '';
+  cat.emojis.forEach(em => {
+    const btn = document.createElement('button');
+    btn.className = 'emoji-btn';
+    btn.textContent = em;
+    btn.onclick = () => insertEmoji(em);
+    wrap.appendChild(btn);
+  });
+}
+
+function insertEmoji(emoji){
+  // Default target: title field. Only insert into editor if editor is explicitly focused.
+  const titleField = document.getElementById('noteTitleField');
+  const editor     = document.getElementById('noteEditor');
+  const active     = document.activeElement;
+
+  if(active === editor){
+    // User has explicitly clicked into the editor — insert there
+    editor.focus();
+    const sel = window.getSelection();
+    if(sel && sel.rangeCount > 0){
+      document.execCommand('insertText', false, emoji);
+    } else {
+      editor.innerHTML += emoji;
+    }
+  } else {
+    // Default: insert into title field at cursor (or at end)
+    const s = titleField.selectionStart ?? titleField.value.length;
+    const e = titleField.selectionEnd   ?? titleField.value.length;
+    titleField.value = titleField.value.slice(0,s) + emoji + titleField.value.slice(e);
+    titleField.selectionStart = titleField.selectionEnd = s + emoji.length;
+    titleField.focus();
+  }
+}
+
 function clearNoteFormat(){
   document.execCommand('removeFormat');
 }
@@ -2040,6 +2187,16 @@ function renderTagList(){
     wrap.appendChild(el);
   });
   renderTagSuggestions();
+  // Refresh suggested emoji whenever tags change
+  if(typeof EMOJI_CATS !== 'undefined'){
+    const sugSet = new Set();
+    _tags.forEach(t => (TAG_EMOJI_MAP[t]||[]).forEach(e => sugSet.add(e)));
+    EMOJI_CATS[0].emojis = [...sugSet];
+    if(typeof _emojiActiveTab !== 'undefined'){
+      if(_emojiActiveTab === 'suggested' || !EMOJI_CATS[0].emojis.length) renderEmojiGrid();
+      renderEmojiTabs();
+    }
+  }
 }
 
 function renderTagSuggestions(){

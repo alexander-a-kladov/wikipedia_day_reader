@@ -2,6 +2,7 @@
   "https://en.wikipedia.org/wiki/2003": {
     "title": "🏜️🔴 NASA Opportunity rover 🪨🔬",
     "text": "<div><a href=\"https://en.wikipedia.org/wiki/2003\" target=\"_blank\">2003</a> – <a href=\"https://en.wikipedia.org/wiki/NASA\" target=\"_blank\">NASA</a> <a href=\"https://en.wikipedia.org/wiki/Opportunity_rover\" target=\"_blank\">Opportunity rover</a>, MER-B or Mars Exploration Rover–B, was launched into space aboard a <a href=\"https://en.wikipedia.org/wiki/Delta_II\" target=\"_blank\">Delta II</a> rocket.</div><div><a href=\"https://archive.org/details/marsroverdriver0000maxw/mode/2up\" target=\"_blank\">Mars rover driver by Maxwell, Scott 2014</a></div>",
+    "section": "events",
     "tags": [
       "Space"
     ],
@@ -18,13 +19,24 @@
       "url": "http://thepastandenglishbooks.ru/#07-07-1"
     }
   },
-  "https://en.wikipedia.org/wiki/1907": {
-    "title": "",
-    "text": "<a href=\"https://en.wikipedia.org/wiki/1907\" target=\"_blank\">1907</a> – <a href=\"https://en.wikipedia.org/wiki/Florenz_Ziegfeld_Jr.\" target=\"_blank\">Florenz Ziegfeld Jr.</a> staged his first <a href=\"https://en.wikipedia.org/wiki/Ziegfeld_Follies\" target=\"_blank\">Follies</a> on the roof of the <a href=\"https://en.wikipedia.org/wiki/Bowery_Theatre\" target=\"_blank\">New York Theater</a> in New York City.",
+  "https://en.wikipedia.org/wiki/1940": {
+    "title": "🎵🥁Birthday of Ringo Starr🧑‍⚕️⭐",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1940\" target=\"_blank\">1940</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Ringo_Starr\" target=\"_blank\">Ringo Starr</a>, English singer-songwriter, drummer, and actor.</div><div><a href=\"https://archive.org/details/beatleswerefaban0000krul/mode/2up\" target=\"_blank\">The Beatles were fab (and they were funny) by Krull, Kathleen 2013</a></div>",
+    "section": "births",
     "tags": [
-      "Literature"
+      "Music"
     ],
-    "images": [],
-    "pub_status": "draft"
+    "images": [
+      "/images/07-07_f864f8cf39.jpg",
+      "/images/07-07_91b0b19062.jpg",
+      "/images/07-07_0e206da764.jpg",
+      "/images/07-07_9e92b04c71.jpg",
+      "/images/07-07_cabd38b907.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-29",
+      "url": "http://thepastandenglishbooks.ru/#07-07-2"
+    }
   }
 }

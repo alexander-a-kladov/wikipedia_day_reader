@@ -2,6 +2,7 @@
   "https://en.wikipedia.org/wiki/1859": {
     "title": "🦅🌿 Midway Atoll 🏕️🌅",
     "text": "<div><a href=\"https://en.wikipedia.org/wiki/1859\" target=\"_blank\">1859</a> – The United States discovers and claims <a href=\"https://en.wikipedia.org/wiki/Midway_Atoll\" target=\"_blank\">Midway Atoll</a>.</div><div><a href=\"https://www.gutenberg.org/ebooks/78017\" target=\"_blank\">The Swiss Family Robinson by Johann David Wyss 1812</a></div>",
+    "section": "events",
     "tags": [
       "Exploration"
     ],
@@ -22,6 +23,7 @@
   "https://en.wikipedia.org/wiki/2016": {
     "title": "🛰️🪐 The Juno space probe 🌀📡",
     "text": "<div><a href=\"https://en.wikipedia.org/wiki/2016\" target=\"_blank\">2016</a> – The <a href=\"https://en.wikipedia.org/wiki/Juno_(spacecraft)\" target=\"_blank\">Juno</a> space probe arrives at <a href=\"https://en.wikipedia.org/wiki/Jupiter\" target=\"_blank\">Jupiter</a> and begins a 20-month survey of the planet.</div><div><a href=\"https://archive.org/details/jupitergiantplan02edbeeb/mode/2up\" target=\"_blank\">Jupiter : the giant planet by Beebe, Reta 1997</a></div>",
+    "section": "events",
     "tags": [
       "Space"
     ],

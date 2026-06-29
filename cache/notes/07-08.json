@@ -18,5 +18,26 @@
       "date": "2026-06-18",
       "url": "http://thepastandenglishbooks.ru/#07-08-1"
     }
+  },
+  "https://en.wikipedia.org/wiki/1579": {
+    "title": "🖼️⛪Our Lady of Kazan☀️🕯️",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1579\" target=\"_blank\">1579</a> – <a href=\"https://en.wikipedia.org/wiki/Our_Lady_of_Kazan\" target=\"_blank\">Our Lady of Kazan</a>, a holy <a href=\"https://en.wikipedia.org/wiki/Icon\" target=\"_blank\">icon</a> of the <a href=\"https://en.wikipedia.org/wiki/Russian_Orthodox_Church\" target=\"_blank\">Russian Orthodox Church</a>, is discovered underground in the city of <a href=\"https://en.wikipedia.org/wiki/Kazan\" target=\"_blank\">Kazan</a>, <a href=\"https://en.wikipedia.org/wiki/Tatarstan\" target=\"_blank\">Tatarstan</a>.</div><div><a href=\"https://archive.org/details/ikons0000stua/mode/2up\" target=\"_blank\">Ikons by Stuart, John 1975</a></div>",
+    "section": "events",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/07-08_8e0109aa9f.jpg",
+      "/images/07-08_aae0eb0721.jpg",
+      "/images/07-08_b1cfeb1d68.jpg",
+      "/images/07-08_15b5d6c91b.jpg",
+      "/images/07-08_ab56e4c11b.jpg",
+      "/images/07-08_7cc6b49b48.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-29",
+      "url": "http://thepastandenglishbooks.ru/#07-08-2"
+    }
   }
 }

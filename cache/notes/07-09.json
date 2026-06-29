@@ -12,5 +12,25 @@
       "/images/07-09_7c06d25c89.jpg"
     ],
     "pub_status": "draft"
+  },
+  "https://en.wikipedia.org/wiki/1763": {
+    "title": "🎼🎹The Mozart family grand tour👸⛪",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1763\" target=\"_blank\">1763</a> – The <a href=\"https://en.wikipedia.org/wiki/Mozart_family_grand_tour\" target=\"_blank\">Mozart family grand tour</a> of Europe begins, lifting the profile of son <a href=\"https://en.wikipedia.org/wiki/Wolfgang_Amadeus_Mozart\" target=\"_blank\">Wolfgang Amadeus</a>.</div><div><a href=\"https://archive.org/details/mozartwonderboy01whee/mode/2up\" target=\"_blank\">📖Mozart, the wonder boy by Wheeler, Opal 1934</a></div>",
+    "section": "events",
+    "tags": [
+      "Music"
+    ],
+    "images": [
+      "/images/07-09_86499f0ff1.png",
+      "/images/07-09_1985d37787.jpg",
+      "/images/07-09_34af1961e0.jpg",
+      "/images/07-09_0be7e54077.jpg",
+      "/images/07-09_bcb692907b.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-29",
+      "url": "http://thepastandenglishbooks.ru/#07-09-1"
+    }
   }
 }
