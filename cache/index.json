@@ -210,6 +210,20 @@
     ]
   },
   {
+    "notes": "notes/07-02.json",
+    "tags": [
+      "Art",
+      "Literature"
+    ]
+  },
+  {
+    "notes": "notes/07-03.json",
+    "tags": [
+      "Art",
+      "Literature"
+    ]
+  },
+  {
     "notes": "notes/07-04.json",
     "tags": [
       "Education",
@@ -234,25 +248,36 @@
   {
     "notes": "notes/07-07.json",
     "tags": [
+      "Music",
       "Space"
     ]
   },
   {
     "notes": "notes/07-08.json",
     "tags": [
+      "Art",
       "Space"
+    ]
+  },
+  {
+    "notes": "notes/07-09.json",
+    "tags": [
+      "Inventions",
+      "Music"
     ]
   },
   {
     "notes": "notes/07-10.json",
     "tags": [
+      "Exploration",
       "Inventions"
     ]
   },
   {
     "notes": "notes/07-11.json",
     "tags": [
-      "Inventions"
+      "Inventions",
+      "Literature"
     ]
   }
 ]

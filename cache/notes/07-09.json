@@ -32,5 +32,23 @@
       "date": "2026-06-29",
       "url": "http://thepastandenglishbooks.ru/#07-09-1"
     }
+  },
+  "https://en.wikipedia.org/wiki/1357": {
+    "title": "🛠️🤴Charles Bridge⛵⛪",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1357\" target=\"_blank\">1357</a> – <a href=\"https://en.wikipedia.org/wiki/Charles_IV,_Holy_Roman_Emperor\" target=\"_blank\">Emperor Charles IV</a> assists in laying the <a href=\"https://en.wikipedia.org/wiki/Cornerstone\" target=\"_blank\">foundation stone</a> of <a href=\"https://en.wikipedia.org/wiki/Charles_Bridge\" target=\"_blank\">Charles Bridge</a> in <a href=\"https://en.wikipedia.org/wiki/Prague\" target=\"_blank\">Prague</a>.</div><div><a href=\"https://archive.org/details/praguedetailedpi0000rygl\" target=\"_blank\">📖Prague by Rygl, Tomáš 2007</a></div>",
+    "section": "events",
+    "tags": [
+      "Inventions"
+    ],
+    "images": [
+      "/images/07-09_3c8a00d866.jpg",
+      "/images/07-09_7c27888597.jpg",
+      "/images/07-09_9b0b4ce2e7.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-06-30",
+      "url": "http://thepastandenglishbooks.ru/#07-09-2"
+    }
   }
 }

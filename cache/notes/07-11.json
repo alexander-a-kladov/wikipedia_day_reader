@@ -28,13 +28,21 @@
     "pub_status": "draft"
   },
   "https://en.wikipedia.org/wiki/To_Kill_a_Mockingbird": {
-    "title": "",
-    "text": "1960   – <a href=\"https://en.wikipedia.org/wiki/To_Kill_a_Mockingbird\" target=\"_blank\">To Kill a Mockingbird</a> by <a href=\"https://en.wikipedia.org/wiki/Harper_Lee\" target=\"_blank\">Harper Lee</a> is first published, in the United States.",
+    "title": "📜📚To Kill a Mockingbird🥇❤️",
+    "text": "<div>1960   – <a href=\"https://en.wikipedia.org/wiki/To_Kill_a_Mockingbird\" target=\"_blank\">To Kill a Mockingbird</a> by <a href=\"https://en.wikipedia.org/wiki/Harper_Lee\" target=\"_blank\">Harper Lee</a> is first published, in the United States.</div><div><a href=\"https://archive.org/details/storybehindharpe0000gidd/mode/2up\" target=\"_blank\">📖The story behind Harper Lee's To kill a mockingbird by Giddens-White, Bryon 2007</a></div>",
+    "section": "events",
     "tags": [
       "Literature"
     ],
-    "images": [],
-    "pub_status": "draft"
+    "images": [
+      "/images/07-11_6ced0c12d6.jpg",
+      "/images/07-11_0157678dfe.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-07-01",
+      "url": "http://thepastandenglishbooks.ru/#07-11-2"
+    }
   },
   "https://en.wikipedia.org/wiki/1886": {
     "title": "",

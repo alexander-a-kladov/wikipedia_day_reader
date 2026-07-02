@@ -1,7 +1,8 @@
 {
   "https://en.wikipedia.org/wiki/2019": {
     "title": "🚗🐞 Volkswagen Beetle 🌼🇩🇪",
-    "text": "<div><a href=\"https://en.wikipedia.org/wiki/2019\" target=\"_blank\">2019</a> – The final <a href=\"https://en.wikipedia.org/wiki/Volkswagen_Beetle\" target=\"_blank\">Volkswagen Beetle</a> rolls off the line in <a href=\"https://en.wikipedia.org/wiki/Puebla_(city)\" target=\"_blank\">Puebla</a>, Mexico; the last of 5,961 \"Special Edition\" cars will be exhibited in a museum.</div><div><a href=\"https://archive.org/details/ultimateclassicc00quen/mode/2up\" target=\"_blank\">The ultimate classic car book by Willson, Quentin; Selby, David 1995</a></div>",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/2019\" target=\"_blank\">2019</a> – The final <a href=\"https://en.wikipedia.org/wiki/Volkswagen_Beetle\" target=\"_blank\">Volkswagen Beetle</a> rolls off the line in <a href=\"https://en.wikipedia.org/wiki/Puebla_(city)\" target=\"_blank\">Puebla</a>, Mexico; the last of 5,961 \"Special Edition\" cars will be exhibited in a museum.</div><div><a href=\"https://archive.org/details/ultimateclassicc00quen/mode/2up\" target=\"_blank\">📖The ultimate classic car book by Willson, Quentin; Selby, David 1995</a></div>",
+    "section": "events",
     "tags": [
       "Inventions"
     ],
@@ -13,7 +14,7 @@
     "pub_status": "published",
     "published": {
       "date": "2026-06-17",
-      "url": "http://localhost:8080/thepastandenglishbooks.html#07-10-1"
+      "url": "http://thepastandenglishbooks.ru#07-10-1"
     }
   },
   "https://en.wikipedia.org/wiki/Alice_Munro": {
@@ -24,5 +25,26 @@
     ],
     "images": [],
     "pub_status": "draft"
+  },
+  "https://en.wikipedia.org/wiki/2018": {
+    "title": "🧒👨Tham Luang cave rescue📆🌊",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/2018\" target=\"_blank\">2018</a> – <a href=\"https://en.wikipedia.org/wiki/Tham_Luang_cave_rescue\" target=\"_blank\">Tham Luang cave rescue</a>: A group of Thai school children and their football coach are all rescued from a cave after being stuck there for 18 days; one Thai Navy SEAL diver dies during the rescue mission.</div><div><a href=\"https://www.bookweb.org/sites/default/files/diy/All%20Thirteen%20sample%20chapter.pdf\" target=\"_blank\">📖All Thirteen by Christina Soontornvat 2020</a>&nbsp;(Sample Charter)</div>",
+    "section": "events",
+    "tags": [
+      "Exploration"
+    ],
+    "images": [
+      "/images/07-10_81b102eb5e.jpg",
+      "/images/07-10_103abda7ba.jpg",
+      "/images/07-10_b91e1c4ff2.jpg",
+      "/images/07-10_30a31331c6.png",
+      "/images/07-10_bea00966db.jpg",
+      "/images/07-10_bc36432c3b.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-07-01",
+      "url": "http://thepastandenglishbooks.ru/#07-10-2"
+    }
   }
 }
