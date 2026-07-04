@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Past & English Books - Site Moved</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        color: #fff;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 850px;
+    }
+
+    .logo {
+        width: min(420px, 90vw);
+        max-width: 100%;
+        border-radius: 12px;
+        box-shadow: 0 15px 40px rgba(0,0,0,.35);
+        margin-bottom: 32px;
+    }
+
+    h1 {
+        font-size: clamp(2.2rem, 5vw, 4rem);
+        margin-bottom: 20px;
+        line-height: 1.15;
+    }
+
+    .message {
+        font-size: clamp(1.1rem, 2vw, 1.4rem);
+        color: #cbd5e1;
+        line-height: 1.6;
+        margin-bottom: 30px;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 18px 40px;
+        background: #2563eb;
+        color: white;
+        text-decoration: none;
+        font-size: 1.2rem;
+        font-weight: 700;
+        border-radius: 12px;
+        transition: all .25s ease;
+        box-shadow: 0 10px 25px rgba(37,99,235,.35);
+    }
+
+    .btn:hover {
+        background: #3b82f6;
+        transform: translateY(-2px);
+    }
+
+    .url {
+        display: block;
+        margin-top: 32px;
+        font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+        font-weight: bold;
+        color: #93c5fd;
+        word-break: break-word;
+    }
+
+    .countdown {
+        margin-top: 24px;
+        font-size: 1.2rem;
+        color: #cbd5e1;
+    }
+
+    .countdown span {
+        color: #93c5fd;
+        font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+        .btn {
+            width: 100%;
+            max-width: 360px;
+        }
+
+        .countdown {
+            font-size: 1rem;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Сохраните присланную картинку как logo.jpg рядом с этим HTML -->
+    <img src="thePastandEnglish.jpg" alt="The Past & English Books" class="logo">
+
+    <h1>Site has moved</h1>
+
+    <div class="message">
+        This website has moved to a new address.<br>
+        You will be redirected automatically.
+    </div>
+
+    <a id="moveLink" class="btn" href="http://thepastandenglishbooks.ru">
+        Go to the new website
+    </a>
+
+    <div class="url">
+        http://thepastandenglishbooks.ru
+    </div>
+
+    <div class="countdown">
+        Redirecting in <span id="seconds">5</span> seconds...
+    </div>
+
+</div>
+
+<script>
+(function () {
+
+    const TARGET = "http://thepastandenglishbooks.ru";
+    const hash = window.location.hash || "";
+
+    let destination = TARGET;
+
+    // Передаем только хеши вида #mm-dd-number
+    if (/^#\d{2}-\d{2}-\d+$/.test(hash)) {
+        destination += hash;
+    }
+
+    const link = document.getElementById("moveLink");
+    link.href = destination;
+
+    let seconds = 5;
+    const counter = document.getElementById("seconds");
+
+    const timer = setInterval(function() {
+        seconds--;
+        counter.textContent = seconds;
+
+        if (seconds <= 0) {
+            clearInterval(timer);
+            window.location.replace(destination);
+        }
+    }, 1000);
+
+})();
+</script>
+
+</body>
+</html>
