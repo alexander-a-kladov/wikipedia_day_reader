@@ -1,0 +1,44 @@
+{
+  "https://en.wikipedia.org/wiki/1902": {
+    "title": "🧭🏕️Discovery of Machu Picchu🏔️🗿",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1902\" target=\"_blank\">1902</a> – Peruvian explorer and farmer <a href=\"https://en.wikipedia.org/wiki/Agust%C3%ADn_Liz%C3%A1rraga\" target=\"_blank\">Agustín Lizárraga</a> discovers <a href=\"https://en.wikipedia.org/wiki/Machu_Picchu\" target=\"_blank\">Machu Picchu</a>, the \"Lost City of the <a href=\"https://en.wikipedia.org/wiki/Inca_Empire\" target=\"_blank\">Incas</a>\".</div><div><a href=\"https://archive.org/details/machupicchuunvei0000unse/mode/2up\" target=\"_blank\">📖Machu Picchu : unveiling the mystery of the Incas 2004</a></div>",
+    "section": "events",
+    "tags": [
+      "Exploration"
+    ],
+    "images": [
+      "/images/07-14_b892c1bc6d.jpg",
+      "/images/07-14_03e7a56480.png",
+      "/images/07-14_8845605059.jpg",
+      "/images/07-14_f371bd813d.jpg",
+      "/images/07-14_73a49bc393.jpg",
+      "/images/07-14_228f55c46f.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-07-03",
+      "url": "http://thepastandenglishbooks.ru/#07-14-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Gustav_Klimt": {
+    "title": "🖼️🖌️Birthday of Gustav Klimt🌾🇦🇹",
+    "text": "<div>1862   – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Gustav_Klimt\" target=\"_blank\">Gustav Klimt</a>, Austrian painter and illustrator (died 1918).</div><div><a href=\"https://archive.org/details/Klimt/Klimt_02/mode/2up\" target=\"_blank\">📖Gustav Klimt (Artbooks)</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/07-14_96f1b99426.jpg",
+      "/images/07-14_be29ebc8da.jpg",
+      "/images/07-14_d7bc60d4b7.jpg",
+      "/images/07-14_166265d498.jpg",
+      "/images/07-14_09133926cd.jpeg",
+      "/images/07-14_c17aa960f2.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-07-03",
+      "url": "http://thepastandenglishbooks.ru/#07-14-2"
+    }
+  }
+}

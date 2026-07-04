@@ -7,5 +7,46 @@
     ],
     "images": [],
     "pub_status": "draft"
+  },
+  "https://en.wikipedia.org/wiki/1881": {
+    "title": "🎭🖼️Birthday of Natalia Goncharova🌸🇷🇺",
+    "text": "<div><a href=\"//en.wikipedia.org/wiki/1881\" target=\"_blank\">1881</a> – Birthday of&nbsp;<a href=\"//en.wikipedia.org/wiki/Natalia_Goncharova\" target=\"_blank\">Natalia Goncharova</a>, <a href=\"//en.wikipedia.org/wiki/Russians\" target=\"_blank\">Russian</a> theatrical costume and set designer, painter and illustrator (died 1962).</div><div><a href=\"https://archive.org/details/bowlt-john-drutt-matthew-eds.-amazons-of-the-avant-garde/mode/2up\" target=\"_blank\">📖Amazons of the Avant-Garde by Bowlt, John; Drutt, Matthew 2000</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/07-12_cfc91385fa.jpg",
+      "/images/07-12_f3c41486c8.jpg",
+      "/images/07-12_e9f8712993.jpg",
+      "/images/07-12_ec8b8d1164.jpg",
+      "/images/07-12_fd35fb3281.jpg",
+      "/images/07-12_1e11b2f3f3.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-07-03",
+      "url": "http://thepastandenglishbooks.ru/#07-12-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1817": {
+    "title": "✍️📖Birthday of Henry David Thoreau🌲🇺🇸",
+    "text": "<div><a href=\"//en.wikipedia.org/wiki/1817\" target=\"_blank\">1817</a> – Birthday of&nbsp;<a href=\"//en.wikipedia.org/wiki/Henry_David_Thoreau\" target=\"_blank\">Henry David Thoreau</a>, American essayist, poet, and philosopher (died 1862).</div><div><a href=\"https://gutenberg.org/ebooks/205\" target=\"_blank\">📖Walden, and On The Duty Of Civil Disobedience by Henry David Thoreau</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/07-12_0b3c267da6.jpg",
+      "/images/07-12_b71e0f7dcd.jpg",
+      "/images/07-12_2baad52cfb.jpg",
+      "/images/07-12_6808f87ce4.jpeg",
+      "/images/07-12_1dd8026044.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-07-03",
+      "url": "http://thepastandenglishbooks.ru/#07-12-2"
+    }
   }
 }
