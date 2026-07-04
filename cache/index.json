@@ -279,5 +279,33 @@
       "Inventions",
       "Literature"
     ]
+  },
+  {
+    "notes": "notes/07-12.json",
+    "tags": [
+      "Art",
+      "Literature"
+    ]
+  },
+  {
+    "notes": "notes/07-13.json",
+    "tags": [
+      "Literature",
+      "Music"
+    ]
+  },
+  {
+    "notes": "notes/07-14.json",
+    "tags": [
+      "Art",
+      "Exploration"
+    ]
+  },
+  {
+    "notes": "notes/07-15.json",
+    "tags": [
+      "Art",
+      "Space"
+    ]
   }
 ]
