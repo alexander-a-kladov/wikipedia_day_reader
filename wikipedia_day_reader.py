@@ -1247,8 +1247,16 @@ HTML_PAGE = r"""<!DOCTYPE html>
   <div class="note-box">
     <h3 id="noteTitle">Дополнительная информация</h3>
     <div class="note-source" id="noteSource"></div>
-    <input type="text" class="note-title-field" id="noteTitleField"
-      placeholder="✏️ Заголовок заметки (с эмодзи)…" maxlength="120">
+    <div style="display:flex;gap:7px;align-items:center;margin-bottom:10px;">
+      <input type="text" class="note-title-field" id="noteTitleField"
+        placeholder="✏️ Заголовок заметки (с эмодзи)…" maxlength="120"
+        style="margin-bottom:0;flex:1;">
+      <button class="bs" id="autoEmojiBtn" onclick="autoEmojiTitle()"
+        title="Добавить эмодзи автоматически через Groq AI"
+        style="font-size:12px;padding:5px 11px;white-space:nowrap;flex-shrink:0;">
+        ✨ AI эмодзи
+      </button>
+    </div>
     <!-- Emoji panel -->
     <div class="emoji-panel">
       <div class="emoji-panel-tabs" id="emojiTabs"></div>
@@ -2214,6 +2222,38 @@ function insertEmoji(emoji){
   }
 }
 
+async function autoEmojiTitle(){
+  const field = document.getElementById('noteTitleField');
+  const btn   = document.getElementById('autoEmojiBtn');
+  const title = field.value.trim();
+  if(!title){ field.focus(); field.placeholder='Сначала введите заголовок…'; return; }
+
+  btn.disabled = true;
+  btn.textContent = '⏳…';
+
+  try {
+    const r = await fetch('/api/emoji_title', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({title})
+    });
+    const res = await r.json();
+    if(res.error){
+      alert('Ошибка: ' + res.error);
+    } else {
+      // Strip existing leading/trailing emojis to avoid doubling
+      const stripped = title.replace(/^[\p{Emoji}\s]+|[\p{Emoji}\s]+$/gu, '').trim();
+      field.value = (res.start||'') + ' ' + stripped + ' ' + (res.end||'');
+      field.value = field.value.trim();
+    }
+  } catch(e) {
+    alert('Ошибка запроса: ' + e.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '✨ AI эмодзи';
+  }
+}
+
 function clearNoteFormat(){
   document.execCommand('removeFormat');
 }
@@ -2784,6 +2824,44 @@ class Handler(BaseHTTPRequestHandler):
                 payload = json.loads(body)
                 ok      = image_delete(payload.get("url", ""))
                 self._json({"ok": ok})
+            except Exception as e:
+                self._json({"error": str(e)})
+
+        elif self.path == '/api/emoji_title':
+            try:
+                payload = json.loads(body)
+                title   = payload.get("title", "").strip()
+                if not title:
+                    self._json({"error": "empty title"}); return
+                key   = _keys_store.get("groq", "").strip()
+                if not key:
+                    self._json({"error": "Groq API key not set. Add it in ⚙ Settings → AI."}); return
+                model = AI_PROVIDERS["groq"]["model"]
+                prompt = (
+                    f"Given this title: \"{title}\"\n\n"
+                    "Select exactly 4 emojis that best match the meaning — "
+                    "2 for the beginning and 2 for the end.\n"
+                    "Return ONLY a JSON object: {\"start\": \"emoji1emoji2\", \"end\": \"emoji3emoji4\"}\n"
+                    "No explanation, no markdown, no extra text."
+                )
+                resp = _http_post(
+                    "https://api.groq.com/openai/v1/chat/completions",
+                    {
+                        "model": model, "temperature": 0.7, "max_tokens": 60,
+                        "messages": [
+                            {"role": "system", "content": "You are an emoji selector. Respond only with JSON."},
+                            {"role": "user",   "content": prompt},
+                        ],
+                    },
+                    {"Content-Type": "application/json", "Authorization": f"Bearer {key}"},
+                )
+                text = resp["choices"][0]["message"]["content"]
+                text = re.sub(r"```[a-z]*\n?|\n?```", "", text).strip()
+                m    = re.search(r"\{[\s\S]*\}", text)
+                if not m:
+                    self._json({"error": f"Could not parse response: {text[:100]}"}); return
+                data = json.loads(m.group())
+                self._json({"ok": True, "start": data.get("start",""), "end": data.get("end","")})
             except Exception as e:
                 self._json({"error": str(e)})
 
