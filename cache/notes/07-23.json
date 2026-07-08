@@ -1,0 +1,52 @@
+{
+  "https://en.wikipedia.org/wiki/1972": {
+    "title": "🛰️📸 Landsat Program 🌎📊",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1972\" target=\"_blank\">1972</a> – The United States launches <a href=\"https://en.wikipedia.org/wiki/Landsat_1\" target=\"_blank\">Landsat 1</a>&nbsp;(<a href=\"https://en.wikipedia.org/wiki/Landsat_program\" target=\"_blank\">Landsat Program</a>), the first Earth-resources <a href=\"https://en.wikipedia.org/wiki/Satellite\" target=\"_blank\">satellite</a>.</div><div><a href=\"https://archive.org/details/earthscienceappl0000nati/mode/2up\" target=\"_blank\">📖Earth science and applications from space : national imperatives for the next decade and beyond by National Research Council (U.S.). Committee on Earth Science and Applications from Space 2007</a></div>",
+    "section": "events",
+    "tags": [
+      "Space"
+    ],
+    "images": [
+      "/images/07-23_3902c83e6d.jpg",
+      "/images/07-23_7be8b696e4.jpg",
+      "/images/07-23_f84be78e2a.jpg",
+      "/images/07-23_a92690d67c.jpg",
+      "/images/07-23_72e6d5906a.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-07-07",
+      "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#07-23-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Walter_H._Schottky": {
+    "title": "",
+    "text": "1886   – <a href=\"https://en.wikipedia.org/wiki/Walter_H._Schottky\" target=\"_blank\">Walter H. Schottky</a>, Swiss-German physicist and engineer (died 1976)",
+    "section": "births",
+    "tags": [
+      "Science",
+      "Inventions"
+    ],
+    "images": [],
+    "pub_status": "draft"
+  },
+  "https://en.wikipedia.org/wiki/Vera_Rubin": {
+    "title": "🌠🔭 Vera Rubin 🔍👩",
+    "text": "<div>1928   – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Vera_Rubin\" target=\"_blank\">Vera Rubin</a>, American astronomer and academic (died 2016).</div><div><a href=\"https://archive.org/details/americanastronom0000camp/mode/2up\" target=\"_blank\">📖American astronomers : searchers and wonderers by Camp, Carole Ann 1996</a></div>",
+    "section": "births",
+    "tags": [
+      "Science"
+    ],
+    "images": [
+      "/images/07-23_49aee0b78b.jpg",
+      "/images/07-23_9ebe3433eb.jpg",
+      "/images/07-23_4e316695e9.jpg",
+      "/images/07-23_466958d1a6.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-07-08",
+      "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#07-23-2"
+    }
+  }
+}

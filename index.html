@@ -1,164 +1,1977 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Past & English Books - Site Moved</title>
+<meta id="viewportMeta" name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Past and English Books</title>
+<meta name="description" content="Daily historical facts, events and biographies paired with classic and modern English books. Explore the past — one day at a time.">
+<meta name="keywords" content="history, English books, historical events, biographies, English literature, education, past events">
+<meta name="author" content="The Past and English Books">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="http://thepastandenglishbooks">
+
+<!-- Open Graph / VK / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://vk.com/ak8englishbooks">
+<meta property="og:title" content="The Past and English Books">
+<meta property="og:description" content="Daily historical facts, events and biographies paired with classic and modern English books.">
+<meta property="og:image" content="thePastandEnglish.jpg">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:locale:alternate" content="en_GB">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Past and English Books">
+<meta name="twitter:description" content="Daily historical facts and English books — one day at a time.">
+<meta name="twitter:image" content="thePastandEnglish.jpg">
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "The Past and English Books",
+  "description": "Daily historical facts, events and biographies paired with English books.",
+  "url": "http://thepastandenglishbooks",
+  "image": "thePastandEnglish.jpg",
+  "inLanguage": ["ru", "en"],
+  "sameAs": ["http://thepastandenglishbooks"]
+}
+</script>
 
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+* { box-sizing: border-box; }
 
-    body {
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: Arial, Helvetica, sans-serif;
-        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-        color: #fff;
-        text-align: center;
-        padding: 20px;
-    }
+html {
+    overscroll-behavior-y: none;
+}
 
-    .container {
-        width: 100%;
-        max-width: 850px;
-    }
+body {
+    margin: 0;
+    background: #f3f4f6;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #222;
+    overscroll-behavior-y: none;
+}
 
-    .logo {
-        width: min(420px, 90vw);
-        max-width: 100%;
-        border-radius: 12px;
-        box-shadow: 0 15px 40px rgba(0,0,0,.35);
-        margin-bottom: 32px;
-    }
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+    padding: 14px 24px;
+}
 
-    h1 {
-        font-size: clamp(2.2rem, 5vw, 4rem);
-        margin-bottom: 20px;
-        line-height: 1.15;
-    }
+header h1 { margin: 0; font-size: 24px; }
 
-    .message {
-        font-size: clamp(1.1rem, 2vw, 1.4rem);
-        color: #cbd5e1;
-        line-height: 1.6;
-        margin-bottom: 30px;
-    }
+.header-logo {
+    height: 48px;
+    width: auto;
+    border-radius: 6px;
+    object-fit: cover;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: opacity .15s;
+}
 
-    .btn {
-        display: inline-block;
-        padding: 18px 40px;
-        background: #2563eb;
-        color: white;
-        text-decoration: none;
-        font-size: 1.2rem;
-        font-weight: 700;
-        border-radius: 12px;
-        transition: all .25s ease;
-        box-shadow: 0 10px 25px rgba(37,99,235,.35);
-    }
+.header-logo:hover { opacity: .82; }
+.header-logo:active { opacity: .65; }
 
-    .btn:hover {
-        background: #3b82f6;
-        transform: translateY(-2px);
-    }
+header h1 {
+    cursor: pointer;
+    user-select: none;
+}
 
-    .url {
-        display: block;
-        margin-top: 32px;
-        font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-        font-weight: bold;
-        color: #93c5fd;
-        word-break: break-word;
-    }
+header h1:hover { opacity: .75; }
 
-    .countdown {
-        margin-top: 24px;
-        font-size: 1.2rem;
-        color: #cbd5e1;
-    }
+#hiddenDateInput {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+}
 
-    .countdown span {
-        color: #93c5fd;
-        font-weight: bold;
-    }
+.topics-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,.15);
+    min-width: 220px;
+    max-width: 320px;
+    z-index: 200;
+    overflow: hidden;
+}
 
-    @media (max-width: 600px) {
-        .btn {
-            width: 100%;
-            max-width: 360px;
-        }
+.topics-menu-header {
+    padding: 10px 14px 6px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: #999;
+}
 
-        .countdown {
-            font-size: 1rem;
-        }
-    }
+.topics-list {
+    padding: 4px 10px 6px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    max-height: 360px;
+    overflow-y: auto;
+}
+
+.topic-tag {
+    border: 2px solid #1565c0;
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    background: #1565c0;
+    color: #fff;
+    transition: background .15s, color .15s;
+    white-space: nowrap;
+}
+
+.topic-tag.off {
+    background: transparent;
+    color: #1565c0;
+}
+
+.topics-menu-footer {
+    display: flex;
+    gap: 6px;
+    padding: 8px 10px;
+    border-top: 1px solid #eee;
+}
+
+.topics-menu-footer button {
+    flex: 1;
+    border: none;
+    border-radius: 8px;
+    padding: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    background: #eee;
+}
+
+.topics-menu-footer button:hover { background: #ddd; }
+
+body.dark .topics-menu {
+    background: #1e1e1e;
+    border-color: #333;
+    box-shadow: 0 4px 20px rgba(0,0,0,.5);
+}
+
+body.dark .topics-menu-header { color: #777; }
+
+body.dark .topic-tag {
+    border-color: #5aabff;
+    background: #5aabff;
+    color: #000;
+}
+
+body.dark .topic-tag.off {
+    background: transparent;
+    color: #5aabff;
+}
+
+body.dark .topics-menu-footer { border-color: #333; }
+
+body.dark .topics-menu-footer button {
+    background: #333;
+    color: #e0e0e0;
+}
+
+body.dark .topics-menu-footer button:hover { background: #444; }
+
+
+
+
+#feed {
+    max-width: 1400px;
+    margin: 24px auto;
+    padding: 0 10px;
+}
+
+.post {
+    background: #fff;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
+
+.post-actions {
+    padding: 0 24px 24px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.like-btn {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 16px;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background .15s, transform .1s;
+}
+
+
+.like-btn.liked  { background: #fdecea; }
+.like-btn:active { transform: scale(.93); }
+.like-btn:disabled { cursor: default; opacity: .7; }
+
+body.dark .like-btn             { background: #2a2a2a; color: #fff; }
+body.dark .like-btn .like-count { color: #fff; }
+body.dark .like-btn.liked       { background: #3b1f1f; }
+
+.share-btn {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.post-tag-badges {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    padding: 0 24px 14px;
+}
+
+.post-tag-badge {
+    font-size: 20px;
+    line-height: 1;
+    cursor: default;
+    user-select: none;
+}
+
+.post-tag-badge[title] { cursor: default; }
+
+.file-date {
+    padding: 10px 20px;
+    background: #fafafa;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    font-weight: bold;
+    color: #666;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 3px;
+}
+
+.file-date-day {
+    font-size: 13px;
+    color: #999;
+    font-weight: normal;
+}
+
+.file-date-title {
+    font-size: 15px;
+    color: #333;
+    font-weight: bold;
+    line-height: 1.3;
+}
+
+body.dark .file-date-day   { color: #777; }
+body.dark .file-date-title { color: #e0e0e0; }
+
+/* No gap between slider and adjacent elements */
+.slider { display: block; font-size: 0; line-height: 0; }
+
+.slider { position: relative; width: 100%; overflow: hidden; }
+
+.slider-track { display: flex; transition: transform .3s ease; }
+
+.slide { min-width: 100%; }
+
+.slide img {
+    width: 100%;
+    height: 750px;
+    object-fit: contain;
+    display: block;
+    background: #fff;
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0,0,0,.55);
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.slider-btn.prev { left: 10px; }
+.slider-btn.next { right: 10px; }
+.slider-btn:hover { background: rgba(0,0,0,.75); }
+
+.content { padding: 24px; line-height: 1.9; font-size: 22px; }
+
+/* Remove default block margins that cause gaps around images */
+.content div:first-child { margin-top: 0; }
+.content div:last-child  { margin-bottom: 0; }
+.content div { margin-top: 0; margin-bottom: 0; }
+.content p   { margin-top: 0; margin-bottom: 0; }
+
+.content a { color: #1565c0; text-decoration: none; }
+.content a:hover { text-decoration: underline; }
+
+.loading, .error { text-align: center; padding: 40px; color: #666; }
+
+.header-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+
+.header-title-group { display: flex; align-items: center; gap: 12px; }
+
+.theme-toggle {
+    border: none;
+    background: #eee;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 8px 12px;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.theme-toggle:hover { opacity: .9; }
+
+.topics-toggle {
+    border: none;
+    background: #eee;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.topics-toggle:hover { opacity: .9; }
+
+body.dark .topics-toggle { background: #333; color: #e0e0e0; }
+
+/* ── dark theme ── */
+body.dark { background: #121212; color: #e0e0e0; }
+body.dark header { background: #1e1e1e; border-color: #333; }
+body.dark .post { background: #1e1e1e; box-shadow: 0 2px 12px rgba(0,0,0,.4); }
+body.dark .file-date { background: #252525; border-color: #333; color: #ccc; }
+body.dark .content { color: #e0e0e0; }
+body.dark .content a { color: #66b3ff; }
+body.dark .slide img { background: #111; }
+body.dark .theme-toggle { background: #333; color: #e0e0e0; }
+body.dark #customDateInput { background: #2a2a2a; border-color: #555; color: #e0e0e0; }
+body.dark #customDateInput:focus { border-color: #66b3ff; }
+body.dark .loading, body.dark .error { color: #bbb; }
+body.dark .share-btn { background: #333; color: white; }
+
+.help-btn {
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    background: #1565c0;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.help-btn:hover {
+    opacity: 0.9;
+}
+
+.help-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.help-modal[hidden] {
+    display: none !important;
+}
+
+.help-modal-content {
+    position: relative;
+    background: white;
+    padding: 24px;
+    border-radius: 14px;
+    max-width: 600px;
+    width: calc(100% - 30px);
+    font-size: 16px;
+    line-height: 1.7;
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+
+.help-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: transparent;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+body.dark .help-modal-content {
+    background: #1e1e1e;
+    color: #e0e0e0;
+}
+
+body.dark .help-btn {
+    background: #5aabff;
+    color: #000;
+}
+
+/* ── footer / counter ── */
+footer {
+    text-align: center;
+    padding: 28px 16px 36px;
+    color: #999;
+    font-size: 13px;
+}
+
+footer a { color: inherit; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+.counter-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+body.dark footer { color: #555; }
+
+/* ── Lightbox ── */
+#lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0,0,0,.92);
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+}
+
+#lightbox.open { display: flex; }
+
+#lightbox img {
+    /* Size is set per-image by JS to maximise within viewport */
+    display: block;
+    object-fit: contain;
+    border-radius: 6px;
+    box-shadow: 0 8px 40px rgba(0,0,0,.6);
+    cursor: default;
+    user-select: none;
+    touch-action: pan-x pan-y pinch-zoom;
+}
+
+#lightboxClose {
+    position: fixed;
+    top: 16px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 36px;
+    line-height: 1;
+    cursor: pointer;
+    opacity: .8;
+    z-index: 10000;
+}
+
+#lightboxClose:hover { opacity: 1; }
+
+#lightboxPrev,
+#lightboxNext {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,.15);
+    border: none;
+    color: #fff;
+    font-size: 32px;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 10000;
+    line-height: 1;
+    opacity: .7;
+}
+
+#lightboxPrev { left: 12px; }
+#lightboxNext { right: 12px; }
+#lightboxPrev:hover,
+#lightboxNext:hover { opacity: 1; background: rgba(255,255,255,.25); }
+
+.slide img { cursor: zoom-in; }
+
+/* ── responsive: all phones (base) ── */
+@media (max-width: 768px) {
+    #feed { padding: 0; margin: 0; }
+    .post { border-radius: 0; margin-bottom: 18px; }
+    .slide img { height: 82vh; object-fit: contain; }
+    .content { font-size: 16px; line-height: 1.6; padding: 16px; }
+    .file-date { font-size: 13px; }
+    .slider-btn { width: 44px; height: 44px; font-size: 24px; }
+    header { padding: 10px 14px; }
+    header h1 { font-size: 16px; }
+    .header-logo { height: 36px; }
+    .date-nav { gap: 5px; }
+    .share-btn { font-size: 15px; padding: 10px 15px; }
+}
+
+/* ── medium-DPI phones (1x–1.9x, e.g. budget Android, older devices) ── */
+@media (max-width: 768px) and (-webkit-max-device-pixel-ratio: 1.9),
+       (max-width: 768px) and (max-resolution: 182dpi) {
+    header h1 { font-size: 17px; }
+    .content { font-size: 16px; line-height: 1.65; }
+    .file-date { font-size: 13px; }
+}
+
+/* ── high-DPI phones (≥2x, e.g. standard iPhone, modern Android) ── */
+@media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 2),
+       (max-width: 768px) and (min-resolution: 192dpi) {
+    header h1 { font-size: 22px; }
+    .header-logo { height: 42px; }
+    .content { font-size: 21px; line-height: 1.78; }
+    .file-date { font-size: 17px; padding: 15px 21px; }
+    .step-btn { font-size: 17px; padding: 8px 18px; }
+    #customDateInput { font-size: 16px; padding: 8px 13px; }
+    #today-btn { font-size: 15px; padding: 8px 13px; }
+    .theme-toggle { font-size: 24px; padding: 10px 14px; }
+    .slider-btn { width: 58px; height: 58px; font-size: 30px; }
+    .share-btn { font-size: 19px; padding: 13px 19px; }
+    .post-actions { padding: 0 21px 21px; }
+}
+
+/* ── very high-DPI / large phones (≥3x, e.g. iPhone Pro Max) ── */
+@media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 3),
+       (max-width: 768px) and (min-resolution: 288dpi) {
+    header h1 { font-size: 24px; }
+    .header-logo { height: 44px; }
+    .content { font-size: 22px; line-height: 1.8; }
+    .file-date { font-size: 18px; padding: 16px 22px; }
+    .theme-toggle { font-size: 26px; padding: 11px 16px; }
+    .slider-btn { width: 62px; height: 62px; font-size: 32px; }
+    .share-btn { font-size: 20px; padding: 14px 20px; }
+}
 </style>
 </head>
 <body>
 
-<div class="container">
-
-    <!-- Сохраните присланную картинку как logo.jpg рядом с этим HTML -->
-    <img src="thePastandEnglish.jpg" alt="The Past & English Books" class="logo">
-
-    <h1>Site has moved</h1>
-
-    <div class="message">
-        This website has moved to a new address.<br>
-        You will be redirected automatically.
+<header>
+    <div class="header-row">
+        <div class="header-title-group">
+            <img src="thePastandEnglish.jpg" alt="The Past and English Books" class="header-logo" id="logoBtn" title="Вернуться к сегодняшней дате">
+            <h1 id="titleBtn" title="Выбрать дату">The Past and English Books 📅</h1>
+            <input type="date" id="hiddenDateInput" tabindex="-1">
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;position:relative;">
+            <button id="topicsBtn" class="topics-toggle" title="Фильтр по темам">📕</button>
+            <div id="topicsMenu" class="topics-menu" hidden>
+                <div class="topics-menu-header">Темы</div>
+                <div id="topicsList" class="topics-list"></div>
+                <div class="topics-menu-footer">
+                    <button id="topicsSelectAll" type="button">Все</button>
+                    <button id="topicsSelectNone" type="button">Сбросить</button>
+                </div>
+            </div>
+            <button id="themeToggle" class="theme-toggle">🌙</button>
+            <button id="helpBtn" class="help-btn" title="Help">?</button>
+        </div>
     </div>
+</header>
+<div id="helpModal" class="help-modal" hidden>
+            <div class="help-modal-content">
+                <button id="closeHelp" class="help-close">✕</button>
 
-    <a id="moveLink" class="btn" href="http://thepastandenglishbooks.ru">
-        Go to the new website
-    </a>
+                <h3>How to use this site</h3>
 
-    <div class="url">
-        http://thepastandenglishbooks.ru
-    </div>
+                <p>
+                    This site is for browsing historical events in several categories.
+                    You can select categories you are interested in using
+                    <strong>📕</strong>.
+                </p>
 
-    <div class="countdown">
-        Redirecting in <span id="seconds">5</span> seconds...
-    </div>
+                <p>
+                    To change the date, scroll to the bottom or top of the page and keep
+                    scrolling until the date changes. On PC, use the mouse wheel.
+                </p>
 
+                <p>
+                    On PC, you can also press <strong>Page Down</strong> to go to the
+                    next day and <strong>Page Up</strong> to go to the previous day.
+                </p>
+
+                <p>
+                    You can also choose a date from the calendar. Just click the title
+                    <strong>"The Past and English Books"</strong>.
+                </p>
+            </div>
+</div>
+<div id="lightbox">
+    <button id="lightboxClose" title="Закрыть">✕</button>
+    <button id="lightboxPrev" title="Предыдущее">‹</button>
+    <img id="lightboxImg" src="" alt="">
+    <button id="lightboxNext" title="Следующее">›</button>
+</div>
+
+<div id="feed">
+    <div class="loading">Загрузка…</div>
 </div>
 
 <script>
-(function () {
+/* ─────────────────────────────────────────
+   Helpers
+   All post navigation is driven by "MM-DD" strings — the same strings
+   used in the notes filenames (MM-DD.json). Lexicographic order of
+   these strings equals calendar order within a year, INCLUDING
+   "02-29" which sorts correctly between "02-28" and "03-01".
+   The real year never enters this logic; it's only used to format the
+   <input type=date> picker for display/entry.
+───────────────────────────────────────── */
 
-    const TARGET = "http://thepastandenglishbooks.ru";
-    const hash = window.location.hash || "";
+// Fixed reference calendar — always treat February as having 29 days so
+// that "02-29" is a valid, navigable day regardless of the real year.
+const DAYS_IN_MONTH_LEAP = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-    let destination = TARGET;
+function pad2(n) {
+    return String(n).padStart(2, '0');
+}
 
-    // Передаем только хеши вида #mm-dd-number
-    if (/^#\d{2}-\d{2}-\d+$/.test(hash)) {
-        destination += hash;
+/** Convert a real Date object to a "MM-DD" string. */
+function toMMDD(date) {
+    return `${pad2(date.getMonth() + 1)}-${pad2(date.getDate())}`;
+}
+
+/** "MM-DD" → { mm, dd } as numbers */
+function mmddParts(mmdd) {
+    const [mm, dd] = mmdd.split('-').map(Number);
+    return { mm, dd };
+}
+
+/** Next day after "MM-DD" in the fixed 366-day reference calendar. */
+function nextMMDD(mmdd) {
+    let { mm, dd } = mmddParts(mmdd);
+    dd++;
+    if (dd > DAYS_IN_MONTH_LEAP[mm - 1]) {
+        dd = 1;
+        mm = (mm % 12) + 1;
+    }
+    return `${pad2(mm)}-${pad2(dd)}`;
+}
+
+/** Day before "MM-DD" in the fixed 366-day reference calendar. */
+function prevMMDD(mmdd) {
+    let { mm, dd } = mmddParts(mmdd);
+    dd--;
+    if (dd < 1) {
+        mm = mm === 1 ? 12 : mm - 1;
+        dd = DAYS_IN_MONTH_LEAP[mm - 1];
+    }
+    return `${pad2(mm)}-${pad2(dd)}`;
+}
+
+/**
+ * Display label "12 июня" for a "MM-DD" string. Uses a fixed leap
+ * reference year (2024) so "02-29" always formats correctly.
+ */
+function formatDayMonth(mmdd) {
+    const { mm, dd } = mmddParts(mmdd);
+    const d = new Date(2024, mm - 1, dd);
+    return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
+}
+
+/**
+ * Build the "YYYY-MM-DD" value for the <input type=date> picker from a
+ * "MM-DD" string, always using the REAL current year. If that MM-DD
+ * doesn't exist in the current year (i.e. "02-29" in a non-leap year),
+ * JS Date naturally rolls it over to "03-01" — which is acceptable.
+ */
+function mmddToPickerValue(mmdd) {
+    const { mm, dd } = mmddParts(mmdd);
+    const y = new Date().getFullYear();
+    const d = new Date(y, mm - 1, dd);
+    return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+}
+
+/** Parse the picker's "YYYY-MM-DD" value back into "MM-DD" (year discarded). */
+function pickerValueToMMDD(value) {
+    const [, m, d] = value.split('-').map(Number);
+    return `${pad2(m)}-${pad2(d)}`;
+}
+
+/** Today's date as "MM-DD". */
+function todayMMDD() {
+    return toMMDD(new Date());
+}
+
+/**
+ * Parse a hash that looks like "MM-DD-N"
+ * Returns { mmdd: "MM-DD", num: N } or null.
+ */
+function parsePostHash(hash) {
+    const m = hash.match(/^(\d{2}-\d{2})-(\d+)$/);
+    if (!m) return null;
+    return { mmdd: m[1], num: parseInt(m[2], 10) };
+}
+
+/* ─────────────────────────────────────────
+   State
+───────────────────────────────────────── */
+
+const feed = document.getElementById('feed');
+
+// Currently displayed day, as "MM-DD" — overridden by hash on boot.
+let selectedMMDD = todayMMDD();
+
+/* ─────────────────────────────────────────
+   HTML helpers
+───────────────────────────────────────── */
+
+function fixBrokenAnchors(html) {
+    // Some exporters produce: <a https:="" en.wikipedia.org="" wiki="" page="">
+    // instead of:             <a href="https://en.wikipedia.org/wiki/page">
+    // We reconstruct a valid href by joining the broken attribute "keys".
+    return html.replace(/<a\s([^>]*)>/gi, (match, attrs) => {
+        // Already has a proper href — just ensure target="_blank"
+        if (/href\s*=/i.test(attrs)) {
+            return `<a ${attrs} target="_blank" rel="noopener noreferrer">`;
+        }
+        // Broken form: URL was split into attribute name=value pairs by the exporter.
+        // E.g. attrs = 'https:="" en.wikipedia.org="" wiki="" tim_berners-lee=""'
+        // Collect every token before the "=" signs and join them with "/".
+        const parts = [];
+        const re = /([^\s=>"']+)\s*=\s*["'][^"']*["']/g;
+        let m;
+        while ((m = re.exec(attrs)) !== null) {
+            parts.push(m[1]);
+        }
+        if (parts.length) {
+            // Re-join: ["https:", "en.wikipedia.org", "wiki", "page"] -> "https://en.wikipedia.org/wiki/page"
+            let href = parts.join('/');
+            // Fix double-slashes that appear after the protocol colon
+            href = href.replace(/^([a-z]+):\/([^/])/, '$1://$2');
+            return `<a href="${href}" target="_blank" rel="noopener noreferrer">`;
+        }
+        return `<a ${attrs} target="_blank" rel="noopener noreferrer">`;
+    });
+}
+
+function textToHtml(text) {
+    if (/<[a-z][\s\S]*>/i.test(text)) {
+        return fixBrokenAnchors(text);
+    }
+    // Plain text fallback
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML
+        .replace(/(https?:\/\/[^\s<]+)/g,
+            '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>')
+        .replace(/\n/g, '<br>');
+}
+
+function getImagePath(src) {
+    return `cache/images/${src.split('/').pop()}`;
+}
+
+/* ─────────────────────────────────────────
+   Tag definitions (needed by post card + filter)
+───────────────────────────────────────── */
+
+const TAG_LABELS = new Map([
+    ['Science',     '🔬 Science (Scientists)'],
+    ['Space', '🚀Space (Cosmonautics)'],
+    ['Art',         '🎨 Art (Artists)'],
+    ['Music',       '🎶 Music (Musicians)'],
+    ['Education',   '📚 Education (Educators)'],
+    ['Literature',  '📖 Literature (Writers)'],
+    ['Inventions',  '💡 Inventions (Inventors)'],
+    ['Exploration', '🧭 Exploration (Explorers)'],
+]);
+
+const TAG_EMOJI = new Map([
+    ['Science',     '🔬'],
+    ['Space', '🚀'],
+    ['Art',         '🎨'],
+    ['Music',       '🎶'],
+    ['Education',   '📚'],
+    ['Literature',  '📖'],
+    ['Inventions',  '💡'],
+    ['Exploration', '🧭'],
+]);
+
+function buildTagBadges(tags) {
+    if (!Array.isArray(tags) || !tags.length) return '';
+    const spans = tags.map(t => {
+        const emoji = TAG_EMOJI.get(t);
+        const label = TAG_LABELS.get(t) || t;
+        return emoji ? '<span class="post-tag-badge" title="' + label + '">' + emoji + '</span>' : '';
+    }).join('');
+    return spans ? '<div class="post-tag-badges">' + spans + '</div>' : '';
+}
+
+/* ─────────────────────────────────────────
+   Post card  — id = "MM-DD-N"
+───────────────────────────────────────── */
+
+function createPost(mmdd, postNum, displayLabel, sourceUrl, post) {
+    const article = document.createElement('article');
+    article.className = 'post';
+
+    // Use the fragment from published.url if available, otherwise fall back to MM-DD-N
+    const publishedUrl = post.published && post.published.url;
+    const urlFragment  = publishedUrl ? publishedUrl.split('#')[1] : null;
+    const anchorId     = urlFragment || `${mmdd}-${postNum}`;
+    article.id = anchorId;
+
+    let imagesHtml = '';
+    if ((post.images || []).length) {
+        const slides = post.images.map(img => `
+            <div class="slide">
+                <img src="${getImagePath(img)}" loading="lazy" alt="">
+            </div>
+        `).join('');
+        imagesHtml = `
+            <div class="slider">
+                <button class="slider-btn prev" type="button">‹</button>
+                <div class="slider-track">${slides}</div>
+                <button class="slider-btn next" type="button">›</button>
+            </div>
+        `;
     }
 
-    const link = document.getElementById("moveLink");
-    link.href = destination;
+    article.innerHTML = `
+        <div class="file-date">
+            <span class="file-date-day">${displayLabel}</span>${post.title ? `
+            <span class="file-date-title">${post.title}</span>` : ''}
+        </div>
+        ${imagesHtml}
+        <div class="content">${textToHtml(post.text || '')}</div>
+        <div class="post-actions">
+            <button class="share-btn" data-anchor="${anchorId}" type="button">🔗</button>
+            <button class="like-btn" data-post-id="${anchorId}" type="button">
+                <span class="like-icon">🤍</span>
+                <span class="like-count"></span>
+            </button>
+        </div>
+        ${buildTagBadges(post.tags)}
+    `;
 
-    let seconds = 5;
-    const counter = document.getElementById("seconds");
+    return article;
+}
 
-    const timer = setInterval(function() {
-        seconds--;
-        counter.textContent = seconds;
+/* ─────────────────────────────────────────
+   Slider
+───────────────────────────────────────── */
 
-        if (seconds <= 0) {
-            clearInterval(timer);
-            window.location.replace(destination);
+function initSlider(card) {
+    const slider = card.querySelector('.slider');
+    if (!slider) return;
+
+    const track  = slider.querySelector('.slider-track');
+    const slides = slider.querySelectorAll('.slide');
+
+    if (slides.length <= 1) {
+        slider.querySelector('.prev')?.remove();
+        slider.querySelector('.next')?.remove();
+        return;
+    }
+
+    let index = 0;
+    const update = () => {
+        track.style.transform = `translateX(-${index * 100}%)`;
+    };
+
+    slider.querySelector('.next').addEventListener('click', () => {
+        index = (index + 1) % slides.length;
+        update();
+    });
+    slider.querySelector('.prev').addEventListener('click', () => {
+        index = (index - 1 + slides.length) % slides.length;
+        update();
+    });
+}
+
+/* ─────────────────────────────────────────
+   Scroll to a post by its anchor id
+───────────────────────────────────────── */
+
+function scrollToPost(anchorId) {
+    if (!anchorId) return;
+    const el = document.getElementById(anchorId);
+    if (!el) return;
+
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    el.style.outline = '3px solid #4a90e2';
+    el.style.outlineOffset = '4px';
+    setTimeout(() => { el.style.outline = ''; }, 3000);
+}
+
+/* ─────────────────────────────────────────
+   Tag index — cache/index.json
+   Maps "MM-DD" → Set of tags present in that day's notes.
+   Lets the search loop skip days that can't possibly match
+   the active tag filter without fetching each notes file.
+───────────────────────────────────────── */
+
+let tagIndex        = null; // Map<"MM-DD", Set<string>> | null (null = unavailable, fall back)
+let tagIndexPromise = null;
+
+// Cache-bust token — appended to notes URL on force-refresh only.
+// Normal revalidation is handled by fetch cache:'no-cache' in fetchDayPosts.
+let notesCacheBust  = '';
+
+/**
+ * Parse index.json data into a Map and a sorted keys array.
+ * Returns { map, keys } where keys is sorted lexicographically (= calendar order).
+ */
+function parseTagIndex(data) {
+    const map = new Map();
+    for (const entry of data) {
+        if (!entry || typeof entry.notes !== 'string') continue;
+        const m = entry.notes.match(/(\d{2}-\d{2})\.json$/);
+        if (!m) continue;
+        map.set(m[1], new Set(Array.isArray(entry.tags) ? entry.tags : []));
+    }
+    // Sort lexicographically — "MM-DD" strings sort correctly in calendar order
+    const keys = [...map.keys()].sort();
+    return { map, keys };
+}
+
+/**
+ * Load cache/index.json.
+ * On first call: check server for updates vs. localStorage etag.
+ * If the content changed, invalidate cached notes so they get re-fetched.
+ */
+async function loadTagIndex() {
+    if (tagIndex !== null) return tagIndex;
+    if (tagIndexPromise) return tagIndexPromise;
+
+    tagIndexPromise = (async () => {
+        try {
+            // Always revalidate — use no-cache so the browser asks the server
+            // whether the file changed (via ETag / Last-Modified) without
+            // necessarily re-downloading it.
+            const resp = await fetch('cache/index.json', { cache: 'no-cache' });
+            if (!resp.ok) throw new Error('index.json not ok');
+
+            const text = await resp.text();
+
+            // Detect changes by comparing a simple hash of the raw JSON text
+            // to what we stored last time.
+            const stored  = localStorage.getItem('indexJsonHash') || '';
+            const current = simpleHash(text);
+
+            if (current !== stored || !stored) {
+                localStorage.setItem('indexJsonHash', current);
+                if (stored) {
+                    console.info('cache/index.json updated');
+                }
+            }
+
+            tagIndex = parseTagIndex(JSON.parse(text));  // { map, keys }
+        } catch (err) {
+            console.error('Failed to load cache/index.json:', err);
+            tagIndex = false; // fall back to brute-force (fetch every notes file)
         }
-    }, 1000);
+        return tagIndex;
+    })();
 
+    return tagIndexPromise;
+}
+
+/**
+ * Force-refresh index.json and the current day's notes regardless of cache.
+ * Call this e.g. from a developer console or a hidden admin gesture.
+ */
+async function forceRefresh() {
+    tagIndex        = null;
+    tagIndexPromise = null;
+    notesCacheBust  = '?v=' + Date.now();
+    localStorage.removeItem('indexJsonHash');
+    await loadTagIndex();
+    loadFeed();
+}
+
+/**
+ * Very fast non-cryptographic string hash (djb2) — only used to detect
+ * whether index.json content has changed between page loads.
+ */
+function simpleHash(str) {
+    let h = 5381;
+    for (let i = 0; i < str.length; i++) {
+        h = ((h << 5) + h) ^ str.charCodeAt(i);
+        h |= 0; // keep 32-bit
+    }
+    return (h >>> 0).toString(36);
+}
+
+/**
+ * Decide whether a day (identified by its aggregated tag set from the index)
+ * could possibly contain a post matching the active filter.
+ * Returns true if the day should be fetched and checked in full.
+ */
+function indexDayMayMatch(dayTags, activeTags) {
+    // dayTags === undefined means this MM-DD is not in the index at all.
+    // This can happen when new note files are added to the server after the
+    // index was cached locally. We MUST fetch and check such days.
+    if (dayTags === undefined) return true;
+
+    // dayTags === null means we explicitly know there is no notes file for
+    // this day (sentinel value set below). Skip it.
+    if (dayTags === null) return false;
+
+    if (activeTags === null) return true; // no filter — every existing day counts
+
+    // A post with no tags is always shown. We can't see per-post tags from the
+    // index, so treat a day with an empty aggregated tag set as "may contain
+    // untagged posts" → must be checked.
+    if (dayTags.size === 0) return true;
+
+    // Otherwise the day matches only if at least one of its tags is active.
+    for (const t of dayTags) {
+        if (activeTags.has(t)) return true;
+    }
+    return false;
+}
+
+/* ─────────────────────────────────────────
+   Fetch one day's posts
+───────────────────────────────────────── */
+
+async function fetchDayPosts(mmdd) {
+    const label = formatDayMonth(mmdd);
+
+    try {
+        const resp = await fetch(`cache/notes/${mmdd}.json${notesCacheBust}`, { cache: 'no-cache' });
+        if (!resp.ok) return [];
+
+        const data    = await resp.json();
+        const results = [];
+
+        for (const [sourceUrl, post] of Object.entries(data)) {
+            const published = post && post.published && post.published.date;
+            if (!published) continue;
+            results.push({ mmdd, label, sourceUrl, post });
+        }
+
+        return results;
+    } catch (err) {
+        console.error(`Error loading ${mmdd}.json:`, err);
+        return [];
+    }
+}
+
+/* ─────────────────────────────────────────
+   Load feed for selectedMMDD, searching neighboring days if needed
+   targetAnchor: if set, scroll there after render
+───────────────────────────────────────── */
+
+// Posts for current day — cached to allow re-filtering without re-fetching
+let cachedPosts = [];
+
+function filterPosts(posts) {
+    const activeTags = getActiveTags();
+    return posts.filter(({ post }) => {
+        const postTags = Array.isArray(post.tags) ? post.tags : [];
+        if (activeTags !== null && postTags.length > 0) {
+            return postTags.some(t => activeTags.has(t));
+        }
+        return true;
+    });
+}
+
+function noTagsSelected() {
+    return [...tagState.values()].every(v => !v);
+}
+
+// direction: 1 = search forward (next day), -1 = search backward (prev day)
+async function loadFeed(targetAnchor, direction = 1) {
+    // If no topics selected — don't switch days, just show message
+    if (noTagsSelected()) {
+        feed.innerHTML = '<div class="error">Выберите хотя бы одну тему</div>';
+        return;
+    }
+
+    feed.innerHTML = '<div class="loading">Загрузка…</div>';
+
+    try {
+        // Load the lightweight day→tags index once; speeds up the search
+        // below by letting us skip days that can't possibly match without
+        // fetching their full notes file.
+        const index       = await loadTagIndex();   // Map | false
+        const activeTags  = getActiveTags();         // null = no filter
+
+        // Build the candidate list from the index (fast, no network).
+        // Falls back to brute-force day-stepping only when index failed to load.
+        let candidates;
+
+        if (index && index.keys) {
+            // Index available: filter to days that may match, then order by
+            // direction starting from selectedMMDD, wrapping around year end once.
+            const allKeys = index.keys; // already sorted "MM-DD" lexicographically
+            const matching = allKeys.filter(k => indexDayMayMatch(index.map.get(k), activeTags));
+
+            if (direction === 1) {
+                // Forward: keys >= selectedMMDD, then keys < selectedMMDD (wrap)
+                const from  = matching.filter(k => k >= selectedMMDD);
+                const wrap  = matching.filter(k => k <  selectedMMDD);
+                candidates  = [...from, ...wrap];
+            } else {
+                // Backward: keys <= selectedMMDD descending, then wrap
+                const from  = matching.filter(k => k <= selectedMMDD).reverse();
+                const wrap  = matching.filter(k => k >  selectedMMDD).reverse();
+                candidates  = [...from, ...wrap];
+            }
+        } else {
+            // Fallback: step through all days in direction, wrap once
+            candidates = [];
+            const step      = direction === 1 ? nextMMDD : prevMMDD;
+            const boundary  = direction === 1 ? '12-31'  : '01-01';
+            const wrapStart = direction === 1 ? '01-01'  : '12-31';
+            let cur = selectedMMDD;
+            let wrapped = false;
+            for (let i = 0; i < 366; i++) {
+                candidates.push(cur);
+                if (cur === boundary) {
+                    if (wrapped) break;
+                    cur = wrapStart;
+                    wrapped = true;
+                } else {
+                    cur = step(cur);
+                }
+            }
+        }
+
+        for (const searchMMDD of candidates) {
+            const posts    = await fetchDayPosts(searchMMDD);
+            const filtered = filterPosts(posts);
+
+            if (filtered.length > 0) {
+                if (searchMMDD !== selectedMMDD) {
+                    selectedMMDD = searchMMDD;
+                    syncUI();
+                }
+                cachedPosts = posts;
+                rebuildTagMenu();
+                renderFeed(targetAnchor);
+                return;
+            }
+        }
+
+        feed.innerHTML = '<div class="error">Нет материалов по выбранным темам</div>';
+
+    } catch (err) {
+        console.error(err);
+        feed.innerHTML = '<div class="error">Ошибка загрузки ленты</div>';
+    }
+}
+
+function renderFeed(targetAnchor) {
+    feed.innerHTML = '';
+
+    if (noTagsSelected()) {
+        feed.innerHTML = '<div class="error">Выберите хотя бы одну тему</div>';
+        return;
+    }
+
+    const activeTags = getActiveTags(); // null = no filter
+    let shownCount = 0;
+
+    // postNum is the post's fixed position within the FULL day list (1-based),
+    // independent of the active filter — this keeps fallback anchor IDs
+    // ("MM-DD-N") stable no matter which tags are currently selected.
+    cachedPosts.forEach(({ mmdd, label, sourceUrl, post }, idx) => {
+        const postTags = Array.isArray(post.tags) ? post.tags : [];
+        const visible  = activeTags === null
+            || postTags.length === 0
+            || postTags.some(t => activeTags.has(t));
+
+        if (!visible) return;
+
+        const postNum = idx + 1;
+        const card = createPost(mmdd, postNum, label, sourceUrl, post);
+        feed.appendChild(card);
+        initSlider(card);
+        shownCount++;
+    });
+
+    if (!shownCount) {
+        // Shouldn't normally reach here (loadFeed already skips empty days)
+        feed.innerHTML = '<div class="error">Нет материалов по выбранным темам</div>';
+        return;
+    }
+
+    loadLikes();
+
+    if (targetAnchor) {
+        setTimeout(() => scrollToPost(targetAnchor), 80);
+    }
+}
+
+/* ─────────────────────────────────────────
+   Date navigation UI
+───────────────────────────────────────── */
+
+const hiddenDateInput = document.getElementById('hiddenDateInput');
+
+function syncUI() {
+    hiddenDateInput.value = mmddToPickerValue(selectedMMDD);
+}
+
+/** Change the selected day ("MM-DD"), sync UI, reload feed.
+ *  direction: 1 = forward search (default), -1 = backward search */
+function setMMDD(mmdd, targetAnchor, direction = 1) {
+    selectedMMDD = mmdd;
+    syncUI();
+    loadFeed(targetAnchor, direction);
+}
+
+// Click on logo → go to today
+document.getElementById('logoBtn').addEventListener('click', () => {
+    setMMDD(todayMMDD());
+});
+
+// Click on title → open hidden date picker
+document.getElementById('titleBtn').addEventListener('click', () => {
+    hiddenDateInput.value = mmddToPickerValue(selectedMMDD);
+    hiddenDateInput.showPicker ? hiddenDateInput.showPicker() : hiddenDateInput.click();
+});
+
+hiddenDateInput.addEventListener('change', () => {
+    if (!hiddenDateInput.value) return;
+    setMMDD(pickerValueToMMDD(hiddenDateInput.value));
+});
+
+/* ─────────────────────────────────────────
+   Share button  — copies  #MM-DD-N  URL
+───────────────────────────────────────── */
+
+function copyToClipboard(text) {
+    // Modern API (HTTPS / secure context)
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(text);
+    }
+    // HTTP fallback: execCommand via a temporary textarea
+    return new Promise((resolve, reject) => {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none;';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        try {
+            const ok = document.execCommand('copy');
+            document.body.removeChild(ta);
+            ok ? resolve() : reject(new Error('execCommand failed'));
+        } catch (err) {
+            document.body.removeChild(ta);
+            reject(err);
+        }
+    });
+}
+
+document.addEventListener('click', async (e) => {
+    const btn = e.target.closest('.share-btn');
+    if (!btn) return;
+
+    const anchor = btn.dataset.anchor;
+    const url    = `${location.origin}${location.pathname}#${anchor}`;
+
+    // Native share sheet (mobile, HTTPS)
+    if (navigator.share) {
+        try { await navigator.share({ title: 'The Past and English Books', url }); return; }
+        catch (_) {}
+    }
+
+    const original = btn.innerHTML;
+    try {
+        await copyToClipboard(url);
+        btn.innerHTML = '🔗✅';
+        btn.disabled  = true;
+        setTimeout(() => { btn.innerHTML = original; btn.disabled = false; }, 2500);
+    } catch (_) {
+        // Last resort — user copies manually
+        prompt('Скопируйте ссылку:', url);
+    }
+});
+
+/* ─────────────────────────────────────────
+   Topics / Tag filter
+───────────────────────────────────────── */
+
+// tag key → boolean (on/off); all canonical tags always present, all ON by default
+function loadTagState() {
+    try {
+        const saved = localStorage.getItem('tagState');
+        if (saved) {
+            const obj = JSON.parse(saved);
+            return new Map([...TAG_LABELS.keys()].map(k => [k, k in obj ? obj[k] : true]));
+        }
+    } catch (_) {}
+    return new Map([...TAG_LABELS.keys()].map(k => [k, true]));
+}
+
+function saveTagState() {
+    const obj = {};
+    tagState.forEach((v, k) => { obj[k] = v; });
+    localStorage.setItem('tagState', JSON.stringify(obj));
+}
+
+const tagState = loadTagState();
+
+function getActiveTags() {
+    const allOn = [...tagState.values()].every(v => v);
+    if (allOn) return null;  // no filter — show everything
+    return new Set([...tagState.entries()].filter(([, v]) => v).map(([k]) => k));
+}
+
+function rebuildTagMenu() {
+    const list = document.getElementById('topicsList');
+    renderTagButtons(list);
+}
+
+/** After a tag change: render from cache if possible, else search forward */
+function applyTagChange() {
+    if (noTagsSelected()) {
+        renderFeed();  // will show "Выберите хотя бы одну тему"
+        return;
+    }
+    const visible = filterPosts(cachedPosts);
+    if (visible.length > 0) {
+        renderFeed();
+    } else {
+        loadFeed(undefined, 1);  // search forward from current selectedMMDD
+    }
+}
+
+function renderTagButtons(list) {
+    list.innerHTML = '';
+    [...TAG_LABELS.keys()].forEach(tag => {
+        const label = TAG_LABELS.get(tag) || tag;
+        const btn = document.createElement('button');
+        btn.className = 'topic-tag' + (tagState.get(tag) ? '' : ' off');
+        btn.type = 'button';
+        btn.textContent = label;
+        btn.title = tag;
+        btn.addEventListener('click', () => {
+            tagState.set(tag, !tagState.get(tag));
+            btn.classList.toggle('off', !tagState.get(tag));
+            saveTagState();
+            applyTagChange();
+        });
+        list.appendChild(btn);
+    });
+}
+
+/**
+ * Called on boot when the page is opened via a "#MM-DD-N" share link.
+ * If the linked post's tags don't intersect the viewer's currently
+ * active tags, temporarily (session-only, not saved to localStorage)
+ * enable one of that post's tags so the post is visible.
+ */
+async function applyHashTagOverride(mmdd, anchorId) {
+    try {
+        const posts = await fetchDayPosts(mmdd); // unfiltered, full day list
+
+        // Find the linked post using the same anchor-id scheme as createPost:
+        // published.url fragment if present, else "MM-DD-<position>".
+        let target = null;
+        posts.forEach(({ post }, idx) => {
+            const urlFragment = post.published && post.published.url
+                ? post.published.url.split('#')[1]
+                : null;
+            const id = urlFragment || `${mmdd}-${idx + 1}`;
+            if (id === anchorId) target = post;
+        });
+
+        if (!target) return;
+
+        const tags = Array.isArray(target.tags) ? target.tags : [];
+        if (tags.length === 0) return; // post with no tags is always visible
+
+        const activeTags    = getActiveTags(); // null = all tags on
+        const alreadyVisible = activeTags === null || tags.some(t => activeTags.has(t));
+        if (alreadyVisible) return;
+
+        // Prefer a canonical tag (known to the UI); fall back to the first tag.
+        const tagToEnable = tags.find(t => tagState.has(t)) || tags[0];
+        tagState.set(tagToEnable, true);
+        // Intentionally no saveTagState() — this override is session-only.
+    } catch (err) {
+        console.error('applyHashTagOverride failed:', err);
+    }
+}
+
+const topicsBtn  = document.getElementById('topicsBtn');
+const topicsMenu = document.getElementById('topicsMenu');
+
+topicsBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    topicsMenu.hidden = !topicsMenu.hidden;
+});
+
+document.addEventListener('click', (e) => {
+    if (!topicsMenu.hidden && !topicsMenu.contains(e.target) && e.target !== topicsBtn) {
+        topicsMenu.hidden = true;
+    }
+});
+
+document.getElementById('topicsSelectAll').addEventListener('click', () => {
+    tagState.forEach((_, k) => tagState.set(k, true));
+    saveTagState();
+    renderTagButtons(document.getElementById('topicsList'));
+    applyTagChange();
+});
+
+document.getElementById('topicsSelectNone').addEventListener('click', () => {
+    tagState.forEach((_, k) => tagState.set(k, false));
+    saveTagState();
+    renderTagButtons(document.getElementById('topicsList'));
+    renderFeed();
+});
+
+/* ─────────────────────────────────────────
+   Likes
+───────────────────────────────────────── */
+
+function getDeviceToken() {
+    let token = localStorage.getItem('device_token');
+    if (!token) {
+        const bytes = new Uint8Array(32);
+        crypto.getRandomValues(bytes);
+        token = Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('');
+        localStorage.setItem('device_token', token);
+    }
+    return token;
+}
+
+async function likesRequest(postId, method, action) {
+    const token = getDeviceToken();
+    const url   = `likes.php?post_id=${encodeURIComponent(postId)}&device_token=${token}`;
+
+    if (method === 'GET') {
+        const r = await fetch(url);
+        return r.json();
+    }
+
+    const body = new FormData();
+    body.append('action', action);
+    body.append('device_token', token);
+    const r = await fetch(url, { method: 'POST', body });
+    return r.json();
+}
+
+async function loadLikes() {
+    document.querySelectorAll('.like-btn').forEach(async btn => {
+        const postId = btn.dataset.postId;
+        try {
+            const d = await likesRequest(postId, 'GET');
+            const countEl = btn.querySelector('.like-count');
+            const iconEl  = btn.querySelector('.like-icon');
+            countEl.textContent = d.count || '';
+            iconEl.textContent  = d.liked ? '❤️' : '🤍';
+            btn.classList.toggle('liked',     d.liked);
+            btn.classList.toggle('has-likes', d.count > 0);
+        } catch (_) {}
+    });
+}
+
+document.addEventListener('click', async (e) => {
+    const btn = e.target.closest('.like-btn');
+    if (!btn) return;
+
+    const postId  = btn.dataset.postId;
+    const isLiked = btn.classList.contains('liked');
+    const action  = isLiked ? 'unlike' : 'like';
+    const countEl = btn.querySelector('.like-count');
+    const iconEl  = btn.querySelector('.like-icon');
+    const current = parseInt(countEl.textContent) || 0;
+
+    // Optimistic update
+    const newCount = !isLiked ? current + 1 : Math.max(0, current - 1);
+    btn.classList.toggle('liked',     !isLiked);
+    btn.classList.toggle('has-likes', newCount > 0);
+    iconEl.textContent  = !isLiked ? '❤️' : '🤍';
+    countEl.textContent = newCount || '';
+    btn.disabled = true;
+
+    try {
+        const d = await likesRequest(postId, 'POST', action);
+        btn.classList.toggle('liked',     d.liked);
+        btn.classList.toggle('has-likes', d.count > 0);
+        iconEl.textContent  = d.liked ? '❤️' : '🤍';
+        countEl.textContent = d.count || '';
+    } catch (_) {
+        // Revert on failure
+        btn.classList.toggle('liked',     isLiked);
+        btn.classList.toggle('has-likes', current > 0);
+        iconEl.textContent  = isLiked ? '❤️' : '🤍';
+        countEl.textContent = current || '';
+    } finally {
+        btn.disabled = false;
+    }
+});
+
+/* ─────────────────────────────────────────
+   Theme
+───────────────────────────────────────── */
+
+const themeButton = document.getElementById('themeToggle');
+
+function applyTheme(theme) {
+    document.body.classList.toggle('dark', theme === 'dark');
+    themeButton.textContent = theme === 'dark' ? '☀️' : '🌙';
+}
+
+function initTheme() {
+    const saved = localStorage.getItem('theme');
+    if (saved) { applyTheme(saved); return; }
+    const hour = new Date().getHours();
+    applyTheme(hour >= 20 || hour < 7 ? 'dark' : 'light');
+}
+
+themeButton.addEventListener('click', () => {
+    const next = document.body.classList.contains('dark') ? 'light' : 'dark';
+    localStorage.setItem('theme', next);
+    applyTheme(next);
+});
+
+/* ─────────────────────────────────────────
+   Boot  — honour #MM-DD-N in the URL
+───────────────────────────────────────── */
+
+/* ─────────────────────────────────────────
+   Pull-down at bottom → next day
+───────────────────────────────────────── */
+
+(function initEdgeNavigation() {
+    const THRESHOLD = 72; // px drag needed to trigger
+
+    // ── Hint bars ──
+    function makeHint(edge) {
+        const el = document.createElement('div');
+        Object.assign(el.style, {
+            position:       'fixed',
+            [edge]:         '0',
+            left:           '0',
+            right:          '0',
+            height:         '52px',
+            display:        'flex',
+            alignItems:     'center',
+            justifyContent: 'center',
+            fontSize:       '15px',
+            fontWeight:     '600',
+            fontFamily:     'Arial, sans-serif',
+            color:          '#fff',
+            transform:      edge === 'bottom' ? 'translateY(100%)' : 'translateY(-100%)',
+            transition:     'transform .18s ease',
+            zIndex:         '999',
+            pointerEvents:  'none',
+            userSelect:     'none',
+        });
+        document.body.appendChild(el);
+        return el;
+    }
+
+    const hintNext = makeHint('bottom');
+    const hintPrev = makeHint('top');
+
+    function updateTheme() {
+        const bg = document.body.classList.contains('dark')
+            ? 'rgba(25,118,210,0.95)' : 'rgba(21,101,192,0.92)';
+        hintNext.style.background = bg;
+        hintPrev.style.background = bg;
+    }
+    updateTheme();
+    new MutationObserver(updateTheme)
+        .observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+    function atBottom() {
+        return window.innerHeight + window.scrollY >= document.body.scrollHeight - 20;
+    }
+    function atTop() {
+        return window.scrollY <= 20;
+    }
+    // Page fits entirely in viewport (short content: 0 or 1 posts)
+    function pageIsShort() {
+        return document.body.scrollHeight <= window.innerHeight + 6;
+    }
+
+    function showHint(el, progress, readyText, pullText) {
+        const pct = (1 - Math.min(progress, 1)) * 100;
+        const isBottom = el === hintNext;
+        el.style.transform = `translateY(${isBottom ? pct : -pct}%)`;
+        el.textContent = progress >= 1 ? readyText : pullText;
+    }
+
+    function hideHint(el, defaultText) {
+        const isBottom = el === hintNext;
+        el.style.transform = isBottom ? 'translateY(100%)' : 'translateY(-100%)';
+        el.textContent = defaultText;
+    }
+
+    // ── Touch ──
+    let touchStartY = 0;
+    let edge        = null; // 'next' | 'prev' | null
+    let triggered   = false;
+
+    document.addEventListener('touchstart', (e) => {
+        touchStartY = e.touches[0].clientY;
+        triggered   = false;
+        edge        = null; // resolved on first move
+    }, { passive: true });
+
+    document.addEventListener('touchmove', (e) => {
+        const dy = touchStartY - e.touches[0].clientY; // + = swipe up, - = swipe down
+
+        // Resolve edge on first meaningful move if not yet set
+        if (!edge) {
+            if (Math.abs(dy) < 6) return; // ignore tiny jitter
+            if (dy > 0 && atBottom())  { edge = 'next'; }
+            else if (dy < 0 && atTop()) { edge = 'prev'; }
+            // Short page: direction alone decides
+            else if (pageIsShort() && dy > 0) { edge = 'next'; }
+            else if (pageIsShort() && dy < 0) { edge = 'prev'; }
+            else { edge = 'none'; }
+        }
+
+        if (edge === 'next' && dy > 0) {
+            e.preventDefault();
+            const p = dy / THRESHOLD;
+            showHint(hintNext, p, '✓ Отпустите', '↓ Следующий день');
+            if (p >= 1) triggered = true;
+        } else if (edge === 'prev' && dy < 0) {
+            e.preventDefault();
+            const p = (-dy) / THRESHOLD;
+            showHint(hintPrev, p, '✓ Отпустите', '↑ Предыдущий день');
+            if (p >= 1) triggered = true;
+        }
+    }, { passive: false });
+
+    document.addEventListener('touchend', () => {
+        const wasEdge     = edge;
+        const wasTriggered = triggered;
+        edge      = null;
+        triggered = false;
+        hideHint(hintNext, '↓ Следующий день');
+        hideHint(hintPrev, '↑ Предыдущий день');
+        if (wasTriggered) {
+            setTimeout(() => {
+                if (!noTagsSelected()) {
+                    const dir = wasEdge === 'next' ? 1 : -1;
+                    const next = dir === 1 ? nextMMDD(selectedMMDD) : prevMMDD(selectedMMDD);
+                    setMMDD(next, undefined, dir);
+                }
+            }, 120);
+        }
+    }, { passive: true });
+
+    // ── Keyboard: PageDown / PageUp switch day (desktop) ──
+    // Let the browser scroll normally first. If the scroll position doesn't
+    // actually change (because we're already at the bottom/top), treat the
+    // key press as a request to switch days instead.
+    document.addEventListener('keydown', (e) => {
+        if (e.key !== 'PageDown' && e.key !== 'PageUp') return;
+
+        // Don't hijack while the lightbox or help modal is open,
+        // or while focus is in a form control (e.g. the date picker).
+        const lightboxEl = document.getElementById('lightbox');
+        if (lightboxEl && lightboxEl.classList.contains('open')) return;
+        const helpModal = document.getElementById('helpModal');
+        if (helpModal && !helpModal.hidden) return;
+        const tag = (document.activeElement && document.activeElement.tagName) || '';
+        if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+
+        const key = e.key;
+
+        // Already at the boundary before scrolling — switch immediately.
+        if (key === 'PageDown' && (atBottom() || pageIsShort())) {
+            e.preventDefault();
+            setMMDD(nextMMDD(selectedMMDD), undefined, 1);
+            return;
+        }
+        if (key === 'PageUp' && (atTop() || pageIsShort())) {
+            e.preventDefault();
+            setMMDD(prevMMDD(selectedMMDD), undefined, -1);
+            return;
+        }
+
+        // Not yet at the boundary: let the browser scroll natively, then
+        // check again shortly after — if we landed exactly at the boundary
+        // (or didn't move because we were already maxed out), switch days.
+        const scrollBefore = window.scrollY;
+        setTimeout(() => {
+            const moved = window.scrollY !== scrollBefore;
+            if (key === 'PageDown' && atBottom()) {
+                setMMDD(nextMMDD(selectedMMDD), undefined, 1);
+            } else if (key === 'PageUp' && atTop()) {
+                setMMDD(prevMMDD(selectedMMDD), undefined, -1);
+            }
+        }, 50);
+    });
+
+    // ── Mouse wheel (desktop) ──
+    let wheelAccum = 0;
+    let wheelDir   = null;
+    let wheelTimer = null;
+
+    window.addEventListener('wheel', (e) => {
+        const goingDown = e.deltaY > 0;
+        const goingUp   = e.deltaY < 0;
+
+        if (goingDown && atBottom()) {
+            wheelDir = 'next';
+        } else if (goingUp && atTop()) {
+            wheelDir = 'prev';
+        } else {
+            wheelAccum = 0; wheelDir = null;
+            hideHint(hintNext, '↓ Следующий день');
+            hideHint(hintPrev, '↑ Предыдущий день');
+            return;
+        }
+
+        wheelAccum += Math.abs(e.deltaY);
+        const hint = wheelDir === 'next' ? hintNext : hintPrev;
+        const p    = wheelAccum / (THRESHOLD * 4);
+        showHint(hint, p,
+            wheelDir === 'next' ? '✓ Следующий день…' : '✓ Предыдущий день…',
+            wheelDir === 'next' ? '↓ Следующий день' : '↑ Предыдущий день');
+
+        clearTimeout(wheelTimer);
+        wheelTimer = setTimeout(() => {
+            const go  = wheelAccum >= THRESHOLD * 4;
+            const dir = wheelDir;
+            wheelAccum = 0; wheelDir = null;
+            hideHint(hintNext, '↓ Следующий день');
+            hideHint(hintPrev, '↑ Предыдущий день');
+            if (go) {
+                const d = dir === 'next' ? 1 : -1;
+                const next = d === 1 ? nextMMDD(selectedMMDD) : prevMMDD(selectedMMDD);
+                setMMDD(next, undefined, d);
+            }
+        }, 400);
+    }, { passive: true });
+})();
+
+const helpBtn = document.getElementById('helpBtn');
+const helpModal = document.getElementById('helpModal');
+const closeHelp = document.getElementById('closeHelp');
+
+helpBtn.addEventListener('click', () => {
+    helpModal.hidden = false;
+});
+
+closeHelp.addEventListener('click', () => {
+    helpModal.hidden = true;
+});
+
+helpModal.addEventListener('click', (e) => {
+    if (e.target === helpModal) {
+        helpModal.hidden = true;
+    }
+});
+
+/* ─────────────────────────────────────────
+   Lightbox
+───────────────────────────────────────── */
+(function initLightbox() {
+    const lb      = document.getElementById('lightbox');
+    const lbImg   = document.getElementById('lightboxImg');
+    const lbClose = document.getElementById('lightboxClose');
+    const lbPrev  = document.getElementById('lightboxPrev');
+    const lbNext  = document.getElementById('lightboxNext');
+
+    let gallery = [];
+    let galIdx  = 0;
+
+    function show(srcs, idx) {
+        gallery = srcs;
+        galIdx  = Math.max(0, idx);
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        updateNav();
+        loadLbImage(gallery[galIdx]);
+    }
+
+    const viewportMeta = document.getElementById('viewportMeta');
+
+    function close() {
+        lb.classList.remove('open');
+        lbImg.src = '';
+        lbImg.style.visibility = '';
+        document.body.style.overflow = '';
+        // Reset any pinch-zoom applied inside the lightbox:
+        // flip to no-zoom momentarily, then restore — browser resets scale to 1
+        if (viewportMeta) {
+            viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+            requestAnimationFrame(() => {
+                viewportMeta.content = 'width=device-width, initial-scale=1.0';
+            });
+        }
+    }
+
+    function updateNav() {
+        const multi = gallery.length > 1;
+        lbPrev.style.display = multi ? '' : 'none';
+        lbNext.style.display = multi ? '' : 'none';
+    }
+
+    // Scale image to fill as much of the lightbox as possible (up AND down)
+    function sizeLbImg() {
+        const maxW = window.innerWidth  * 0.95;
+        const maxH = window.innerHeight * 0.95;
+        const nw   = lbImg.naturalWidth;
+        const nh   = lbImg.naturalHeight;
+        if (!nw || !nh) return;
+        const scale = Math.min(maxW / nw, maxH / nh);
+        lbImg.style.width  = Math.round(nw * scale) + 'px';
+        lbImg.style.height = Math.round(nh * scale) + 'px';
+    }
+
+    function loadLbImage(src) {
+        // Hide image until sized to avoid flash of wrong size
+        lbImg.style.visibility = 'hidden';
+        lbImg.style.width  = '';
+        lbImg.style.height = '';
+        lbImg.src = src;
+        // If already cached naturalWidth is available synchronously
+        if (lbImg.complete && lbImg.naturalWidth) {
+            sizeLbImg();
+            lbImg.style.visibility = '';
+        }
+    }
+
+    lbImg.addEventListener('load', () => {
+        sizeLbImg();
+        lbImg.style.visibility = '';
+    });
+
+    window.addEventListener('resize', () => {
+        if (lb.classList.contains('open')) sizeLbImg();
+    });
+
+    function step(d) {
+        galIdx = (galIdx + d + gallery.length) % gallery.length;
+        loadLbImage(gallery[galIdx]);
+    }
+
+    lbClose.addEventListener('click', close);
+    lbPrev.addEventListener('click',  (e) => { e.stopPropagation(); step(-1); });
+    lbNext.addEventListener('click',  (e) => { e.stopPropagation(); step(1); });
+    lb.addEventListener('click',      (e) => { if (e.target === lb) close(); });
+
+    document.addEventListener('keydown', (e) => {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape')     close();
+        if (e.key === 'ArrowRight') step(1);
+        if (e.key === 'ArrowLeft')  step(-1);
+    });
+
+    // Mobile touch: allow panning and pinch-zoom, no swipe navigation
+    lb.addEventListener('touchstart', (e) => {
+        e.stopPropagation();
+    }, { passive: true });
+
+    lb.addEventListener('touchmove', (e) => {
+        e.stopPropagation();
+        // Allow natural panning/pinch — do not preventDefault
+    }, { passive: true });
+
+    lb.addEventListener('touchend', (e) => {
+        e.stopPropagation();
+    }, { passive: true });
+
+    // Open lightbox on image click (delegated)
+    document.addEventListener('click', (e) => {
+        const img = e.target.closest('.slide img');
+        if (!img) return;
+        const slider = img.closest('.slider');
+        const srcs   = slider
+            ? [...slider.querySelectorAll('.slide img')].map(i => i.src)
+            : [img.src];
+        const idx = srcs.indexOf(img.src);
+        show(srcs, idx >= 0 ? idx : 0);
+    });
+})();
+
+initTheme();
+
+// Populate tag menu immediately — doesn't depend on posts
+rebuildTagMenu();
+
+(async function boot() {
+    const raw    = decodeURIComponent(location.hash.slice(1));  // e.g. "06-07-3"
+    const parsed = parsePostHash(raw);
+
+    if (parsed) {
+        // If the linked post's topics aren't currently shown, enable one
+        // of them for this session so the link actually reveals the post.
+        await applyHashTagOverride(parsed.mmdd, raw);
+        rebuildTagMenu();
+
+        // The link contains a specific post: set the calendar to that day
+        // and scroll to the post once the feed is loaded.
+        setMMDD(parsed.mmdd, raw);
+    } else {
+        setMMDD(todayMMDD());
+    }
 })();
 </script>
+
+<footer>
+    <div>
+        <a href="https://vk.com/ak8englishbooks" target="_blank" rel="noopener noreferrer">
+            The Past and English Books
+        </a>
+    </div>
+    <div class="counter-wrap">
+        <!-- LiveInternet counter — register at liveinternet.ru to view stats -->
+        <script type="text/javascript">
+        document.write('<a href="https://www.liveinternet.ru/click" target="_blank" rel="noopener noreferrer">'
+            + '<img src="https://counter.yadro.ru/hit?t52.6;r'
+            + escape(document.referrer)
+            + ((typeof(screen) == 'undefined') ? '' :
+            ';s' + screen.width + '*' + screen.height + '*'
+            + (screen.colorDepth ? screen.colorDepth : screen.pixelDepth))
+            + ';u' + escape(document.URL)
+            + ';' + Math.random()
+            + '" alt="LiveInternet" style="border:0;width:88px;height:15px;"/></a>');
+        </script>
+    </div>
+</footer>
 
 </body>
 </html>
