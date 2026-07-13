@@ -1,0 +1,42 @@
+{
+  "https://en.wikipedia.org/wiki/1818": {
+    "title": "📚🏴 Emily Brontë 🏠💔",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1818\" target=\"_blank\">1818</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Emily_Brontë\" target=\"_blank\">Emily Brontë</a>, English novelist and poet (died 1848).</div><div><a href=\"https://www.gutenberg.org/ebooks/768\" target=\"_blank\">📖Wuthering Heights by Emily Brontë</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/07-30_3070c0894d.jpg",
+      "/images/07-30_b959506196.jpg",
+      "/images/07-30_94e290d109.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-07-12",
+      "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#07-30-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1863": {
+    "title": "🚗👨 Henry Ford 🏭👍",
+    "text": "<a href=\"https://en.wikipedia.org/wiki/1863\" target=\"_blank\">1863</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Henry_Ford\" target=\"_blank\">Henry Ford</a>, American engineer and businessman, founded the <a href=\"https://en.wikipedia.org/wiki/Ford_Motor_Company\" target=\"_blank\">Ford Motor Company</a> (died 1947).",
+    "section": "births",
+    "tags": [
+      "Inventions"
+    ],
+    "images": [
+      "/images/07-30_5650128cad.png",
+      "/images/07-30_c0f0fedded.png",
+      "/images/07-30_0a1c265dc9.jpg",
+      "/images/07-30_f32dfc3acf.jpg",
+      "/images/07-30_6ffe3c5419.jpg",
+      "/images/07-30_e3712d24cd.jpg",
+      "/images/07-30_6285a3e8c8.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-07-12",
+      "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#07-30-2"
+    }
+  }
+}

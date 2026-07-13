@@ -335,7 +335,6 @@
       "Art",
       "Exploration",
       "Literature",
-      "Science",
       "Space"
     ]
   },
@@ -362,6 +361,62 @@
   },
   {
     "notes": "notes/07-23.json",
+    "tags": [
+      "Science",
+      "Space"
+    ]
+  },
+  {
+    "notes": "notes/07-24.json",
+    "tags": [
+      "Exploration",
+      "Literature"
+    ]
+  },
+  {
+    "notes": "notes/07-25.json",
+    "tags": [
+      "Exploration",
+      "Inventions"
+    ]
+  },
+  {
+    "notes": "notes/07-26.json",
+    "tags": [
+      "Art",
+      "Literature"
+    ]
+  },
+  {
+    "notes": "notes/07-27.json",
+    "tags": [
+      "Literature",
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/07-28.json",
+    "tags": [
+      "Inventions",
+      "Literature"
+    ]
+  },
+  {
+    "notes": "notes/07-29.json",
+    "tags": [
+      "Art",
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/07-30.json",
+    "tags": [
+      "Inventions",
+      "Literature"
+    ]
+  },
+  {
+    "notes": "notes/07-31.json",
     "tags": [
       "Science",
       "Space"

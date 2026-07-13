@@ -1,0 +1,41 @@
+{
+  "https://en.wikipedia.org/wiki/1802": {
+    "title": "📚👑 Alexandre Dumas ✍️🏛️",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1802\" target=\"_blank\">1802</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Alexandre_Dumas\" target=\"_blank\">Alexandre Dumas</a>, French novelist and playwright (died 1870).</div><div><a href=\"https://www.gutenberg.org/ebooks/1257\" target=\"_blank\">📖The three musketeers by Alexandre Dumas and Auguste Maquet</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/07-24_fa3acb4937.jpg",
+      "/images/07-24_ff006c7ec1.png",
+      "/images/07-24_7f1a2f4e73.jpg",
+      "/images/07-24_5f4d9423ac.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-07-09",
+      "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#07-24-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1897": {
+    "title": "👩🛩 Amelia Earhart ✈️🌍",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1897\" target=\"_blank\">1897</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Amelia_Earhart\" target=\"_blank\">Amelia Earhart</a>, American pilot and author (died 1937).</div><div><a href=\"https://archive.org/details/ameliaearhart0000morr/mode/2up\" target=\"_blank\">📖Amelia Earhart by Morrissey, Muriel Earhart 1977</a></div>",
+    "section": "births",
+    "tags": [
+      "Exploration"
+    ],
+    "images": [
+      "/images/07-24_08d1e02134.jpg",
+      "/images/07-24_8ff7a429ea.jpg",
+      "/images/07-24_d52a5f3885.jpg",
+      "/images/07-24_eacf9762cf.jpg",
+      "/images/07-24_6fe45cf800.jpg"
+    ],
+    "pub_status": "published",
+    "published": {
+      "date": "2026-07-09",
+      "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#07-24-2"
+    }
+  }
+}
