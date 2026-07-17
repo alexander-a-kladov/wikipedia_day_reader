@@ -421,5 +421,31 @@
       "Science",
       "Space"
     ]
+  },
+  {
+    "notes": "notes/08-01.json",
+    "tags": [
+      "Music",
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/08-02.json",
+    "tags": [
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/08-03.json",
+    "tags": [
+      "Art",
+      "Inventions"
+    ]
+  },
+  {
+    "notes": "notes/08-04.json",
+    "tags": [
+      "Music"
+    ]
   }
 ]
