@@ -773,6 +773,7 @@ def parse_wikipedia_raw(content):
 _job_queue: queue.Queue = queue.Queue()
 config_store = dict(DEFAULT_CONFIG)
 _keys_store:  dict = {}   # loaded at startup
+_raw_store:   dict = {}   # last fetched events_raw / births_raw for /api/highlight
 
 
 def run_job(events_raw, births_raw, holidays_raw, cfg,
@@ -1200,6 +1201,10 @@ HTML_PAGE = r"""<!DOCTYPE html>
     <option value="groq">Groq Llama 3.1</option>
     <option value="openrouter">OpenRouter (free)</option>
   </select>
+  <div class="ai-strip" id="aiStripTop" title="Groq выбирает 1 важнейшее событие и 2 самых известных человека дня, создаёт для них заметки автоматически">
+    <input type="checkbox" id="aiChkTop" onchange="onAiToggle()">
+    <label for="aiChkTop">⭐ Топ дня</label>
+  </div>
   <button class="bs" onclick="openSettings()">⚙ Настройки</button>
 </div>
 <div class="main">
@@ -1413,11 +1418,13 @@ function inferSection(wikiKey){
 
 // ── AI TOGGLE ────────────────────────────────────────────────────────────────
 function onAiToggle(){
-  const onEv = document.getElementById('aiChkEv').checked;
-  const onBi = document.getElementById('aiChkBi').checked;
-  const anyOn = onEv || onBi;
+  const onEv  = document.getElementById('aiChkEv').checked;
+  const onBi  = document.getElementById('aiChkBi').checked;
+  const onTop = document.getElementById('aiChkTop').checked;
+  const anyOn = onEv || onBi || onTop;
   document.getElementById('aiStripEv').classList.toggle('active', onEv);
   document.getElementById('aiStripBi').classList.toggle('active', onBi);
+  document.getElementById('aiStripTop').classList.toggle('active', onTop);
   const sel = document.getElementById('aiProv');
   sel.style.display = anyOn ? '' : 'none';
   updateSubtitle();
@@ -1455,8 +1462,6 @@ function modeLabel(){
   if(onBi) parts.push('рождения');
   return `🤖 ${prov}: ${parts.join(' + ')}`;
 }
-
-// ── SAVE / UPLOAD / CACHE ─────────────────────────────────────────────────────
 
 async function checkCacheForDate(dv){
   if(!dv){ hideSavedBadge(); setSaveUploadBtns(false,false); return; }
@@ -1546,6 +1551,7 @@ async function uploadResult(){
     renderContent(data, 'загружено из файла · ' + fmtDate(dv));
     showSavedBadge(dv, resp._saved_at);
     setSaveUploadBtns(true, true);
+    await runTopPicks(dv);
     btn.textContent = '📂 Открыть'; btn.disabled = false;
   } catch(e) {
     alert('Ошибка загрузки: ' + e.message);
@@ -1657,8 +1663,9 @@ async function loadData(){
       sseSource.close();sseSource=null;
       data={...m.result,wiki_url,wiki_title};
       const dv2=document.getElementById('datePicker').value;
-      loadNotesForDate(dv2).then(()=>{
+      loadNotesForDate(dv2).then(async ()=>{
         updCounts(data);renderContent(data,modeLabel());
+        await runTopPicks(dv2);
       });
       btn.disabled=false;btn.textContent='Загрузить';
       // refresh cache state
@@ -2219,6 +2226,107 @@ function insertEmoji(emoji){
     titleField.value = titleField.value.slice(0,s) + emoji + titleField.value.slice(e);
     titleField.selectionStart = titleField.selectionEnd = s + emoji.length;
     titleField.focus();
+  }
+}
+
+// ── TOP PICKS (Groq auto-select + auto-note) ──────────────────────────────────
+
+function stripHtmlForApi(html){
+  return html.replace(/<[^>]+>/g,'').replace(/&amp;/g,'&').replace(/&lt;/g,'<')
+    .replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'").trim();
+}
+
+async function runTopPicks(dateVal){
+  if(!document.getElementById('aiChkTop').checked) return;
+  if(!data) return;
+
+  // Collect all flat event and birth entries as plain text + keep html ref
+  const eventEntries=[], birthEntries=[];
+  (data.events||[]).forEach(cat=>(cat.entries||[]).forEach(e=>{
+    eventEntries.push({html:e, text:stripHtmlForApi(e)});
+  }));
+  (data.births||[]).forEach(cat=>(cat.entries||[]).forEach(e=>{
+    birthEntries.push({html:e, text:stripHtmlForApi(e)});
+  }));
+  (data.births_russian||[]).forEach(e=>{
+    if(!birthEntries.some(b=>b.html===e))
+      birthEntries.push({html:e, text:stripHtmlForApi(e)});
+  });
+
+  if(!eventEntries.length && !birthEntries.length) return;
+
+  // Show progress in sidebar
+  const nf=document.getElementById('NF');
+  const origNF=nf?nf.innerHTML:'';
+  if(nf) nf.innerHTML+='<div style="font-size:11px;color:var(--tx2);padding:4px 5px">⭐ Выбираю топ…</div>';
+
+  try {
+    const r=await fetch('/api/top_picks',{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        events: eventEntries.map(e=>e.text),
+        births: birthEntries.map(e=>e.text),
+      })
+    });
+    const res=await r.json();
+    if(res.error){ console.warn('top_picks error:', res.error); return; }
+
+    const notesToCreate=[];
+
+    // Top event
+    (res.event_indices||[]).forEach(idx=>{
+      const entry=eventEntries[idx];
+      if(!entry) return;
+      const wk=entryWikiKey(entry.html);
+      if(!wk) return;
+      notesToCreate.push({
+        wikiKey: wk, section:'events', html: entry.html,
+        existing: notesData[wk]
+      });
+    });
+
+    // Top births
+    (res.birth_indices||[]).forEach(idx=>{
+      const entry=birthEntries[idx];
+      if(!entry) return;
+      const wk=entryWikiKey(entry.html);
+      if(!wk) return;
+      notesToCreate.push({
+        wikiKey: wk, section:'births', html: entry.html,
+        existing: notesData[wk]
+      });
+    });
+
+    // Create notes for picks that don't already have one (or are empty)
+    for(const pick of notesToCreate){
+      const n=pick.existing;
+      const isEmpty=!n||(!(n.title)&&!(n.text&&n.text.trim())&&!(n.images||[]).length);
+      if(!isEmpty) continue;  // already has content — skip, don't overwrite
+
+      const tags=detectAutoTags(pick.wikiKey);
+      const note={
+        title: '⭐ ' + stripHtmlForApi(pick.html).replace(/^\d+\s*[–—-]\s*/,'').slice(0,80),
+        text:  pick.html,
+        section: pick.section,
+        tags,
+        images: [],
+        pub_status: 'draft',
+      };
+      await fetch('/api/notes',{method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({date:dateVal, key:pick.wikiKey, note})
+      });
+      notesData[pick.wikiKey]=note;
+    }
+
+    renderNoteStats();
+    if(data) renderContent(data);
+
+  } catch(e){
+    console.warn('runTopPicks error:', e);
+  } finally {
+    if(nf) nf.innerHTML=origNF;
+    renderNoteStats();
   }
 }
 
@@ -2827,6 +2935,63 @@ class Handler(BaseHTTPRequestHandler):
             except Exception as e:
                 self._json({"error": str(e)})
 
+        elif self.path == '/api/top_picks':
+            try:
+                payload     = json.loads(body)
+                events_raw  = payload.get("events", [])   # list of plain-text event strings
+                births_raw  = payload.get("births", [])   # list of plain-text birth strings
+                key         = _keys_store.get("groq", "").strip()
+                if not key:
+                    self._json({"error": "Groq API key not set. Add it in ⚙ Settings → AI."}); return
+                model = AI_PROVIDERS["groq"]["model"]
+
+                def groq_pick(prompt_text):
+                    r = _http_post(
+                        "https://api.groq.com/openai/v1/chat/completions",
+                        {
+                            "model": model, "temperature": 0, "max_tokens": 120,
+                            "messages": [
+                                {"role": "system", "content":
+                                    "You are a historian selecting the most significant entries. "
+                                    "Return ONLY a JSON array of integer indices (0-based), no explanation."},
+                                {"role": "user", "content": prompt_text},
+                            ],
+                        },
+                        {"Content-Type": "application/json", "Authorization": f"Bearer {key}"},
+                    )
+                    text = r["choices"][0]["message"]["content"]
+                    text = re.sub(r"```[a-z]*\n?|\n?```", "", text).strip()
+                    m = re.search(r"\[[\s\S]*?\]", text)
+                    if not m:
+                        return []
+                    return json.loads(m.group())
+
+                result = {}
+
+                if events_raw:
+                    numbered = "\n".join(f"{i}: {e}" for i, e in enumerate(events_raw))
+                    prompt = (
+                        f"From these historical events, pick the index of the single most "
+                        f"significant worldwide event:\n{numbered}\n\n"
+                        "Return a JSON array with exactly 1 index, e.g. [3]"
+                    )
+                    idxs = groq_pick(prompt)
+                    result["event_indices"] = [i for i in idxs if isinstance(i, int) and 0 <= i < len(events_raw)][:1]
+
+                if births_raw:
+                    numbered = "\n".join(f"{i}: {e}" for i, e in enumerate(births_raw))
+                    prompt = (
+                        f"From these people born on this day, pick the indices of the 2 most "
+                        f"globally famous and historically significant:\n{numbered}\n\n"
+                        "Return a JSON array with exactly 2 indices, e.g. [1, 7]"
+                    )
+                    idxs = groq_pick(prompt)
+                    result["birth_indices"] = [i for i in idxs if isinstance(i, int) and 0 <= i < len(births_raw)][:2]
+
+                self._json({"ok": True, **result})
+            except Exception as e:
+                self._json({"error": str(e)})
+
         elif self.path == '/api/emoji_title':
             try:
                 payload = json.loads(body)
@@ -2920,6 +3085,8 @@ class Handler(BaseHTTPRequestHandler):
                     self._json({"error": f"Не удалось загрузить Wikipedia: {err}"}); return
 
                 events_raw, births_raw, holidays_raw = parse_wikipedia_raw(html_content)
+                _raw_store["events_raw"] = events_raw
+                _raw_store["births_raw"] = births_raw
                 run_job(events_raw, births_raw, holidays_raw, cfg,
                         use_ai_events=use_ai_events,
                         use_ai_births=use_ai_births,
