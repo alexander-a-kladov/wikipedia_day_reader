@@ -19,7 +19,7 @@ from collections import Counter
 from datetime import date
 from html.parser import HTMLParser
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from urllib.parse import parse_qs, urlparse
+from urllib.parse import parse_qs, urlparse, quote as url_quote
 import urllib.request
 import urllib.error
 
@@ -1288,6 +1288,10 @@ HTML_PAGE = r"""<!DOCTYPE html>
       <button onclick="document.execCommand('bold')" title="Жирный"><b>Ж</b></button>
       <button onclick="document.execCommand('italic')" title="Курсив"><i>К</i></button>
       <button onclick="clearNoteFormat()" title="Очистить форматирование">✕ Формат</button>
+      <button id="fetchImgBtn" onclick="fetchWikiImages()"
+        title="Загрузить подходящие изображения со страниц Википедии (Groq выберет лучшие)">
+        🖼️ Фото из Wiki
+      </button>
     </div>
     <div class="note-editor" id="noteEditor" contenteditable="true"
       placeholder="Введите текст. Для ссылки: выделите слово и нажмите 🔗 Ссылка..."></div>
@@ -2362,6 +2366,75 @@ async function autoEmojiTitle(){
   }
 }
 
+async function fetchWikiImages(){
+  const btn = document.getElementById('fetchImgBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Ищу…';
+
+  try {
+    // Collect Wikipedia URLs from the note editor HTML
+    const editor = document.getElementById('noteEditor');
+    const editorHtml = editor.innerHTML || '';
+    // Also include the entry's own wiki URL (_noteKey)
+    const urlSet = new Set();
+    if(_noteKey) urlSet.add(_noteKey);
+    // Extract all Wikipedia links from editor content
+    const linkRe = /href="(https?:\/\/en\.wikipedia\.org\/wiki\/[^"#]+)"/g;
+    let m;
+    while((m = linkRe.exec(editorHtml)) !== null){
+      urlSet.add(m[1]);
+    }
+    const wiki_urls = [...urlSet].slice(0, 5);
+
+    // Strip emojis from title for semantic matching
+    const rawTitle = document.getElementById('noteTitleField').value.trim();
+    const cleanTitle = rawTitle.replace(
+      /[\u{1F300}-\u{1FFFF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA9F}\u2600-\u26FF\u2702-\u27B0]+/gu,
+      '').trim();
+    const dv = document.getElementById('datePicker').value;
+
+    btn.textContent = '⏳ Groq выбирает…';
+    const r = await fetch('/api/fetch_wiki_images', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        wiki_urls,
+        title: cleanTitle || rawTitle,
+        date: dv,
+        wiki_key: _noteKey
+      })
+    });
+    const res = await r.json();
+    if(res.error){
+      alert('Ошибка: ' + res.error);
+      return;
+    }
+    if(!res.images || !res.images.length){
+      alert('Не удалось загрузить изображения. Попробуйте позже.');
+      return;
+    }
+
+    // Append downloaded images to the note's current image list in DOM
+    const wrap = document.getElementById('noteImgs');
+    res.images.forEach(url => {
+      const thumb = document.createElement('div');
+      thumb.className = 'note-img-thumb';
+      thumb.innerHTML = `<img src="${url}" onclick="openLightbox('${url}')">
+        <button class="note-img-del"
+          onclick="removeNoteImg('${url}',this.parentNode)" title="Удалить">✕</button>`;
+      wrap.appendChild(thumb);
+    });
+
+    btn.textContent = `✓ ${res.images.length} фото добавлено`;
+    setTimeout(()=>{ btn.textContent='🖼️ Фото из Wiki'; }, 3000);
+
+  } catch(e) {
+    alert('Ошибка: ' + e.message);
+  } finally {
+    btn.disabled = false;
+  }
+}
+
 function clearNoteFormat(){
   document.execCommand('removeFormat');
 }
@@ -2989,6 +3062,175 @@ class Handler(BaseHTTPRequestHandler):
                     result["birth_indices"] = [i for i in idxs if isinstance(i, int) and 0 <= i < len(births_raw)][:2]
 
                 self._json({"ok": True, **result})
+            except Exception as e:
+                self._json({"error": str(e)})
+
+        elif self.path == '/api/fetch_wiki_images':
+            try:
+                payload    = json.loads(body)
+                wiki_urls  = payload.get("wiki_urls", [])   # list of wikipedia article URLs
+                title      = payload.get("title", "")       # note title (no emojis)
+                date_str   = payload.get("date", "")
+                wiki_key   = payload.get("wiki_key", "")
+                key        = _keys_store.get("groq", "").strip()
+                if not key:
+                    self._json({"error": "Groq API key not set. Add it in ⚙ Settings → AI."}); return
+                if not wiki_urls:
+                    self._json({"error": "No Wikipedia URLs found in note text."}); return
+
+                # ── Step 1: Fetch images from each Wikipedia page ──────────────
+                import html as html_mod
+                from html.parser import HTMLParser as HP
+
+                class ImgParser(HP):
+                    def __init__(self):
+                        super().__init__()
+                        self.imgs = []   # list of {src, alt}
+                        self.in_figure = False
+                        self.caption = ""
+                        self.last_alt = ""
+
+                    def handle_starttag(self, tag, attrs):
+                        ad = dict(attrs)
+                        if tag == "figure":
+                            self.in_figure = True
+                        elif tag == "img":
+                            src = ad.get("src", "")
+                            alt = ad.get("alt", "") or ad.get("data-alt", "")
+                            # Only full-size Wikipedia images (skip thumbs <100px)
+                            if src and "wikimedia.org" in src:
+                                # Prefer /wiki/Special:FilePath or //upload.wikimedia
+                                if src.startswith("//"):
+                                    src = "https:" + src
+                                self.imgs.append({"src": src, "alt": alt})
+                                self.last_alt = alt
+
+                    def handle_endtag(self, tag):
+                        if tag == "figure":
+                            self.in_figure = False
+
+                    def handle_data(self, data):
+                        pass
+
+                all_candidates = []   # {src, alt, page}
+                seen_srcs = set()
+
+                for url in wiki_urls[:4]:   # limit pages checked
+                    try:
+                        page_title = url.split("/wiki/")[-1]
+                        # Use Wikipedia REST API for images — faster and structured
+                        api_url = (f"https://en.wikipedia.org/w/api.php"
+                                   f"?action=query&titles={page_title}"
+                                   f"&prop=images&imlimit=30&format=json")
+                        req = urllib.request.Request(
+                            api_url, headers={"User-Agent": _UA})
+                        with urllib.request.urlopen(req, timeout=12) as resp:
+                            wiki_data = json.loads(resp.read().decode())
+                        pages = wiki_data.get("query", {}).get("pages", {})
+                        for page in pages.values():
+                            for img in page.get("images", []):
+                                fname = img.get("title", "").replace("File:", "")
+                                if not fname: continue
+                                # Skip icons/flags/small decoratives
+                                low = fname.lower()
+                                if any(x in low for x in [
+                                    "icon", "flag_of", "commons-logo", "wiki",
+                                    "edit-", "disambig", "cscr", "featured",
+                                    "padlock", "question", "star", "speak",
+                                    ".svg", "lock", "button", "arrow"
+                                ]): continue
+                                # Build Wikimedia Commons URL
+                                import hashlib as hl
+                                fname_enc = fname.replace(" ", "_")
+                                md5 = hl.md5(fname_enc.encode()).hexdigest()
+                                src = (f"https://upload.wikimedia.org/wikipedia/commons/"
+                                       f"{md5[0]}/{md5[:2]}/{url_quote(fname_enc)}")
+                                if src not in seen_srcs:
+                                    seen_srcs.add(src)
+                                    all_candidates.append({
+                                        "src": src,
+                                        "alt": fname.replace("_", " ").rsplit(".", 1)[0],
+                                        "page": page_title
+                                    })
+                    except Exception:
+                        continue
+
+                if not all_candidates:
+                    self._json({"error": "No suitable images found on Wikipedia pages."}); return
+
+                # ── Step 2: Ask Groq to pick 3-7 most relevant images ──────────
+                # Clean title: remove emojis
+                clean_title = re.sub(
+                    r'[\U0001F300-\U0001FFFF\U00002700-\U000027BF'
+                    r'\U0001F900-\U0001F9FF\U0001FA00-\U0001FA9F'
+                    r'\u2600-\u26FF\u2702-\u27B0]+', '', title).strip()
+
+                img_list = "\n".join(
+                    f"{i}: {c['alt']} (from {c['page']})"
+                    for i, c in enumerate(all_candidates[:40])
+                )
+                groq_resp = _http_post(
+                    "https://api.groq.com/openai/v1/chat/completions",
+                    {"model": AI_PROVIDERS["groq"]["model"],
+                     "temperature": 0, "max_tokens": 150,
+                     "messages": [
+                         {"role": "system",
+                          "content": (
+                              "You select images for a historical note. "
+                              "Return ONLY a JSON array of indices (integers, 3-7 items). "
+                              "Choose images that best illustrate the topic, "
+                              "are diverse (not duplicates of the same thing), "
+                              "and are visually informative. No markdown, no explanation."
+                          )},
+                         {"role": "user",
+                          "content": (
+                              f"Note topic: {clean_title}\n\n"
+                              f"Available images:\n{img_list}\n\n"
+                              f"Return JSON array of 3-7 best indices."
+                          )},
+                     ]},
+                    {"Content-Type": "application/json",
+                     "Authorization": f"Bearer {key}"},
+                )
+                resp_text = groq_resp["choices"][0]["message"]["content"]
+                resp_text = re.sub(r"```[a-z]*\n?|\n?```", "", resp_text).strip()
+                m = re.search(r"\[[\s\S]*?\]", resp_text)
+                chosen_indices = []
+                if m:
+                    try:
+                        chosen_indices = [
+                            x for x in json.loads(m.group())
+                            if isinstance(x, int) and x < len(all_candidates)
+                        ][:7]
+                    except Exception:
+                        pass
+                if not chosen_indices:
+                    chosen_indices = list(range(min(3, len(all_candidates))))
+
+                # ── Step 3: Download chosen images and save ────────────────────
+                saved_urls = []
+                for idx in chosen_indices:
+                    cand = all_candidates[idx]
+                    try:
+                        img_req = urllib.request.Request(
+                            cand["src"],
+                            headers={"User-Agent": _UA, "Referer": "https://en.wikipedia.org"})
+                        with urllib.request.urlopen(img_req, timeout=15) as resp:
+                            img_bytes = resp.read()
+                        # Only save actual images (>5KB, not error pages)
+                        if len(img_bytes) < 5000:
+                            continue
+                        ext = "." + cand["src"].rsplit(".", 1)[-1].split("?")[0].lower()
+                        if ext not in (".jpg", ".jpeg", ".png", ".gif", ".webp"):
+                            ext = ".jpg"
+                        saved_url = image_save(date_str, wiki_key,
+                                               f"wiki_{idx}{ext}", img_bytes)
+                        saved_urls.append(saved_url)
+                    except Exception:
+                        continue
+
+                self._json({"ok": True, "images": saved_urls,
+                            "count": len(saved_urls)})
             except Exception as e:
                 self._json({"error": str(e)})
 
