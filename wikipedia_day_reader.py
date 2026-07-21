@@ -1034,14 +1034,20 @@ HTML_PAGE = r"""<!DOCTYPE html>
     margin-bottom:8px;}
   .link-popup-btns{display:flex;gap:7px;justify-content:flex-end;}
   .note-imgs-wrap{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px;}
-  .note-img-thumb{position:relative;display:inline-block;}
+  .note-img-thumb{position:relative;display:inline-flex;flex-direction:column;align-items:center;max-width:260px;}
   .note-img-thumb img{height:240px;width:auto;max-width:100%;border-radius:6px;object-fit:cover;
     border:1.5px solid var(--bd);cursor:pointer;}
   .note-img-thumb img:hover{border-color:var(--ac2);}
+  .note-img-caption{font-size:10px;color:var(--tx2);text-align:center;padding:3px 4px 0;
+    max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:text;}
   .note-img-del{position:absolute;top:-7px;right:-7px;width:22px;height:22px;
     border-radius:50%;background:#c0392b;color:#fff;border:none;cursor:pointer;
     font-size:12px;display:flex;align-items:center;justify-content:center;line-height:1;}
   .note-img-del:hover{background:#a02020;}
+  /* caption under post images */
+  .note-post-img-wrap{display:flex;flex-direction:column;align-items:center;}
+  .note-post-img-caption{font-size:11px;color:var(--tx2);text-align:center;
+    padding:3px 4px;max-width:200px;}
   .note-upload-btn{font-size:12px;padding:5px 12px;color:var(--tx2);border-color:var(--bd);
     cursor:pointer;display:inline-flex;align-items:center;gap:5px;margin-bottom:10px;}
   .note-upload-btn:hover{border-color:var(--ac2);color:var(--ac);}
@@ -1807,9 +1813,15 @@ function notePost(wikiKey, section){
     font-weight:600;padding:8px 12px 2px;color:var(--tx)">${n.title}</div>`;
   if(hasText) h+=`<div class="note-post-text">${n.text}</div>`;
   if(imgs.length){
+    const caps = n.image_captions || {};
     h+=`<div class="note-post-imgs">`;
     imgs.forEach(url=>{
-      h+=`<img src="${url}" loading="lazy" onclick="openLightbox('${url}')" title="Открыть">`;
+      const cap = caps[url] || '';
+      h+=`<div class="note-post-img-wrap">
+        <img src="${url}" loading="lazy" onclick="openLightbox('${url}')"
+          title="${cap.replace(/"/g,'&quot;')}">
+        ${cap ? `<div class="note-post-img-caption">${cap}</div>` : ''}
+      </div>`;
     });
     h+=`</div>`;
   }
@@ -1895,7 +1907,7 @@ function openNoteModal(evt, wikiKey, section){
   initEmojiPanel();
   if(existing){
     editor.innerHTML=existing.text||'';
-    renderNoteImgs(existing.images||[]);
+    renderNoteImgs(existing.images||[], existing.image_captions||{});
     const pub=existing.published||{};
     const status=existing.pub_status||( (pub.date||pub.url)?'published':'draft' );
     setPubStatus(status);
@@ -1912,7 +1924,7 @@ function openNoteModal(evt, wikiKey, section){
     } else {
       editor.innerHTML='';
     }
-    renderNoteImgs([]);
+    renderNoteImgs([], {});
     setPubStatus('draft');
     document.getElementById('pubDate').value='';
     document.getElementById('pubUrl').value='';
@@ -1922,16 +1934,28 @@ function openNoteModal(evt, wikiKey, section){
   document.getElementById('noteEditor').focus();
 }
 
-function renderNoteImgs(imgs){
+function renderNoteImgs(imgs, captions){
+  // imgs: array of URL strings; captions: {url: caption_text} (optional)
+  const caps = captions || (notesData[_noteKey]||{}).image_captions || {};
   const wrap=document.getElementById('noteImgs');
   wrap.innerHTML='';
   imgs.forEach(url=>{
-    const thumb=document.createElement('div');
-    thumb.className='note-img-thumb';
-    thumb.innerHTML=`<img src="${url}" onclick="openLightbox('${url}')">
-      <button class="note-img-del" onclick="removeNoteImg('${url}',this.parentNode)" title="Удалить">✕</button>`;
-    wrap.appendChild(thumb);
+    const caption = caps[url] || '';
+    _addImgThumb(wrap, url, caption);
   });
+}
+
+function _addImgThumb(wrap, url, caption){
+  const safeUrl = url.replace(/'/g, "\\'");
+  const thumb=document.createElement('div');
+  thumb.className='note-img-thumb';
+  thumb.innerHTML=`<img src="${url}" data-caption="${caption.replace(/"/g,'&quot;')}"
+      onclick="openLightbox('${safeUrl}')"
+      title="${caption.replace(/"/g,'&quot;') || ''}">
+    <button class="note-img-del"
+      onclick="removeNoteImg('${safeUrl}',this.parentNode)" title="Удалить">✕</button>
+    ${caption ? `<div class="note-img-caption" title="${caption.replace(/"/g,'&quot;')}">${caption}</div>` : ''}`;
+  wrap.appendChild(thumb);
 }
 
 function removeNoteImg(url, thumbEl){
@@ -2416,13 +2440,10 @@ async function fetchWikiImages(){
 
     // Append downloaded images to the note's current image list in DOM
     const wrap = document.getElementById('noteImgs');
+    const captions = res.captions || {};
     res.images.forEach(url => {
-      const thumb = document.createElement('div');
-      thumb.className = 'note-img-thumb';
-      thumb.innerHTML = `<img src="${url}" onclick="openLightbox('${url}')">
-        <button class="note-img-del"
-          onclick="removeNoteImg('${url}',this.parentNode)" title="Удалить">✕</button>`;
-      wrap.appendChild(thumb);
+      const caption = captions[url] || '';
+      _addImgThumb(wrap, url, caption);
     });
 
     btn.textContent = `✓ ${res.images.length} фото добавлено`;
@@ -2558,13 +2579,19 @@ async function saveNote(){
   const text=document.getElementById('noteEditor').innerHTML.trim();
   const title=document.getElementById('noteTitleField').value.trim();
 
-  // Collect current images from DOM thumbs (these are the ones the user wants to keep)
-  const currentImgs=[...document.getElementById('noteImgs').querySelectorAll('img')]
-    .map(img=>{
-      // img.src is absolute (http://localhost:8765/images/...), convert to relative
-      try { return new URL(img.src).pathname; }
-      catch(e){ return img.src; }
-    });
+  // Collect current images and captions from DOM thumbs
+  const currentImgs=[];
+  const currentCaptions={};
+  document.getElementById('noteImgs').querySelectorAll('.note-img-thumb img').forEach(img=>{
+    try {
+      const relUrl = new URL(img.src).pathname;
+      currentImgs.push(relUrl);
+      const cap = img.getAttribute('data-caption')||'';
+      if(cap) currentCaptions[relUrl] = cap;
+    } catch(e){
+      currentImgs.push(img.src);
+    }
+  });
 
   // Delete images that were in the previously saved note but are no longer in DOM
   const previousImgs=(notesData[_noteKey]||{}).images||[];
@@ -2589,8 +2616,11 @@ async function saveNote(){
   const pubUrl=document.getElementById('pubUrl').value.trim();
   const published=(_pubStatus==='published'&&(pubDate||pubUrl))?{date:pubDate, url:pubUrl}:null;
 
-  const note={title, text, section: _noteSection, tags: [..._tags], images: currentImgs, pub_status: _pubStatus,
-    ...(published?{published}:{})};
+  const note={title, text, section: _noteSection, tags: [..._tags],
+    images: currentImgs,
+    image_captions: currentCaptions,
+    pub_status: _pubStatus,
+    ...(published?{published}:{})};;
 
   const r=await fetch('/api/notes',{method:'POST',
     headers:{'Content-Type':'application/json'},
@@ -3208,16 +3238,17 @@ class Handler(BaseHTTPRequestHandler):
                     chosen_indices = list(range(min(3, len(all_candidates))))
 
                 # ── Step 3: Download chosen images and save ────────────────────
-                saved_urls = []
+                saved_urls    = []
+                saved_captions = {}   # {url: alt_text}
                 for idx in chosen_indices:
                     cand = all_candidates[idx]
                     try:
                         img_req = urllib.request.Request(
                             cand["src"],
-                            headers={"User-Agent": _UA, "Referer": "https://en.wikipedia.org"})
+                            headers={"User-Agent": _UA,
+                                     "Referer": "https://en.wikipedia.org"})
                         with urllib.request.urlopen(img_req, timeout=15) as resp:
                             img_bytes = resp.read()
-                        # Only save actual images (>5KB, not error pages)
                         if len(img_bytes) < 5000:
                             continue
                         ext = "." + cand["src"].rsplit(".", 1)[-1].split("?")[0].lower()
@@ -3226,10 +3257,13 @@ class Handler(BaseHTTPRequestHandler):
                         saved_url = image_save(date_str, wiki_key,
                                                f"wiki_{idx}{ext}", img_bytes)
                         saved_urls.append(saved_url)
+                        if cand.get("alt"):
+                            saved_captions[saved_url] = cand["alt"]
                     except Exception:
                         continue
 
                 self._json({"ok": True, "images": saved_urls,
+                            "captions": saved_captions,
                             "count": len(saved_urls)})
             except Exception as e:
                 self._json({"error": str(e)})
