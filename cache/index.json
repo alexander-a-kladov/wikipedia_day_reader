@@ -445,7 +445,38 @@
   {
     "notes": "notes/08-04.json",
     "tags": [
+      "Art",
+      "Literature",
       "Music"
+    ]
+  },
+  {
+    "notes": "notes/08-05.json",
+    "tags": [
+      "Art",
+      "Literature",
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/08-06.json",
+    "tags": [
+      "Music",
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/08-07.json",
+    "tags": [
+      "Art",
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/08-08.json",
+    "tags": [
+      "Inventions",
+      "Science"
     ]
   }
 ]
