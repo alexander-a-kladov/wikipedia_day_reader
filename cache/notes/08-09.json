@@ -1,33 +1,56 @@
 {
-  "https://en.wikipedia.org/wiki/1945": {
-    "title": "⭐ World War II: Nagasaki is devastated when an atomic bomb, Fat Man, is dropped by",
-    "text": "<a href=\"https://en.wikipedia.org/wiki/1945\" target=\"_blank\">1945</a> – World War II: <a href=\"https://en.wikipedia.org/wiki/Nagasaki\" target=\"_blank\">Nagasaki</a> is <a href=\"https://en.wikipedia.org/wiki/Atomic_bombings_of_Hiroshima_and_Nagasaki\" target=\"_blank\">devastated</a> when an <a href=\"https://en.wikipedia.org/wiki/Nuclear_weapon\" target=\"_blank\">atomic bomb</a>, <a href=\"https://en.wikipedia.org/wiki/Fat_Man\" target=\"_blank\">Fat Man</a>, is dropped by the United States <a href=\"https://en.wikipedia.org/wiki/B-29_Superfortress\" target=\"_blank\">B-29</a> <a href=\"https://en.wikipedia.org/wiki/Bockscar\" target=\"_blank\">Bockscar</a>. Thirty-five thousand people are killed outright, including 23,200–28,200 Japanese war workers, 2,000 Korean forced workers, and 150 Japanese soldiers.",
-    "section": "events",
-    "tags": [
-      "Science",
-      "Literature"
-    ],
-    "images": [],
-    "pub_status": "draft"
-  },
-  "https://en.wikipedia.org/wiki/1776": {
-    "title": "🔬📚 Amedeo Avogadro 👨‍🎓💡",
-    "text": "<a href=\"https://en.wikipedia.org/wiki/1776\" target=\"_blank\">1776</a> – <a href=\"https://en.wikipedia.org/wiki/Amedeo_Avogadro\" target=\"_blank\">Amedeo Avogadro</a>, Italian physicist and chemist (died 1856)",
-    "section": "births",
-    "tags": [
-      "Science"
-    ],
-    "images": [],
-    "pub_status": "draft"
-  },
   "https://en.wikipedia.org/wiki/1899": {
     "title": "📚👧 P. L. Travers author of Mary Poppins 📖👏",
-    "text": "<a href=\"https://en.wikipedia.org/wiki/1899\" target=\"_blank\">1899</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/P._L._Travers\" target=\"_blank\">P. L. Travers</a>, Australian-English author and actress (died 1996). She is author of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Mary_Poppins_(book_series)\" target=\"_blank\">Mary Poppins</a>.",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1899\" target=\"_blank\">1899</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/P._L._Travers\" target=\"_blank\">P. L. Travers</a>, Australian-English author and actress (died 1996). She is author of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Mary_Poppins_(book_series)\" target=\"_blank\">Mary Poppins</a>.</div><div><a href=\"https://archive.org/details/marypoppinsmaryp0000trav/mode/2up\" target=\"_blank\">📖Mary Poppins &amp; Mary Poppins comes back by Travers, P. L. 2007</a></div>",
     "section": "births",
     "tags": [
       "Literature"
     ],
-    "images": [],
-    "pub_status": "draft"
+    "images": [
+      "/images/08-09_34b3f6a88b.jpg",
+      "/images/08-09_378b552565.jpg",
+      "/images/08-09_f6fb3c6f96.jpg",
+      "/images/08-09_eb607932c3.jpg",
+      "/images/08-09_3da3c1aa57.jpg"
+    ],
+    "image_captions": {
+      "/images/08-09_34b3f6a88b.jpg": "MaryPoppinsStatueAshfieldPark",
+      "/images/08-09_378b552565.jpg": "P.L. Travers 1899-1996 Author of Mary Poppins lived and worked here 1946-1962",
+      "/images/08-09_f6fb3c6f96.jpg": "P.L. Travers as Titania in a production with Alan Wilkie",
+      "/images/08-09_eb607932c3.jpg": "Mary Poppins sculpture (49690096878)",
+      "/images/08-09_3da3c1aa57.jpg": "P.L. Travers - 50 Smith Street Chelsea London SW3 4EP"
+    },
+    "pub_status": "published",
+    "published": {
+      "date": "2026-07-22",
+      "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#08-09-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1963": {
+    "title": "🎤👸 Whitney Houston 🎤💔",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1963\" target=\"_blank\">1963</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Whitney_Houston\" target=\"_blank\">Whitney Houston</a>, American singer-songwriter, producer, and actress (died 2012).</div><div><a href=\"https://archive.org/details/whitneyhoustonre0000pari/mode/2up\" target=\"_blank\">📖Whitney Houston : return of the diva by Parish, James Robert 2009</a></div>",
+    "section": "births",
+    "tags": [
+      "Music"
+    ],
+    "images": [
+      "/images/08-09_8129d19614.jpeg",
+      "/images/08-09_f9ad305982.jpg",
+      "/images/08-09_484bcadf83.jpg",
+      "/images/08-09_be2ed1ada5.jpg",
+      "/images/08-09_8a968508e8.jpg"
+    ],
+    "image_captions": {
+      "/images/08-09_8129d19614.jpeg": "Whitney Houston (cropped3)",
+      "/images/08-09_f9ad305982.jpg": "Flickr Whitney Houston performing on GMA 2009 6",
+      "/images/08-09_484bcadf83.jpg": "Flickr Whitney Houston performing on GMA 2009 5",
+      "/images/08-09_be2ed1ada5.jpg": "Whitney Houston 2000",
+      "/images/08-09_8a968508e8.jpg": "Whitney Houston Flowers 2"
+    },
+    "pub_status": "published",
+    "published": {
+      "date": "2026-07-22",
+      "url": "08-09-2"
+    }
   }
 }

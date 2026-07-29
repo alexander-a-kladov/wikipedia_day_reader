@@ -1,0 +1,50 @@
+{
+  "https://en.wikipedia.org/wiki/1990": {
+    "title": "🚀🛰️ The Magellan space probe 🌙📚",
+    "text": "<a href=\"https://en.wikipedia.org/wiki/1990\" target=\"_blank\">1990</a> – The <a href=\"https://en.wikipedia.org/wiki/Magellan_(spacecraft)\" target=\"_blank\">Magellan space probe</a> reaches <a href=\"https://en.wikipedia.org/wiki/Venus\" target=\"_blank\">Venus</a>.",
+    "section": "events",
+    "tags": [
+      "Space"
+    ],
+    "images": [
+      "/images/08-10_e5930abe32.jpg",
+      "/images/08-10_d5a8642d86.jpg",
+      "/images/08-10_43800baf64.jpg",
+      "/images/08-10_158d2b504d.gif",
+      "/images/08-10_253338529d.jpg"
+    ],
+    "image_captions": {
+      "/images/08-10_e5930abe32.jpg": "Atlantis and Magellan (3)",
+      "/images/08-10_d5a8642d86.jpg": "Isabella Crater PIA00480",
+      "/images/08-10_43800baf64.jpg": "Maat Mons on Venus",
+      "/images/08-10_158d2b504d.gif": "Magellan Venus gravity anomaly",
+      "/images/08-10_253338529d.jpg": "Magellan Venus globes"
+    },
+    "pub_status": "published",
+    "published": {
+      "date": "2026-07-22",
+      "url": "08-10-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1878": {
+    "title": "📚🕊️ Alfred Döblin 👴💔",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1878\" target=\"_blank\">1878</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Alfred_Döblin\" target=\"_blank\">Alfred Döblin</a>, Polish-German physician and author (died 1957).</div><div>📖Alfred Doblin: Berlin Alexanderplatz Roman by 1961</div><div><br></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/08-10_db5745d66d.jpg",
+      "/images/08-10_0e9a12e885.jpg",
+      "/images/08-10_e4eb25c9ab.jpg"
+    ],
+    "image_captions": {
+      "/images/08-10_db5745d66d.jpg": "Alfred Doeblin 1930"
+    },
+    "pub_status": "published",
+    "published": {
+      "date": "2026-07-22",
+      "url": "08-10-2"
+    }
+  }
+}

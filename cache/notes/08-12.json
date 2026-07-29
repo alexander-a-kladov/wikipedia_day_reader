@@ -1,0 +1,56 @@
+{
+  "https://en.wikipedia.org/wiki/1990": {
+    "title": "🦖🐲 Tyrannosaurus rex 🦖🧬",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1990\" target=\"_blank\">1990</a> – <a href=\"https://en.wikipedia.org/wiki/Sue_(dinosaur)\" target=\"_blank\">Sue</a>, the largest and most complete <a href=\"https://en.wikipedia.org/wiki/Tyrannosaurus_rex\" target=\"_blank\">Tyrannosaurus rex</a> skeleton found to date, is discovered by <a href=\"https://en.wikipedia.org/wiki/Sue_Hendrickson\" target=\"_blank\">Sue Hendrickson</a> in <a href=\"https://en.wikipedia.org/wiki/South_Dakota\" target=\"_blank\">South Dakota</a>.</div><div><a href=\"https://archive.org/details/dinosaurs-a-visual-encyclopedia-dk-smithsonian-visual-encyclopedia-2nd-edition/mode/2up\" target=\"_blank\">📖Dinosaurs A Visual Encyclopedia, 2nd Edition by DK 2018</a></div>",
+    "section": "events",
+    "tags": [
+      "Science"
+    ],
+    "images": [
+      "/images/08-12_d188988562.jpg",
+      "/images/08-12_ce950868b2.jpg",
+      "/images/08-12_0c00d3719d.jpg",
+      "/images/08-12_1018e6656f.jpg",
+      "/images/08-12_0e0ce12840.png"
+    ],
+    "image_captions": {
+      "/images/08-12_d188988562.jpg": "FMNH SUE Trex",
+      "/images/08-12_ce950868b2.jpg": "Field Museum August 2010 1 (Sue)",
+      "/images/08-12_0c00d3719d.jpg": "SUE FM 2081 T rex furcula",
+      "/images/08-12_1018e6656f.jpg": "Sue skull",
+      "/images/08-12_0e0ce12840.png": "Tyrannosaurus Sue skeletal reconstruction"
+    },
+    "pub_status": "published",
+    "published": {
+      "date": "2026-07-23",
+      "url": "08-12-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1911": {
+    "title": "🎭🇲🇽 Cantinflas 🤣😂",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1911\" target=\"_blank\">1911</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Cantinflas\" target=\"_blank\">Cantinflas</a>, Mexican actor, screenwriter, and producer (died 1993).</div><div><a href=\"https://archive.org/details/cantinflaschaoso0000pilc/mode/2up\" target=\"_blank\">📖Cantinflas and the chaos of Mexican modernity by Pilcher, Jeffrey M. 2000</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/08-12_a12d03daf2.webp",
+      "/images/08-12_9ae235f1b4.jpg",
+      "/images/08-12_788d2b0173.jpg",
+      "/images/08-12_2551171e7c.jpg",
+      "/images/08-12_a3b8fe5c2a.jpg"
+    ],
+    "image_captions": {
+      "/images/08-12_a12d03daf2.webp": "Cantinflas en 1967 (cropped)",
+      "/images/08-12_9ae235f1b4.jpg": "Movieland Wax Museum Postcard (52384164816)",
+      "/images/08-12_788d2b0173.jpg": "Homenaje a Mario Moreno \"Cantinflas\"",
+      "/images/08-12_2551171e7c.jpg": "Manuel Medel and Cantinflas, circa 1938",
+      "/images/08-12_a3b8fe5c2a.jpg": "Tumba de Cantinflas"
+    },
+    "pub_status": "published",
+    "published": {
+      "date": "2026-07-29",
+      "url": "08-12-2"
+    }
+  }
+}

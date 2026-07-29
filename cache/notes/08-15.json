@@ -1,0 +1,51 @@
+{
+  "https://en.wikipedia.org/wiki/1845": {
+    "title": "🖌️🎨 Walter Crane 🏆👨",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1845\" target=\"_blank\">1845</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Walter_Crane\" target=\"_blank\">Walter Crane</a>, English artist and book illustrator (died 1915).</div><div><a href=\"https://archive.org/details/frogprince00CranA/mode/2up\" target=\"_blank\">📖The Frog Prince 1874</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/08-15_d1160f1af0.jpg",
+      "/images/08-15_a6f8e4b990.jpg",
+      "/images/08-15_b764ce1e8b.jpg",
+      "/images/08-15_be68627b9c.jpg",
+      "/images/08-15_cae8f25c26.jpg",
+      "/images/08-15_f1c6d51309.jpg",
+      "/images/08-15_ae0270b96f.jpg"
+    ],
+    "image_captions": {
+      "/images/08-15_a6f8e4b990.jpg": "Can't please everyone2",
+      "/images/08-15_b764ce1e8b.jpg": "CRANE a garland for mayday 1895",
+      "/images/08-15_be68627b9c.jpg": "Diana and Endymion - Walter Crane",
+      "/images/08-15_ae0270b96f.jpg": "Walter Crane - The Fate of Persephone (1877)"
+    },
+    "pub_status": "published",
+    "published": {
+      "date": "2026-07-29",
+      "url": "08-15-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1771": {
+    "title": "🏰📚 Walter Scott 🏹👑",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1771\" target=\"_blank\">1771</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Walter_Scott\" target=\"_blank\">Walter Scott</a>, Scottish novelist, playwright, and poet (died 1832).</div><div><a href=\"https://www.gutenberg.org/ebooks/82\" target=\"_blank\">📖Ivanhoe: A Romance by Walter Scott</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/08-15_e514e65a85.jpg",
+      "/images/08-15_35fb35a82a.jpg",
+      "/images/08-15_00c49576ea.jpg",
+      "/images/08-15_a5f4b59ff3.jpg",
+      "/images/08-15_a23e6ac358.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-07-29",
+      "url": "08-15-2"
+    }
+  }
+}

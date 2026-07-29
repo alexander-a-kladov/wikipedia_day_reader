@@ -1,0 +1,49 @@
+{
+  "https://en.wikipedia.org/wiki/1899": {
+    "title": "👴🎬 Alfred Hitchcock 🕵️‍♂️💀",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1899\" target=\"_blank\">1899</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Alfred_Hitchcock\" target=\"_blank\">Alfred Hitchcock</a>, English-American director and producer (died 1980).</div><div><a href=\"https://archive.org/details/filmsofalfredhit00hump/mode/2up\" target=\"_blank\">📖The films of Alfred Hitchcock by Humphries, Patrick 1986</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/08-13_d0853221d8.jpg",
+      "/images/08-13_3c00f0485c.jpg",
+      "/images/08-13_5df8c545c5.jpg",
+      "/images/08-13_f881433e6b.jpg",
+      "/images/08-13_721c25bec9.jpg"
+    ],
+    "image_captions": {
+      "/images/08-13_3c00f0485c.jpg": "Alfred Hitchcock on the set of North By Northwest",
+      "/images/08-13_f881433e6b.jpg": "Hitchcock sculpture, London, 2007"
+    },
+    "pub_status": "published",
+    "published": {
+      "date": "2026-07-29",
+      "url": "08-13-2"
+    }
+  },
+  "https://en.wikipedia.org/wiki/BMW": {
+    "title": "🚗🔧 BMW 🏎️💨",
+    "text": "<div>1918   – Bayerische Motoren Werke AG (<a href=\"https://en.wikipedia.org/wiki/BMW\" target=\"_blank\">BMW</a>) is <a href=\"https://en.wikipedia.org/wiki/History_of_BMW#BMW_GmbH_goes_public\" target=\"_blank\">established as a public company</a> in Germany.</div><div><a href=\"https://archive.org/details/the-complete-book-of-bmw-motorcycles/mode/2up\" target=\"_blank\">📖The Complete Book of BMW Motorcycles by Ian Falloon 2020</a></div>",
+    "section": "events",
+    "tags": [
+      "Inventions"
+    ],
+    "images": [
+      "/images/08-13_f691da1263.jpg",
+      "/images/08-13_e67d35a25f.jpg",
+      "/images/08-13_401f1b1726.jpg",
+      "/images/08-13_8e3df6176e.jpg",
+      "/images/08-13_1fdaec18c7.jpg",
+      "/images/08-13_f0b3a33429.jpg",
+      "/images/08-13_114a6e29a2.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-07-29",
+      "url": "08-13-1"
+    }
+  }
+}

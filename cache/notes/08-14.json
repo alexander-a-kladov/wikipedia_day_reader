@@ -1,0 +1,46 @@
+{
+  "https://en.wikipedia.org/wiki/John_Galsworthy": {
+    "title": "📚👨 John Galsworthy 🏆🎉",
+    "text": "<div>1867   – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/John_Galsworthy\" target=\"_blank\">John Galsworthy</a>,  English novelist and playwright, <a href=\"https://en.wikipedia.org/wiki/Nobel_Prize_in_Literature\" target=\"_blank\">Nobel Prize</a> laureate (died 1933)</div><div><a href=\"https://www.gutenberg.org/ebooks/4397\" target=\"_blank\">📖The Forsyte saga - Complete by John Galsworthy</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/08-14_c178970f93.jpg",
+      "/images/08-14_365cf1b127.jpg",
+      "/images/08-14_bef245bc2f.jpg",
+      "/images/08-14_6299bf2248.png",
+      "/images/08-14_874734efa9.jpg"
+    ],
+    "image_captions": {
+      "/images/08-14_bef245bc2f.jpg": "Photo Portrait of the British writer John Galsworthy correcting a manuscript 1930 - Touring Club Italiano 11 5336",
+      "/images/08-14_6299bf2248.png": "The-Skin-Game-1920"
+    },
+    "pub_status": "published",
+    "published": {
+      "date": "2026-07-29",
+      "url": "08-14-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1860": {
+    "title": "🏞️🦊 Ernest Thompson Seton 📚👴",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1860\" target=\"_blank\">1860</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Ernest_Thompson_Seton\" target=\"_blank\">Ernest Thompson Seton</a>, American author, artist, and naturalist (died 1946).</div><div><a href=\"https://www.gutenberg.org/ebooks/13499\" target=\"_blank\">📖Two Little Savages by Ernest Thompson Seton</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/08-14_9f7f64bdac.jpg",
+      "/images/08-14_a09a94cbf1.jpg"
+    ],
+    "image_captions": {
+      "/images/08-14_9f7f64bdac.jpg": "Ernest Thompson Seton, head-and-shoulders portrait, facing slightly left LCCN91784656 (cropped)"
+    },
+    "pub_status": "published",
+    "published": {
+      "date": "2026-07-29",
+      "url": "08-14-2"
+    }
+  }
+}
