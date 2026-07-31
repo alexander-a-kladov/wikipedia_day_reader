@@ -1034,10 +1034,14 @@ HTML_PAGE = r"""<!DOCTYPE html>
     margin-bottom:8px;}
   .link-popup-btns{display:flex;gap:7px;justify-content:flex-end;}
   .note-imgs-wrap{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px;}
-  .note-img-thumb{position:relative;display:inline-flex;flex-direction:column;align-items:center;max-width:260px;}
+  .note-img-thumb{position:relative;display:inline-flex;flex-direction:column;align-items:center;max-width:260px;
+    cursor:grab;user-select:none;transition:opacity .15s,transform .15s;}
+  .note-img-thumb.dragging{opacity:.4;transform:scale(.96);cursor:grabbing;}
+  .note-img-thumb.drag-over{outline:2px dashed var(--ac2);outline-offset:3px;border-radius:6px;}
   .note-img-thumb img{height:240px;width:auto;max-width:100%;border-radius:6px;object-fit:cover;
-    border:1.5px solid var(--bd);cursor:pointer;}
+    border:1.5px solid var(--bd);cursor:pointer;pointer-events:none;}
   .note-img-thumb img:hover{border-color:var(--ac2);}
+  .drag-hint{font-size:11px;color:var(--tx2);font-style:italic;margin-bottom:4px;}
   .note-img-caption{font-size:10px;color:var(--tx2);text-align:center;padding:3px 4px 0;
     max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:text;}
   .note-img-del{position:absolute;top:-7px;right:-7px;width:22px;height:22px;
@@ -1095,6 +1099,9 @@ HTML_PAGE = r"""<!DOCTYPE html>
   /* status badges on post */
   .note-pub-badge{display:flex;align-items:center;gap:6px;padding:5px 12px;
     font-size:12px;color:var(--tx2);border-top:1px solid var(--bd);}
+  /* top-pick star badge on entries */
+  .top-star{display:inline-block;font-size:13px;margin-right:4px;
+    vertical-align:middle;line-height:1;}
   .note-pub-badge a{color:var(--ai);text-decoration:none;}
   .note-pub-badge a:hover{text-decoration:underline;}
   .status-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
@@ -1284,6 +1291,7 @@ HTML_PAGE = r"""<!DOCTYPE html>
       </div>
       <div class="tag-list" id="tagSuggestions" style="margin-top:6px"></div>
     </div>
+    <div class="drag-hint" id="dragHint" style="display:none">☰ Перетащите картинки для изменения порядка</div>
     <div class="note-imgs-wrap" id="noteImgs"></div>
     <label class="bs note-upload-btn" style="border:1.5px solid;border-radius:var(--r)">
       📎 Добавить картинку
@@ -1672,6 +1680,8 @@ async function loadData(){
     } else if(m.type==='done'){
       sseSource.close();sseSource=null;
       data={...m.result,wiki_url,wiki_title};
+      _topEventKeys.clear();
+      _topBirthKeys.clear();
       const dv2=document.getElementById('datePicker').value;
       loadNotesForDate(dv2).then(async ()=>{
         updCounts(data);renderContent(data,modeLabel());
@@ -1747,11 +1757,13 @@ function renderContent(d, modeLabel){
           <div class="spoiler-body" id="${sid}">`;
         children.forEach(child=>{
           const cwk=entryWikiKey(child);
-          h+=`<div class="entry" style="border-left-color:#8b5e2d">${child}${noteBtn(cwk,'holidays')}</div>${notePost(cwk,'holidays')}`;
+          const star=isTopEntry(cwk)?'<span class="top-star" title="⭐ Топ дня">⭐</span>':'';
+          h+=`<div class="entry" style="border-left-color:#8b5e2d">${star}${child}${noteBtn(cwk,'holidays')}</div>${notePost(cwk,'holidays')}`;
         });
         h+=`</div></div>`;
       } else {
-        h+=`<div class="entry" style="border-left-color:#8b5e2d">${text}${noteBtn(wk,'holidays')}</div>${notePost(wk,'holidays')}`;
+        const star=isTopEntry(wk)?'<span class="top-star" title="⭐ Топ дня">⭐</span>':'';
+        h+=`<div class="entry" style="border-left-color:#8b5e2d">${star}${text}${noteBtn(wk,'holidays')}</div>${notePost(wk,'holidays')}`;
       }
     });
     h+=`</div>`;
@@ -1768,7 +1780,8 @@ function renderContent(d, modeLabel){
       <div class="ss">${rSet.size} чел.</div></div>`;
     rSet.forEach(e=>{
       const wk=entryWikiKey(e);
-      h+=`<div class="entry" style="border-left-color:#8b2d2d">${e}${noteBtn(wk,'births')}</div>${notePost(wk,'births')}`;
+      const star=isTopEntry(wk)?'<span class="top-star" title="⭐ Топ дня">⭐</span>':'';
+      h+=`<div class="entry" style="border-left-color:#8b2d2d">${star}${e}${noteBtn(wk,'births')}</div>${notePost(wk,'births')}`;
     });
     h+=`</div>`;
   }
@@ -1855,9 +1868,10 @@ function sec(cat,color,icon,markRu,rSet,section){
     <div class="st" style="color:${color}">${cat.label}</div>
     <div class="ss">${cat.entries.length} зап.</div></div>`;
   cat.entries.forEach(e=>{
-    const ru=markRu&&rSet.has(e);
-    const wk=entryWikiKey(e);
-    h+=`<div class="entry" style="border-left-color:${color}">${e}${ru?'<span class="rb">🇷🇺 рус.</span>':''}${noteBtn(wk,section)}</div>${notePost(wk,section)}`;
+    const ru = markRu && rSet.has(e);
+    const wk = entryWikiKey(e);
+    const star = isTopEntry(wk) ? '<span class="top-star" title="⭐ Топ дня">⭐</span>' : '';
+    h+=`<div class="entry" style="border-left-color:${color}">${star}${e}${ru?'<span class="rb">🇷🇺 рус.</span>':''}${noteBtn(wk,section)}</div>${notePost(wk,section)}`;
   });
   return h+`</div>`;
 }
@@ -1935,32 +1949,79 @@ function openNoteModal(evt, wikiKey, section){
 }
 
 function renderNoteImgs(imgs, captions){
-  // imgs: array of URL strings; captions: {url: caption_text} (optional)
   const caps = captions || (notesData[_noteKey]||{}).image_captions || {};
-  const wrap=document.getElementById('noteImgs');
-  wrap.innerHTML='';
-  imgs.forEach(url=>{
-    const caption = caps[url] || '';
-    _addImgThumb(wrap, url, caption);
-  });
+  const wrap = document.getElementById('noteImgs');
+  [...wrap.querySelectorAll('.note-img-thumb')].forEach(el => el.remove());
+  imgs.forEach(url => _addImgThumb(wrap, url, caps[url]||''));
+  _updateDragHint();
+}
+
+function _updateDragHint(){
+  const hint = document.getElementById('dragHint');
+  if(!hint) return;
+  const count = document.querySelectorAll('#noteImgs .note-img-thumb').length;
+  hint.style.display = count >= 2 ? '' : 'none';
 }
 
 function _addImgThumb(wrap, url, caption){
-  const safeUrl = url.replace(/'/g, "\\'");
-  const thumb=document.createElement('div');
-  thumb.className='note-img-thumb';
-  thumb.innerHTML=`<img src="${url}" data-caption="${caption.replace(/"/g,'&quot;')}"
+  const safeUrl  = url.replace(/'/g, "\\'");
+  const safeCap  = (caption||'').replace(/"/g, '&quot;');
+  const thumb    = document.createElement('div');
+  thumb.className = 'note-img-thumb';
+  thumb.draggable = true;
+  thumb.innerHTML = `
+    <img src="${url}" data-caption="${safeCap}"
       onclick="openLightbox('${safeUrl}')"
-      title="${caption.replace(/"/g,'&quot;') || ''}">
+      title="${safeCap}">
     <button class="note-img-del"
-      onclick="removeNoteImg('${safeUrl}',this.parentNode)" title="Удалить">✕</button>
-    ${caption ? `<div class="note-img-caption" title="${caption.replace(/"/g,'&quot;')}">${caption}</div>` : ''}`;
+      onclick="event.stopPropagation();removeNoteImg('${safeUrl}',this.parentNode)"
+      title="Удалить">✕</button>
+    ${caption ? `<div class="note-img-caption" title="${safeCap}">${caption}</div>` : ''}`;
+
+  // ── Drag-and-drop handlers ──────────────────────────────────────────────────
+  thumb.addEventListener('dragstart', e => {
+    e.dataTransfer.effectAllowed = 'move';
+    // Store reference via a temp id
+    thumb.dataset.dragging = '1';
+    setTimeout(() => thumb.classList.add('dragging'), 0);
+  });
+  thumb.addEventListener('dragend', () => {
+    thumb.classList.remove('dragging');
+    delete thumb.dataset.dragging;
+    document.querySelectorAll('.note-img-thumb').forEach(t => t.classList.remove('drag-over'));
+  });
+  thumb.addEventListener('dragover', e => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    // Highlight drop target
+    document.querySelectorAll('.note-img-thumb').forEach(t => t.classList.remove('drag-over'));
+    if(!thumb.dataset.dragging) thumb.classList.add('drag-over');
+  });
+  thumb.addEventListener('dragleave', () => thumb.classList.remove('drag-over'));
+  thumb.addEventListener('drop', e => {
+    e.preventDefault();
+    thumb.classList.remove('drag-over');
+    const dragging = document.querySelector('.note-img-thumb[data-dragging="1"]');
+    if(!dragging || dragging === thumb) return;
+    const w = document.getElementById('noteImgs');
+    const thumbs = [...w.querySelectorAll('.note-img-thumb')];
+    const fromIdx = thumbs.indexOf(dragging);
+    const toIdx   = thumbs.indexOf(thumb);
+    // Insert before or after based on position
+    if(fromIdx < toIdx){
+      w.insertBefore(dragging, thumb.nextSibling);
+    } else {
+      w.insertBefore(dragging, thumb);
+    }
+  });
+
   wrap.appendChild(thumb);
+  _updateDragHint();
 }
 
 function removeNoteImg(url, thumbEl){
-  // Just remove from DOM — saveNote will diff and delete from server
   thumbEl.remove();
+  _updateDragHint();
 }
 
 async function uploadImages(evt){
@@ -2259,101 +2320,97 @@ function insertEmoji(emoji){
 
 // ── TOP PICKS (Groq auto-select + auto-note) ──────────────────────────────────
 
+// ── ⭐ TOP PICKS ──────────────────────────────────────────────────────────────
+
 function stripHtmlForApi(html){
-  return html.replace(/<[^>]+>/g,'').replace(/&amp;/g,'&').replace(/&lt;/g,'<')
-    .replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'").trim();
+  return html.replace(/<[^>]+>/g,' ').replace(/&amp;/g,'&').replace(/&lt;/g,'<')
+    .replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'")
+    .replace(/\s+/g,' ').trim();
+}
+let _topEventKeys  = new Set();   // wiki keys of top events
+let _topBirthKeys  = new Set();   // wiki keys of top births (all cats)
+
+function isTopEntry(wikiKey){
+  return _topEventKeys.has(wikiKey) || _topBirthKeys.has(wikiKey);
 }
 
 async function runTopPicks(dateVal){
   if(!document.getElementById('aiChkTop').checked) return;
   if(!data) return;
 
-  // Collect all flat event and birth entries as plain text + keep html ref
-  const eventEntries=[], birthEntries=[];
-  (data.events||[]).forEach(cat=>(cat.entries||[]).forEach(e=>{
-    eventEntries.push({html:e, text:stripHtmlForApi(e)});
-  }));
-  (data.births||[]).forEach(cat=>(cat.entries||[]).forEach(e=>{
-    birthEntries.push({html:e, text:stripHtmlForApi(e)});
-  }));
-  (data.births_russian||[]).forEach(e=>{
-    if(!birthEntries.some(b=>b.html===e))
-      birthEntries.push({html:e, text:stripHtmlForApi(e)});
-  });
-
-  if(!eventEntries.length && !birthEntries.length) return;
-
-  // Show progress in sidebar
-  const nf=document.getElementById('NF');
-  const origNF=nf?nf.innerHTML:'';
-  if(nf) nf.innerHTML+='<div style="font-size:11px;color:var(--tx2);padding:4px 5px">⭐ Выбираю топ…</div>';
+  // Show spinner in notes sidebar
+  const nf = document.getElementById('NF');
+  const origNF = nf ? nf.innerHTML : '';
+  if(nf) nf.innerHTML += '<div style="font-size:11px;color:var(--tx2);padding:4px 5px">⭐ Выбираю топ…</div>';
 
   try {
-    const r=await fetch('/api/top_picks',{
-      method:'POST', headers:{'Content-Type':'application/json'},
+    // ── Build event list (flat, with global index into all events) ──────────
+    const eventsList = [];
+    let evGlobalIdx  = 0;
+    (data.events||[]).forEach(cat=>{
+      (cat.entries||[]).forEach(e=>{
+        eventsList.push({idx: evGlobalIdx++, html: e, text: stripHtmlForApi(e)});
+      });
+    });
+
+    // ── Build per-category birth lists ──────────────────────────────────────
+    const BIRTH_CATS = ['scientists','artists','composers','inventors','cinema','writers'];
+    const birthsByCat = {};
+    (data.births||[]).forEach(cat=>{
+      if(!BIRTH_CATS.includes(cat.id)) return;
+      birthsByCat[cat.id] = (cat.entries||[]).map((e, i)=>({
+        idx: i, html: e, text: stripHtmlForApi(e)
+      }));
+    });
+
+    if(!eventsList.length && !Object.keys(birthsByCat).length) return;
+
+    const r   = await fetch('/api/top_picks', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
       body: JSON.stringify({
-        events: eventEntries.map(e=>e.text),
-        births: birthEntries.map(e=>e.text),
+        events:        eventsList.map(e=>({idx: e.idx, text: e.text})),
+        births_by_cat: Object.fromEntries(
+          Object.entries(birthsByCat).map(([k,v])=>[k, v.map(e=>({idx:e.idx, text:e.text}))])
+        ),
       })
     });
-    const res=await r.json();
+    const res = await r.json();
     if(res.error){ console.warn('top_picks error:', res.error); return; }
 
-    const notesToCreate=[];
+    // ── Apply stars ─────────────────────────────────────────────────────────
+    _topEventKeys.clear();
+    _topBirthKeys.clear();
 
     // Top event
-    (res.event_indices||[]).forEach(idx=>{
-      const entry=eventEntries[idx];
-      if(!entry) return;
-      const wk=entryWikiKey(entry.html);
-      if(!wk) return;
-      notesToCreate.push({
-        wikiKey: wk, section:'events', html: entry.html,
-        existing: notesData[wk]
+    (res.event_indices||[]).forEach(globalIdx=>{
+      const entry = eventsList.find(e=>e.idx===globalIdx);
+      if(entry){
+        const wk = entryWikiKey(entry.html);
+        if(wk) _topEventKeys.add(wk);
+      }
+    });
+
+    // Top births per category
+    const byCatResult = res.birth_indices_by_cat || {};
+    Object.entries(byCatResult).forEach(([catId, indices])=>{
+      const catEntries = birthsByCat[catId] || [];
+      indices.forEach(localIdx=>{
+        const entry = catEntries.find(e=>e.idx===localIdx);
+        if(entry){
+          const wk = entryWikiKey(entry.html);
+          if(wk) _topBirthKeys.add(wk);
+        }
       });
     });
 
-    // Top births
-    (res.birth_indices||[]).forEach(idx=>{
-      const entry=birthEntries[idx];
-      if(!entry) return;
-      const wk=entryWikiKey(entry.html);
-      if(!wk) return;
-      notesToCreate.push({
-        wikiKey: wk, section:'births', html: entry.html,
-        existing: notesData[wk]
-      });
-    });
-
-    // Create notes for picks that don't already have one (or are empty)
-    for(const pick of notesToCreate){
-      const n=pick.existing;
-      const isEmpty=!n||(!(n.title)&&!(n.text&&n.text.trim())&&!(n.images||[]).length);
-      if(!isEmpty) continue;  // already has content — skip, don't overwrite
-
-      const tags=detectAutoTags(pick.wikiKey);
-      const note={
-        title: '⭐ ' + stripHtmlForApi(pick.html).replace(/^\d+\s*[–—-]\s*/,'').slice(0,80),
-        text:  pick.html,
-        section: pick.section,
-        tags,
-        images: [],
-        pub_status: 'draft',
-      };
-      await fetch('/api/notes',{method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({date:dateVal, key:pick.wikiKey, note})
-      });
-      notesData[pick.wikiKey]=note;
-    }
-
-    renderNoteStats();
+    // Re-render to show stars
     if(data) renderContent(data);
 
   } catch(e){
     console.warn('runTopPicks error:', e);
   } finally {
-    if(nf) nf.innerHTML=origNF;
+    if(nf) nf.innerHTML = origNF;
     renderNoteStats();
   }
 }
@@ -3040,57 +3097,73 @@ class Handler(BaseHTTPRequestHandler):
 
         elif self.path == '/api/top_picks':
             try:
-                payload     = json.loads(body)
-                events_raw  = payload.get("events", [])   # list of plain-text event strings
-                births_raw  = payload.get("births", [])   # list of plain-text birth strings
-                key         = _keys_store.get("groq", "").strip()
+                payload = json.loads(body)
+                # events: [{idx, text}]
+                # births_by_cat: {cat_id: [{idx, text}]}
+                events_list    = payload.get("events", [])
+                births_by_cat  = payload.get("births_by_cat", {})
+                key  = _keys_store.get("groq", "").strip()
                 if not key:
                     self._json({"error": "Groq API key not set. Add it in ⚙ Settings → AI."}); return
                 model = AI_PROVIDERS["groq"]["model"]
 
-                def groq_pick(prompt_text):
+                def groq_pick_indices(entries_text, n, context):
+                    """Ask Groq to pick n indices from a numbered list."""
+                    numbered = "\n".join(f"{i}: {e}" for i, e in enumerate(entries_text))
+                    prompt = (
+                        f"Context: {context}\n\n"
+                        f"Entries:\n{numbered}\n\n"
+                        f"Return ONLY a JSON array of exactly {n} integer index(es). "
+                        f"No explanation, no markdown."
+                    )
                     r = _http_post(
                         "https://api.groq.com/openai/v1/chat/completions",
-                        {
-                            "model": model, "temperature": 0, "max_tokens": 120,
-                            "messages": [
-                                {"role": "system", "content":
-                                    "You are a historian selecting the most significant entries. "
-                                    "Return ONLY a JSON array of integer indices (0-based), no explanation."},
-                                {"role": "user", "content": prompt_text},
-                            ],
-                        },
-                        {"Content-Type": "application/json", "Authorization": f"Bearer {key}"},
+                        {"model": model, "temperature": 0, "max_tokens": 60,
+                         "messages": [
+                             {"role": "system",
+                              "content": "You are a historian. Return ONLY a JSON array of integers."},
+                             {"role": "user", "content": prompt},
+                         ]},
+                        {"Content-Type": "application/json",
+                         "Authorization": f"Bearer {key}"},
                     )
                     text = r["choices"][0]["message"]["content"]
                     text = re.sub(r"```[a-z]*\n?|\n?```", "", text).strip()
                     m = re.search(r"\[[\s\S]*?\]", text)
                     if not m:
                         return []
-                    return json.loads(m.group())
+                    return [x for x in json.loads(m.group())
+                            if isinstance(x, int) and 0 <= x < len(entries_text)][:n]
 
                 result = {}
 
-                if events_raw:
-                    numbered = "\n".join(f"{i}: {e}" for i, e in enumerate(events_raw))
-                    prompt = (
-                        f"From these historical events, pick the index of the single most "
-                        f"significant worldwide event:\n{numbered}\n\n"
-                        "Return a JSON array with exactly 1 index, e.g. [3]"
+                # ── Top event (1) ──────────────────────────────────────────
+                if events_list:
+                    texts = [e["text"] for e in events_list]
+                    idxs  = groq_pick_indices(
+                        texts, 1,
+                        "Pick the single most significant worldwide historical event"
                     )
-                    idxs = groq_pick(prompt)
-                    result["event_indices"] = [i for i in idxs if isinstance(i, int) and 0 <= i < len(events_raw)][:1]
+                    result["event_indices"] = [
+                        events_list[i]["idx"] for i in idxs
+                    ]
 
-                if births_raw:
-                    numbered = "\n".join(f"{i}: {e}" for i, e in enumerate(births_raw))
-                    prompt = (
-                        f"From these people born on this day, pick the indices of the 2 most "
-                        f"globally famous and historically significant:\n{numbered}\n\n"
-                        "Return a JSON array with exactly 2 indices, e.g. [1, 7]"
+                # ── Top 2 per birth category ────────────────────────────────
+                cat_results = {}
+                for cat_id, entries in births_by_cat.items():
+                    if not entries:
+                        continue
+                    texts = [e["text"] for e in entries]
+                    n     = min(2, len(entries))
+                    label = cat_id.replace("_", " ")
+                    idxs  = groq_pick_indices(
+                        texts, n,
+                        f"Pick the {n} most globally famous and historically significant people "
+                        f"in the category: {label}"
                     )
-                    idxs = groq_pick(prompt)
-                    result["birth_indices"] = [i for i in idxs if isinstance(i, int) and 0 <= i < len(births_raw)][:2]
+                    cat_results[cat_id] = [entries[i]["idx"] for i in idxs]
 
+                result["birth_indices_by_cat"] = cat_results
                 self._json({"ok": True, **result})
             except Exception as e:
                 self._json({"error": str(e)})
