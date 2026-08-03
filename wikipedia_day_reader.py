@@ -1306,6 +1306,10 @@ HTML_PAGE = r"""<!DOCTYPE html>
         title="Загрузить подходящие изображения со страниц Википедии (Groq выберет лучшие)">
         🖼️ Фото из Wiki
       </button>
+      <button id="findBookBtn" onclick="findBook()"
+        title="Найти книгу на Archive.org или Gutenberg через Groq AI">
+        📚 Найти книгу
+      </button>
     </div>
     <div class="note-editor" id="noteEditor" contenteditable="true"
       placeholder="Введите текст. Для ссылки: выделите слово и нажмите 🔗 Ссылка..."></div>
@@ -2415,6 +2419,54 @@ async function runTopPicks(dateVal){
   }
 }
 
+async function findBook(){
+  const btn = document.getElementById('findBookBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Ищу книгу…';
+
+  try {
+    const rawTitle   = document.getElementById('noteTitleField').value.trim();
+    const noteEditor = document.getElementById('noteEditor');
+    const noteText   = noteEditor.innerText.trim();
+
+    if(!rawTitle){
+      alert('Сначала введите заголовок заметки.');
+      return;
+    }
+
+    const r   = await fetch('/api/find_book', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({title: rawTitle, note_text: noteText})
+    });
+    const res = await r.json();
+
+    if(res.error){
+      alert('Не удалось найти книгу:\n' + res.error);
+      return;
+    }
+
+    // Build the link HTML: 📖 Title — Author (Source)
+    const sourceLabel = res.source === 'gutenberg' ? 'Project Gutenberg' : 'Archive.org';
+    const authorPart  = res.author ? ` — ${res.author}` : '';
+    const linkHtml    = `📖 <a href="${res.url}" target="_blank">${res.title}${authorPart} [${sourceLabel}]</a>`;
+
+    // Append to end of editor content with a line break
+    noteEditor.focus();
+    const br = noteEditor.innerHTML.trim().endsWith('<br>') ? '' : '<br>';
+    noteEditor.innerHTML += br + linkHtml;
+
+    btn.textContent = '✓ Книга добавлена';
+    setTimeout(()=>{ btn.textContent = '📚 Найти книгу'; }, 3000);
+
+  } catch(e){
+    alert('Ошибка запроса: ' + e.message);
+    btn.textContent = '📚 Найти книгу';
+  } finally {
+    btn.disabled = false;
+  }
+}
+
 async function autoEmojiTitle(){
   const field = document.getElementById('noteTitleField');
   const btn   = document.getElementById('autoEmojiBtn');
@@ -3165,6 +3217,169 @@ class Handler(BaseHTTPRequestHandler):
 
                 result["birth_indices_by_cat"] = cat_results
                 self._json({"ok": True, **result})
+            except Exception as e:
+                self._json({"error": str(e)})
+
+        elif self.path == '/api/find_book':
+            try:
+                payload    = json.loads(body)
+                title      = payload.get("title", "").strip()
+                note_text  = payload.get("note_text", "").strip()
+                key        = _keys_store.get("groq", "").strip()
+                if not key:
+                    self._json({"error": "Groq API key not set. Add it in ⚙ Settings → AI."}); return
+                if not title:
+                    self._json({"error": "Note title is empty."}); return
+
+                model = AI_PROVIDERS["groq"]["model"]
+
+                # ── Step 1: Ask Groq to suggest search queries ────────────────
+                clean_title = re.sub(
+                    r'[\U0001F300-\U0001FFFF\U00002700-\U000027BF'
+                    r'\U0001F900-\U0001F9FF\U0001FA00-\U0001FA9F'
+                    r'\u2600-\u26FF\u2702-\u27B0]+', '', title).strip()
+
+                groq_resp = _http_post(
+                    "https://api.groq.com/openai/v1/chat/completions",
+                    {"model": model, "temperature": 0.3, "max_tokens": 300,
+                     "messages": [
+                         {"role": "system", "content":
+                          "You suggest book search queries for Archive.org and Project Gutenberg. "
+                          "Return ONLY a JSON object with keys: "
+                          "\"author\" (author name if person, else empty string), "
+                          "\"queries\" (list of 3 search strings, from specific to broad), "
+                          "\"prefer_gutenberg\" (true if author died before 1928). "
+                          "No explanation, no markdown."},
+                         {"role": "user", "content":
+                          f"Note title: {clean_title}\n"
+                          f"Context: {note_text[:300] if note_text else 'none'}"},
+                     ]},
+                    {"Content-Type": "application/json",
+                     "Authorization": f"Bearer {key}"},
+                )
+                resp_text = groq_resp["choices"][0]["message"]["content"]
+                resp_text = re.sub(r"```[a-z]*\n?|\n?```", "", resp_text).strip()
+                m = re.search(r"\{[\s\S]*\}", resp_text)
+                if not m:
+                    self._json({"error": "Groq returned unexpected response."}); return
+
+                suggestions = json.loads(m.group())
+                queries          = suggestions.get("queries", [clean_title])[:3]
+                prefer_gutenberg = bool(suggestions.get("prefer_gutenberg", False))
+                author           = suggestions.get("author", "").strip()
+
+                # ── Step 2: Search Gutenberg (for old texts) ──────────────────
+                def search_gutenberg(q):
+                    """Search Project Gutenberg API, return list of {title,author,url}."""
+                    enc_q = urllib.parse.quote(q)
+                    api   = f"https://gutendex.com/books/?search={enc_q}&mime_type=text%2Fhtml"
+                    req   = urllib.request.Request(api, headers={"User-Agent": _UA})
+                    with urllib.request.urlopen(req, timeout=10) as r:
+                        data = json.loads(r.read().decode())
+                    results = []
+                    for book in data.get("results", [])[:5]:
+                        authors = ", ".join(a.get("name","") for a in book.get("authors",[]))
+                        formats = book.get("formats", {})
+                        url = (formats.get("text/html") or
+                               formats.get("application/epub+zip") or
+                               f"https://www.gutenberg.org/ebooks/{book['id']}")
+                        results.append({
+                            "title":  book.get("title",""),
+                            "author": authors,
+                            "url":    url,
+                            "source": "gutenberg",
+                        })
+                    return results
+
+                # ── Step 3: Search Archive.org ────────────────────────────────
+                def search_archive(q, author_q=""):
+                    """Search Archive.org for borrowable/open books."""
+                    query = q
+                    if author_q:
+                        query = f'({q}) AND creator:({author_q})'
+                    fields = "identifier,title,creator,lending_status"
+                    enc = urllib.parse.quote(
+                        f'({query}) AND mediatype:texts AND (lending_status:is_lendable OR access-views:open)',
+                    )
+                    api = (f"https://archive.org/advancedsearch.php"
+                           f"?q={enc}&fl[]={fields.replace(',','&fl[]=')}"
+                           f"&sort[]=downloads+desc&rows=5&output=json")
+                    req = urllib.request.Request(api, headers={"User-Agent": _UA})
+                    with urllib.request.urlopen(req, timeout=12) as r:
+                        data = json.loads(r.read().decode())
+                    results = []
+                    for doc in data.get("response", {}).get("docs", []):
+                        ident = doc.get("identifier","")
+                        if not ident: continue
+                        results.append({
+                            "title":  doc.get("title", ident),
+                            "author": doc.get("creator", ""),
+                            "url":    f"https://archive.org/details/{ident}",
+                            "source": "archive",
+                            "lending": doc.get("lending_status",""),
+                        })
+                    return results
+
+                # ── Step 4: Collect candidates ────────────────────────────────
+                candidates = []
+                for q in queries:
+                    if prefer_gutenberg or not candidates:
+                        try:
+                            candidates += search_gutenberg(q)
+                        except Exception:
+                            pass
+                    try:
+                        candidates += search_archive(q, author)
+                    except Exception:
+                        pass
+                    if len(candidates) >= 8:
+                        break
+
+                if not candidates:
+                    self._json({"error":
+                        f"No books found for «{clean_title}». "
+                        "Try adjusting the note title or search manually on "
+                        "archive.org or gutenberg.org."}); return
+
+                # ── Step 5: Ask Groq to pick the best book ────────────────────
+                book_list = "\n".join(
+                    f"{i}: [{c['source'].upper()}] {c['title'][:80]}"
+                    f" — {c['author'][:50]}"
+                    for i, c in enumerate(candidates[:12])
+                )
+                pick_resp = _http_post(
+                    "https://api.groq.com/openai/v1/chat/completions",
+                    {"model": model, "temperature": 0, "max_tokens": 30,
+                     "messages": [
+                         {"role": "system",
+                          "content": "Return ONLY a JSON object: {\"index\": N} — the best book index. No other text."},
+                         {"role": "user",
+                          "content":
+                          f"Note topic: {clean_title}\n\n"
+                          f"Books:\n{book_list}\n\n"
+                          "Pick the most relevant and reputable book. Prefer the author's own works or works about them. "
+                          "Prefer full texts over partial. Return JSON."},
+                     ]},
+                    {"Content-Type": "application/json",
+                     "Authorization": f"Bearer {key}"},
+                )
+                pick_text = pick_resp["choices"][0]["message"]["content"]
+                pick_text = re.sub(r"```[a-z]*\n?|\n?```", "", pick_text).strip()
+                pm = re.search(r"\{[\s\S]*?\}", pick_text)
+                chosen_idx = 0
+                if pm:
+                    try:
+                        chosen_idx = int(json.loads(pm.group()).get("index", 0))
+                    except Exception:
+                        pass
+                chosen_idx = max(0, min(chosen_idx, len(candidates)-1))
+                book = candidates[chosen_idx]
+
+                self._json({"ok": True,
+                            "url":    book["url"],
+                            "title":  book["title"],
+                            "author": book["author"],
+                            "source": book["source"]})
             except Exception as e:
                 self._json({"error": str(e)})
 
