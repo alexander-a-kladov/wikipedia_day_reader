@@ -3270,18 +3270,17 @@ class Handler(BaseHTTPRequestHandler):
 
                 # ── Step 2: Search Gutenberg (for old texts) ──────────────────
                 def search_gutenberg(q):
-                    """Search Project Gutenberg API, return list of {title,author,url}."""
-                    enc_q = urllib.parse.quote(q)
-                    api   = f"https://gutendex.com/books/?search={enc_q}&mime_type=text%2Fhtml"
+                    enc_q = url_quote(q)
+                    api   = f"https://gutendex.com/books/?search={enc_q}"
                     req   = urllib.request.Request(api, headers={"User-Agent": _UA})
-                    with urllib.request.urlopen(req, timeout=10) as r:
+                    with urllib.request.urlopen(req, timeout=12) as r:
                         data = json.loads(r.read().decode())
                     results = []
-                    for book in data.get("results", [])[:5]:
+                    for book in data.get("results", [])[:6]:
                         authors = ", ".join(a.get("name","") for a in book.get("authors",[]))
                         formats = book.get("formats", {})
-                        url = (formats.get("text/html") or
-                               formats.get("application/epub+zip") or
+                        url = (formats.get("text/html","") or
+                               formats.get("application/epub+zip","") or
                                f"https://www.gutenberg.org/ebooks/{book['id']}")
                         results.append({
                             "title":  book.get("title",""),
@@ -3293,31 +3292,62 @@ class Handler(BaseHTTPRequestHandler):
 
                 # ── Step 3: Search Archive.org ────────────────────────────────
                 def search_archive(q, author_q=""):
-                    """Search Archive.org for borrowable/open books."""
-                    query = q
+                    # Build a simple query — don't over-filter, Archive.org
+                    # search is sensitive to syntax
+                    parts = [f'"{q}"', "mediatype:texts"]
                     if author_q:
-                        query = f'({q}) AND creator:({author_q})'
-                    fields = "identifier,title,creator,lending_status"
-                    enc = urllib.parse.quote(
-                        f'({query}) AND mediatype:texts AND (lending_status:is_lendable OR access-views:open)',
-                    )
-                    api = (f"https://archive.org/advancedsearch.php"
-                           f"?q={enc}&fl[]={fields.replace(',','&fl[]=')}"
-                           f"&sort[]=downloads+desc&rows=5&output=json")
+                        parts.append(f'creator:("{author_q}")')
+                    query_str = " AND ".join(parts)
+                    params = urllib.parse.urlencode({
+                        "q":        query_str,
+                        "fl[]":     "identifier,title,creator,lending_status,subject",
+                        "sort[]":   "downloads desc",
+                        "rows":     "8",
+                        "output":   "json",
+                    }, doseq=True)
+                    api = f"https://archive.org/advancedsearch.php?{params}"
                     req = urllib.request.Request(api, headers={"User-Agent": _UA})
-                    with urllib.request.urlopen(req, timeout=12) as r:
+                    with urllib.request.urlopen(req, timeout=14) as r:
                         data = json.loads(r.read().decode())
                     results = []
                     for doc in data.get("response", {}).get("docs", []):
                         ident = doc.get("identifier","")
-                        if not ident: continue
+                        if not ident:
+                            continue
+                        ls = doc.get("lending_status","")
+                        # Accept any result — open, borrowable, or unspecified
                         results.append({
                             "title":  doc.get("title", ident),
                             "author": doc.get("creator", ""),
                             "url":    f"https://archive.org/details/{ident}",
                             "source": "archive",
-                            "lending": doc.get("lending_status",""),
+                            "lending": ls,
                         })
+                    return results
+
+                def search_archive_simple(q):
+                    """Fallback: broader search without author filter."""
+                    params = urllib.parse.urlencode({
+                        "q":      f"{q} mediatype:texts",
+                        "fl[]":   "identifier,title,creator,lending_status",
+                        "sort[]": "downloads desc",
+                        "rows":   "8",
+                        "output": "json",
+                    }, doseq=True)
+                    api = f"https://archive.org/advancedsearch.php?{params}"
+                    req = urllib.request.Request(api, headers={"User-Agent": _UA})
+                    with urllib.request.urlopen(req, timeout=14) as r:
+                        data = json.loads(r.read().decode())
+                    results = []
+                    for doc in data.get("response", {}).get("docs", []):
+                        ident = doc.get("identifier","")
+                        if ident:
+                            results.append({
+                                "title":  doc.get("title", ident),
+                                "author": doc.get("creator", ""),
+                                "url":    f"https://archive.org/details/{ident}",
+                                "source": "archive",
+                            })
                     return results
 
                 # ── Step 4: Collect candidates ────────────────────────────────
@@ -3332,14 +3362,33 @@ class Handler(BaseHTTPRequestHandler):
                         candidates += search_archive(q, author)
                     except Exception:
                         pass
-                    if len(candidates) >= 8:
+                    if len(candidates) >= 6:
                         break
+
+                # Fallback: try simpler Archive.org queries without author
+                if len(candidates) < 3:
+                    for q in queries:
+                        try:
+                            candidates += search_archive_simple(q)
+                        except Exception:
+                            pass
+                        if len(candidates) >= 6:
+                            break
+
+                # Deduplicate by URL
+                seen_urls = set()
+                unique = []
+                for c in candidates:
+                    if c["url"] not in seen_urls:
+                        seen_urls.add(c["url"])
+                        unique.append(c)
+                candidates = unique
 
                 if not candidates:
                     self._json({"error":
-                        f"No books found for «{clean_title}». "
-                        "Try adjusting the note title or search manually on "
-                        "archive.org or gutenberg.org."}); return
+                        f"No books found for «{clean_title}» on Archive.org or Project Gutenberg. "
+                        f"You can search manually at https://archive.org/search?query={url_quote(clean_title)}"
+                        f" or https://gutenberg.org/ebooks/search/?query={url_quote(clean_title)}"}); return
 
                 # ── Step 5: Ask Groq to pick the best book ────────────────────
                 book_list = "\n".join(
