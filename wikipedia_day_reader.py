@@ -3271,7 +3271,7 @@ class Handler(BaseHTTPRequestHandler):
                 # ── Step 2: Search Gutenberg (for old texts) ──────────────────
                 def search_gutenberg(q):
                     enc_q = url_quote(q)
-                    api   = f"https://gutendex.com/books/?search={enc_q}"
+                    api   = f"https://gutendex.com/books/?search={enc_q}&languages=en"
                     req   = urllib.request.Request(api, headers={"User-Agent": _UA})
                     with urllib.request.urlopen(req, timeout=12) as r:
                         data = json.loads(r.read().decode())
@@ -3294,7 +3294,7 @@ class Handler(BaseHTTPRequestHandler):
                 def search_archive(q, author_q=""):
                     # Build a simple query — don't over-filter, Archive.org
                     # search is sensitive to syntax
-                    parts = [f'"{q}"', "mediatype:texts"]
+                    parts = [f'"{q}"', "mediatype:texts", "language:English"]
                     if author_q:
                         parts.append(f'creator:("{author_q}")')
                     query_str = " AND ".join(parts)
@@ -3328,7 +3328,7 @@ class Handler(BaseHTTPRequestHandler):
                 def search_archive_simple(q):
                     """Fallback: broader search without author filter."""
                     params = urllib.parse.urlencode({
-                        "q":      f"{q} mediatype:texts",
+                        "q":      f"{q} mediatype:texts language:English",
                         "fl[]":   "identifier,title,creator,lending_status",
                         "sort[]": "downloads desc",
                         "rows":   "8",
