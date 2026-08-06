@@ -1,0 +1,54 @@
+{
+  "https://en.wikipedia.org/wiki/1890": {
+    "title": "🧠🔮 H. P. Lovecraft 🏰👻",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1890\" target=\"_blank\">1890</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/H._P._Lovecraft\" target=\"_blank\">H. P. Lovecraft</a>, American short story writer, editor, novelist (died 1937).</div><div><a href=\"https://www.gutenberg.org/ebooks/68283\" target=\"_blank\">📖The call of Cthulhu by H. P. Lovecraft</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/08-20_d43ad0c6d7.png",
+      "/images/08-20_cdda22c095.jpg",
+      "/images/08-20_8d76d68e1d.png",
+      "/images/08-20_efaf158450.jpg"
+    ],
+    "image_captions": {
+      "/images/08-20_d43ad0c6d7.png": "Lovecraft's Official United Amateur Press Association Photograph",
+      "/images/08-20_cdda22c095.jpg": "Howard Phillips Lovecraft - circa 1900",
+      "/images/08-20_8d76d68e1d.png": "Lovecraft Family, 1892",
+      "/images/08-20_efaf158450.jpg": "Lovecraft tombstone"
+    },
+    "pub_status": "published",
+    "published": {
+      "date": "2026-07-31",
+      "url": "08-20-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1962": {
+    "title": "🚢🚣 NS Savannah 🚢🔥",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1962\" target=\"_blank\">1962</a> – The <a href=\"https://en.wikipedia.org/wiki/NS_Savannah\" target=\"_blank\">NS Savannah</a>, the world's first <a href=\"https://en.wikipedia.org/wiki/Nuclear_marine_propulsion\" target=\"_blank\">nuclear-powered</a> civilian ship, embarks on its maiden voyage.</div><div><a href=\"https://archive.org/details/ma55haer2007/mode/2up\" target=\"_blank\">📖USA - MA 55 NS Savannah General Arrangement by 2007</a></div>",
+    "section": "events",
+    "tags": [
+      "Inventions"
+    ],
+    "images": [
+      "/images/08-20_095f6ac279.jpg",
+      "/images/08-20_0fe8559eba.jpg",
+      "/images/08-20_c31d1366bf.jpg",
+      "/images/08-20_c3f41a33fc.jpg",
+      "/images/08-20_e8f16cd7b4.jpg"
+    ],
+    "image_captions": {
+      "/images/08-20_095f6ac279.jpg": "NS Savannah En Route to 1962 World's Fair (14698777183)",
+      "/images/08-20_0fe8559eba.jpg": "NS Savannah dining room MD8",
+      "/images/08-20_c31d1366bf.jpg": "NS Savannah bridge MD9",
+      "/images/08-20_c3f41a33fc.jpg": "NS Savannah PatriotsPoint Delgado 1990 cropped",
+      "/images/08-20_e8f16cd7b4.jpg": "NS Savannah control room MD1"
+    },
+    "pub_status": "published",
+    "published": {
+      "date": "2026-07-31",
+      "url": "08-20-2"
+    }
+  }
+}

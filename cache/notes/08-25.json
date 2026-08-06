@@ -1,0 +1,43 @@
+{
+  "https://en.wikipedia.org/wiki/2003": {
+    "title": "🛰️🔭 Spitzer Space Telescope 📸👽",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/2003\" target=\"_blank\">2003</a> – <a href=\"https://en.wikipedia.org/wiki/NASA\" target=\"_blank\">NASA</a> successfully launches the <a href=\"https://en.wikipedia.org/wiki/Spitzer_Space_Telescope\" target=\"_blank\">Spitzer Space Telescope</a> into space.</div><div><a href=\"https://archive.org/details/isbn_9781565846029\" target=\"_blank\">📖Cosmic horizons : astronomy at the cutting edge by Soter, Steven; Tyson, Neil deGrasse 2001</a></div>",
+    "section": "events",
+    "tags": [
+      "Science"
+    ],
+    "images": [
+      "/images/08-25_6278cf8301.jpg",
+      "/images/08-25_a1c9f06e0d.webp",
+      "/images/08-25_7619722b9f.png",
+      "/images/08-25_70cc3f2934.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-03",
+      "url": "08-25-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1724": {
+    "title": "🎨🖌️ George Stubbs 🐴🖼️",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1724\" target=\"_blank\">1724</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/George_Stubbs\" target=\"_blank\">George Stubbs</a>, English painter and academic (died 1806).</div><div><a href=\"https://archive.org/details/artofgeorgestubb0000morr/mode/2up\" target=\"_blank\">📖The art of George Stubbs by Morrison, Venetia 1989</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/08-25_eaa3e439e6.jpg",
+      "/images/08-25_2a1442e886.jpg",
+      "/images/08-25_6e438d3695.jpg",
+      "/images/08-25_6fb5548e02.jpg",
+      "/images/08-25_10e0903658.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-03",
+      "url": "08-25-2"
+    }
+  }
+}

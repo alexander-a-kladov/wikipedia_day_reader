@@ -1,0 +1,41 @@
+{
+  "https://en.wikipedia.org/wiki/1748": {
+    "title": "🖼️🎨 Jacques-Louis David 🖌️👑",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1748\" target=\"_blank\">1748</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Jacques-Louis_David\" target=\"_blank\">Jacques-Louis David</a>, French painter and illustrator (died 1825).</div><div><a href=\"https://archive.org/details/jacqueslouisdavi0000bord/mode/2up\" target=\"_blank\">📖Jacques-Louis David : empire to exile by Bordes, Philippe 2005</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/08-30_3b5348affd.jpg",
+      "/images/08-30_8a5526b6ae.jpg",
+      "/images/08-30_adf8eda4ed.jpg",
+      "/images/08-30_4c317f9588.jpg",
+      "/images/08-30_04521fe285.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-05",
+      "url": "08-30-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1871": {
+    "title": "🔬💡 Ernest Rutherford 🏆💫",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1871\" target=\"_blank\">1871</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Ernest_Rutherford\" target=\"_blank\">Ernest Rutherford</a>, New Zealand-English physicist and chemist, <a href=\"https://en.wikipedia.org/wiki/Nobel_Prize_in_Chemistry\" target=\"_blank\">Nobel Prize</a> laureate (died 1937).</div><div>📖<a href=\"https://archive.org/details/ernestrutherford0000moon/mode/2up\" target=\"_blank\">Ernest Rutherford and the atom by Moon, Philip Burton 1974</a></div>",
+    "section": "births",
+    "tags": [
+      "Science"
+    ],
+    "images": [
+      "/images/08-30_f6e985cc20.jpg",
+      "/images/08-30_f6341eecb3.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-05",
+      "url": "08-30-2"
+    }
+  }
+}

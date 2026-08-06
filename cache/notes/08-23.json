@@ -1,0 +1,46 @@
+{
+  "https://en.wikipedia.org/wiki/1769": {
+    "title": "🐒🔍 Georges Cuvier 🐦📚",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1769\" target=\"_blank\">1769</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Georges_Cuvier\" target=\"_blank\">Georges Cuvier</a>, French biologist and academic (died 1832).</div><div><a href=\"https://archive.org/details/top101scientists0000unse/mode/2up\" target=\"_blank\">📖Top 101 scientists 2017</a></div>",
+    "section": "births",
+    "tags": [
+      "Science"
+    ],
+    "images": [
+      "/images/08-23_e60027d6a5.png",
+      "/images/08-23_0d6218d447.jpg",
+      "/images/08-23_3fb7da4bca.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-01",
+      "url": "08-23-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1849": {
+    "title": "📚👨 William Ernest Henley 💼✍️",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1849\" target=\"_blank\">1849</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/William_Ernest_Henley\" target=\"_blank\">William Ernest Henley</a>, English poet and critic (died 1903).</div><div><a href=\"https://www.gutenberg.org/ebooks/1568\" target=\"_blank\">📖Poems by William Ernest Henley</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/08-23_ac86faa832.jpg",
+      "/images/08-23_642288feac.jpg",
+      "/images/08-23_c635294cc0.jpg",
+      "/images/08-23_ed76d000c4.jpg"
+    ],
+    "image_captions": {
+      "/images/08-23_ac86faa832.jpg": "William Ernest Henley`s Portrait",
+      "/images/08-23_642288feac.jpg": "William Ernest Henley, oil painting by Francis Dodd",
+      "/images/08-23_c635294cc0.jpg": "William Ernest Henley by Rodin, Scottish National Portrait Gallery",
+      "/images/08-23_ed76d000c4.jpg": "W E Henley birthplace plaque"
+    },
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-01",
+      "url": "08-23-2"
+    }
+  }
+}

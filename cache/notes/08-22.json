@@ -1,0 +1,50 @@
+{
+  "https://en.wikipedia.org/wiki/1862": {
+    "title": "🎵📚 Claude Debussy 🎶🇫🇷",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1862\" target=\"_blank\">1862</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Claude_Debussy\" target=\"_blank\">Claude Debussy</a>, French pianist and composer (died 1918).</div><div><a href=\"https://upload.wikimedia.org/wikipedia/commons/b/be/Clair_de_lune_%28Claude_Debussy%29_Suite_bergamasque.ogg\" target=\"_blank\">🎵Clair de Lune</a></div>",
+    "section": "births",
+    "tags": [
+      "Music"
+    ],
+    "images": [
+      "/images/08-22_21ec6458f8.jpg",
+      "/images/08-22_4f2bd8f9a2.png",
+      "/images/08-22_76eef470f5.jpg"
+    ],
+    "image_captions": {
+      "/images/08-22_21ec6458f8.jpg": "Claude Debussy portrait",
+      "/images/08-22_4f2bd8f9a2.png": "Debussy Stravinsky 1910",
+      "/images/08-22_76eef470f5.jpg": "Georges Rochegrosse - Poster for the prèmiere of Claude Debussy and Maurice Maeterlinck's Pelléas et Mélisande"
+    },
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-01",
+      "url": "08-22-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1920": {
+    "title": "📚🕰️ Ray Bradbury ✍️🎉",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1920\" target=\"_blank\">1920</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Ray_Bradbury\" target=\"_blank\">Ray Bradbury</a>, American science fiction writer and screenwriter (died 2012).</div><div><a href=\"https://archive.org/details/fahrenheit451_202004\" target=\"_blank\">📖Fahrenheit 451</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/08-22_2255a56c57.jpg",
+      "/images/08-22_2e640f0ad0.jpg",
+      "/images/08-22_0dae41445c.jpg",
+      "/images/08-22_1eabf2f62e.jpg"
+    ],
+    "image_captions": {
+      "/images/08-22_2255a56c57.jpg": "Ray Bradbury (1975) -cropped-",
+      "/images/08-22_2e640f0ad0.jpg": "Ray Bradbury 2009",
+      "/images/08-22_0dae41445c.jpg": "Amazing stories 194412",
+      "/images/08-22_1eabf2f62e.jpg": "GeorgeRayLaura"
+    },
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-01",
+      "url": "08-22-2"
+    }
+  }
+}

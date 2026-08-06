@@ -1,0 +1,42 @@
+{
+  "https://en.wikipedia.org/wiki/1780": {
+    "title": "🖌️🎨 Jean-Auguste-Dominique Ingres 🖼️👨‍🎤",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1780\" target=\"_blank\">1780</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Jean-Auguste-Dominique_Ingres\" target=\"_blank\">Jean-Auguste-Dominique Ingres</a>, French painter and illustrator (died 1867).</div><div><a href=\"https://archive.org/details/bub_gb_Ss99wqlznxAC/mode/2up\" target=\"_blank\">📖Portraits by Ingres : image of an epoch by Ingres, Jean Auguste Dominique 1999</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/08-29_5d5d270e48.jpg",
+      "/images/08-29_14257456ac.jpg",
+      "/images/08-29_d28c89ed68.jpg",
+      "/images/08-29_effda6b665.jpg",
+      "/images/08-29_8d9c3b6e89.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-05",
+      "url": "08-29-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Maurice_Maeterlinck": {
+    "title": "🏰💡 Maurice Maeterlinck 📚💭",
+    "text": "<div>1862 – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Maurice_Maeterlinck\" target=\"_blank\">Maurice Maeterlinck</a>, Belgian poet and playwright, <a href=\"https://en.wikipedia.org/wiki/Nobel_Prize_in_Literature\" target=\"_blank\">Nobel Prize</a> laureate (died 1949).</div><div><a href=\"https://www.gutenberg.org/ebooks/8606\" target=\"_blank\">📖The Blue Bird: A Fairy Play in Six Acts by Maurice Maeterlinck</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/08-29_a27ce8a893.jpg",
+      "/images/08-29_2f9a38b45e.jpg",
+      "/images/08-29_4f3d73e7da.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-05",
+      "url": "08-29-2"
+    }
+  }
+}

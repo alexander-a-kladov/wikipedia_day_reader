@@ -1,0 +1,46 @@
+{
+  "https://en.wikipedia.org/wiki/Peter_Weir": {
+    "title": "🎥🎬 Peter Weir 🎬👨‍🎤",
+    "text": "<div>1944   – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Peter_Weir\" target=\"_blank\">Peter Weir</a>, Australian director, producer, and screenwriter.</div><div><br></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/08-21_147ea5a54f.jpg",
+      "/images/08-21_c8d5695c72.jpg"
+    ],
+    "image_captions": {
+      "/images/08-21_147ea5a54f.jpg": "PeterWeirApr2011",
+      "/images/08-21_c8d5695c72.jpg": "Peter Weir on the set of Witness (1984)"
+    },
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-01",
+      "url": "08-21-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1725": {
+    "title": "🎨🖌️ Jean-Baptiste Greuze 🖼️💭",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1725\" target=\"_blank\">1725</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Jean-Baptiste_Greuze\" target=\"_blank\">Jean-Baptiste Greuze</a>, French painter and educator (died 1805).</div><div><a href=\"https://archive.org/details/rococo0000baur/mode/2up\" target=\"_blank\">📖Rococo by Baur, Eva Gesine 2007</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/08-21_67a7967d2e.jpg",
+      "/images/08-21_293b62f724.jpg",
+      "/images/08-21_2d1424d746.jpg",
+      "/images/08-21_b0e40310c3.jpg",
+      "/images/08-21_198a49ec3c.jpg",
+      "/images/08-21_f3257bdec6.jpg",
+      "/images/08-21_c36d5f86da.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-01",
+      "url": "08-21-2"
+    }
+  }
+}

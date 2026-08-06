@@ -1,0 +1,43 @@
+{
+  "https://en.wikipedia.org/wiki/1868": {
+    "title": "💡🔴 Helium 🔴💨",
+    "text": "<a href=\"https://en.wikipedia.org/wiki/1868\" target=\"_blank\">1868</a> – French <a href=\"https://en.wikipedia.org/wiki/Astronomer\" target=\"_blank\">astronomer</a> <a href=\"https://en.wikipedia.org/wiki/Pierre_Janssen\" target=\"_blank\">Pierre Janssen</a> <a href=\"https://en.wikipedia.org/wiki/Timeline_of_chemical_element_discoveries\" target=\"_blank\">discovers</a> <a href=\"https://en.wikipedia.org/wiki/Helium\" target=\"_blank\">helium</a>.",
+    "section": "events",
+    "tags": [
+      "Science"
+    ],
+    "images": [
+      "/images/08-18_6444d3baa9.jpg",
+      "/images/08-18_1fd4c17dcc.jpg",
+      "/images/08-18_92ce538b79.jpg",
+      "/images/08-18_e9be926237.jpg",
+      "/images/08-18_c1447cef1c.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-07-30",
+      "url": "08-18-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1963": {
+    "title": "🏈👦 James Meredith 🏆💔",
+    "text": "<a href=\"https://en.wikipedia.org/wiki/1963\" target=\"_blank\">1963</a> – <a href=\"https://en.wikipedia.org/wiki/Civil_rights_movement\" target=\"_blank\">Civil rights movement</a>: <a href=\"https://en.wikipedia.org/wiki/James_Meredith\" target=\"_blank\">James Meredith</a> becomes the first African American to graduate from the <a href=\"https://en.wikipedia.org/wiki/University_of_Mississippi\" target=\"_blank\">University of Mississippi</a>.",
+    "section": "events",
+    "tags": [
+      "Education"
+    ],
+    "images": [
+      "/images/08-18_5fcca10760.jpg",
+      "/images/08-18_534e55525d.jpg",
+      "/images/08-18_61d4d18607.jpg",
+      "/images/08-18_d1968433ea.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-07-30",
+      "url": "08-18-2"
+    }
+  }
+}

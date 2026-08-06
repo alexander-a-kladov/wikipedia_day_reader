@@ -1,0 +1,42 @@
+{
+  "https://en.wikipedia.org/wiki/1945": {
+    "title": "🎸🎶 Van Morrison 🎸🇮🇪",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1945\" target=\"_blank\">1945</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Van_Morrison\" target=\"_blank\">Van Morrison</a>, Northern Irish singer-songwriter.</div><div><a href=\"https://upload.wikimedia.org/wikipedia/en/c/c2/Van_Morrison-Brown_Eyed_Girl.ogg?utm_source=en.wikipedia.org&amp;utm_campaign=index&amp;utm_content=original\" target=\"_blank\">🎵Brown Eyed Girl</a></div>",
+    "section": "births",
+    "tags": [
+      "Music"
+    ],
+    "images": [
+      "/images/08-31_f22dce507b.jpg",
+      "/images/08-31_31ad2db737.jpg",
+      "/images/08-31_c2a884848b.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-05",
+      "url": "08-31-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1944": {
+    "title": "🏰📚 Roger Dean 🎸👏",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1944\" target=\"_blank\">1944</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Roger_Dean_(artist)\" target=\"_blank\">Roger Dean</a>, English illustrator and publisher.</div><div><br></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/08-31_62c68745c7.jpg",
+      "/images/08-31_47018005f9.jpeg",
+      "/images/08-31_201b3e5673.jpeg",
+      "/images/08-31_b16e6f60d6.jpeg",
+      "/images/08-31_c173eb4094.jpeg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-06",
+      "url": "08-31-2"
+    }
+  }
+}

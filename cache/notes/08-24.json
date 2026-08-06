@@ -1,0 +1,41 @@
+{
+  "https://en.wikipedia.org/wiki/Jean_Michel_Jarre": {
+    "title": "Jean Michel Jarre",
+    "text": "<div>1948 – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Jean_Michel_Jarre\" target=\"_blank\">Jean Michel Jarre</a>, French pianist, composer, and producer.</div><div><a href=\"https://upload.wikimedia.org/wikipedia/en/c/c3/Jean_Michel_Jarre_Oxygene_iv.ogg\" target=\"_blank\">🎵Oxygène IV</a></div>",
+    "section": "births",
+    "tags": [
+      "Music"
+    ],
+    "images": [
+      "/images/08-24_385d3428fd.jpg",
+      "/images/08-24_d94b08cef6.jpg",
+      "/images/08-24_460441a123.jpg",
+      "/images/08-24_d489314bf3.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-02",
+      "url": "08-24-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Proxima_Centauri_b": {
+    "title": "🌠🔭 Proxima Centauri b 🌌👽",
+    "text": "<div>2016 – <a href=\"https://en.wikipedia.org/wiki/Proxima_Centauri_b\" target=\"_blank\">Proxima Centauri b</a>, the closest exoplanet to Earth, is discovered by the <a href=\"https://en.wikipedia.org/wiki/European_Southern_Observatory\" target=\"_blank\">European Southern Observatory</a>.</div><div><a href=\"https://archive.org/details/TheSearchForExoplanetsWhatAstronomersKnow\" target=\"_blank\">📖The Search for Exoplanets What Astronomers Know</a></div>",
+    "section": "events",
+    "tags": [
+      "Science"
+    ],
+    "images": [
+      "/images/08-24_c64be9e713.jpg",
+      "/images/08-24_209f8850ff.jpg",
+      "/images/08-24_df448be2ad.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-02",
+      "url": "08-24-2"
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "https://en.wikipedia.org/wiki/1749": {
+    "title": "📚🕊️ Johann Wolfgang von Goethe 🎨🏰",
+    "text": "<a href=\"https://en.wikipedia.org/wiki/1749\" target=\"_blank\">1749</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Johann_Wolfgang_von_Goethe\" target=\"_blank\">Johann Wolfgang von Goethe</a>, German novelist, poet, playwright, and diplomat (died 1832).<br>📖 <a href=\"https://www.gutenberg.org/ebooks/2527.html.images\" target=\"_blank\">The Sorrows of Young Werther — Goethe, Johann Wolfgang von [Project Gutenberg]</a>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/08-28_fcc07bd0ff.jpg",
+      "/images/08-28_76b7e2b879.jpg",
+      "/images/08-28_6d4799cedc.jpg",
+      "/images/08-28_9dee6acc6b.jpg",
+      "/images/08-28_6605142d99.jpg",
+      "/images/08-28_fa1b90a55c.jpg"
+    ],
+    "image_captions": {
+      "/images/08-28_fcc07bd0ff.jpg": "Der junge Goethe, gemalt von Angelica Kauffmann 1787",
+      "/images/08-28_76b7e2b879.jpg": "Johann Heinrich Wilhelm Tischbein - Goethe in the Roman Campagna - Google Art Project",
+      "/images/08-28_6d4799cedc.jpg": "GoetheAndSchillerMonumentAtWeimar",
+      "/images/08-28_9dee6acc6b.jpg": "Goethe, Kügelgen, 1810",
+      "/images/08-28_6605142d99.jpg": "Goeothe Denkmal Leipzig",
+      "/images/08-28_fa1b90a55c.jpg": "Goethehaus-ffm011"
+    },
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-05",
+      "url": "08-28-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1845": {
+    "title": "📰🔬 Scientific American magazine 📚💡",
+    "text": "<a href=\"https://en.wikipedia.org/wiki/1845\" target=\"_blank\">1845</a> – The first issue of <a href=\"https://en.wikipedia.org/wiki/Scientific_American\" target=\"_blank\">Scientific American</a> magazine is published.<br>📖<a href=\"https://archive.org/details/scientific-american-1904-01-30/mode/2up\" target=\"_blank\">Scientific American Volume 90 Number 05 (January 1904)</a>",
+    "section": "events",
+    "tags": [
+      "Education"
+    ],
+    "images": [
+      "/images/08-28_0aac503222.jpg",
+      "/images/08-28_073a964760.jpg",
+      "/images/08-28_d1f586e101.jpg",
+      "/images/08-28_6070bf8490.jpg",
+      "/images/08-28_c4655e585c.jpg"
+    ],
+    "image_captions": {
+      "/images/08-28_0aac503222.jpg": "Scientific American LCCN2015645750",
+      "/images/08-28_073a964760.jpg": "1845 08 28 Scientific American - Cover page Scientific American, first edition",
+      "/images/08-28_d1f586e101.jpg": "\"SCIENTIFIC AMERICAN SUPPLEMENT No. 1100 January 30, 1897\" from- Canet naval guns for the Greek ironclads (cropped)",
+      "/images/08-28_6070bf8490.jpg": "Interior of the Scientific American Office at 361 Broadway, New York, 1887, restored",
+      "/images/08-28_c4655e585c.jpg": "Scientific American Special Navy Supplement - 1898"
+    },
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-05",
+      "url": "08-28-2"
+    }
+  }
+}
