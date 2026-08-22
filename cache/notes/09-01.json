@@ -1,0 +1,39 @@
+{
+  "https://en.wikipedia.org/wiki/1875": {
+    "title": "📚👑 Edgar Rice Burroughs 🏜️👽",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1875\" target=\"_blank\">1875</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Edgar_Rice_Burroughs\" target=\"_blank\">Edgar Rice Burroughs</a>, American author (died 1950).</div><div>📖 <a href=\"https://www.gutenberg.org/ebooks/62.html.images\" target=\"_blank\">A princess of Mars — Burroughs, Edgar Rice [Project Gutenberg]</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/09-01_e3dca1d89a.jpg",
+      "/images/09-01_f7b5d3e777.jpg",
+      "/images/09-01_7beccf8ee5.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-09",
+      "url": "09-01-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1884": {
+    "title": "🏰🎨 Hilda Rix Nicholas 👩‍🎤🔥",
+    "text": "<a href=\"https://en.wikipedia.org/wiki/1884\" target=\"_blank\">1884</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Hilda_Rix_Nicholas\" target=\"_blank\">Hilda Rix Nicholas</a>, Australian artist (died 1961).",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/09-01_8cc405cf58.jpg",
+      "/images/09-01_16f8f84045.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-09",
+      "url": "09-01-2"
+    }
+  }
+}

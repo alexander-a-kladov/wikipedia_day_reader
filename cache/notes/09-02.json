@@ -1,0 +1,41 @@
+{
+  "https://en.wikipedia.org/wiki/1922": {
+    "title": "🔬👨 Arthur Ashkin 🏆🎓",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1922\" target=\"_blank\">1922</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Arthur_Ashkin\" target=\"_blank\">Arthur Ashkin</a>, American physicist and <a href=\"https://en.wikipedia.org/wiki/Nobel_Prize_in_Physics\" target=\"_blank\">Nobel Prize</a> laureate (died 2020).</div><div>📖<a href=\"https://archive.org/details/opticaltrappingm0000ashk/mode/2up\" target=\"_blank\">Optical trapping and manipulation of neutral particles using lasers by Ashkin, Arthur 2006</a></div>",
+    "section": "births",
+    "tags": [
+      "Science"
+    ],
+    "images": [
+      "/images/09-02_4510e3b057.jpg",
+      "/images/09-02_94c52743c0.jpg",
+      "/images/09-02_de48257073.jpg",
+      "/images/09-02_c1c5ea7f96.png"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-10",
+      "url": "09-02-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Zedd": {
+    "title": "🎸🎶 Zedd 🎧💻",
+    "text": "<div>1989   – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Zedd\" target=\"_blank\">Zedd</a>, Russian-German record producer, DJ, multi-instrumentalist and songwriter.</div>",
+    "section": "births",
+    "tags": [
+      "Music"
+    ],
+    "images": [
+      "/images/09-02_3d4a97f288.jpg",
+      "/images/09-02_12214040f4.jpg",
+      "/images/09-02_8b9722407d.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-10",
+      "url": "09-02-2"
+    }
+  }
+}

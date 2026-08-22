@@ -637,5 +637,62 @@
       "Art",
       "Music"
     ]
+  },
+  {
+    "notes": "notes/09-01.json",
+    "tags": [
+      "Art",
+      "Literature"
+    ]
+  },
+  {
+    "notes": "notes/09-02.json",
+    "tags": [
+      "Music",
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/09-03.json",
+    "tags": [
+      "Literature",
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/09-04.json",
+    "tags": [
+      "Music",
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/09-05.json",
+    "tags": [
+      "Art",
+      "Literature"
+    ]
+  },
+  {
+    "notes": "notes/09-06.json",
+    "tags": [
+      "Education",
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/09-07.json",
+    "tags": [
+      "Art",
+      "Inventions",
+      "Literature"
+    ]
+  },
+  {
+    "notes": "notes/09-08.json",
+    "tags": [
+      "Art",
+      "Science"
+    ]
   }
 ]

@@ -1,0 +1,59 @@
+{
+  "https://en.wikipedia.org/wiki/1870": {
+    "title": "🏠📚 Aleksandr Kuprin 📖👨",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1870\" target=\"_blank\">1870</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Aleksandr_Kuprin\" target=\"_blank\">Aleksandr Kuprin</a>, Russian pilot, explorer, and author (died 1938).</div><div>📖<a href=\"https://gutenberg.org/ebooks/4706\" target=\"_blank\">Yama [The Pit], a Novel in Three Parts by A. I. Kuprin</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/09-07_312098f05c.jpg",
+      "/images/09-07_4ada484ac2.jpg",
+      "/images/09-07_6dc02d8c93.jpeg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-14",
+      "url": "09-01-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Yuan_Longping": {
+    "title": "🌾👨 Yuan Longping 🏆🎉",
+    "text": "<div>1930   – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Yuan_Longping\" target=\"_blank\">Yuan Longping</a>, Academician of the <a href=\"https://en.wikipedia.org/wiki/Chinese_Academy_of_Engineering\" target=\"_blank\">Chinese Academy of Engineering</a> and an expert in <a href=\"https://en.wikipedia.org/wiki/Hybrid_rice\" target=\"_blank\">hybrid rice</a> (died <a href=\"https://en.wikipedia.org/wiki/2021\" target=\"_blank\">2021</a>).</div><div>📖<a href=\"https://archive.org/details/technologyofhybr0000yuan/mode/2up\" target=\"_blank\">Technology of hybrid rice production Yuan, Longping, 1995</a></div>",
+    "section": "births",
+    "tags": [
+      "Inventions"
+    ],
+    "images": [
+      "/images/09-07_eecd19cc60.png",
+      "/images/09-07_3f7d5887d8.jpg",
+      "/images/09-07_3abb48370a.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-14",
+      "url": "09-07-2"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1909": {
+    "title": "🎬👨 Elia Kazan 🏆🎥",
+    "text": "<a href=\"https://en.wikipedia.org/wiki/1909\" target=\"_blank\">1909</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Elia_Kazan\" target=\"_blank\">Elia Kazan</a>, Greek-American actor, director, producer, and screenwriter (died 2003).",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/09-07_70f6fdd44f.jpg",
+      "/images/09-07_4ac587eebc.jpg",
+      "/images/09-07_14ee7b703a.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-14",
+      "url": "09-07-3"
+    }
+  }
+}
