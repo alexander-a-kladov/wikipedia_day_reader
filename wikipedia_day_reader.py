@@ -35,11 +35,12 @@ AI_PROVIDERS = {
         "note": "Free: 15 req/min · 1 500 req/day",
     },
     "groq": {
-        "name": "Groq — Llama 3.1 8B",
-        "model": "llama-3.1-8b-instant",
+        "name": "Groq — Llama 3.3 70B",
+        "model": "llama-3.3-70b-versatile",
         "free": True,
         "signup": "https://console.groq.com/keys",
-        "note": "Free: 30 req/min · 14 400 req/day",
+        "note": "Free: 30 req/min · 1 000 req/day · also try llama-3.1-8b-instant for higher limits",
+        "model_override_key": "groq_model",
     },
     "openrouter": {
         "name": "OpenRouter (free models)",
@@ -319,6 +320,72 @@ _AI_FNS = {"gemini": _ai_gemini, "groq": _ai_groq, "openrouter": _ai_openrouter}
 # Smaller batches for providers with tight token-per-minute limits
 _AI_BATCH = {"gemini": 40, "groq": 15, "openrouter": 30}
 AI_BATCH = 40  # default fallback
+
+
+def _get_utility_ai():
+    """
+    Return (key, model, provider) for utility AI calls (emoji, books, top picks, wiki images).
+    Prefers OpenRouter → Groq → Gemini, whichever has a key set.
+    """
+    order = ["openrouter", "groq", "gemini"]
+    for prov in order:
+        key = _keys_store.get(prov, "").strip()
+        if key:
+            override_key = AI_PROVIDERS.get(prov, {}).get("model_override_key")
+            model = (_keys_store.get(override_key, "").strip()
+                     or AI_PROVIDERS[prov]["model"])
+            return key, model, prov
+    return "", "", ""
+
+
+def _utility_chat(messages: list, key: str, model: str, provider: str,
+                  max_tokens: int = 200, temperature: float = 0) -> dict:
+    """Call chat completion on the given provider's endpoint, always return OpenAI-style dict."""
+    try:
+        if provider == "gemini":
+            url = (f"https://generativelanguage.googleapis.com/v1beta/models/"
+                   f"{model}:generateContent?key={key}")
+            parts = []
+            for msg in messages:
+                if msg["role"] == "system":
+                    parts.insert(0, {"text": msg["content"]})
+                else:
+                    parts.append({"text": msg["content"]})
+            payload = {"contents": [{"parts": parts}],
+                       "generationConfig": {"maxOutputTokens": max_tokens,
+                                            "temperature": temperature}}
+            resp = _http_post(url, payload, {"Content-Type": "application/json"})
+            # Extract text robustly
+            try:
+                text = resp["candidates"][0]["content"]["parts"][0]["text"]
+            except (KeyError, IndexError, TypeError):
+                text = str(resp)
+        else:
+            url = ("https://openrouter.ai/api/v1/chat/completions"
+                   if provider == "openrouter"
+                   else "https://api.groq.com/openai/v1/chat/completions")
+            payload = {"model": model, "temperature": temperature,
+                       "max_tokens": max_tokens, "messages": messages}
+            resp = _http_post(url, payload,
+                              {"Content-Type": "application/json",
+                               "Authorization": f"Bearer {key}"})
+            # Extract text robustly — handle error responses
+            try:
+                text = resp["choices"][0]["message"]["content"]
+            except (KeyError, IndexError, TypeError):
+                # May be an error response
+                err = resp.get("error", {})
+                if isinstance(err, dict):
+                    raise ValueError(f"API error: {err.get('message', str(resp))}")
+                raise ValueError(f"Unexpected response: {str(resp)[:200]}")
+
+        # Ensure text is a string
+        if not isinstance(text, str):
+            text = str(text)
+        return {"choices": [{"message": {"content": text}}]}
+
+    except Exception:
+        raise
 
 
 def classify_entries_ai(entries, categories, russian_desc, include_russian,
@@ -2825,7 +2892,9 @@ function renderAiTab(){
   for(const [id, meta] of Object.entries(providers)){
     const hasKey = !!(keys[id] && keys[id] !== '');
     const isOR   = id === 'openrouter';
-    const curModel = keys['openrouter_model'] || meta.model || '';
+    const isGroq = id === 'groq';
+    const overrideKey = meta.model_override_key || null;
+    const curModel = overrideKey ? (keys[overrideKey] || meta.model || '') : '';
 
     h += `<div class="provider-card ${hasKey?'has-key':''}" id="pcard_${id}">
       <div class="prov-header">
@@ -2863,6 +2932,21 @@ function renderAiTab(){
           Ищите бесплатные модели на
           <a href="https://openrouter.ai/models?q=:free" target="_blank"
             style="color:var(--ai)">openrouter.ai/models?q=:free</a>
+        </div>
+      </div>`;
+    }
+
+    if(isGroq && overrideKey){
+      h += `<div style="margin-top:10px">
+        <div style="font-size:12px;color:var(--tx2);margin-bottom:5px">Модель (оставьте пустым для дефолтной):</div>
+        <input type="text" id="groqModelInput" value="${esc(curModel)}"
+          placeholder="${meta.model}"
+          style="width:100%;font-family:monospace;font-size:12px;padding:5px 8px;
+                 border:1px solid var(--bd);border-radius:4px;background:var(--sf)">
+        <div style="font-size:11px;color:var(--tx2);margin-top:4px">
+          Доступные модели: <a href="https://console.groq.com/docs/models" target="_blank"
+            style="color:var(--ai)">console.groq.com/docs/models</a>
+          &nbsp;·&nbsp; Попробуйте: <code>llama-3.1-8b-instant</code> · <code>llama-3.3-70b-versatile</code> · <code>llama-4-scout-17b-16e-instruct</code>
         </div>
       </div>`;
     }
@@ -2951,16 +3035,20 @@ async function saveSettings(){
   if(kw)config.keyword_min_hits=parseInt(kw.value);
   await fetch('/api/config',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(config)});
 
-  // Save AI keys (only send non-empty / non-masked values)
+  // Save AI keys and model overrides
   const newKeys = {};
   const providers = keysData.providers || {};
   for(const id of Object.keys(providers)){
     const inp = document.getElementById('key_'+id);
     if(inp) newKeys[id] = inp.value;
   }
-  // Save OpenRouter model override
+  // OpenRouter model override
   const orModel = document.getElementById('orModelInput');
   if(orModel && orModel.value.trim()) newKeys['openrouter_model'] = orModel.value.trim();
+  else if(orModel) newKeys['openrouter_model'] = '';
+  // Groq model override
+  const groqModel = document.getElementById('groqModelInput');
+  if(groqModel) newKeys['groq_model'] = groqModel.value.trim();
   await fetch('/api/keys',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(newKeys)});
   keysData = await (await fetch('/api/keys')).json();  // refresh
 
@@ -3154,10 +3242,9 @@ class Handler(BaseHTTPRequestHandler):
                 # births_by_cat: {cat_id: [{idx, text}]}
                 events_list    = payload.get("events", [])
                 births_by_cat  = payload.get("births_by_cat", {})
-                key  = _keys_store.get("groq", "").strip()
+                key, model, _uprov = _get_utility_ai()
                 if not key:
-                    self._json({"error": "Groq API key not set. Add it in ⚙ Settings → AI."}); return
-                model = AI_PROVIDERS["groq"]["model"]
+                    self._json({"error": "No AI key set. Add Groq or OpenRouter key in ⚙ Settings → AI."}); return
 
                 def groq_pick_indices(entries_text, n, context):
                     """Ask Groq to pick n indices from a numbered list."""
@@ -3168,16 +3255,11 @@ class Handler(BaseHTTPRequestHandler):
                         f"Return ONLY a JSON array of exactly {n} integer index(es). "
                         f"No explanation, no markdown."
                     )
-                    r = _http_post(
-                        "https://api.groq.com/openai/v1/chat/completions",
-                        {"model": model, "temperature": 0, "max_tokens": 60,
-                         "messages": [
-                             {"role": "system",
-                              "content": "You are a historian. Return ONLY a JSON array of integers."},
-                             {"role": "user", "content": prompt},
-                         ]},
-                        {"Content-Type": "application/json",
-                         "Authorization": f"Bearer {key}"},
+                    r = _utility_chat(
+                        [{"role": "system",
+                          "content": "You are a historian. Return ONLY a JSON array of integers."},
+                         {"role": "user", "content": prompt}],
+                        key, model, _uprov, max_tokens=60
                     )
                     text = r["choices"][0]["message"]["content"]
                     text = re.sub(r"```[a-z]*\n?|\n?```", "", text).strip()
@@ -3225,13 +3307,11 @@ class Handler(BaseHTTPRequestHandler):
                 payload    = json.loads(body)
                 title      = payload.get("title", "").strip()
                 note_text  = payload.get("note_text", "").strip()
-                key        = _keys_store.get("groq", "").strip()
+                key, model, _uprov = _get_utility_ai()
                 if not key:
-                    self._json({"error": "Groq API key not set. Add it in ⚙ Settings → AI."}); return
+                    self._json({"error": "No AI key set. Add Groq or OpenRouter key in ⚙ Settings → AI."}); return
                 if not title:
                     self._json({"error": "Note title is empty."}); return
-
-                model = AI_PROVIDERS["groq"]["model"]
 
                 # ── Step 1: Ask Groq to suggest search queries ────────────────
                 clean_title = re.sub(
@@ -3239,25 +3319,20 @@ class Handler(BaseHTTPRequestHandler):
                     r'\U0001F900-\U0001F9FF\U0001FA00-\U0001FA9F'
                     r'\u2600-\u26FF\u2702-\u27B0]+', '', title).strip()
 
-                groq_resp = _http_post(
-                    "https://api.groq.com/openai/v1/chat/completions",
-                    {"model": model, "temperature": 0.3, "max_tokens": 300,
-                     "messages": [
-                         {"role": "system", "content":
-                          "You suggest book search queries for Archive.org and Project Gutenberg. "
-                          "Return ONLY a JSON object with keys: "
-                          "\"author\" (author name if person, else empty string), "
-                          "\"queries\" (list of 3 search strings, from specific to broad), "
-                          "\"prefer_gutenberg\" (true if author died before 1928). "
-                          "No explanation, no markdown."},
-                         {"role": "user", "content":
-                          f"Note title: {clean_title}\n"
-                          f"Context: {note_text[:300] if note_text else 'none'}"},
-                     ]},
-                    {"Content-Type": "application/json",
-                     "Authorization": f"Bearer {key}"},
+                groq_resp = _utility_chat(
+                    [{"role": "system", "content":
+                      "You suggest book search queries for Archive.org and Project Gutenberg. "
+                      "Return ONLY a JSON object with keys: "
+                      "\"author\" (author name if person, else empty string), "
+                      "\"queries\" (list of 3 search strings, from specific to broad), "
+                      "\"prefer_gutenberg\" (true if author died before 1928). "
+                      "No explanation, no markdown."},
+                     {"role": "user", "content":
+                      f"Note title: {clean_title}\n"
+                      f"Context: {note_text[:300] if note_text else 'none'}"}],
+                    key, model, _uprov, max_tokens=300, temperature=0.3
                 )
-                resp_text = groq_resp["choices"][0]["message"]["content"]
+                resp_text = str(groq_resp["choices"][0]["message"]["content"] or "")
                 resp_text = re.sub(r"```[a-z]*\n?|\n?```", "", resp_text).strip()
                 m = re.search(r"\{[\s\S]*\}", resp_text)
                 if not m:
@@ -3396,23 +3471,18 @@ class Handler(BaseHTTPRequestHandler):
                     f" — {c['author'][:50]}"
                     for i, c in enumerate(candidates[:12])
                 )
-                pick_resp = _http_post(
-                    "https://api.groq.com/openai/v1/chat/completions",
-                    {"model": model, "temperature": 0, "max_tokens": 30,
-                     "messages": [
-                         {"role": "system",
-                          "content": "Return ONLY a JSON object: {\"index\": N} — the best book index. No other text."},
-                         {"role": "user",
-                          "content":
-                          f"Note topic: {clean_title}\n\n"
-                          f"Books:\n{book_list}\n\n"
-                          "Pick the most relevant and reputable book. Prefer the author's own works or works about them. "
-                          "Prefer full texts over partial. Return JSON."},
-                     ]},
-                    {"Content-Type": "application/json",
-                     "Authorization": f"Bearer {key}"},
+                pick_resp = _utility_chat(
+                    [{"role": "system",
+                      "content": "Return ONLY a JSON object: {\"index\": N} — the best book index. No other text."},
+                     {"role": "user",
+                      "content":
+                      f"Note topic: {clean_title}\n\n"
+                      f"Books:\n{book_list}\n\n"
+                      "Pick the most relevant and reputable book. Prefer the author's own works or works about them. "
+                      "Prefer full texts over partial. Return JSON."}],
+                    key, model, _uprov, max_tokens=30
                 )
-                pick_text = pick_resp["choices"][0]["message"]["content"]
+                pick_text = str(pick_resp["choices"][0]["message"]["content"] or "")
                 pick_text = re.sub(r"```[a-z]*\n?|\n?```", "", pick_text).strip()
                 pm = re.search(r"\{[\s\S]*?\}", pick_text)
                 chosen_idx = 0
@@ -3439,9 +3509,9 @@ class Handler(BaseHTTPRequestHandler):
                 title      = payload.get("title", "")       # note title (no emojis)
                 date_str   = payload.get("date", "")
                 wiki_key   = payload.get("wiki_key", "")
-                key        = _keys_store.get("groq", "").strip()
+                key, model, _uprov = _get_utility_ai()
                 if not key:
-                    self._json({"error": "Groq API key not set. Add it in ⚙ Settings → AI."}); return
+                    self._json({"error": "No AI key set. Add Groq or OpenRouter key in ⚙ Settings → AI."}); return
                 if not wiki_urls:
                     self._json({"error": "No Wikipedia URLs found in note text."}); return
 
@@ -3536,30 +3606,24 @@ class Handler(BaseHTTPRequestHandler):
                     f"{i}: {c['alt']} (from {c['page']})"
                     for i, c in enumerate(all_candidates[:40])
                 )
-                groq_resp = _http_post(
-                    "https://api.groq.com/openai/v1/chat/completions",
-                    {"model": AI_PROVIDERS["groq"]["model"],
-                     "temperature": 0, "max_tokens": 150,
-                     "messages": [
-                         {"role": "system",
-                          "content": (
-                              "You select images for a historical note. "
-                              "Return ONLY a JSON array of indices (integers, 3-7 items). "
-                              "Choose images that best illustrate the topic, "
-                              "are diverse (not duplicates of the same thing), "
-                              "and are visually informative. No markdown, no explanation."
-                          )},
-                         {"role": "user",
-                          "content": (
-                              f"Note topic: {clean_title}\n\n"
-                              f"Available images:\n{img_list}\n\n"
-                              f"Return JSON array of 3-7 best indices."
-                          )},
-                     ]},
-                    {"Content-Type": "application/json",
-                     "Authorization": f"Bearer {key}"},
+                groq_resp = _utility_chat(
+                    [{"role": "system",
+                      "content": (
+                          "You select images for a historical note. "
+                          "Return ONLY a JSON array of indices (integers, 3-7 items). "
+                          "Choose images that best illustrate the topic, "
+                          "are diverse (not duplicates of the same thing), "
+                          "and are visually informative. No markdown, no explanation."
+                      )},
+                     {"role": "user",
+                      "content": (
+                          f"Note topic: {clean_title}\n\n"
+                          f"Available images:\n{img_list}\n\n"
+                          f"Return JSON array of 3-7 best indices."
+                      )}],
+                    key, model, _uprov, max_tokens=150
                 )
-                resp_text = groq_resp["choices"][0]["message"]["content"]
+                resp_text = str(groq_resp["choices"][0]["message"]["content"] or "")
                 resp_text = re.sub(r"```[a-z]*\n?|\n?```", "", resp_text).strip()
                 m = re.search(r"\[[\s\S]*?\]", resp_text)
                 chosen_indices = []
@@ -3611,10 +3675,9 @@ class Handler(BaseHTTPRequestHandler):
                 title   = payload.get("title", "").strip()
                 if not title:
                     self._json({"error": "empty title"}); return
-                key   = _keys_store.get("groq", "").strip()
+                key, model, _uprov = _get_utility_ai()
                 if not key:
-                    self._json({"error": "Groq API key not set. Add it in ⚙ Settings → AI."}); return
-                model = AI_PROVIDERS["groq"]["model"]
+                    self._json({"error": "No AI key set. Add Groq or OpenRouter key in ⚙ Settings → AI."}); return
                 prompt = (
                     f"Given this title: \"{title}\"\n\n"
                     "Select exactly 4 emojis that best match the meaning — "
@@ -3622,16 +3685,10 @@ class Handler(BaseHTTPRequestHandler):
                     "Return ONLY a JSON object: {\"start\": \"emoji1emoji2\", \"end\": \"emoji3emoji4\"}\n"
                     "No explanation, no markdown, no extra text."
                 )
-                resp = _http_post(
-                    "https://api.groq.com/openai/v1/chat/completions",
-                    {
-                        "model": model, "temperature": 0.7, "max_tokens": 60,
-                        "messages": [
-                            {"role": "system", "content": "You are an emoji selector. Respond only with JSON."},
-                            {"role": "user",   "content": prompt},
-                        ],
-                    },
-                    {"Content-Type": "application/json", "Authorization": f"Bearer {key}"},
+                resp = _utility_chat(
+                    [{"role": "system", "content": "You are an emoji selector. Respond only with JSON."},
+                     {"role": "user",   "content": prompt}],
+                    key, model, _uprov, max_tokens=60, temperature=0.7
                 )
                 text = resp["choices"][0]["message"]["content"]
                 text = re.sub(r"```[a-z]*\n?|\n?```", "", text).strip()
