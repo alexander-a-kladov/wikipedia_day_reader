@@ -3336,10 +3336,16 @@ class Handler(BaseHTTPRequestHandler):
                 resp_text = re.sub(r"```[a-z]*\n?|\n?```", "", resp_text).strip()
                 m = re.search(r"\{[\s\S]*\}", resp_text)
                 if not m:
-                    self._json({"error": "Groq returned unexpected response."}); return
+                    # Fallback: use title directly as search query
+                    suggestions = {}
+                else:
+                    try:
+                        suggestions = json.loads(m.group())
+                    except Exception:
+                        suggestions = {}
 
-                suggestions = json.loads(m.group())
-                queries          = suggestions.get("queries", [clean_title])[:3]
+                queries          = suggestions.get("queries", [clean_title, clean_title.split()[0] if clean_title else ""])[:3]
+                queries          = [q for q in queries if q] or [clean_title]
                 prefer_gutenberg = bool(suggestions.get("prefer_gutenberg", False))
                 author           = suggestions.get("author", "").strip()
 
