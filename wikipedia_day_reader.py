@@ -2447,33 +2447,35 @@ async function runTopPicks(dateVal){
       })
     });
     const res = await r.json();
-    if(res.error){ console.warn('top_picks error:', res.error); return; }
+    // ── Debug: show result visually ──────────────────────────────────────────
+    const dbg = [];
+    dbg.push('API response: ' + JSON.stringify(res).slice(0,400));
+
+    if(res.error){ console.warn('[TopPicks] error:', res.error); alert('Топ дня ошибка: ' + res.error); return; }
 
     // ── Apply stars ─────────────────────────────────────────────────────────
     _topEventKeys.clear();
     _topBirthKeys.clear();
 
-    // Top event
     (res.event_indices||[]).forEach(globalIdx=>{
       const entry = eventsList.find(e=>e.idx===globalIdx);
-      if(entry){
-        const wk = entryWikiKey(entry.html);
-        if(wk) _topEventKeys.add(wk);
-      }
+      dbg.push(`event[${globalIdx}]: ${entry ? entry.text.slice(0,50) : 'NOT FOUND'}`);
+      if(entry){ const wk=entryWikiKey(entry.html); dbg.push(`  wk: ${wk||'EMPTY'}`); if(wk) _topEventKeys.add(wk); }
     });
 
-    // Top births per category
     const byCatResult = res.birth_indices_by_cat || {};
     Object.entries(byCatResult).forEach(([catId, indices])=>{
       const catEntries = birthsByCat[catId] || [];
-      indices.forEach(localIdx=>{
-        const entry = catEntries.find(e=>e.idx===localIdx);
-        if(entry){
-          const wk = entryWikiKey(entry.html);
-          if(wk) _topBirthKeys.add(wk);
-        }
+      dbg.push(`${catId} indices=${JSON.stringify(indices)} entries=${catEntries.length}`);
+      (indices||[]).forEach(localIdx=>{
+        const entry = catEntries[localIdx] || catEntries.find(e=>e.idx===localIdx);
+        dbg.push(`  [${localIdx}]: ${entry ? entry.text.slice(0,50) : 'NOT FOUND'}`);
+        if(entry){ const wk=entryWikiKey(entry.html); dbg.push(`    wk: ${wk||'EMPTY'}`); if(wk) _topBirthKeys.add(wk); }
       });
     });
+
+    dbg.push(`RESULT: ${_topEventKeys.size} events, ${_topBirthKeys.size} births starred`);
+    alert('⭐ Топ дня debug:\n\n' + dbg.join('\n'));
 
     // Re-render to show stars
     if(data) renderContent(data);
@@ -3238,66 +3240,110 @@ class Handler(BaseHTTPRequestHandler):
         elif self.path == '/api/top_picks':
             try:
                 payload = json.loads(body)
-                # events: [{idx, text}]
-                # births_by_cat: {cat_id: [{idx, text}]}
-                events_list    = payload.get("events", [])
-                births_by_cat  = payload.get("births_by_cat", {})
+                events_list   = payload.get("events", [])
+                births_by_cat = payload.get("births_by_cat", {})
                 key, model, _uprov = _get_utility_ai()
                 if not key:
                     self._json({"error": "No AI key set. Add Groq or OpenRouter key in ⚙ Settings → AI."}); return
 
-                def groq_pick_indices(entries_text, n, context):
-                    """Ask Groq to pick n indices from a numbered list."""
-                    numbered = "\n".join(f"{i}: {e}" for i, e in enumerate(entries_text))
-                    prompt = (
-                        f"Context: {context}\n\n"
-                        f"Entries:\n{numbered}\n\n"
-                        f"Return ONLY a JSON array of exactly {n} integer index(es). "
-                        f"No explanation, no markdown."
-                    )
-                    r = _utility_chat(
-                        [{"role": "system",
-                          "content": "You are a historian. Return ONLY a JSON array of integers."},
-                         {"role": "user", "content": prompt}],
-                        key, model, _uprov, max_tokens=60
-                    )
-                    text = r["choices"][0]["message"]["content"]
-                    text = re.sub(r"```[a-z]*\n?|\n?```", "", text).strip()
-                    m = re.search(r"\[[\s\S]*?\]", text)
-                    if not m:
-                        return []
-                    return [x for x in json.loads(m.group())
-                            if isinstance(x, int) and 0 <= x < len(entries_text)][:n]
-
                 result = {}
 
-                # ── Top event (1) ──────────────────────────────────────────
+                # ── Top event: single call ──────────────────────────────────
                 if events_list:
-                    texts = [e["text"] for e in events_list]
-                    idxs  = groq_pick_indices(
-                        texts, 1,
-                        "Pick the single most significant worldwide historical event"
+                    numbered = "\n".join(f"{e['idx']}: {e['text'][:150]}" for e in events_list[:60])
+                    r = _utility_chat(
+                        [{"role": "system",
+                          "content":
+                          "You are a world history expert. "
+                          "Return ONLY a JSON array with exactly 1 integer (the index of the chosen event). "
+                          "No explanation, no markdown."},
+                         {"role": "user",
+                          "content":
+                          f"From the list below, pick the index of the single most globally significant "
+                          f"and historically important event (consider worldwide impact, not regional):\n\n"
+                          f"{numbered}\n\n"
+                          f"Return JSON array with exactly 1 index, e.g. [5]"}],
+                        key, model, _uprov, max_tokens=20
                     )
-                    result["event_indices"] = [
-                        events_list[i]["idx"] for i in idxs
-                    ]
+                    text = re.sub(r"```[a-z]*\n?|\n?```", "",
+                                  str(r["choices"][0]["message"]["content"] or "")).strip()
+                    m = re.search(r"\[[\s\S]*?\]", text)
+                    if m:
+                        try:
+                            idxs = [x for x in json.loads(m.group())
+                                    if isinstance(x, int) and 0 <= x < len(events_list)][:1]
+                            result["event_indices"] = [events_list[i]["idx"] for i in idxs]
+                        except Exception:
+                            result["event_indices"] = []
+                    else:
+                        result["event_indices"] = []
 
-                # ── Top 2 per birth category ────────────────────────────────
-                cat_results = {}
-                for cat_id, entries in births_by_cat.items():
-                    if not entries:
-                        continue
-                    texts = [e["text"] for e in entries]
-                    n     = min(2, len(entries))
-                    label = cat_id.replace("_", " ")
-                    idxs  = groq_pick_indices(
-                        texts, n,
-                        f"Pick the {n} most globally famous and historically significant people "
-                        f"in the category: {label}"
+                # ── Top 2 per birth category: ONE batched call ──────────────
+                if births_by_cat:
+                    cat_blocks = []
+                    cat_order  = []
+                    for cat_id, entries in births_by_cat.items():
+                        if not entries:
+                            continue
+                        cat_order.append(cat_id)
+                        # Strip year prefix for cleaner names: "1879 – Albert Einstein..."
+                        lines = "\n".join(
+                            f"  {e['idx']}: {e['text'][:120]}"
+                            for e in entries[:30]
+                        )
+                        cat_blocks.append(f"[{cat_id}]\n{lines}")
+
+                    combined = "\n\n".join(cat_blocks)
+                    cat_labels = {
+                        "scientists": "Scientists & Academics",
+                        "artists":    "Visual Artists & Painters",
+                        "composers":  "Composers & Musicians",
+                        "inventors":  "Inventors & Engineers",
+                        "cinema":     "Film Directors & Actors",
+                        "writers":    "Authors & Writers",
+                    }
+
+                    r2 = _utility_chat(
+                        [{"role": "system",
+                          "content":
+                          "You are a world history expert. "
+                          "Your task: for each category, identify the 2 people who are most famous and historically significant WORLDWIDE (not just in their country). "
+                          "Consider global impact, international recognition, Nobel prizes, major inventions, world-famous works. "
+                          "Return ONLY a valid JSON object. Keys = category ids, values = arrays of exactly 2 integer indices from that category's list. "
+                          "DO NOT default to the first entries. Carefully read all entries and pick the most globally renowned. "
+                          "No explanation, no markdown, ONLY JSON."},
+                         {"role": "user",
+                          "content":
+                          f"Below are people born on this day, grouped by category. "
+                          f"For each category pick the 2 most GLOBALLY FAMOUS people in history.\n\n"
+                          f"{combined}\n\n"
+                          f"Categories to include: {', '.join(cat_order)}\n"
+                          f"Return JSON: {{\"scientists\": [i, j], \"artists\": [i, j], ...}}\n"
+                          f"IMPORTANT: Do NOT always pick index 0 and 1. Read all names carefully."}],
+                        key, model, _uprov, max_tokens=250
                     )
-                    cat_results[cat_id] = [entries[i]["idx"] for i in idxs]
+                    text2 = re.sub(r"```[a-z]*\n?|\n?```", "",
+                                   str(r2["choices"][0]["message"]["content"] or "")).strip()
+                    m2 = re.search(r"\{[\s\S]*\}", text2)
+                    cat_results = {}
+                    if m2:
+                        try:
+                            raw = json.loads(m2.group())
+                            for cat_id in cat_order:
+                                entries = births_by_cat.get(cat_id, [])
+                                idxs = [x for x in raw.get(cat_id, [])
+                                        if isinstance(x, int) and 0 <= x < len(entries)][:2]
+                                cat_results[cat_id] = idxs
+                        except Exception:
+                            pass
 
-                result["birth_indices_by_cat"] = cat_results
+                    # Fallback only for categories completely missing from response
+                    for cat_id in cat_order:
+                        if cat_id not in cat_results:
+                            cat_results[cat_id] = []  # empty — no star if AI didn't pick
+
+                    result["birth_indices_by_cat"] = cat_results
+
                 self._json({"ok": True, **result})
             except Exception as e:
                 self._json({"error": str(e)})
@@ -3684,25 +3730,53 @@ class Handler(BaseHTTPRequestHandler):
                 key, model, _uprov = _get_utility_ai()
                 if not key:
                     self._json({"error": "No AI key set. Add Groq or OpenRouter key in ⚙ Settings → AI."}); return
+
+                def try_get_emojis(prompt_text, sys_text):
+                    r = _utility_chat(
+                        [{"role": "system", "content": sys_text},
+                         {"role": "user",   "content": prompt_text}],
+                        key, model, _uprov, max_tokens=80, temperature=0.7
+                    )
+                    text = str(r["choices"][0]["message"]["content"] or "").strip()
+                    text = re.sub(r"```[a-z]*\n?|\n?```", "", text).strip()
+                    return text
+
+                # Try primary prompt
                 prompt = (
-                    f"Given this title: \"{title}\"\n\n"
-                    "Select exactly 4 emojis that best match the meaning — "
-                    "2 for the beginning and 2 for the end.\n"
-                    "Return ONLY a JSON object: {\"start\": \"emoji1emoji2\", \"end\": \"emoji3emoji4\"}\n"
-                    "No explanation, no markdown, no extra text."
+                    f"Title: \"{title}\"\n"
+                    "Pick 4 emojis matching the meaning: 2 for start, 2 for end.\n"
+                    'Return JSON only: {"start":"🔬⚗️","end":"🌟💡"}'
                 )
-                resp = _utility_chat(
-                    [{"role": "system", "content": "You are an emoji selector. Respond only with JSON."},
-                     {"role": "user",   "content": prompt}],
-                    key, model, _uprov, max_tokens=60, temperature=0.7
+                text = try_get_emojis(prompt, "Respond only with a JSON object.")
+
+                m = re.search(r"\{[\s\S]*?\}", text)
+                if m:
+                    try:
+                        data = json.loads(m.group())
+                        start = str(data.get("start") or "")
+                        end   = str(data.get("end")   or "")
+                        if start or end:
+                            self._json({"ok": True, "start": start, "end": end}); return
+                    except Exception:
+                        pass
+
+                # Fallback: ask for a single emoji string and split it
+                text2 = try_get_emojis(
+                    f"Give exactly 4 emojis for this topic: {title[:80]}\n"
+                    "Reply with ONLY 4 emojis, nothing else.",
+                    "You output only emojis."
                 )
-                text = resp["choices"][0]["message"]["content"]
-                text = re.sub(r"```[a-z]*\n?|\n?```", "", text).strip()
-                m    = re.search(r"\{[\s\S]*\}", text)
-                if not m:
-                    self._json({"error": f"Could not parse response: {text[:100]}"}); return
-                data = json.loads(m.group())
-                self._json({"ok": True, "start": data.get("start",""), "end": data.get("end","")})
+                # Extract all emoji-like characters
+                import unicodedata
+                emojis = [c for c in text2
+                          if unicodedata.category(c) in ('So','Sm','Sk','Cs')
+                          or ord(c) > 0x1F300][:4]
+                if len(emojis) >= 2:
+                    self._json({"ok": True,
+                                "start": "".join(emojis[:2]),
+                                "end":   "".join(emojis[2:4])})
+                else:
+                    self._json({"error": f"Could not get emojis from model. Response: {text[:80]}"})
             except Exception as e:
                 self._json({"error": str(e)})
 
