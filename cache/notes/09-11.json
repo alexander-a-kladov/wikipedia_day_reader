@@ -1,0 +1,40 @@
+{
+  "https://en.wikipedia.org/wiki/1829": {
+    "title": "🔬⚗️ Thomas Hill 🌟💡",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1829\" target=\"_blank\">1829</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Thomas_Hill_(American_painter)\" target=\"_blank\">Thomas Hill</a>, American painter (died 1908).</div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/09-11_1950d537ed.jpg",
+      "/images/09-11_0b33a42fbd.jpg",
+      "/images/09-11_ca4add0e06.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-29",
+      "url": "09-11-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1524": {
+    "title": "🇫🇷 Pierre de Ronsard 🌹✍",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1524\" target=\"_blank\">1524</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Pierre_de_Ronsard\" target=\"_blank\">Pierre de Ronsard</a>, French poet and author (died 1585).</div><div>📖<a href=\"https://archive.org/details/poemsofpierreder00rons\" target=\"_blank\">Poems of Pierre de Ronsard by Ronsard 1979</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/09-11_c612873400.jpg",
+      "/images/09-11_fdf5993a13.jpeg",
+      "/images/09-11_3fb6f16d38.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-29",
+      "url": "09-11-2"
+    }
+  }
+}

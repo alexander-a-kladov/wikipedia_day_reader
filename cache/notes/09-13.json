@@ -1,0 +1,41 @@
+{
+  "https://en.wikipedia.org/wiki/1755": {
+    "title": "🔧📜 Oliver Evans ⚙️🏭",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1755\" target=\"_blank\">1755</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Oliver_Evans\" target=\"_blank\">Oliver Evans</a>, American inventor, engineer and businessman (died 1819).</div><div>📖<a href=\"https://archive.org/details/whoreallyinvente0000shag_y4j1/mode/2up\" target=\"_blank\">Who really invented the steamboat? : Fulton's Clermont coup by Shagena, Jack L 2004</a></div>",
+    "section": "births",
+    "tags": [
+      "Inventions"
+    ],
+    "images": [
+      "/images/09-13_b142c3296a.jpg",
+      "/images/09-13_989a4b1f2b.jpg",
+      "/images/09-13_7da4d43d8f.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-01",
+      "url": "09-13-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1916": {
+    "title": "📚🦊 Roald Dahl 🍫🧙",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1916\" target=\"_blank\">1916</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Roald_Dahl\" target=\"_blank\">Roald Dahl</a>, British novelist, poet, and screenwriter (died 1990).</div><div>📖<a href=\"https://archive.org/details/roalddahltreasur00dahl/mode/2up\" target=\"_blank\">The Roald Dahl treasury by Dahl, Roald 1997</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/09-13_bb8d44663c.jpg",
+      "/images/09-13_8e13b735ec.jpg",
+      "/images/09-13_0170c3f2f2.jpg",
+      "/images/09-13_0cc83605df.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-01",
+      "url": "09-13-2"
+    }
+  }
+}

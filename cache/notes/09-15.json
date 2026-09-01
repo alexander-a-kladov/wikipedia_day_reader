@@ -1,0 +1,41 @@
+{
+  "https://en.wikipedia.org/wiki/Agatha_Christie": {
+    "title": "🕵♀ Agatha Christie 📚🔍",
+    "text": "<div>1890   – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Agatha_Christie\" target=\"_blank\">Agatha Christie</a>, English crime novelist, short story writer, and playwright (died 1976).</div><div>📖 <a href=\"https://archive.org/details/deathonnile00agat_0\" target=\"_blank\">Death on the Nile — Agatha Christie [Archive.org]</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/09-15_c1f6744e76.jpg",
+      "/images/09-15_43f2dd58a6.jpg",
+      "/images/09-15_e2aae48617.jpg",
+      "/images/09-15_633d2d72f6.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-01",
+      "url": "09-15-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1789": {
+    "title": "🌲🦌 James Fenimore Cooper 🪶📚",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1789\" target=\"_blank\">1789</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/James_Fenimore_Cooper\" target=\"_blank\">James Fenimore Cooper</a>, American novelist, short story writer, and historian (died 1851).</div><div>📖 <a href=\"https://archive.org/details/lastmohicansana04coopgoog\" target=\"_blank\">The Last of the Mohicans: A Narrative of 1757 — James Fenimore Cooper [Archive.org]</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/09-15_4a31a10cab.jpg",
+      "/images/09-15_0649f8e488.jpg",
+      "/images/09-15_6da49b9b9d.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-01",
+      "url": "09-15-2"
+    }
+  }
+}

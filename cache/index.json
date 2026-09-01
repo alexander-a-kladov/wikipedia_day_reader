@@ -694,5 +694,53 @@
       "Art",
       "Science"
     ]
+  },
+  {
+    "notes": "notes/09-09.json",
+    "tags": [
+      "Art",
+      "Literature"
+    ]
+  },
+  {
+    "notes": "notes/09-10.json",
+    "tags": [
+      "Music",
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/09-11.json",
+    "tags": [
+      "Art",
+      "Literature"
+    ]
+  },
+  {
+    "notes": "notes/09-12.json",
+    "tags": [
+      "Art",
+      "Literature"
+    ]
+  },
+  {
+    "notes": "notes/09-13.json",
+    "tags": [
+      "Inventions",
+      "Literature"
+    ]
+  },
+  {
+    "notes": "notes/09-14.json",
+    "tags": [
+      "Literature",
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/09-15.json",
+    "tags": [
+      "Literature"
+    ]
   }
 ]

@@ -1,7 +1,7 @@
 {
   "https://en.wikipedia.org/wiki/1828": {
-    "title": "Leo Tolstoy",
-    "text": "<a href=\"https://en.wikipedia.org/wiki/1828\" target=\"_blank\">1828</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Leo_Tolstoy\" target=\"_blank\">Leo Tolstoy</a>, Russian author and playwright (died 1910).",
+    "title": "🌿🦁 Leo Tolstoy 🪶📖",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1828\" target=\"_blank\">1828</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Leo_Tolstoy\" target=\"_blank\">Leo Tolstoy</a>, Russian author and playwright (died 1910).</div><div>📖<a href=\"https://gutenberg.org/ebooks/1399\" target=\"_blank\">Anna Karenina by graf Leo Tolstoy</a></div>",
     "section": "births",
     "tags": [
       "Literature"
@@ -12,6 +12,33 @@
       "/images/09-09_cef45814c0.jpg"
     ],
     "image_captions": {},
-    "pub_status": "draft"
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-22",
+      "url": "09-09-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Sol_LeWitt": {
+    "title": "🎨🧱 Sol LeWitt 📐🖼️",
+    "text": "<div>1928   – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Sol_LeWitt\" target=\"_blank\">Sol LeWitt</a>, American painter and sculptor (died 2007).</div><div>📖 <a href=\"https://archive.org/details/sollewittretrosp00lewi\" target=\"_blank\">SOL LEWITT: A RETROSPECTIVE — LeWitt, Sol [Archive.org]</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/09-09_cf5672af80.jpg",
+      "/images/09-09_50ae704f18.jpg",
+      "/images/09-09_0e24b3e500.jpg",
+      "/images/09-09_fe0f609332.jpg"
+    ],
+    "image_captions": {
+      "/images/09-09_0e24b3e500.jpg": "Olympic Sculpture Park 2014 03",
+      "/images/09-09_fe0f609332.jpg": "Open Cubes"
+    },
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-25",
+      "url": "09-09-2"
+    }
   }
 }

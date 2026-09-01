@@ -1,0 +1,41 @@
+{
+  "https://en.wikipedia.org/wiki/1940": {
+    "title": "🪨🎨 Cave paintings 🏛️🖼️",
+    "text": "<a href=\"https://en.wikipedia.org/wiki/1940\" target=\"_blank\">1940</a> – <a href=\"https://en.wikipedia.org/wiki/Cave_painting\" target=\"_blank\">Cave paintings</a> are discovered in <a href=\"https://en.wikipedia.org/wiki/Lascaux\" target=\"_blank\">Lascaux</a>, France.<br>📖<a href=\"https://archive.org/details/lascauxcavepaint00wind/mode/2up\" target=\"_blank\">The Lascaux Cave paintings by Windels, Fernand 1949</a>",
+    "section": "events",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/09-12_c2fc84e191.jpg",
+      "/images/09-12_b86828f5f4.jpg",
+      "/images/09-12_33f1c1b8f3.png",
+      "/images/09-12_db25edcfda.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-08-26",
+      "url": "09-12-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Stanisław_Lem": {
+    "title": "🔬⚗️ Stanisław Lem 🌟💡",
+    "text": "1921   – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Stanisław_Lem\" target=\"_blank\">Stanisław Lem</a>, Polish philosopher and author (died 2006).<br>📖<a href=\"https://archive.org/details/peaceonearth0000stan/mode/2up\" target=\"_blank\">Peace on Earth by Stanisław Lem; Elinor Ford; Michael Kandel 2001</a>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/09-12_d25305313d.jpg",
+      "/images/09-12_7df8437d1f.jpg",
+      "/images/09-12_4903638bfd.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-01",
+      "url": "09-12-1"
+    }
+  }
+}
