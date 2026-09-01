@@ -3246,104 +3246,102 @@ class Handler(BaseHTTPRequestHandler):
                 if not key:
                     self._json({"error": "No AI key set. Add Groq or OpenRouter key in ⚙ Settings → AI."}); return
 
-                result = {}
-
-                # ── Top event: single call ──────────────────────────────────
-                if events_list:
-                    numbered = "\n".join(f"{e['idx']}: {e['text'][:150]}" for e in events_list[:60])
+                def pick(prompt_user, sys_content, max_tok=30):
+                    """Single AI pick call, returns raw text."""
                     r = _utility_chat(
-                        [{"role": "system",
-                          "content":
-                          "You are a world history expert. "
-                          "Return ONLY a JSON array with exactly 1 integer (the index of the chosen event). "
-                          "No explanation, no markdown."},
-                         {"role": "user",
-                          "content":
-                          f"From the list below, pick the index of the single most globally significant "
-                          f"and historically important event (consider worldwide impact, not regional):\n\n"
-                          f"{numbered}\n\n"
-                          f"Return JSON array with exactly 1 index, e.g. [5]"}],
-                        key, model, _uprov, max_tokens=20
+                        [{"role": "system", "content": sys_content},
+                         {"role": "user",   "content": prompt_user}],
+                        key, model, _uprov, max_tokens=max_tok
                     )
-                    text = re.sub(r"```[a-z]*\n?|\n?```", "",
+                    return re.sub(r"```[a-z]*\n?|\n?```", "",
                                   str(r["choices"][0]["message"]["content"] or "")).strip()
+
+                def parse_int_array(text, max_val):
+                    if not text or text == 'None':
+                        return []
+                    # First try proper JSON array
                     m = re.search(r"\[[\s\S]*?\]", text)
                     if m:
                         try:
-                            idxs = [x for x in json.loads(m.group())
-                                    if isinstance(x, int) and 0 <= x < len(events_list)][:1]
-                            result["event_indices"] = [events_list[i]["idx"] for i in idxs]
-                        except Exception:
-                            result["event_indices"] = []
-                    else:
-                        result["event_indices"] = []
-
-                # ── Top 2 per birth category: ONE batched call ──────────────
-                if births_by_cat:
-                    cat_blocks = []
-                    cat_order  = []
-                    for cat_id, entries in births_by_cat.items():
-                        if not entries:
-                            continue
-                        cat_order.append(cat_id)
-                        # Strip year prefix for cleaner names: "1879 – Albert Einstein..."
-                        lines = "\n".join(
-                            f"  {e['idx']}: {e['text'][:120]}"
-                            for e in entries[:30]
-                        )
-                        cat_blocks.append(f"[{cat_id}]\n{lines}")
-
-                    combined = "\n\n".join(cat_blocks)
-                    cat_labels = {
-                        "scientists": "Scientists & Academics",
-                        "artists":    "Visual Artists & Painters",
-                        "composers":  "Composers & Musicians",
-                        "inventors":  "Inventors & Engineers",
-                        "cinema":     "Film Directors & Actors",
-                        "writers":    "Authors & Writers",
-                    }
-
-                    r2 = _utility_chat(
-                        [{"role": "system",
-                          "content":
-                          "You are a world history expert. "
-                          "Your task: for each category, identify the 2 people who are most famous and historically significant WORLDWIDE (not just in their country). "
-                          "Consider global impact, international recognition, Nobel prizes, major inventions, world-famous works. "
-                          "Return ONLY a valid JSON object. Keys = category ids, values = arrays of exactly 2 integer indices from that category's list. "
-                          "DO NOT default to the first entries. Carefully read all entries and pick the most globally renowned. "
-                          "No explanation, no markdown, ONLY JSON."},
-                         {"role": "user",
-                          "content":
-                          f"Below are people born on this day, grouped by category. "
-                          f"For each category pick the 2 most GLOBALLY FAMOUS people in history.\n\n"
-                          f"{combined}\n\n"
-                          f"Categories to include: {', '.join(cat_order)}\n"
-                          f"Return JSON: {{\"scientists\": [i, j], \"artists\": [i, j], ...}}\n"
-                          f"IMPORTANT: Do NOT always pick index 0 and 1. Read all names carefully."}],
-                        key, model, _uprov, max_tokens=250
-                    )
-                    text2 = re.sub(r"```[a-z]*\n?|\n?```", "",
-                                   str(r2["choices"][0]["message"]["content"] or "")).strip()
-                    m2 = re.search(r"\{[\s\S]*\}", text2)
-                    cat_results = {}
-                    if m2:
-                        try:
-                            raw = json.loads(m2.group())
-                            for cat_id in cat_order:
-                                entries = births_by_cat.get(cat_id, [])
-                                idxs = [x for x in raw.get(cat_id, [])
-                                        if isinstance(x, int) and 0 <= x < len(entries)][:2]
-                                cat_results[cat_id] = idxs
+                            result = [x for x in json.loads(m.group())
+                                      if isinstance(x, int) and 0 <= x < max_val]
+                            if result:
+                                return result
                         except Exception:
                             pass
+                    # Fallback: extract all standalone integers from text
+                    nums = [int(x) for x in re.findall(r'\b(\d+)\b', text)
+                            if 0 <= int(x) < max_val]
+                    return list(dict.fromkeys(nums))  # deduplicate preserving order
 
-                    # Fallback only for categories completely missing from response
-                    for cat_id in cat_order:
-                        if cat_id not in cat_results:
-                            cat_results[cat_id] = []  # empty — no star if AI didn't pick
+                result = {}
 
-                    result["birth_indices_by_cat"] = cat_results
+                # ── Top event ────────────────────────────────────────────────
+                if events_list:
+                    numbered = "\n".join(f"{e['idx']}: {e['text'][:120]}" for e in events_list[:60])
+                    text = pick(
+                        f"Pick the index of the single most globally significant historical event:\n{numbered}\n\nReturn JSON array with 1 integer, e.g. [4]",
+                        "You are a historian. Return ONLY a JSON array with exactly 1 integer index. Nothing else.",
+                        max_tok=15
+                    )
+                    idxs = parse_int_array(text, len(events_list))
+                    result["event_indices"] = [events_list[i]["idx"] for i in idxs[:1]]
 
+                # ── Top 2 per birth category: parallel threads ───────────────
+                cat_labels = {
+                    "scientists": "scientists and academics",
+                    "artists":    "visual artists and painters",
+                    "composers":  "composers and musicians",
+                    "inventors":  "inventors and engineers",
+                    "cinema":     "film directors and actors",
+                    "writers":    "authors and writers",
+                }
+                cat_results = {}
+
+                import time as _time
+
+                def pick_cat_sequential(cat_id, entries):
+                    if not entries:
+                        return cat_id, []
+                    n = min(2, len(entries))
+                    label = cat_labels.get(cat_id, cat_id)
+                    numbered = "\n".join(
+                        f"{e['idx']}: {e['text'][:100]}" for e in entries[:30]
+                    )
+                    user_msg = (
+                        f"From these {label}, which {n} are most globally famous worldwide?\n\n"
+                        f"{numbered}\n\n"
+                        f"Answer with the {n} index numbers only, like: {n} {n+1}"
+                    )
+                    for attempt in range(3):
+                        try:
+                            if attempt > 0:
+                                _time.sleep(1.5)
+                            r = _utility_chat(
+                                [{"role": "user", "content": user_msg}],
+                                key, model, _uprov,
+                                max_tokens=60, temperature=0
+                            )
+                            raw_text = str(r["choices"][0]["message"]["content"] or "").strip()
+                            text = re.sub(r"```[a-z]*\n?|\n?```", "", raw_text).strip()
+                            idxs = parse_int_array(text, len(entries))
+                            idxs = list(dict.fromkeys(idxs))[:n]
+                            print(f"  [top_picks] {cat_id} attempt {attempt+1}: {text!r} -> {idxs}",
+                                  flush=True)
+                            if idxs:
+                                return cat_id, idxs
+                        except Exception as ex:
+                            print(f"  [top_picks] {cat_id} attempt {attempt+1} error: {ex}", flush=True)
+                    return cat_id, []
+
+                for cat_id, ents in births_by_cat.items():
+                    if ents:
+                        _time.sleep(0.3)  # small gap between calls
+                        cid, idxs = pick_cat_sequential(cat_id, ents)
+                        cat_results[cid] = idxs
+                        print(f"[top_picks] {cid} -> {idxs}", flush=True)
+
+                result["birth_indices_by_cat"] = cat_results
                 self._json({"ok": True, **result})
             except Exception as e:
                 self._json({"error": str(e)})
