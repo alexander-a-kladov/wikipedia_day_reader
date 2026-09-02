@@ -1999,12 +1999,18 @@ function openNoteModal(evt, wikiKey, section){
     document.getElementById('pubDate').value=pub.date||'';
     document.getElementById('pubUrl').value=pub.url||'';
   } else {
-    const entryEl=[...document.querySelectorAll('.entry')].find(el=>el.innerHTML.includes(wikiKey));
+    // Search only within the correct section tab to avoid cross-tab matches
+    const tabId = _noteSection==='events'   ? 'tE'
+                : _noteSection==='holidays' ? 'tH'
+                : _noteSection==='births'   ? 'tB' : null;
+    const container = tabId ? document.getElementById(tabId) : document;
+    const scope = container || document;
+    const entryEl=[...scope.querySelectorAll('.entry')].find(el=>el.innerHTML.includes(wikiKey));
     if(entryEl){
-      // Clone node to safely strip the 📝 button without modifying the DOM
       const clone=entryEl.cloneNode(true);
       clone.querySelectorAll('button.note-btn').forEach(b=>b.remove());
       clone.querySelectorAll('span.rb').forEach(s=>s.remove());
+      clone.querySelectorAll('span.top-star').forEach(s=>s.remove());
       editor.innerHTML=clone.innerHTML.trim();
     } else {
       editor.innerHTML='';
