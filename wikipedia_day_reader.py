@@ -2011,7 +2011,25 @@ function openNoteModal(evt, wikiKey, section){
       clone.querySelectorAll('button.note-btn').forEach(b=>b.remove());
       clone.querySelectorAll('span.rb').forEach(s=>s.remove());
       clone.querySelectorAll('span.top-star').forEach(s=>s.remove());
-      editor.innerHTML=clone.innerHTML.trim();
+      const cloneHtml = clone.innerHTML.trim();
+
+      if(_noteSection === 'births'){
+        // Insert "Birthday of " after the year dash: "1879 – Albert..." → "1879 – Birthday of Albert..."
+        const withPrefix = cloneHtml.replace(
+          /^(.*?[–—-]\s*)/,
+          '$1Birthday of '
+        );
+        editor.innerHTML = withPrefix;
+
+        // Extract person's name for the title (text before the first comma)
+        // e.g. "1879 – Albert Einstein, German physicist" → "Albert Einstein"
+        const plainText = clone.innerText || clone.textContent || '';
+        const afterDash = plainText.replace(/^\d+\s*[–—-]\s*/, '').trim();
+        const name = afterDash.split(',')[0].trim();
+        if(name) document.getElementById('noteTitleField').value = name;
+      } else {
+        editor.innerHTML = cloneHtml;
+      }
     } else {
       editor.innerHTML='';
     }
