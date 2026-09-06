@@ -1,0 +1,42 @@
+{
+  "https://en.wikipedia.org/wiki/1991": {
+    "title": "🏔️🧍 Ötzi the Iceman 🧊❄️",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1991\" target=\"_blank\">1991</a> – <a href=\"https://en.wikipedia.org/wiki/Ötzi\" target=\"_blank\">Ötzi the Iceman</a> is discovered in the Alps on the border between Italy and Austria.</div><div>📖<a href=\"https://archive.org/details/iceman00less/mode/2up\" target=\"_blank\">The iceman by Lessem, Don 1994</a></div>",
+    "section": "events",
+    "tags": [
+      "Science"
+    ],
+    "images": [
+      "/images/09-19_73e7c857da.jpg",
+      "/images/09-19_b4b8b33a89.jpg",
+      "/images/09-19_b79d4b46a8.jpg",
+      "/images/09-19_7ad7853de6.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-03",
+      "url": "09-19-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1867": {
+    "title": "🎨📚 Arthur Rackham✨🧚",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1867\" target=\"_blank\">1867</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Arthur_Rackham\" target=\"_blank\">Arthur Rackham</a>, English illustrator (died 1939).</div><div>📖<a href=\"https://archive.org/details/arthurrackhamfai0000arth/mode/2up\" target=\"_blank\">The Arthur Rackham Fairy Book 1965</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/09-19_6278873a72.jpg",
+      "/images/09-19_0914b0eaef.jpg",
+      "/images/09-19_08d1c9f4be.jpg",
+      "/images/09-19_48f4508cf8.png"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-03",
+      "url": "09-19-2"
+    }
+  }
+}

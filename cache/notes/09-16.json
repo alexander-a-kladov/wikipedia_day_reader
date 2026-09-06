@@ -1,0 +1,40 @@
+{
+  "https://en.wikipedia.org/wiki/Albert_Szent-Györgyi": {
+    "title": "🇭🇺 🧪Albert Szent-Györgyi 🔬🧬",
+    "text": "<div>1893   – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Albert_Szent-Györgyi\" target=\"_blank\">Albert Szent-Györgyi</a>, Hungarian-American physiologist and biochemist, <a href=\"https://en.wikipedia.org/wiki/Nobel_Prize_in_Physiology_or_Medicine\" target=\"_blank\">Nobel Prize</a> laureate (died 1986).</div><div>📖<a href=\"https://archive.org/details/isbn_9780822597155/mode/2up\" target=\"_blank\">The disease fighters : the Nobel Prize in medicine by Aaseng, Nathan 1987</a></div>",
+    "section": "births",
+    "tags": [
+      "Science"
+    ],
+    "images": [
+      "/images/09-16_2bee949e76.jpg",
+      "/images/09-16_acf6a02339.jpg",
+      "/images/09-16_5161703aba.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-02",
+      "url": "09-16-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/B.B._King": {
+    "title": "🌙🎸 B. B. King 🌟🎤",
+    "text": "<div>1925   – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/B.B._King\" target=\"_blank\">B.B. King</a>, American singer-songwriter, guitarist, and producer (died 2015).</div><div>🎵<a href=\"https://archive.org/details/C_1969_11_22_c2\" target=\"_blank\">B. B. King: Number 1 Bluesman</a></div>",
+    "section": "births",
+    "tags": [
+      "Music"
+    ],
+    "images": [
+      "/images/09-16_443446aa3b.jpg",
+      "/images/09-16_b654444650.jpg",
+      "/images/09-16_ad83e17eec.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-02",
+      "url": "09-16-2"
+    }
+  }
+}

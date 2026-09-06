@@ -1,0 +1,43 @@
+{
+  "https://en.wikipedia.org/wiki/1846": {
+    "title": "📈🌊 Discovery of Neptune 🌌🔭",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1846\" target=\"_blank\">1846</a> – Astronomers <a href=\"https://en.wikipedia.org/wiki/Urbain_Le_Verrier\" target=\"_blank\">Urbain Le Verrier</a>, <a href=\"https://en.wikipedia.org/wiki/John_Couch_Adams\" target=\"_blank\">John Couch Adams</a> and <a href=\"https://en.wikipedia.org/wiki/Johann_Gottfried_Galle\" target=\"_blank\">Johann Gottfried Galle</a> collaborate on the <a href=\"https://en.wikipedia.org/wiki/Discovery_of_Neptune\" target=\"_blank\">discovery of Neptune</a>.</div><div>📖<a href=\"https://archive.org/details/neptune0000ring_r7e9/mode/2up\" target=\"_blank\">Neptune by Ring, Susan 2004</a></div>",
+    "section": "events",
+    "tags": [
+      "Science"
+    ],
+    "images": [
+      "/images/09-23_beffb1dc09.png",
+      "/images/09-23_d74ed1f052.jpg",
+      "/images/09-23_732ad7fea3.jpg",
+      "/images/09-23_3e7e2e018e.jpg",
+      "/images/09-23_13ee554d0d.jpg",
+      "/images/09-23_272d93bf42.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-05",
+      "url": "09-23-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Ray_Charles": {
+    "title": "🎹🎤 Ray Charles 🌟💫",
+    "text": "<div>1930   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Ray_Charles\" target=\"_blank\">Ray Charles</a>, American singer-songwriter, pianist, and actor (died 2004).</div><div>🎵<a href=\"https://archive.org/details/ray-charles-ray-charles\" target=\"_blank\">Ray Charles – Ray Charles 1979</a></div>",
+    "section": "births",
+    "tags": [
+      "Music"
+    ],
+    "images": [
+      "/images/09-23_7de763e9be.jpg",
+      "/images/09-23_5bd2695051.jpg",
+      "/images/09-23_8e0a738f6f.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-05",
+      "url": "09-23-2"
+    }
+  }
+}

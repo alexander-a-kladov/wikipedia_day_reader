@@ -742,5 +742,75 @@
     "tags": [
       "Literature"
     ]
+  },
+  {
+    "notes": "notes/09-16.json",
+    "tags": [
+      "Music",
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/09-17.json",
+    "tags": [
+      "Inventions",
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/09-18.json",
+    "tags": [
+      "Literature",
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/09-19.json",
+    "tags": [
+      "Art",
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/09-20.json",
+    "tags": [
+      "Art",
+      "Education"
+    ]
+  },
+  {
+    "notes": "notes/09-21.json",
+    "tags": [
+      "Literature",
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/09-22.json",
+    "tags": [
+      "Music",
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/09-23.json",
+    "tags": [
+      "Music",
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/09-24.json",
+    "tags": [
+      "Art",
+      "Inventions"
+    ]
+  },
+  {
+    "notes": "notes/09-25.json",
+    "tags": [
+      "Literature",
+      "Music"
+    ]
   }
 ]

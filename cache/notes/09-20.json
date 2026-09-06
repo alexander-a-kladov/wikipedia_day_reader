@@ -1,0 +1,40 @@
+{
+  "https://en.wikipedia.org/wiki/1962": {
+    "title": "🔬⚛️ Jim Al-Khalili 🌟💡",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1962\" target=\"_blank\">1962</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Jim_Al-Khalili\" target=\"_blank\">Jim Al-Khalili</a>, Iraqi-English physicist, author, and academic.</div><div>📖<a href=\"https://archive.org/details/quantum0000alkh/mode/2up\" target=\"_blank\">Quantum by Al-Khalili, Jim 2004</a></div>",
+    "section": "births",
+    "tags": [
+      "Education"
+    ],
+    "images": [
+      "/images/09-20_6024c1805c.jpg",
+      "/images/09-20_6948138ba0.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-03",
+      "url": "09-20-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Sophia_Loren": {
+    "title": "🇮🇹✨ Sophia Loren 🎬💃",
+    "text": "<div>1934   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Sophia_Loren\" target=\"_blank\">Sophia Loren</a>, Italian actress.</div><div>📖<a href=\"https://archive.org/details/sophialorenbiogr00harr/mode/2up\" target=\"_blank\">Sophia Loren : a biography by Harris, Warren G 1998</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/09-20_b03de07f70.jpg",
+      "/images/09-20_7902132f79.jpg",
+      "/images/09-20_80fccbda7c.jpg",
+      "/images/09-20_dbafc9c8cb.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-03",
+      "url": "09-20-2"
+    }
+  }
+}

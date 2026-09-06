@@ -1,0 +1,41 @@
+{
+  "https://en.wikipedia.org/wiki/Jim_Henson": {
+    "title": "🎭👨 Jim Henson 🎤🎼",
+    "text": "<div>1936 – Birthday of <a href=\"https://en.wikipedia.org/wiki/Jim_Henson\" target=\"_blank\">Jim Henson</a>, American puppeteer, director, producer, and screenwriter, created <a href=\"https://en.wikipedia.org/wiki/The_Muppets\" target=\"_blank\">The Muppets</a> (died 1990).</div><div>📖<a href=\"https://archive.org/details/muppetscharacter0000shem/mode/2up\" target=\"_blank\">The Muppets character encyclopedia by Shemin, Craig 2014</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/09-24_c6ec3a8737.jpg",
+      "/images/09-24_f3f4516ce8.jpg",
+      "/images/09-24_4205bcc4a2.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-06",
+      "url": "09-24-2"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1948": {
+    "title": "🚗🇯🇵 Honda Motor Company🤖 🏭",
+    "text": "<a href=\"https://en.wikipedia.org/wiki/1948\" target=\"_blank\">1948</a> – The <a href=\"https://en.wikipedia.org/wiki/Honda\" target=\"_blank\">Honda Motor Company</a> is founded.",
+    "section": "events",
+    "tags": [
+      "Inventions"
+    ],
+    "images": [
+      "/images/09-24_eb210c3523.jpg",
+      "/images/09-24_dd60339604.jpg",
+      "/images/09-24_99f762b56b.jpg",
+      "/images/09-24_6af236480e.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-06",
+      "url": "09-24-1"
+    }
+  }
+}

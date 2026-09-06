@@ -1,0 +1,42 @@
+{
+  "https://en.wikipedia.org/wiki/Dmitri_Shostakovich": {
+    "title": "🎹🎼 Dmitri Shostakovich ⚰️🕯️",
+    "text": "<div>1906   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Dmitri_Shostakovich\" target=\"_blank\">Dmitri Shostakovich</a>, Russian pianist and composer (died 1975).</div><div>🎵<a href=\"https://archive.org/details/SymphonyNo.5_201607/01_Moderato.mp3\" target=\"_blank\">Symphony No. 5 by Dmitri Shostakovich</a></div>",
+    "section": "births",
+    "tags": [
+      "Music"
+    ],
+    "images": [
+      "/images/09-25_c2bff7f629.jpg",
+      "/images/09-25_c264b28c6b.jpg",
+      "/images/09-25_5db5231425.jpg",
+      "/images/09-25_74a3c97026.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-06",
+      "url": "09-25-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1897": {
+    "title": "📚✍️ William Faulkner 🏆🌟",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1897\" target=\"_blank\">1897</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/William_Faulkner\" target=\"_blank\">William Faulkner</a>, American novelist and short story writer, <a href=\"https://en.wikipedia.org/wiki/Nobel_Prize_in_Literature\" target=\"_blank\">Nobel Prize</a> laureate (died 1962).</div><div>📖<a href=\"https://archive.org/details/bwb_T2-BYR-421\" target=\"_blank\">Selected Short Stories of William Faulkner by William Faulkner 1930</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/09-25_cedfe6f881.jpg",
+      "/images/09-25_b23c76f1d6.jpg",
+      "/images/09-25_37a743d3d9.jpg",
+      "/images/09-25_fe240e50c4.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-06",
+      "url": "09-25-2"
+    }
+  }
+}
