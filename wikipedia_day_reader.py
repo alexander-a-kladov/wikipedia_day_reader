@@ -1377,6 +1377,10 @@ HTML_PAGE = r"""<!DOCTYPE html>
         title="Найти книгу на Archive.org или Gutenberg через Groq AI">
         📚 Найти книгу
       </button>
+      <label style="font-size:12px;color:var(--tx2);display:inline-flex;align-items:center;gap:4px;cursor:pointer;margin-left:4px;" title="При вставке убирать стили из источника">
+        <input type="checkbox" id="pasteCleanChk" checked style="width:13px;height:13px;">
+        Вставка без стилей
+      </label>
     </div>
     <div class="note-editor" id="noteEditor" contenteditable="true"
       placeholder="Введите текст. Для ссылки: выделите слово и нажмите 🔗 Ссылка..."></div>
@@ -2661,6 +2665,28 @@ async function fetchWikiImages(){
 function clearNoteFormat(){
   document.execCommand('removeFormat');
 }
+
+// ── CLEAN PASTE ───────────────────────────────────────────────────────────────
+(function(){
+  // Attach once — editor is in static HTML
+  function attachPasteHandler(){
+    const editor = document.getElementById('noteEditor');
+    if(!editor){ setTimeout(attachPasteHandler, 200); return; }
+    editor.addEventListener('paste', e=>{
+      const chk = document.getElementById('pasteCleanChk');
+      if(!chk || !chk.checked) return;
+      e.preventDefault();
+      const text = (e.clipboardData || window.clipboardData).getData('text/plain');
+      if(!text) return;
+      // Escape HTML entities then convert newlines to <br>
+      const safe = text
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+        .replace(/\r\n|\r|\n/g,'<br>');
+      document.execCommand('insertHTML', false, safe);
+    });
+  }
+  attachPasteHandler();
+})();
 
 // ── TAGS ──────────────────────────────────────────────────────────────────────
 
