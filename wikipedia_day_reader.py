@@ -3355,12 +3355,19 @@ class Handler(BaseHTTPRequestHandler):
                             if idxs:
                                 return cat_id, idxs
                         except Exception as ex:
-                            print(f"  [top_picks] {cat_id} attempt {attempt+1} error: {ex}", flush=True)
+                            err_str = str(ex)
+                            print(f"  [top_picks] {cat_id} attempt {attempt+1} error: {err_str}", flush=True)
+                            # Stop immediately on quota/rate-limit errors
+                            if any(kw in err_str.lower() for kw in
+                                   ('rate limit', 'quota', 'limit of the day',
+                                    'daily limit', '429', 'too many requests',
+                                    'insufficient credits', 'billing')):
+                                raise  # propagate to outer handler
                     return cat_id, []
 
                 for cat_id, ents in births_by_cat.items():
                     if ents:
-                        _time.sleep(0.3)  # small gap between calls
+                        _time.sleep(0.3)
                         cid, idxs = pick_cat_sequential(cat_id, ents)
                         cat_results[cid] = idxs
                         print(f"[top_picks] {cid} -> {idxs}", flush=True)
