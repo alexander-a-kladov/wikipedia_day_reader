@@ -1,0 +1,43 @@
+{
+  "https://en.wikipedia.org/wiki/1899": {
+    "title": "🖊✒ Ballpoint Pen 📝📄",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1899\" target=\"_blank\">1899</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/László_Bíró\" target=\"_blank\">László Bíró</a>, Hungarian-Argentinian journalist and inventor, invented the <a href=\"https://en.wikipedia.org/wiki/Ballpoint_pen\" target=\"_blank\">ballpoint pen</a> (died 1985).</div><div>📖<a href=\"https://archive.org/details/everydaylife0000dows_o8k4/mode/2up\" target=\"_blank\">Everyday life by Dowswell, Paul 2002</a></div>",
+    "section": "births",
+    "tags": [
+      "Inventions"
+    ],
+    "images": [
+      "/images/09-29_199f8b12fc.jpg",
+      "/images/09-29_32d0ae7392.jpg",
+      "/images/09-29_9ddb4bac65.jpg",
+      "/images/09-29_578c892391.jpeg",
+      "/images/09-29_0c1c382b5f.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-09",
+      "url": "09-29-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1810": {
+    "title": "Elizabeth Gaskell",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1810\" target=\"_blank\">1810</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Elizabeth_Gaskell\" target=\"_blank\">Elizabeth Gaskell</a>, English author (died 1865).</div><div>📖<a href=\"https://www.gutenberg.org/ebooks/4276\" target=\"_blank\">North and South by Elizabeth Cleghorn Gaskell</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/09-29_de9c96ad3b.jpg",
+      "/images/09-29_717e1b79b2.jpg",
+      "/images/09-29_3d48d401b3.jpg",
+      "/images/09-29_6a80c10727.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-09",
+      "url": "09-29-2"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "https://en.wikipedia.org/wiki/Silent_Spring": {
+    "title": "🍃📖 Silent Spring 🐦🌎",
+    "text": "<div>1962   – Rachel Carson's book <a href=\"https://en.wikipedia.org/wiki/Silent_Spring\" target=\"_blank\">Silent Spring</a> is published, inspiring an environmental movement and the creation of the U.S. Environmental Protection Agency.</div><div>📖<a href=\"https://archive.org/details/fp_Silent_Spring-Rachel_Carson-1962/mode/2up\" target=\"_blank\">Silent Spring-Rachel Carson-1962</a></div>",
+    "section": "events",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/09-27_729be42b73.jpg",
+      "/images/09-27_9af3099504.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-07",
+      "url": "09-27-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1918": {
+    "title": "📡🔭 Martin Ryle 🌌📻",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1918\" target=\"_blank\">1918</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Martin_Ryle\" target=\"_blank\">Martin Ryle</a>, English astronomer and author, <a href=\"https://en.wikipedia.org/wiki/Nobel_Prize_in_Physics\" target=\"_blank\">Nobel Prize</a> laureate (died 1984).</div><div>📖<a href=\"https://archive.org/details/introductiontora0000burk_3edi/mode/2up\" target=\"_blank\">An introduction to radio astronomy by Burke, Bernard F. 2010</a></div>",
+    "section": "births",
+    "tags": [
+      "Science"
+    ],
+    "images": [
+      "/images/09-27_ca034bf086.jpg",
+      "/images/09-27_cfd2b2ca50.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-07",
+      "url": "09-27-2"
+    }
+  }
+}

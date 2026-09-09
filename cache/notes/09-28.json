@@ -1,0 +1,41 @@
+{
+  "https://en.wikipedia.org/wiki/1803": {
+    "title": "📚🇫🇷 Prosper Mérimée ✒🗿",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1803\" target=\"_blank\">1803</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Prosper_Mérimée\" target=\"_blank\">Prosper Mérimée</a>, French archaeologist, historian, and author (died 1870).</div><div>📖<a href=\"https://www.gutenberg.org/ebooks/2465\" target=\"_blank\">Carmen by Prosper Mérimée 1845</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/09-28_262e2de83e.jpg",
+      "/images/09-28_95038ca87e.jpg",
+      "/images/09-28_d975cac6fc.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-08",
+      "url": "09-28-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/551_BC": {
+    "title": "📚🎓 Confucius 💭🌟",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/551_BC\" target=\"_blank\">551 BC</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Confucius\" target=\"_blank\">Confucius</a>, Chinese teacher, editor, politician, and philosopher of the Spring and Autumn period of Chinese history. (died 479 BC).</div><div>📖<a href=\"https://www.gutenberg.org/ebooks/46389\" target=\"_blank\">The Sayings of Confucius by Confucius</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/09-28_e4e0e65b5a.png",
+      "/images/09-28_fa61c9d892.jpg",
+      "/images/09-28_d164e277ea.png",
+      "/images/09-28_a1b0738cbd.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-08",
+      "url": "09-28-2"
+    }
+  }
+}

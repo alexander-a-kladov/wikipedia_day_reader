@@ -1,0 +1,41 @@
+{
+  "https://en.wikipedia.org/wiki/1791": {
+    "title": "🪄🎶 The Magic Flute 🦉👑",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1791\" target=\"_blank\">1791</a> – The first performance of Mozart's opera <a href=\"https://en.wikipedia.org/wiki/The_Magic_Flute\" target=\"_blank\">The Magic Flute</a> takes place two months before his death.</div><div>🎵<a href=\"https://archive.org/details/lp_the-magic-flute_wolfgang-amadeus-mozart-lucine-amara-la\" target=\"_blank\">The Magic Flute by Wolfgang Amadeus Mozart, The Metropolitan Opera Record Club 1960</a></div>",
+    "section": "events",
+    "tags": [
+      "Music"
+    ],
+    "images": [
+      "/images/09-30_e05c39405d.jpg",
+      "/images/09-30_e6b49dc72e.jpg",
+      "/images/09-30_d23895d5ab.jpg",
+      "/images/09-30_a09f64d1bb.jpg",
+      "/images/09-30_8dfedf1234.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-09",
+      "url": "09-30-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1882": {
+    "title": "🔬⚗️ Hans Geiger 🌟💡",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1882\" target=\"_blank\">1882</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Hans_Geiger\" target=\"_blank\">Hans Geiger</a>, German physicist and academic (died 1945).</div><div>📖<a href=\"https://archive.org/details/whoswhoinscience0000fowk/mode/2up\" target=\"_blank\">Who's who in science and technology by Fowke, Bob 2000</a></div>",
+    "section": "births",
+    "tags": [
+      "Science"
+    ],
+    "images": [
+      "/images/09-30_eccd20f4f5.jpg",
+      "/images/09-30_5be0326729.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-09",
+      "url": "09-30-2"
+    }
+  }
+}
