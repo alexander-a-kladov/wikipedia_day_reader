@@ -812,5 +812,39 @@
       "Literature",
       "Music"
     ]
+  },
+  {
+    "notes": "notes/09-26.json",
+    "tags": [
+      "Art",
+      "Literature"
+    ]
+  },
+  {
+    "notes": "notes/09-27.json",
+    "tags": [
+      "Literature",
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/09-28.json",
+    "tags": [
+      "Literature"
+    ]
+  },
+  {
+    "notes": "notes/09-29.json",
+    "tags": [
+      "Inventions",
+      "Literature"
+    ]
+  },
+  {
+    "notes": "notes/09-30.json",
+    "tags": [
+      "Music",
+      "Science"
+    ]
   }
 ]
