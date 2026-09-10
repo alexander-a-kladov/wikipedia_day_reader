@@ -28,11 +28,12 @@ import urllib.error
 
 AI_PROVIDERS = {
     "gemini": {
-        "name": "Google Gemini 2.0 Flash",
-        "model": "gemini-2.0-flash",
+        "name": "Google Gemini 3.6 Flash",
+        "model": "gemini-3.6-flash",
         "free": True,
         "signup": "https://aistudio.google.com/apikey",
         "note": "Free: 15 req/min · 1 500 req/day",
+        "model_override_key": "gemini_model",
     },
     "groq": {
         "name": "Groq — Llama 3.3 70B",
@@ -1277,7 +1278,7 @@ HTML_PAGE = r"""<!DOCTYPE html>
     <label for="aiChkBi">🤖 AI рождения</label>
   </div>
   <select id="aiProv" style="display:none" onchange="onProvChange()">
-    <option value="gemini">Gemini 2.0 Flash</option>
+    <option value="gemini">Gemini 3.6 Flash</option>
     <option value="groq">Groq Llama 3.1</option>
     <option value="openrouter">OpenRouter (free)</option>
   </select>
@@ -3003,6 +3004,21 @@ function renderAiTab(){
       </div>`;
     }
 
+    if(id === 'gemini' && overrideKey){
+      h += `<div style="margin-top:10px">
+        <div style="font-size:12px;color:var(--tx2);margin-bottom:5px">Модель (оставьте пустым для дефолтной):</div>
+        <input type="text" id="geminiModelInput" value="${esc(curModel)}"
+          placeholder="${meta.model}"
+          style="width:100%;font-family:monospace;font-size:12px;padding:5px 8px;
+                 border:1px solid var(--bd);border-radius:4px;background:var(--sf)">
+        <div style="font-size:11px;color:var(--tx2);margin-top:4px">
+          Актуальные модели: <a href="https://ai.google.dev/gemini-api/docs/models" target="_blank"
+            style="color:var(--ai)">ai.google.dev/gemini-api/docs/models</a>
+          &nbsp;·&nbsp; Попробуйте: <code>gemini-2.5-flash</code> · <code>gemini-3.6-flash</code>
+        </div>
+      </div>`;
+    }
+
     h += `</div>`;
   }
   document.getElementById('aiE').innerHTML = h;
@@ -3101,6 +3117,9 @@ async function saveSettings(){
   // Groq model override
   const groqModel = document.getElementById('groqModelInput');
   if(groqModel) newKeys['groq_model'] = groqModel.value.trim();
+  // Gemini model override
+  const geminiModel = document.getElementById('geminiModelInput');
+  if(geminiModel) newKeys['gemini_model'] = geminiModel.value.trim();
   await fetch('/api/keys',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(newKeys)});
   keysData = await (await fetch('/api/keys')).json();  // refresh
 
@@ -3292,111 +3311,121 @@ class Handler(BaseHTTPRequestHandler):
                 payload = json.loads(body)
                 events_list   = payload.get("events", [])
                 births_by_cat = payload.get("births_by_cat", {})
-                key, model, _uprov = _get_utility_ai()
-                if not key:
-                    self._json({"error": "No AI key set. Add Groq or OpenRouter key in ⚙ Settings → AI."}); return
 
-                def pick(prompt_user, sys_content, max_tok=30):
-                    """Single AI pick call, returns raw text."""
+                # Prefer Gemini (most reliable) → Groq → OpenRouter for top picks
+                def get_best_ai():
+                    for prov in ["gemini", "groq", "openrouter"]:
+                        k = _keys_store.get(prov, "").strip()
+                        if k:
+                            ov = AI_PROVIDERS.get(prov,{}).get("model_override_key")
+                            m  = (_keys_store.get(ov,"").strip()
+                                  or AI_PROVIDERS[prov]["model"])
+                            return k, m, prov
+                    return "", "", ""
+
+                key, model, _uprov = get_best_ai()
+                if not key:
+                    self._json({"error": "No AI key set. Add Gemini, Groq or OpenRouter key in ⚙ Settings → AI."}); return
+
+                def chat(user_msg, max_tok=200):
                     r = _utility_chat(
-                        [{"role": "system", "content": sys_content},
-                         {"role": "user",   "content": prompt_user}],
-                        key, model, _uprov, max_tokens=max_tok
+                        [{"role": "user", "content": user_msg}],
+                        key, model, _uprov, max_tokens=max_tok, temperature=0
                     )
                     return re.sub(r"```[a-z]*\n?|\n?```", "",
                                   str(r["choices"][0]["message"]["content"] or "")).strip()
 
-                def parse_int_array(text, max_val):
-                    if not text or text == 'None':
-                        return []
-                    # First try proper JSON array
-                    m = re.search(r"\[[\s\S]*?\]", text)
+                def parse_ints(text, max_val):
+                    if not text or text.lower() in ('none',''): return []
+                    m = re.search(r"\[\s\S]*?\]", text)
                     if m:
                         try:
-                            result = [x for x in json.loads(m.group())
-                                      if isinstance(x, int) and 0 <= x < max_val]
-                            if result:
-                                return result
-                        except Exception:
-                            pass
-                    # Fallback: extract all standalone integers from text
+                            r2 = [x for x in json.loads(m.group())
+                                  if isinstance(x, int) and 0 <= x < max_val]
+                            if r2: return r2
+                        except Exception: pass
                     nums = [int(x) for x in re.findall(r'\b(\d+)\b', text)
                             if 0 <= int(x) < max_val]
-                    return list(dict.fromkeys(nums))  # deduplicate preserving order
+                    return list(dict.fromkeys(nums))
 
                 result = {}
 
                 # ── Top event ────────────────────────────────────────────────
                 if events_list:
-                    numbered = "\n".join(f"{e['idx']}: {e['text'][:120]}" for e in events_list[:60])
-                    text = pick(
-                        f"Pick the index of the single most globally significant historical event:\n{numbered}\n\nReturn JSON array with 1 integer, e.g. [4]",
-                        "You are a historian. Return ONLY a JSON array with exactly 1 integer index. Nothing else.",
-                        max_tok=15
+                    numbered = "\n".join(f"{e['idx']}: {e['text'][:120]}"
+                                         for e in events_list[:60])
+                    text = chat(
+                        f"World history: which ONE event below had the greatest worldwide impact?\n\n"
+                        f"{numbered}\n\nReply with just the number (index).",
+                        max_tok=10
                     )
-                    idxs = parse_int_array(text, len(events_list))
+                    idxs = parse_ints(text, len(events_list))
                     result["event_indices"] = [events_list[i]["idx"] for i in idxs[:1]]
 
-                # ── Top 2 per birth category: parallel threads ───────────────
+                # ── Top 2 per birth category ─────────────────────────────────
                 cat_labels = {
-                    "scientists": "scientists and academics",
-                    "artists":    "visual artists and painters",
-                    "composers":  "composers and musicians",
-                    "inventors":  "inventors and engineers",
-                    "cinema":     "film directors and actors",
-                    "writers":    "authors and writers",
+                    "scientists": "Scientists",
+                    "artists":    "Artists",
+                    "composers":  "Composers & Musicians",
+                    "inventors":  "Inventors",
+                    "cinema":     "Cinema",
+                    "writers":    "Writers",
                 }
                 cat_results = {}
 
-                import time as _time
+                if births_by_cat:
+                    cat_order = [c for c in cat_labels if births_by_cat.get(c)]
 
-                def pick_cat_sequential(cat_id, entries):
-                    if not entries:
-                        return cat_id, []
-                    n = min(2, len(entries))
-                    label = cat_labels.get(cat_id, cat_id)
-                    numbered = "\n".join(
-                        f"{e['idx']}: {e['text'][:100]}" for e in entries[:30]
+                    # Build one combined prompt for all categories
+                    cat_blocks = []
+                    for cat_id in cat_order:
+                        entries = births_by_cat[cat_id]
+                        lines = "\n".join(f"{e['idx']}: {e['text'][:90]}"
+                                          for e in entries[:25])
+                        cat_blocks.append(f"=={cat_id}==\n{lines}")
+
+                    block = "\n\n".join(cat_blocks)
+                    cat_fmt = ", ".join(f'"{c}": [i, j]' for c in cat_order)
+                    resp = chat(
+                        f"For each category pick the 2 most globally famous people.\n\n"
+                        f"{block}\n\n"
+                        f"Return JSON: {{{cat_fmt}}}\n"
+                        f"Use the index numbers shown. Only JSON, no explanation.",
+                        max_tok=300
                     )
-                    user_msg = (
-                        f"From these {label}, which {n} are most globally famous worldwide?\n\n"
-                        f"{numbered}\n\n"
-                        f"Answer with the {n} index numbers only, like: {n} {n+1}"
-                    )
-                    for attempt in range(3):
+                    print(f"[top_picks] batch response: {resp[:300]}", flush=True)
+
+                    m2 = re.search(r"\{[\s\S]*\}", resp)
+                    if m2:
                         try:
-                            if attempt > 0:
-                                _time.sleep(1.5)
-                            r = _utility_chat(
-                                [{"role": "user", "content": user_msg}],
-                                key, model, _uprov,
-                                max_tokens=60, temperature=0
-                            )
-                            raw_text = str(r["choices"][0]["message"]["content"] or "").strip()
-                            text = re.sub(r"```[a-z]*\n?|\n?```", "", raw_text).strip()
-                            idxs = parse_int_array(text, len(entries))
-                            idxs = list(dict.fromkeys(idxs))[:n]
-                            print(f"  [top_picks] {cat_id} attempt {attempt+1}: {text!r} -> {idxs}",
-                                  flush=True)
-                            if idxs:
-                                return cat_id, idxs
-                        except Exception as ex:
-                            err_str = str(ex)
-                            print(f"  [top_picks] {cat_id} attempt {attempt+1} error: {err_str}", flush=True)
-                            # Stop immediately on quota/rate-limit errors
-                            if any(kw in err_str.lower() for kw in
-                                   ('rate limit', 'quota', 'limit of the day',
-                                    'daily limit', '429', 'too many requests',
-                                    'insufficient credits', 'billing')):
-                                raise  # propagate to outer handler
-                    return cat_id, []
+                            raw = json.loads(m2.group())
+                            for cat_id in cat_order:
+                                entries = births_by_cat[cat_id]
+                                idxs = [x for x in (raw.get(cat_id) or [])
+                                        if isinstance(x, int) and 0 <= x < len(entries)][:2]
+                                cat_results[cat_id] = idxs
+                                print(f"[top_picks] {cat_id}: {idxs}", flush=True)
+                        except Exception as e2:
+                            print(f"[top_picks] JSON error: {e2}", flush=True)
 
-                for cat_id, ents in births_by_cat.items():
-                    if ents:
-                        _time.sleep(0.3)
-                        cid, idxs = pick_cat_sequential(cat_id, ents)
-                        cat_results[cid] = idxs
-                        print(f"[top_picks] {cid} -> {idxs}", flush=True)
+                    # Fallback: individual call for any category still missing
+                    import time as _t
+                    for cat_id in cat_order:
+                        if cat_results.get(cat_id):
+                            continue
+                        _t.sleep(0.5)
+                        entries = births_by_cat[cat_id]
+                        numbered2 = "\n".join(f"{e['idx']}: {e['text'][:90]}"
+                                              for e in entries[:20])
+                        label = cat_labels.get(cat_id, cat_id)
+                        t = chat(
+                            f"From these {label}, which 2 are most globally famous?\n\n"
+                            f"{numbered2}\n\nReply: 2 numbers only.",
+                            max_tok=15
+                        )
+                        idxs2 = parse_ints(t, len(entries))[:2]
+                        cat_results[cat_id] = idxs2
+                        print(f"[top_picks] fallback {cat_id}: {t!r} -> {idxs2}", flush=True)
 
                 result["birth_indices_by_cat"] = cat_results
                 self._json({"ok": True, **result})
