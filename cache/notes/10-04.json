@@ -1,0 +1,43 @@
+{
+  "https://en.wikipedia.org/wiki/1814": {
+    "title": "🔬⚗️ Jean-François Millet 🌟💡",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1814\" target=\"_blank\">1814</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Jean-François_Millet\" target=\"_blank\">Jean-François Millet</a>, French painter and educator (died 1875).</div><div>📖<a href=\"https://archive.org/details/isbn_9780300079258\" target=\"_blank\">Jean-François Millet : drawn into the light by Murphy, Alexandra R 1999</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/10-04_bc8a6b6177.jpg",
+      "/images/10-04_a67b9822e5.jpg",
+      "/images/10-04_7e01811e39.jpg",
+      "/images/10-04_c1a0e22b55.jpg",
+      "/images/10-04_6b9f790dd3.jpg",
+      "/images/10-04_89360f7f4f.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-22",
+      "url": "10-04-2"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1957": {
+    "title": "🚀🇷🇺 Sputnik 🛰️🌍",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1957\" target=\"_blank\">1957</a> – <a href=\"https://en.wikipedia.org/wiki/Sputnik_1\" target=\"_blank\">Sputnik 1</a> becomes the first artificial satellite to orbit the Earth.</div><div>📖<a href=\"https://archive.org/details/soviet-sputniks_202111/mode/2up\" target=\"_blank\">Soviet Sputniks by group of authors 1959</a></div>",
+    "section": "events",
+    "tags": [
+      "Space"
+    ],
+    "images": [
+      "/images/10-04_836b498e48.jpg",
+      "/images/10-04_342406323d.png",
+      "/images/10-04_f582a31912.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-22",
+      "url": "10-04-1"
+    }
+  }
+}

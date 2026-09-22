@@ -846,5 +846,33 @@
       "Music",
       "Science"
     ]
+  },
+  {
+    "notes": "notes/10-01.json",
+    "tags": [
+      "Exploration",
+      "Literature"
+    ]
+  },
+  {
+    "notes": "notes/10-03.json",
+    "tags": [
+      "Art",
+      "Literature"
+    ]
+  },
+  {
+    "notes": "notes/10-04.json",
+    "tags": [
+      "Art",
+      "Space"
+    ]
+  },
+  {
+    "notes": "notes/10-05.json",
+    "tags": [
+      "Art",
+      "Inventions"
+    ]
   }
 ]

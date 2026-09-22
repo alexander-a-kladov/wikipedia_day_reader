@@ -1,0 +1,43 @@
+{
+  "https://en.wikipedia.org/wiki/1890": {
+    "title": "🔬⚗️ Yosemite National Park 🌟💡",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1890\" target=\"_blank\">1890</a> – <a href=\"https://en.wikipedia.org/wiki/Yosemite_National_Park\" target=\"_blank\">Yosemite National Park</a> is established by the U.S. Congress.</div><div>📖<a href=\"https://archive.org/details/threewonderlands1913murp/mode/2up\" target=\"_blank\">Three wonderlands of the American West by Murphy, Thos. D 1913</a></div>",
+    "section": "events",
+    "tags": [
+      "Exploration"
+    ],
+    "images": [
+      "/images/10-01_1bb06d5c97.jpg",
+      "/images/10-01_ab3d733a1c.jpeg",
+      "/images/10-01_3db2367a11.jpg",
+      "/images/10-01_5fe2922f48.jpg",
+      "/images/10-01_94d6eba0b6.jpg",
+      "/images/10-01_f66ff0eb41.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-10",
+      "url": "10-01-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1791": {
+    "title": "Sergey Aksakov",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1791\" target=\"_blank\">1791</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Sergey_Aksakov\" target=\"_blank\">Sergey Aksakov</a>, Russian soldier and author (died 1859).</div><div>📖<a href=\"https://archive.org/details/yearsofchildhood0000serg/mode/2up\" target=\"_blank\">Years of Childhood by Sergey Aksakov 1960</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/10-01_a6e1926d71.jpg",
+      "/images/10-01_6263a5fe7f.jpg",
+      "/images/10-01_a39944181c.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-10",
+      "url": "10-01-2"
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "https://en.wikipedia.org/wiki/Sergei_Yesenin": {
+    "title": "📜🌾 Sergei Yesenin 🎻🇷🇺",
+    "text": "<div>1895   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Sergei_Yesenin\" target=\"_blank\">Sergei Yesenin</a>, Russian poet (died 1925).</div><div>📖<a href=\"https://archive.org/details/selected-tr-sergei-esenin-yesenin-by-sergei-esenin-yesenin-z-lib.org/mode/2up\" target=\"_blank\">Selected Роеtrу by Sergei Esenin (Yesenin) 1982</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/10-03_a6abd9a465.jpg",
+      "/images/10-03_40f0447987.jpg",
+      "/images/10-03_2dcc974a69.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-16",
+      "url": "10-03-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Pierre_Bonnard": {
+    "title": "🎨🖼 Pierre Bonnard 📚🌸",
+    "text": "<div>1867 – Birthday of <a href=\"https://en.wikipedia.org/wiki/Pierre_Bonnard\" target=\"_blank\">Pierre Bonnard</a>, French painter (died 1947).</div><div>📖<a href=\"https://archive.org/details/pierrebonnard00ferm/mode/2up\" target=\"_blank\">Pierre Bonnard by Fermigier, André 1984</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/10-03_591590d1ae.jpg",
+      "/images/10-03_72b0ceaed5.jpg",
+      "/images/10-03_317a77a717.jpg",
+      "/images/10-03_3286ccb649.jpg",
+      "/images/10-03_ca5ae129a5.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-16",
+      "url": "10-03-2"
+    }
+  }
+}
