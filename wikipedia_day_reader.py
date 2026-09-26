@@ -323,13 +323,19 @@ _AI_BATCH = {"gemini": 40, "groq": 15, "openrouter": 30}
 AI_BATCH = 40  # default fallback
 
 
-def _get_utility_ai():
+def _get_utility_ai(preferred: str = ""):
     """
-    Return (key, model, provider) for utility AI calls (emoji, books, top picks, wiki images).
-    Prefers OpenRouter → Groq → Gemini, whichever has a key set.
+    Return (key, model, provider) for utility AI calls.
+    If `preferred` is set and has a key, use it first.
+    Falls back: preferred → openrouter → groq → gemini.
     """
-    order = ["openrouter", "groq", "gemini"]
+    order = [preferred] if preferred else []
+    for p in ["openrouter", "groq", "gemini"]:
+        if p not in order:
+            order.append(p)
     for prov in order:
+        if not prov or prov not in AI_PROVIDERS:
+            continue
         key = _keys_store.get(prov, "").strip()
         if key:
             override_key = AI_PROVIDERS.get(prov, {}).get("model_override_key")
@@ -356,7 +362,6 @@ def _utility_chat(messages: list, key: str, model: str, provider: str,
                        "generationConfig": {"maxOutputTokens": max_tokens,
                                             "temperature": temperature}}
             resp = _http_post(url, payload, {"Content-Type": "application/json"})
-            # Extract text robustly
             try:
                 text = resp["candidates"][0]["content"]["parts"][0]["text"]
             except (KeyError, IndexError, TypeError):
@@ -370,23 +375,52 @@ def _utility_chat(messages: list, key: str, model: str, provider: str,
             resp = _http_post(url, payload,
                               {"Content-Type": "application/json",
                                "Authorization": f"Bearer {key}"})
-            # Extract text robustly — handle error responses
             try:
                 text = resp["choices"][0]["message"]["content"]
             except (KeyError, IndexError, TypeError):
-                # May be an error response
                 err = resp.get("error", {})
                 if isinstance(err, dict):
                     raise ValueError(f"API error: {err.get('message', str(resp))}")
                 raise ValueError(f"Unexpected response: {str(resp)[:200]}")
 
-        # Ensure text is a string
         if not isinstance(text, str):
             text = str(text)
         return {"choices": [{"message": {"content": text}}]}
 
     except Exception:
         raise
+
+
+def _utility_chat_with_fallback(messages: list, max_tokens: int = 200,
+                                 temperature: float = 0) -> dict:
+    """
+    Try each configured provider in order: gemini → groq → openrouter.
+    On 503 / overload / 404 model-not-found, automatically try the next one.
+    Raises on the last provider's error.
+    """
+    order = ["gemini", "groq", "openrouter"]
+    last_err = None
+    for prov in order:
+        k = _keys_store.get(prov, "").strip()
+        if not k:
+            continue
+        ov = AI_PROVIDERS.get(prov, {}).get("model_override_key")
+        m  = (_keys_store.get(ov, "").strip() or AI_PROVIDERS[prov]["model"])
+        try:
+            result = _utility_chat(messages, k, m, prov, max_tokens, temperature)
+            return result
+        except Exception as e:
+            err_str = str(e).lower()
+            # On capacity/model errors try next provider; on auth/quota errors stop
+            if any(kw in err_str for kw in
+                   ('503', 'unavailable', 'high demand', 'overloaded',
+                    '404', 'not found', 'no longer available',
+                    '529', 'temporarily')):
+                print(f"[fallback] {prov} failed ({e}), trying next provider…", flush=True)
+                last_err = e
+                continue
+            raise  # auth, quota, billing — don't retry
+    raise last_err or RuntimeError("No AI provider available")
 
 
 def classify_entries_ai(entries, categories, russian_desc, include_russian,
@@ -842,6 +876,7 @@ _job_queue: queue.Queue = queue.Queue()
 config_store = dict(DEFAULT_CONFIG)
 _keys_store:  dict = {}   # loaded at startup
 _raw_store:   dict = {}   # last fetched events_raw / births_raw for /api/highlight
+_pref_prov:   str  = ""   # user's preferred AI provider (from UI selector)
 
 
 def run_job(events_raw, births_raw, holidays_raw, cfg,
@@ -1451,6 +1486,8 @@ async function init(){
   const dv=document.getElementById('datePicker').value;
   await loadNotesForDate(dv);
   await checkCacheForDate(dv);
+  // Sync initial provider selection to backend
+  onProvChange();
 }
 
 async function loadNotesForDate(dv){
@@ -1524,7 +1561,12 @@ function onAiToggle(){
   updateSubtitle();
 }
 
-function onProvChange(){ updateSubtitle(); }
+function onProvChange(){
+  updateSubtitle();
+  // Sync chosen provider to backend so all AI endpoints use it
+  const prov = document.getElementById('aiProv').value;
+  fetch('/api/set_provider?provider=' + encodeURIComponent(prov)).catch(()=>{});
+}
 
 function updateSubtitle(){
   const onEv = document.getElementById('aiChkEv').checked;
@@ -3186,6 +3228,12 @@ class Handler(BaseHTTPRequestHandler):
             else:
                 self._json(result)
 
+        elif path == '/api/set_provider':
+            global _pref_prov
+            params = parse_qs(urlparse(self.path).query)
+            _pref_prov = params.get('provider', [''])[0]
+            self._json({"ok": True, "provider": _pref_prov})
+
         elif path == '/api/config':
             self._json(config_store)
 
@@ -3312,9 +3360,14 @@ class Handler(BaseHTTPRequestHandler):
                 events_list   = payload.get("events", [])
                 births_by_cat = payload.get("births_by_cat", {})
 
-                # Prefer Gemini (most reliable) → Groq → OpenRouter for top picks
+                # Respect user's preferred provider, fall back through others on error
                 def get_best_ai():
-                    for prov in ["gemini", "groq", "openrouter"]:
+                    order = [_pref_prov] if _pref_prov else []
+                    for p in ["gemini", "groq", "openrouter"]:
+                        if p not in order:
+                            order.append(p)
+                    for prov in order:
+                        if not prov or prov not in AI_PROVIDERS: continue
                         k = _keys_store.get(prov, "").strip()
                         if k:
                             ov = AI_PROVIDERS.get(prov,{}).get("model_override_key")
@@ -3437,7 +3490,7 @@ class Handler(BaseHTTPRequestHandler):
                 payload    = json.loads(body)
                 title      = payload.get("title", "").strip()
                 note_text  = payload.get("note_text", "").strip()
-                key, model, _uprov = _get_utility_ai()
+                key, model, _uprov = _get_utility_ai(_pref_prov)
                 if not key:
                     self._json({"error": "No AI key set. Add Groq or OpenRouter key in ⚙ Settings → AI."}); return
                 if not title:
@@ -3645,7 +3698,7 @@ class Handler(BaseHTTPRequestHandler):
                 title      = payload.get("title", "")       # note title (no emojis)
                 date_str   = payload.get("date", "")
                 wiki_key   = payload.get("wiki_key", "")
-                key, model, _uprov = _get_utility_ai()
+                key, model, _uprov = _get_utility_ai(_pref_prov)
                 if not key:
                     self._json({"error": "No AI key set. Add Groq or OpenRouter key in ⚙ Settings → AI."}); return
                 if not wiki_urls:
@@ -3811,7 +3864,7 @@ class Handler(BaseHTTPRequestHandler):
                 title   = payload.get("title", "").strip()
                 if not title:
                     self._json({"error": "empty title"}); return
-                key, model, _uprov = _get_utility_ai()
+                key, model, _uprov = _get_utility_ai(_pref_prov)
                 if not key:
                     self._json({"error": "No AI key set. Add Groq or OpenRouter key in ⚙ Settings → AI."}); return
 
