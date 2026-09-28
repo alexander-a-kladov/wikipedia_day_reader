@@ -1,0 +1,40 @@
+{
+  "https://en.wikipedia.org/wiki/1861": {
+    "title": "Fridtjof Nansen",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1861\" target=\"_blank\">1861</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Fridtjof_Nansen\" target=\"_blank\">Fridtjof Nansen</a>, Norwegian explorer, scientist, and humanitarian, <a href=\"https://en.wikipedia.org/wiki/Nobel_Peace_Prize\" target=\"_blank\">Nobel Prize</a> laureate (died 1930).</div><div>📖<a href=\"https://www.gutenberg.org/ebooks/30197\" target=\"_blank\">Farthest North, Vol. I by Fridtjof Nansen</a></div>",
+    "section": "births",
+    "tags": [
+      "Exploration"
+    ],
+    "images": [
+      "/images/10-10_8a55c9df19.jpg",
+      "/images/10-10_6d1e5306f8.jpg",
+      "/images/10-10_e50e4f71c5.png",
+      "/images/10-10_697638cc27.jpg",
+      "/images/10-10_654b5996eb.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-27",
+      "url": "10-10-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1924": {
+    "title": "James Clavell",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1924\" target=\"_blank\">1924</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/James_Clavell\" target=\"_blank\">James Clavell</a>, Australian-American director, producer, screenwriter, and author (died 1994).</div><div>📖<a href=\"https://archive.org/details/TheChildrensStory-ButNotJustForChildren\" target=\"_blank\">THE CHILDREN'S STORY - BUT NOT JUST FOR CHILDREN by JAMES CLAVELL</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/10-10_b9d6df0350.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-27",
+      "url": "10-10-2"
+    }
+  }
+}

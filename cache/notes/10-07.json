@@ -1,0 +1,46 @@
+{
+  "https://en.wikipedia.org/wiki/1885": {
+    "title": "Niels Bohr",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1885\" target=\"_blank\">1885</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Niels_Bohr\" target=\"_blank\">Niels Bohr</a>, Danish physicist and philosopher, <a href=\"https://en.wikipedia.org/wiki/Nobel_Prize_in_Physics\" target=\"_blank\">Nobel Prize</a> laureate (died 1962).</div><div><a href=\"https://archive.org/details/nielsbohrphysici0000pasa/mode/2up\" target=\"_blank\">📖Niels Bohr : physicist and humanitarian by Pasachoff, Naomi E 2003</a></div>",
+    "section": "births",
+    "tags": [
+      "Science"
+    ],
+    "images": [
+      "/images/10-07_eb055aedcd.jpg",
+      "/images/10-07_3d1a084ff5.webp",
+      "/images/10-07_4ee3374b2b.jpg",
+      "/images/10-07_ffefa67887.jpg",
+      "/images/10-07_c5ecc41de5.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-26",
+      "url": "10-07-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Project_Mercury": {
+    "title": "🚀🌌Project Mercury🌍👨‍🚀",
+    "text": "<div>1958   – The U.S. crewed space-flight project is renamed to <a href=\"https://en.wikipedia.org/wiki/Project_Mercury\" target=\"_blank\">Project Mercury</a>.</div><div><a href=\"https://archive.org/details/projectmercury00span/mode/2up\" target=\"_blank\">📖Project Mercury by Spangenburg, Ray; Moser, Diane 2001</a></div>",
+    "section": "events",
+    "tags": [
+      "Space"
+    ],
+    "images": [
+      "/images/10-07_f582c2ce34.jpg",
+      "/images/10-07_62d1ee0242.jpg",
+      "/images/10-07_7b4684e29c.png",
+      "/images/10-07_f2288540d2.png",
+      "/images/10-07_da884a1048.jpg",
+      "/images/10-07_979009648b.png",
+      "/images/10-07_84700619d8.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-26",
+      "url": "10-07-2"
+    }
+  }
+}

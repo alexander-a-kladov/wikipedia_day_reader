@@ -1,0 +1,46 @@
+{
+  "https://en.wikipedia.org/wiki/1887": {
+    "title": "Le Corbusier",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1887\" target=\"_blank\">1887</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Le_Corbusier\" target=\"_blank\">Le Corbusier</a>, Swiss-French architect and painter, designed the <a href=\"https://en.wikipedia.org/wiki/Philips_Pavilion\" target=\"_blank\">Philips Pavilion</a> and <a href=\"https://en.wikipedia.org/wiki/Saint-Pierre,_Firminy\" target=\"_blank\">Saint-Pierre, Firminy</a> (died 1965).</div><div><a href=\"https://archive.org/details/modernmanlifeofl0000flin/mode/2up\" target=\"_blank\">📖Modern man : the life of Le Corbusier, architect of tomorrow by Flint, Anthony 2014</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/10-06_42787cbc56.jpg",
+      "/images/10-06_3b5e891d8f.jpg",
+      "/images/10-06_37d3ab4951.jpg",
+      "/images/10-06_b6118b0adb.jpg",
+      "/images/10-06_dbd8ab877d.jpg",
+      "/images/10-06_e1824b25f5.jpg",
+      "/images/10-06_12c21eb9a4.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-26",
+      "url": "10-06-2"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1846": {
+    "title": "⚡🚂 George Westinghouse🛠️💡",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1846\" target=\"_blank\">1846</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/George_Westinghouse\" target=\"_blank\">George Westinghouse</a>, American engineer and businessman, founded the <a href=\"https://en.wikipedia.org/wiki/Westinghouse_Air_Brake_Company\" target=\"_blank\">Westinghouse Air Brake Company</a> (died 1914).</div><div>📖<a href=\"https://archive.org/details/pioneersofindust0000unse_n0z8/mode/2up\" target=\"_blank\">Pioneers of the Industrial Age : breakthroughs in technology 2013</a></div>",
+    "section": "births",
+    "tags": [
+      "Inventions"
+    ],
+    "images": [
+      "/images/10-06_e2cb9e28c6.png",
+      "/images/10-06_9b6d8fe1ad.png",
+      "/images/10-06_b4c1a9d47c.png",
+      "/images/10-06_36562597f8.jpg",
+      "/images/10-06_4499deb080.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-26",
+      "url": "10-06-1"
+    }
+  }
+}

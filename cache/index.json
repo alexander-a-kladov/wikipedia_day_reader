@@ -874,5 +874,45 @@
       "Art",
       "Inventions"
     ]
+  },
+  {
+    "notes": "notes/10-06.json",
+    "tags": [
+      "Art",
+      "Inventions"
+    ]
+  },
+  {
+    "notes": "notes/10-07.json",
+    "tags": [
+      "Science",
+      "Space"
+    ]
+  },
+  {
+    "notes": "notes/10-08.json",
+    "tags": [
+      "Literature"
+    ]
+  },
+  {
+    "notes": "notes/10-09.json",
+    "tags": [
+      "Art"
+    ]
+  },
+  {
+    "notes": "notes/10-10.json",
+    "tags": [
+      "Exploration",
+      "Literature"
+    ]
+  },
+  {
+    "notes": "notes/10-11.json",
+    "tags": [
+      "Education",
+      "Space"
+    ]
   }
 ]

@@ -1,0 +1,40 @@
+{
+  "https://en.wikipedia.org/wiki/1920": {
+    "title": "Frank Herbert",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1920\" target=\"_blank\">1920</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Frank_Herbert\" target=\"_blank\">Frank Herbert</a>, American journalist, photographer, and author (died 1986).</div><div>📖&nbsp;<a href=\"https://archive.org/details/bestoffrankherbe0000unse/mode/2up\" target=\"_blank\">The best of Frank Herbert by Herbert, Frank 1976</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/10-08_b1f7f03f16.jpg",
+      "/images/10-08_23cfe4b934.jpg",
+      "/images/10-08_f96414c5b5.jpg",
+      "/images/10-08_c7ea51e378.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-27",
+      "url": "10-08-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1892": {
+    "title": "Marina Tsvetaeva",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1892\" target=\"_blank\">1892</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Marina_Tsvetaeva\" target=\"_blank\">Marina Tsvetaeva</a>, Russian poet and author (died 1941).</div><div>📖&nbsp;<a href=\"https://archive.org/details/russianpsychepoe0000dine\" target=\"_blank\">A Russian psyche : the poetic mind of Marina Tsvetaeva by Dinega, Alyssa W 2001</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/10-08_281d5c881f.jpg",
+      "/images/10-08_4149fdd333.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-27",
+      "url": "10-08-2"
+    }
+  }
+}

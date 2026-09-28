@@ -1,0 +1,46 @@
+{
+  "https://en.wikipedia.org/wiki/1852": {
+    "title": "🇦🇺 University of Sydney 🎓",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1852\" target=\"_blank\">1852</a> – The <a href=\"https://en.wikipedia.org/wiki/University_of_Sydney\" target=\"_blank\">University of Sydney</a>, Australia's oldest university, is inaugurated in Sydney.</div><div>📖<a href=\"https://archive.org/details/universityofsydn0000howe/mode/2up\" target=\"_blank\">The University of Sydney architecture by Howells, Trevor, 1949- author 2007</a></div>",
+    "section": "events",
+    "tags": [
+      "Education"
+    ],
+    "images": [
+      "/images/10-11_38c3e89086.jpg",
+      "/images/10-11_7978aaa671.jpg",
+      "/images/10-11_6f38cf0005.jpg",
+      "/images/10-11_937c0b0b0e.jpg",
+      "/images/10-11_e99c14b2a8.jpg",
+      "/images/10-11_87eea114f0.jpg",
+      "/images/10-11_c5e4ebd981.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-28",
+      "url": "10-11-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1984": {
+    "title": "🚀Kathryn D. Sullivan👨‍🚀",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1984\" target=\"_blank\">1984</a> – Aboard the Space Shuttle Challenger, astronaut <a href=\"https://en.wikipedia.org/wiki/Kathryn_D._Sullivan\" target=\"_blank\">Kathryn D. Sullivan</a> becomes the first American woman to perform a space walk.</div><div>📖&nbsp;<a href=\"https://archive.org/details/womenspacefarers0000cava\" target=\"_blank\">Women spacefarers : sixty different paths to space by Cavallaro, Umberto 2017</a></div>",
+    "section": "events",
+    "tags": [
+      "Space"
+    ],
+    "images": [
+      "/images/10-11_68962fe91a.jpg",
+      "/images/10-11_ac5a18b87a.jpg",
+      "/images/10-11_694ce0d076.jpg",
+      "/images/10-11_bbc453fad5.jpg",
+      "/images/10-11_c50fd26fed.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-28",
+      "url": "10-11-2"
+    }
+  }
+}
