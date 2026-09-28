@@ -2844,6 +2844,35 @@ function setPubStatus(status){
     if(btn) btn.className=(s===status?'active-'+s:'');
   });
   document.getElementById('pubDateUrl').style.display=(status==='published'?'flex':'none');
+
+  if(status === 'published'){
+    // Auto-fill today's date if empty
+    const dateField = document.getElementById('pubDate');
+    if(!dateField.value){
+      const today = new Date();
+      dateField.value = today.toISOString().split('T')[0];
+    }
+    // Auto-fill next publication number for this day if URL empty
+    const urlField = document.getElementById('pubUrl');
+    if(!urlField.value){
+      const dv = document.getElementById('datePicker').value; // YYYY-MM-DD
+      const mmdd = dv ? dv.slice(5).replace('-', '-') : '';   // MM-DD
+      if(mmdd){
+        // Find highest existing publication number for this day across all notes
+        let maxNum = 0;
+        Object.values(notesData).forEach(n=>{
+          if(!n || !n.published || !n.published.url) return;
+          // Match pattern mm-dd-<number>
+          const m = n.published.url.match(new RegExp(
+            '^' + mmdd.replace('-', '\\-') + '-(\\d+)$'
+          ));
+          if(m) maxNum = Math.max(maxNum, parseInt(m[1]));
+        });
+        // Also check current note's own URL in case it was already set
+        urlField.value = mmdd + '-' + (maxNum + 1);
+      }
+    }
+  }
 }
 
 async function saveNote(){
