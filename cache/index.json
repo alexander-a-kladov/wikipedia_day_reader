@@ -855,6 +855,13 @@
     ]
   },
   {
+    "notes": "notes/10-02.json",
+    "tags": [
+      "Literature",
+      "Music"
+    ]
+  },
+  {
     "notes": "notes/10-03.json",
     "tags": [
       "Art",
@@ -913,6 +920,80 @@
     "tags": [
       "Education",
       "Space"
+    ]
+  },
+  {
+    "notes": "notes/10-12.json",
+    "tags": [
+      "Literature",
+      "Music"
+    ]
+  },
+  {
+    "notes": "notes/10-13.json",
+    "tags": [
+      "Art"
+    ]
+  },
+  {
+    "notes": "notes/10-14.json",
+    "tags": [
+      "Art"
+    ]
+  },
+  {
+    "notes": "notes/10-15.json",
+    "tags": [
+      "Art",
+      "Literature",
+      "Music"
+    ]
+  },
+  {
+    "notes": "notes/10-16.json",
+    "tags": [
+      "Literature",
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/10-17.json",
+    "tags": [
+      "Art"
+    ]
+  },
+  {
+    "notes": "notes/10-18.json",
+    "tags": [
+      "Art",
+      "Literature"
+    ]
+  },
+  {
+    "notes": "notes/10-19.json",
+    "tags": [
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/10-20.json",
+    "tags": [
+      "Inventions",
+      "Music"
+    ]
+  },
+  {
+    "notes": "notes/10-21.json",
+    "tags": [
+      "Literature",
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/10-22.json",
+    "tags": [
+      "Literature",
+      "Music"
     ]
   }
 ]

@@ -1,0 +1,40 @@
+{
+  "https://en.wikipedia.org/wiki/1851": {
+    "title": "Moby-Dick",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1851\" target=\"_blank\">1851</a> – <a href=\"https://en.wikipedia.org/wiki/Herman_Melville\" target=\"_blank\">Herman Melville</a>'s <a href=\"https://en.wikipedia.org/wiki/Moby-Dick\" target=\"_blank\">Moby-Dick</a> is first published as The Whale by <a href=\"https://en.wikipedia.org/wiki/Richard_Bentley_(publisher)\" target=\"_blank\">Richard Bentley</a> of London.</div><div>📖<a href=\"https://www.gutenberg.org/cache/epub/2701/pg2701-images.html\" target=\"_blank\">Moby Dick; Or, The Whale by Herman Melville</a></div>",
+    "section": "events",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/10-18_be3e9f034d.jpg",
+      "/images/10-18_0f6c752af0.jpg",
+      "/images/10-18_c86671fbcf.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-30",
+      "url": "10-18-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1887": {
+    "title": "Johannes Brahms",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1887\" target=\"_blank\">1887</a> – <a href=\"https://en.wikipedia.org/wiki/Johannes_Brahms\" target=\"_blank\">Johannes Brahms</a> conducts the premiere of his <a href=\"https://en.wikipedia.org/wiki/Double_Concerto_(Brahms)\" target=\"_blank\">Double Concerto</a>, composed for violinist <a href=\"https://en.wikipedia.org/wiki/Joseph_Joachim\" target=\"_blank\">Joseph Joachim</a> and cellist <a href=\"https://en.wikipedia.org/wiki/Robert_Hausmann\" target=\"_blank\">Robert Hausmann</a>.</div><div>🎵<a href=\"https://archive.org/details/johannes-brahms-andre-navarra-alfred-holecek-cello-sonatas\" target=\"_blank\">Johannes Brahms – Cello Sonatas by Johannes Brahms; André Navarra; Alfred Holeček</a></div>",
+    "section": "events",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/10-18_1bd295e9bf.jpg",
+      "/images/10-18_ef5807724b.jpg",
+      "/images/10-18_3abb2a4b0c.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-30",
+      "url": "10-18-2"
+    }
+  }
+}

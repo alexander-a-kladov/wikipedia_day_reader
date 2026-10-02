@@ -1,0 +1,40 @@
+{
+  "https://en.wikipedia.org/wiki/Luciano_Pavarotti": {
+    "title": "🎤🎵 Luciano Pavarotti 🌟🏆",
+    "text": "<div>1935 – Birthday of <a href=\"https://en.wikipedia.org/wiki/Luciano_Pavarotti\" target=\"_blank\">Luciano Pavarotti</a>, Italian tenor and actor (died 2007).</div><div>🎵<a href=\"https://archive.org/details/luciano-pavarotti-spirito-italiano-2020\" target=\"_blank\">Luciano Pavarotti Spirito Italiano ( 2020)</a></div>",
+    "section": "births",
+    "tags": [
+      "Music"
+    ],
+    "images": [
+      "/images/10-12_20f37e92eb.jpg",
+      "/images/10-12_4584f3b5e6.jpg",
+      "/images/10-12_f294916529.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-28",
+      "url": "10-12-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Ding_Ling": {
+    "title": "🔔👻 Ding Ling 🇨🇳📰",
+    "text": "<div>1904   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Ding_Ling\" target=\"_blank\">Ding Ling</a>, Chinese author and educator (died 1986).</div>📖<a href=\"https://archive.org/details/misssophiesdiary00ding\" target=\"_blank\">Miss Sophie's diary and other stories by Ding, Ling 1985</a>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/10-12_fe6dc245ae.jpg",
+      "/images/10-12_e8a4b4f968.jpg",
+      "/images/10-12_e12c6a36fe.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-28",
+      "url": "10-12-2"
+    }
+  }
+}

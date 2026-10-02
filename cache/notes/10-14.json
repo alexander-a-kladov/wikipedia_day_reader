@@ -1,0 +1,41 @@
+{
+  "https://en.wikipedia.org/wiki/1563": {
+    "title": "🗺🧭 Jodocus Hondius 📜🔭",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1563\" target=\"_blank\">1563</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Jodocus_Hondius\" target=\"_blank\">Jodocus Hondius</a>, Flemish engraver and cartographer (died 1611).</div><div>📖<a href=\"https://archive.org/details/mapofworldbyjodohond/mode/2up\" target=\"_blank\">Map of the world by Jodocus Hondius 1907</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/10-14_902dd8f558.jpg",
+      "/images/10-14_667355c8fd.jpg",
+      "/images/10-14_4568241e7b.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-29",
+      "url": "10-14-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1884": {
+    "title": "📸🎞 Photographic film 📷🖼",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1884\" target=\"_blank\">1884</a> – <a href=\"https://en.wikipedia.org/wiki/George_Eastman\" target=\"_blank\">George Eastman</a> receives a U.S. Government <a href=\"https://en.wikipedia.org/wiki/Patent\" target=\"_blank\">patent</a> on his new paper-strip <a href=\"https://en.wikipedia.org/wiki/Photographic_film\" target=\"_blank\">photographic film</a>.</div><div>📖<a href=\"https://archive.org/details/photographyfrom10000geor\" target=\"_blank\">Photography : from 1839 to today : George Eastman House, Rochester, NY 2000</a></div>",
+    "section": "events",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/10-14_1020602a39.jpg",
+      "/images/10-14_852a540d56.jpg",
+      "/images/10-14_6ed62c9563.webp",
+      "/images/10-14_4e6bdd0fb7.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-29",
+      "url": "10-14-2"
+    }
+  }
+}

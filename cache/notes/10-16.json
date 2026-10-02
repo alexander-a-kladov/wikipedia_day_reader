@@ -1,0 +1,38 @@
+{
+  "https://en.wikipedia.org/wiki/Oscar_Wilde": {
+    "title": "Oscar Wilde",
+    "text": "<div>1854   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Oscar_Wilde\" target=\"_blank\">Oscar Wilde</a>, Irish playwright, novelist, and poet (died 1900).</div><div>📖<a href=\"https://archive.org/details/wilde_oscar_short_stories_201908/mode/2up\" target=\"_blank\">OSCAR WILDE - SHORT STORIES - ENGLISH by OSCAR WILDE</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/10-16_4ae3dd4418.jpg",
+      "/images/10-16_150552d887.jpg",
+      "/images/10-16_db0bd435d8.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-29",
+      "url": "10-16-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Elizabeth_Loftus": {
+    "title": "🔬⚗️ Elizabeth Loftus 🌟💡",
+    "text": "<div>1944   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Elizabeth_Loftus\" target=\"_blank\">Elizabeth Loftus</a>, American psychologist.</div><div>📖&nbsp;<a href=\"https://archive.org/details/bwb_T3-ALT-329/page/n7/mode/2up\" target=\"_blank\">Mind at play: the psychology of video games by geoffrey r. loftus &amp; elizabeth f. loftus 1983</a></div>",
+    "section": "births",
+    "tags": [
+      "Science"
+    ],
+    "images": [
+      "/images/10-16_0f4cc8a3e3.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-29",
+      "url": "10-16-2"
+    }
+  }
+}

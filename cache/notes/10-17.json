@@ -1,0 +1,39 @@
+{
+  "https://en.wikipedia.org/wiki/1972": {
+    "title": "Eminem",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1972\" target=\"_blank\">1972</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Eminem\" target=\"_blank\">Eminem</a>, American rapper, producer, and actor.</div><div>🎵<a href=\"https://archive.org/details/2003-eminem-straight-from-the-lab-european-version\" target=\"_blank\">Eminem - Straight From The Lab (European Version) by Eminem 2003</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/10-17_61cf30fd1f.jpg",
+      "/images/10-17_1a82b91641.jpg",
+      "/images/10-17_ee0a2bc38f.png"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-29",
+      "url": "10-17-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Mike_Judge": {
+    "title": "Mike Judge",
+    "text": "<div>1962   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Mike_Judge\" target=\"_blank\">Mike Judge</a>, American animator, director, screenwriter, producer and actor</div><div>📖<a href=\"https://archive.org/details/huhhuhforhollywo0000judg/mode/2up\" target=\"_blank\">Huh huh for Hollywood by Judge, Mike 1996</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/10-17_d2e49d264e.jpg",
+      "/images/10-17_11e16c63f0.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-09-29",
+      "url": "10-17-2"
+    }
+  }
+}

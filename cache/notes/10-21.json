@@ -1,0 +1,40 @@
+{
+  "https://en.wikipedia.org/wiki/1833": {
+    "title": "Alfred Nobel",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1833\" target=\"_blank\">1833</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Alfred_Nobel\" target=\"_blank\">Alfred Nobel</a>, Swedish chemist and engineer, invented <a href=\"https://en.wikipedia.org/wiki/Dynamite\" target=\"_blank\">dynamite</a> and founded the <a href=\"https://en.wikipedia.org/wiki/Nobel_Prize\" target=\"_blank\">Nobel Prize</a> (died 1896).</div><div>📖<a href=\"https://archive.org/details/alfrednobelstor00john\" target=\"_blank\">Alfred Nobel and the story of the Nobel Prize by Bankston, John 2004</a></div>",
+    "section": "births",
+    "tags": [
+      "Science"
+    ],
+    "images": [
+      "/images/10-21_56718c700c.jpg",
+      "/images/10-21_fc4d54e139.jpg",
+      "/images/10-21_b86ecf2cc0.png"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-01",
+      "url": "10-21-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Ursula_K._Le_Guin": {
+    "title": "Ursula K. Le Guin",
+    "text": "<div>1929   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Ursula_K._Le_Guin\" target=\"_blank\">Ursula K. Le Guin</a>, American author and critic (died 2018).</div><div>📖<a href=\"https://archive.org/details/the-lathe-of-heaven-ursula-k-le-guin\" target=\"_blank\">The Lathe Of Heaven - Ursula K Le Guin by Ursula K. Le Guin</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/10-21_eb2bdd26f2.jpg",
+      "/images/10-21_d8c8b180fa.jpg",
+      "/images/10-21_69d39851fa.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-01",
+      "url": "10-21-2"
+    }
+  }
+}
