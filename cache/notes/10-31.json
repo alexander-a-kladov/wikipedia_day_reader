@@ -1,0 +1,43 @@
+{
+  "https://en.wikipedia.org/wiki/1632": {
+    "title": "🇳🇱 Johannes Vermeer 🎨",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1632\" target=\"_blank\">1632</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Johannes_Vermeer\" target=\"_blank\">Johannes Vermeer</a>, Dutch painter (died 1675).</div><div>📖<a href=\"https://archive.org/details/delphi-complete-works-of-johannes-vermeer-pdfdrive/mode/2up\" target=\"_blank\">Complete Works Of Johannes Vermeer by Acme</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/10-31_03db832dea.jpg",
+      "/images/10-31_8ea50556b5.jpg",
+      "/images/10-31_94c21597da.jpg",
+      "/images/10-31_1c77f8bf05.jpg",
+      "/images/10-31_cbc260652e.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-03",
+      "url": "10-31-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1620": {
+    "title": "John Evelyn",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1620\" target=\"_blank\">1620</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/John_Evelyn\" target=\"_blank\">John Evelyn</a>, English gardener and author (died 1706).</div><div>📖<a href=\"https://archive.org/details/diaryofjohnevely0000john_z7e2/mode/2up\" target=\"_blank\">The Diary of John Evelyn by John Evelyn 1959</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/10-31_1915ed470c.jpg",
+      "/images/10-31_cab2103241.jpg",
+      "/images/10-31_241e807284.jpg",
+      "/images/10-31_e0a367db65.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-03",
+      "url": "10-31-2"
+    }
+  }
+}

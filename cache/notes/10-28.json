@@ -1,0 +1,41 @@
+{
+  "https://en.wikipedia.org/wiki/1726": {
+    "title": "Gulliver's Travels",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1726\" target=\"_blank\">1726</a> – The novel <a href=\"https://en.wikipedia.org/wiki/Gulliver's_Travels\" target=\"_blank\">Gulliver's Travels</a> written by <a href=\"https://en.wikipedia.org/wiki/Jonathan_Swift\" target=\"_blank\">Jonathan Swift</a> is published.</div><div>📖<a href=\"https://www.gutenberg.org/ebooks/829\" target=\"_blank\">Gulliver's Travels into Several Remote Nations of the World by Jonathan Swift</a></div>",
+    "section": "events",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/10-28_2d5b3a5951.jpg",
+      "/images/10-28_e71ef25c31.png",
+      "/images/10-28_447d41e370.jpg",
+      "/images/10-28_e2029bd069.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-02",
+      "url": "10-28-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Joaquin_Phoenix": {
+    "title": "Joaquin Phoenix",
+    "text": "1974   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Joaquin_Phoenix\" target=\"_blank\">Joaquin Phoenix</a>, American actor and producer.",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/10-28_7b3f4ce40c.jpg",
+      "/images/10-28_8d47bae32a.jpg",
+      "/images/10-28_26daaec7c7.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-02",
+      "url": "10-28-2"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "https://en.wikipedia.org/wiki/1782": {
+    "title": "Niccolò Paganini",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1782\" target=\"_blank\">1782</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Niccolò_Paganini\" target=\"_blank\">Niccolò Paganini</a>, Italian violinist and composer (died 1840).</div><div>🎼<a href=\"https://archive.org/details/The24CapricesOp.1\" target=\"_blank\">The 24 Caprices, Op. 1 by Niccolo Paganini</a></div>",
+    "section": "births",
+    "tags": [
+      "Music"
+    ],
+    "images": [
+      "/images/10-27_9156113afa.jpeg",
+      "/images/10-27_481b6ebffb.jpg",
+      "/images/10-27_fc2de9a9e3.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-02",
+      "url": "10-27-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1923": {
+    "title": "Roy Lichtenstein",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1923\" target=\"_blank\">1923</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Roy_Lichtenstein\" target=\"_blank\">Roy Lichtenstein</a>, American painter and sculptor (died 1997).</div><div>📖<a href=\"https://archive.org/details/roylichtenstein0000allo/mode/2up\" target=\"_blank\">Roy Lichtenstein by Alloway, Lawrence 1983</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/10-27_37db0ebe4d.jpg",
+      "/images/10-27_a4b2ecf0fb.jpg",
+      "/images/10-27_643db5f2a6.jpg",
+      "/images/10-27_78d23c768e.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-02",
+      "url": "10-27-2"
+    }
+  }
+}

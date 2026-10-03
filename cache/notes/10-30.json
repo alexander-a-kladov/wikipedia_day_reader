@@ -1,0 +1,41 @@
+{
+  "https://en.wikipedia.org/wiki/1632": {
+    "title": "Christopher Wren",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1632\" target=\"_blank\">1632</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Christopher_Wren\" target=\"_blank\">Christopher Wren</a>, English physicist, mathematician, and architect, designed <a href=\"https://en.wikipedia.org/wiki/St_Paul's_Cathedral\" target=\"_blank\">St Paul's Cathedral</a> (died 1723).</div><div>📖<a href=\"https://archive.org/details/christopherwren00whin/mode/2up\" target=\"_blank\">Christopher Wren by Whinney, Margaret Dickens 1971</a></div>",
+    "section": "births",
+    "tags": [
+      "Inventions"
+    ],
+    "images": [
+      "/images/10-30_21c8f5ecb6.jpg",
+      "/images/10-30_3731cb2ca1.jpg",
+      "/images/10-30_45bd3a1731.jpg",
+      "/images/10-30_f7f14d511b.jpg",
+      "/images/10-30_2fb8741190.jpg",
+      "/images/10-30_94ff4e566b.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-02",
+      "url": "10-30-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Paul_Valéry": {
+    "title": "Paul Valéry",
+    "text": "<div>1871   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Paul_Valéry\" target=\"_blank\">Paul Valéry</a>, French poet and philosopher (died 1945).</div><div>📖<a href=\"https://archive.org/details/selectedwritings0000paul_d7e0\" target=\"_blank\">Selected Writings of Paul Valery by Paul Valery 1950</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/10-30_3ad8f694ec.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-02",
+      "url": "10-30-2"
+    }
+  }
+}

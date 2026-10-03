@@ -1,0 +1,43 @@
+{
+  "https://en.wikipedia.org/wiki/1842": {
+    "title": "Vasily Vereshchagin",
+    "text": "<a href=\"https://en.wikipedia.org/wiki/1842\" target=\"_blank\">1842</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Vasily_Vereshchagin\" target=\"_blank\">Vasily Vereshchagin</a>, Russian soldier and painter (died 1904).",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/10-26_87e30ac114.jpg",
+      "/images/10-26_2900efe1ea.jpg",
+      "/images/10-26_24e4e89570.jpg",
+      "/images/10-26_99599cdc29.jpg",
+      "/images/10-26_33fc45c194.jpg",
+      "/images/10-26_7f12a0f1b4.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-02",
+      "url": "10-26-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1880": {
+    "title": "Andrei Bely",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1880\" target=\"_blank\">1880</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Andrei_Bely\" target=\"_blank\">Andrei Bely</a>, Russian novelist, poet, and critic (died 1934).</div><div>📖<a href=\"https://archive.org/details/andreibelyspeter0000mann\" target=\"_blank\">Andrei Bely's Petersburg and the cult of Dionysus by Mann, Robert 1986</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/10-26_b393dc44e1.jpg",
+      "/images/10-26_db3756a01e.jpg",
+      "/images/10-26_f64d5a13da.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-02",
+      "url": "10-26-2"
+    }
+  }
+}

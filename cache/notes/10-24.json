@@ -1,0 +1,41 @@
+{
+  "https://en.wikipedia.org/wiki/1926": {
+    "title": "Harry Houdini",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1926\" target=\"_blank\">1926</a> – <a href=\"https://en.wikipedia.org/wiki/Harry_Houdini\" target=\"_blank\">Harry Houdini</a>'s last performance takes place at the Garrick Theatre in Detroit.</div><div>📖<a href=\"https://archive.org/details/harryhoudini0000wels_s7r2/mode/2up\" target=\"_blank\">Harry Houdini by Welsh, C. E. L. (Christopher E. L.) 2010</a></div>",
+    "section": "events",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/10-24_28bb114f07.jpg",
+      "/images/10-24_b2d58243b0.jpg",
+      "/images/10-24_aed0aa3f2f.jpg",
+      "/images/10-24_dcf9c0e242.jpg",
+      "/images/10-24_fcc8769ccf.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-02",
+      "url": "10-24-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1915": {
+    "title": "Bob Kane",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1915\" target=\"_blank\">1915</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Bob_Kane\" target=\"_blank\">Bob Kane</a>, American author and illustrator (died 1998).</div><div>📖<a href=\"https://archive.org/details/batman150/Batman%20001/mode/2up\" target=\"_blank\">Batman 1940 (1-50) by Bob Kane and Bill Goldfinger 1940</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/10-24_d8de8c99ea.jpg",
+      "/images/10-24_61cbd0ee2b.png"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-02",
+      "url": "10-24-2"
+    }
+  }
+}

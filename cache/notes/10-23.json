@@ -1,0 +1,38 @@
+{
+  "https://en.wikipedia.org/wiki/Gianni_Rodari": {
+    "title": "Gianni Rodari",
+    "text": "<div>1920   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Gianni_Rodari\" target=\"_blank\">Gianni Rodari</a>, Italian writer (died 1980).</div><div><br></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/10-23_f516079099.jpg",
+      "/images/10-23_aef393bef5.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-02",
+      "url": "10-23-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Michael_Crichton": {
+    "title": "Michael Crichton",
+    "text": "<div>1942 – Birthday of <a href=\"https://en.wikipedia.org/wiki/Michael_Crichton\" target=\"_blank\">Michael Crichton</a>, American author and screenwriter (died 2008).</div><div>📖<a href=\"https://archive.org/details/disclosure0000mich/mode/2up\" target=\"_blank\">Disclosure by Michael Crichton 1993</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/10-23_f93068e557.jpg",
+      "/images/10-23_620288d59a.jpg"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-02",
+      "url": "10-23-2"
+    }
+  }
+}
