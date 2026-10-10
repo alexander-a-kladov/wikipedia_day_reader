@@ -1,32 +1,32 @@
 {
-  "https://en.wikipedia.org/wiki/1821": {
-    "text": "1821 – Apollon Maykov, Russian poet and playwright (died 1897)",
-    "images": [
-      "/images/06-04_e83f6d0648.jpg"
-    ]
-  },
-  "https://en.wikipedia.org/wiki/1783": {
-    "title": "🧑‍🔬🧑‍🔬 The Montgolfier Brothers Publicly Demonstrate Their Hot Air Balloon 🎈🇫🇷",
-    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1783\" target=\"_blank\">1783</a> – The <a href=\"https://en.wikipedia.org/wiki/Montgolfier_brothers\" target=\"_blank\">Montgolfier brothers</a> publicly demonstrate their montgolfière (<a href=\"https://en.wikipedia.org/wiki/Hot_air_balloon\" target=\"_blank\">hot air balloon</a>).</div><div><a href=\"https://archive.org/details/bagofsmokestoryo00ande/mode/2up\" target=\"_blank\">📖Bag of smoke; the story of man's first reach for space by Anderson, Lonzo 1968</a></div>",
-    "tags": [
-      "Inventions"
-    ],
-    "images": [
-      "/images/06-04_360c47b51a.jpg",
-      "/images/06-04_93922c5427.jpg",
-      "/images/06-04_4950324f1e.jpg",
-      "/images/06-04_063dffff6f.jpg"
-    ],
-    "pub_status": "published",
-    "published": {
-      "date": "2026-06-08",
-      "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/#06-04-1"
+    "https://en.wikipedia.org/wiki/1821": {
+        "text": "1821 – Apollon Maykov, Russian poet and playwright (died 1897)",
+        "images": [
+            "/images/06-04_e83f6d0648.webp"
+        ]
+    },
+    "https://en.wikipedia.org/wiki/1783": {
+        "title": "🧑‍🔬🧑‍🔬 The Montgolfier Brothers Publicly Demonstrate Their Hot Air Balloon 🎈🇫🇷",
+        "text": "<div><a href=\"https://en.wikipedia.org/wiki/1783\" target=\"_blank\">1783</a> – The <a href=\"https://en.wikipedia.org/wiki/Montgolfier_brothers\" target=\"_blank\">Montgolfier brothers</a> publicly demonstrate their montgolfière (<a href=\"https://en.wikipedia.org/wiki/Hot_air_balloon\" target=\"_blank\">hot air balloon</a>).</div><div><a href=\"https://archive.org/details/bagofsmokestoryo00ande/mode/2up\" target=\"_blank\">📖Bag of smoke; the story of man's first reach for space by Anderson, Lonzo 1968</a></div>",
+        "tags": [
+            "Inventions"
+        ],
+        "images": [
+            "/images/06-04_360c47b51a.webp",
+            "/images/06-04_93922c5427.webp",
+            "/images/06-04_4950324f1e.webp",
+            "/images/06-04_063dffff6f.webp"
+        ],
+        "pub_status": "published",
+        "published": {
+            "date": "2026-06-08",
+            "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/#06-04-1"
+        }
+    },
+    "https://en.wikipedia.org/wiki/1917": {
+        "text": "",
+        "images": [
+            "/images/06-04_eee4f54193.webp"
+        ]
     }
-  },
-  "https://en.wikipedia.org/wiki/1917": {
-    "text": "",
-    "images": [
-      "/images/06-04_eee4f54193.png"
-    ]
-  }
 }

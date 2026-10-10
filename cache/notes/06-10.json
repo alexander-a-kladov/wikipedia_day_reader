@@ -1,19 +1,19 @@
 {
-  "https://en.wikipedia.org/wiki/1928": {
-    "title": "🧒🎭 Birthday of Maurice Sendak 🦖🌳",
-    "text": "<a href=\"https://en.wikipedia.org/wiki/1928\" target=\"_blank\">1928</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Maurice_Sendak\" target=\"_blank\">Maurice Sendak</a>, American author and illustrator (died 2012)<div><a href=\"https://en.wikipedia.org/wiki/Where_the_Wild_Things_Are\" target=\"_blank\">📄Where the WIld Things Are</a></div>",
-    "tags": [
-      "Art"
-    ],
-    "images": [
-      "/images/06-10_1233d4268d.jpg",
-      "/images/06-10_8160a6ad35.gif",
-      "/images/06-10_24bd576e33.jpg"
-    ],
-    "pub_status": "published",
-    "published": {
-      "date": "2026-06-07",
-      "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#06-10-1"
+    "https://en.wikipedia.org/wiki/1928": {
+        "title": "🧒🎭 Birthday of Maurice Sendak 🦖🌳",
+        "text": "<a href=\"https://en.wikipedia.org/wiki/1928\" target=\"_blank\">1928</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Maurice_Sendak\" target=\"_blank\">Maurice Sendak</a>, American author and illustrator (died 2012)<div><a href=\"https://en.wikipedia.org/wiki/Where_the_Wild_Things_Are\" target=\"_blank\">📄Where the WIld Things Are</a></div>",
+        "tags": [
+            "Art"
+        ],
+        "images": [
+            "/images/06-10_1233d4268d.webp",
+            "/images/06-10_8160a6ad35.webp",
+            "/images/06-10_24bd576e33.webp"
+        ],
+        "pub_status": "published",
+        "published": {
+            "date": "2026-06-07",
+            "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#06-10-1"
+        }
     }
-  }
 }

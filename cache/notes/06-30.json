@@ -1,40 +1,40 @@
 {
-  "https://en.wikipedia.org/wiki/1905": {
-    "title": "🧠📝 Special Relativity was Introduced by Albert Einstein⏱️ 📐",
-    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1905\" target=\"_blank\">1905</a> – <a href=\"https://en.wikipedia.org/wiki/Albert_Einstein\" target=\"_blank\">Albert Einstein</a> sends the article <a href=\"https://en.wikipedia.org/wiki/On_the_Electrodynamics_of_Moving_Bodies\" target=\"_blank\">On the Electrodynamics of Moving Bodies</a>, in which he introduces <a href=\"https://en.wikipedia.org/wiki/Special_relativity\" target=\"_blank\">special relativity</a>, for publication in <a href=\"https://en.wikipedia.org/wiki/Annalen_der_Physik\" target=\"_blank\">Annalen der Physik</a>.</div><div><a href=\"https://archive.org/details/annusmirabilis190000grib/mode/2up\" target=\"_blank\">📖Annus mirabilis : 1905, Albert Einstein, and the theory of relativity by Gribbin, John</a></div>",
-    "section": "events",
-    "tags": [
-      "Science"
-    ],
-    "images": [
-      "/images/06-30_9cc4f34ac1.jpg",
-      "/images/06-30_23988e462c.jpg",
-      "/images/06-30_a35295b7c7.jpg",
-      "/images/06-30_4c17c86891.jpg"
-    ],
-    "pub_status": "published",
-    "published": {
-      "date": "2026-06-11",
-      "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#06-30-1"
+    "https://en.wikipedia.org/wiki/1905": {
+        "title": "🧠📝 Special Relativity was Introduced by Albert Einstein⏱️ 📐",
+        "text": "<div><a href=\"https://en.wikipedia.org/wiki/1905\" target=\"_blank\">1905</a> – <a href=\"https://en.wikipedia.org/wiki/Albert_Einstein\" target=\"_blank\">Albert Einstein</a> sends the article <a href=\"https://en.wikipedia.org/wiki/On_the_Electrodynamics_of_Moving_Bodies\" target=\"_blank\">On the Electrodynamics of Moving Bodies</a>, in which he introduces <a href=\"https://en.wikipedia.org/wiki/Special_relativity\" target=\"_blank\">special relativity</a>, for publication in <a href=\"https://en.wikipedia.org/wiki/Annalen_der_Physik\" target=\"_blank\">Annalen der Physik</a>.</div><div><a href=\"https://archive.org/details/annusmirabilis190000grib/mode/2up\" target=\"_blank\">📖Annus mirabilis : 1905, Albert Einstein, and the theory of relativity by Gribbin, John</a></div>",
+        "section": "events",
+        "tags": [
+            "Science"
+        ],
+        "images": [
+            "/images/06-30_9cc4f34ac1.webp",
+            "/images/06-30_23988e462c.webp",
+            "/images/06-30_a35295b7c7.webp",
+            "/images/06-30_4c17c86891.webp"
+        ],
+        "pub_status": "published",
+        "published": {
+            "date": "2026-06-11",
+            "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#06-30-1"
+        }
+    },
+    "https://en.wikipedia.org/wiki/1942": {
+        "title": "Birthday of Robert Ballard",
+        "text": "<div><a href=\"https://en.wikipedia.org/wiki/1942\" target=\"_blank\">1942</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Robert_Ballard\" target=\"_blank\">Robert Ballard</a>, American lieutenant and oceanographer.</div><div><a href=\"https://archive.org/details/robertballardexp0000youn/mode/2up\" target=\"_blank\">Robert Ballard : explorer and undersea archaeologist by Yount, Lisa 2009</a></div>",
+        "section": "births",
+        "tags": [
+            "Science",
+            "Exploration"
+        ],
+        "images": [
+            "/images/06-30_f9cf1761f3.webp",
+            "/images/06-30_73fbe6f906.webp",
+            "/images/06-30_cad179bef6.webp"
+        ],
+        "pub_status": "published",
+        "published": {
+            "date": "2026-06-25",
+            "url": "http://thepastandenglishbooks.ru/#06-30-2"
+        }
     }
-  },
-  "https://en.wikipedia.org/wiki/1942": {
-    "title": "Birthday of Robert Ballard",
-    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1942\" target=\"_blank\">1942</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Robert_Ballard\" target=\"_blank\">Robert Ballard</a>, American lieutenant and oceanographer.</div><div><a href=\"https://archive.org/details/robertballardexp0000youn/mode/2up\" target=\"_blank\">Robert Ballard : explorer and undersea archaeologist by Yount, Lisa 2009</a></div>",
-    "section": "births",
-    "tags": [
-      "Science",
-      "Exploration"
-    ],
-    "images": [
-      "/images/06-30_f9cf1761f3.jpg",
-      "/images/06-30_73fbe6f906.jpg",
-      "/images/06-30_cad179bef6.jpg"
-    ],
-    "pub_status": "published",
-    "published": {
-      "date": "2026-06-25",
-      "url": "http://thepastandenglishbooks.ru/#06-30-2"
-    }
-  }
 }

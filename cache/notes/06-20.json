@@ -1,37 +1,37 @@
 {
-  "https://en.wikipedia.org/wiki/2003": {
-    "title": "🌐📚 The Wikimedia Foundation 📖📜",
-    "text": "<div><a href=\"https://en.wikipedia.org/wiki/2003\" target=\"_blank\">2003</a> – The <a href=\"https://en.wikipedia.org/wiki/Wikimedia_Foundation\" target=\"_blank\">Wikimedia Foundation</a> is founded in <a href=\"https://en.wikipedia.org/wiki/St._Petersburg,_Florida\" target=\"_blank\">St. Petersburg, Florida</a></div><div>📖<a href=\"https://archive.org/details/mit_press_book_9780262360593/mode/2up\" target=\"_blank\">Wikipedia @ 20: Stories of an Incomplete Revolution</a></div><div><a href=\"https://www.thewikigame.com/play/\" target=\"_blank\"><span class=\"Markdown-Word\">🎮</span><span class=\"Markdown-Word\"></span>The Wiki Game</a></div>",
-    "tags": [
-      "Education"
-    ],
-    "images": [
-      "/images/06-20_23914d6fee.jpg",
-      "/images/06-20_13a17be715.jpg",
-      "/images/06-20_accd78cfbf.jpg",
-      "/images/06-20_dc722118f0.png"
-    ],
-    "pub_status": "published",
-    "published": {
-      "date": "2026-06-09",
-      "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#06-20-1"
+    "https://en.wikipedia.org/wiki/2003": {
+        "title": "🌐📚 The Wikimedia Foundation 📖📜",
+        "text": "<div><a href=\"https://en.wikipedia.org/wiki/2003\" target=\"_blank\">2003</a> – The <a href=\"https://en.wikipedia.org/wiki/Wikimedia_Foundation\" target=\"_blank\">Wikimedia Foundation</a> is founded in <a href=\"https://en.wikipedia.org/wiki/St._Petersburg,_Florida\" target=\"_blank\">St. Petersburg, Florida</a></div><div>📖<a href=\"https://archive.org/details/mit_press_book_9780262360593/mode/2up\" target=\"_blank\">Wikipedia @ 20: Stories of an Incomplete Revolution</a></div><div><a href=\"https://www.thewikigame.com/play/\" target=\"_blank\"><span class=\"Markdown-Word\">🎮</span><span class=\"Markdown-Word\"></span>The Wiki Game</a></div>",
+        "tags": [
+            "Education"
+        ],
+        "images": [
+            "/images/06-20_23914d6fee.webp",
+            "/images/06-20_13a17be715.webp",
+            "/images/06-20_accd78cfbf.webp",
+            "/images/06-20_dc722118f0.webp"
+        ],
+        "pub_status": "published",
+        "published": {
+            "date": "2026-06-09",
+            "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#06-20-1"
+        }
+    },
+    "https://en.wikipedia.org/wiki/1932": {
+        "title": "🎖️🕰️ Birthday of Robert Rozhdestvensky 🇷🇺🕊️",
+        "text": "<div><a href=\"https://en.wikipedia.org/wiki/1932\" target=\"_blank\">1932</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Robert_Rozhdestvensky\" target=\"_blank\">Robert Rozhdestvensky</a>, Russian poet and author (died 1994)</div><div><a href=\"https://archive.org/details/twentiethcentury00yevt/mode/2up\" target=\"_blank\">Twentieth century Russian poetry : silver and steel : an anthology by Yevtushenko, Yevgeny Aleksandrovich, Todd, Albert, Hayward, Max 1993</a></div>",
+        "tags": [
+            "Literature"
+        ],
+        "images": [
+            "/images/06-20_1fe341782c.webp",
+            "/images/06-20_c395066159.webp",
+            "/images/06-20_2b6d6722cd.webp"
+        ],
+        "pub_status": "published",
+        "published": {
+            "date": "2026-06-19",
+            "url": "http://thepastandenglishbooks.ru/#06-20-2"
+        }
     }
-  },
-  "https://en.wikipedia.org/wiki/1932": {
-    "title": "🎖️🕰️ Birthday of Robert Rozhdestvensky 🇷🇺🕊️",
-    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1932\" target=\"_blank\">1932</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Robert_Rozhdestvensky\" target=\"_blank\">Robert Rozhdestvensky</a>, Russian poet and author (died 1994)</div><div><a href=\"https://archive.org/details/twentiethcentury00yevt/mode/2up\" target=\"_blank\">Twentieth century Russian poetry : silver and steel : an anthology by Yevtushenko, Yevgeny Aleksandrovich, Todd, Albert, Hayward, Max 1993</a></div>",
-    "tags": [
-      "Literature"
-    ],
-    "images": [
-      "/images/06-20_1fe341782c.jpg",
-      "/images/06-20_c395066159.jpg",
-      "/images/06-20_2b6d6722cd.jpg"
-    ],
-    "pub_status": "published",
-    "published": {
-      "date": "2026-06-19",
-      "url": "http://thepastandenglishbooks.ru/#06-20-2"
-    }
-  }
 }

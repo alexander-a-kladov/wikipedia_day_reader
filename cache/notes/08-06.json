@@ -1,41 +1,41 @@
 {
-  "https://en.wikipedia.org/wiki/Alexander_Fleming": {
-    "title": "🏰👨‍⚕️ Alexander Fleming 🔬💊",
-    "text": "<div>1881 – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Alexander_Fleming\" target=\"_blank\">Alexander Fleming</a>, Scottish biologist, pharmacologist, and botanist, <a href=\"https://en.wikipedia.org/wiki/Nobel_Prize_in_Physiology_or_Medicine\" target=\"_blank\">Nobel Prize</a> laureate (died 1955).</div><div><a href=\"https://archive.org/details/scientistsinvent00feld\" target=\"_blank\">📖Scientists &amp; inventors by Feldman, Anthony; Ford, Peter; Yost, Graham 1986</a></div>",
-    "section": "births",
-    "tags": [
-      "Science"
-    ],
-    "images": [
-      "/images/08-06_f26320b11f.jpg",
-      "/images/08-06_2208eb7ae4.jpg",
-      "/images/08-06_3ebf2dea7f.jpg",
-      "/images/08-06_2bbc71fbcc.jpg",
-      "/images/08-06_e3c229c6c9.jpg"
-    ],
-    "pub_status": "published",
-    "published": {
-      "date": "2026-07-17",
-      "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#08-06-1"
+    "https://en.wikipedia.org/wiki/Alexander_Fleming": {
+        "title": "🏰👨‍⚕️ Alexander Fleming 🔬💊",
+        "text": "<div>1881 – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Alexander_Fleming\" target=\"_blank\">Alexander Fleming</a>, Scottish biologist, pharmacologist, and botanist, <a href=\"https://en.wikipedia.org/wiki/Nobel_Prize_in_Physiology_or_Medicine\" target=\"_blank\">Nobel Prize</a> laureate (died 1955).</div><div><a href=\"https://archive.org/details/scientistsinvent00feld\" target=\"_blank\">📖Scientists &amp; inventors by Feldman, Anthony; Ford, Peter; Yost, Graham 1986</a></div>",
+        "section": "births",
+        "tags": [
+            "Science"
+        ],
+        "images": [
+            "/images/08-06_f26320b11f.webp",
+            "/images/08-06_2208eb7ae4.webp",
+            "/images/08-06_3ebf2dea7f.webp",
+            "/images/08-06_2bbc71fbcc.webp",
+            "/images/08-06_e3c229c6c9.webp"
+        ],
+        "pub_status": "published",
+        "published": {
+            "date": "2026-07-17",
+            "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#08-06-1"
+        }
+    },
+    "https://en.wikipedia.org/wiki/1972": {
+        "title": "🏰🇬🇧 Geri Halliwell 🎤👸",
+        "text": "<div><a href=\"https://en.wikipedia.org/wiki/1972\" target=\"_blank\">1972</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Geri_Halliwell\" target=\"_blank\">Geri Halliwell</a>, English singer-songwriter, dancer, and actress.</div><div><a href=\"https://archive.org/details/spicegirls00shor/mode/2up\" target=\"_blank\">📖Spice Girls by Shore, Nancy 1999</a></div>",
+        "section": "births",
+        "tags": [
+            "Music"
+        ],
+        "images": [
+            "/images/08-06_5566190ef3.webp",
+            "/images/08-06_35b7737592.webp",
+            "/images/08-06_b615e7c312.webp",
+            "/images/08-06_176e82d62c.webp"
+        ],
+        "pub_status": "published",
+        "published": {
+            "date": "2026-07-18",
+            "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#08-06-2"
+        }
     }
-  },
-  "https://en.wikipedia.org/wiki/1972": {
-    "title": "🏰🇬🇧 Geri Halliwell 🎤👸",
-    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1972\" target=\"_blank\">1972</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Geri_Halliwell\" target=\"_blank\">Geri Halliwell</a>, English singer-songwriter, dancer, and actress.</div><div><a href=\"https://archive.org/details/spicegirls00shor/mode/2up\" target=\"_blank\">📖Spice Girls by Shore, Nancy 1999</a></div>",
-    "section": "births",
-    "tags": [
-      "Music"
-    ],
-    "images": [
-      "/images/08-06_5566190ef3.jpg",
-      "/images/08-06_35b7737592.jpg",
-      "/images/08-06_b615e7c312.jpg",
-      "/images/08-06_176e82d62c.jpg"
-    ],
-    "pub_status": "published",
-    "published": {
-      "date": "2026-07-18",
-      "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#08-06-2"
-    }
-  }
 }

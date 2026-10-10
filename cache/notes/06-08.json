@@ -1,39 +1,39 @@
 {
-  "https://en.wikipedia.org/wiki/1949": {
-    "title": "🏢🚫 Nineteen Eighty‑Four 👮‍♂️🔒",
-    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1949\" target=\"_blank\">1949</a> – <a href=\"https://en.wikipedia.org/wiki/George_Orwell\" target=\"_blank\">George Orwell</a>'s dystopian novel <a href=\"https://en.wikipedia.org/wiki/Nineteen_Eighty-Four\" target=\"_blank\">Nineteen Eighty-Four</a> is published in the <a href=\"https://en.wikipedia.org/wiki/United_States\" target=\"_blank\">United States</a></div><div><a href=\"https://archive.org/details/NineteenEightyFour-Novel-GeorgeOrwell/mode/2up\" target=\"_blank\">📖Nineteen eighty-four</a></div>",
-    "tags": [
-      "Literature"
-    ],
-    "images": [
-      "/images/06-08_a59d6c81ea.jpg"
-    ],
-    "pub_status": "published",
-    "published": {
-      "date": "2026-06-07",
-      "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#06-08-1"
+    "https://en.wikipedia.org/wiki/1949": {
+        "title": "🏢🚫 Nineteen Eighty‑Four 👮‍♂️🔒",
+        "text": "<div><a href=\"https://en.wikipedia.org/wiki/1949\" target=\"_blank\">1949</a> – <a href=\"https://en.wikipedia.org/wiki/George_Orwell\" target=\"_blank\">George Orwell</a>'s dystopian novel <a href=\"https://en.wikipedia.org/wiki/Nineteen_Eighty-Four\" target=\"_blank\">Nineteen Eighty-Four</a> is published in the <a href=\"https://en.wikipedia.org/wiki/United_States\" target=\"_blank\">United States</a></div><div><a href=\"https://archive.org/details/NineteenEightyFour-Novel-GeorgeOrwell/mode/2up\" target=\"_blank\">📖Nineteen eighty-four</a></div>",
+        "tags": [
+            "Literature"
+        ],
+        "images": [
+            "/images/06-08_a59d6c81ea.webp"
+        ],
+        "pub_status": "published",
+        "published": {
+            "date": "2026-06-07",
+            "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/index.html#06-08-1"
+        }
+    },
+    "https://en.wikipedia.org/wiki/Kenneth_G._Wilson": {
+        "text": "1936 – Kenneth G. Wilson, American physicist and academic, Nobel Prize laureate",
+        "images": [
+            "/images/06-08_76e99c58f1.webp"
+        ],
+        "pub_status": "draft"
+    },
+    "https://en.wikipedia.org/wiki/1955": {
+        "title": "🧑‍💻🌐 Birthday of Tim Berners‑Lee 📄🔗",
+        "text": "<div><a href=\"https://en.wikipedia.org/wiki/1955\" target=\"_blank\">1955</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Tim_Berners-Lee\" target=\"_blank\">Tim Berners-Lee</a>, English computer scientist, invented the <a href=\"https://en.wikipedia.org/wiki/World_Wide_Web\" target=\"_blank\">World Wide Web</a></div><div><a https:=\"\" archive.org=\"\" details=\"\" weavingweborigin00bern_0=\"\">📖His 1999's book: Weaving the Web</a></div>",
+        "tags": [
+            "Inventions"
+        ],
+        "images": [
+            "/images/06-08_b7907d45cd.webp"
+        ],
+        "pub_status": "published",
+        "published": {
+            "date": "2026-06-07",
+            "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/il#06-08-2"
+        }
     }
-  },
-  "https://en.wikipedia.org/wiki/Kenneth_G._Wilson": {
-    "text": "1936 – Kenneth G. Wilson, American physicist and academic, Nobel Prize laureate",
-    "images": [
-      "/images/06-08_76e99c58f1.jpg"
-    ],
-    "pub_status": "draft"
-  },
-  "https://en.wikipedia.org/wiki/1955": {
-    "title": "🧑‍💻🌐 Birthday of Tim Berners‑Lee 📄🔗",
-    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1955\" target=\"_blank\">1955</a> – Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Tim_Berners-Lee\" target=\"_blank\">Tim Berners-Lee</a>, English computer scientist, invented the <a href=\"https://en.wikipedia.org/wiki/World_Wide_Web\" target=\"_blank\">World Wide Web</a></div><div><a https:=\"\" archive.org=\"\" details=\"\" weavingweborigin00bern_0=\"\">📖His 1999's book: Weaving the Web</a></div>",
-    "tags": [
-      "Inventions"
-    ],
-    "images": [
-      "/images/06-08_b7907d45cd.jpg"
-    ],
-    "pub_status": "published",
-    "published": {
-      "date": "2026-06-07",
-      "url": "https://alexander-a-kladov.github.io/wikipedia_day_reader/il#06-08-2"
-    }
-  }
 }

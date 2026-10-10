@@ -1,56 +1,56 @@
 {
-  "https://en.wikipedia.org/wiki/1962": {
-    "title": "📡📺 Satellite Television 🛰️🌏",
-    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1962\" target=\"_blank\">1962</a> – First transatlantic <a href=\"https://en.wikipedia.org/wiki/Satellite_television\" target=\"_blank\">satellite television</a> transmission.</div><div><a href=\"https://archive.org/details/allabouthomesate00rick/mode/2up\" target=\"_blank\">All about home satellite television by Cook, Rick; Vaughan, Frank 1983</a></div>",
-    "tags": [
-      "Inventions"
-    ],
-    "images": [
-      "/images/07-11_05a7e01512.jpg",
-      "/images/07-11_7366fe11f5.png",
-      "/images/07-11_cb21002c5f.jpg",
-      "/images/07-11_112a1ccb9b.jpg",
-      "/images/07-11_f7ff652b3d.jpg"
-    ],
-    "pub_status": "published",
-    "published": {
-      "date": "2026-06-18",
-      "url": "http://thepastandenglishbooks.ru/#07-11-1"
+    "https://en.wikipedia.org/wiki/1962": {
+        "title": "📡📺 Satellite Television 🛰️🌏",
+        "text": "<div><a href=\"https://en.wikipedia.org/wiki/1962\" target=\"_blank\">1962</a> – First transatlantic <a href=\"https://en.wikipedia.org/wiki/Satellite_television\" target=\"_blank\">satellite television</a> transmission.</div><div><a href=\"https://archive.org/details/allabouthomesate00rick/mode/2up\" target=\"_blank\">All about home satellite television by Cook, Rick; Vaughan, Frank 1983</a></div>",
+        "tags": [
+            "Inventions"
+        ],
+        "images": [
+            "/images/07-11_05a7e01512.webp",
+            "/images/07-11_7366fe11f5.webp",
+            "/images/07-11_cb21002c5f.webp",
+            "/images/07-11_112a1ccb9b.webp",
+            "/images/07-11_f7ff652b3d.webp"
+        ],
+        "pub_status": "published",
+        "published": {
+            "date": "2026-06-18",
+            "url": "http://thepastandenglishbooks.ru/#07-11-1"
+        }
+    },
+    "https://en.wikipedia.org/wiki/1836": {
+        "title": "",
+        "text": "<a href=\"https://en.wikipedia.org/wiki/1836\" target=\"_blank\">1836</a> – <a href=\"https://en.wikipedia.org/wiki/The_Fly-fisher%27s_Entomology\" target=\"_blank\">The Fly-fisher's Entomology</a> is published by <a href=\"https://en.wikipedia.org/wiki/Alfred_Ronalds\" target=\"_blank\">Alfred Ronalds</a>. The book transformed the sport and went to many editions.",
+        "tags": [
+            "Literature"
+        ],
+        "images": [],
+        "pub_status": "draft"
+    },
+    "https://en.wikipedia.org/wiki/To_Kill_a_Mockingbird": {
+        "title": "📜📚To Kill a Mockingbird🥇❤️",
+        "text": "<div>1960   – <a href=\"https://en.wikipedia.org/wiki/To_Kill_a_Mockingbird\" target=\"_blank\">To Kill a Mockingbird</a> by <a href=\"https://en.wikipedia.org/wiki/Harper_Lee\" target=\"_blank\">Harper Lee</a> is first published, in the United States.</div><div><a href=\"https://archive.org/details/storybehindharpe0000gidd/mode/2up\" target=\"_blank\">📖The story behind Harper Lee's To kill a mockingbird by Giddens-White, Bryon 2007</a></div>",
+        "section": "events",
+        "tags": [
+            "Literature"
+        ],
+        "images": [
+            "/images/07-11_6ced0c12d6.webp",
+            "/images/07-11_0157678dfe.webp"
+        ],
+        "pub_status": "published",
+        "published": {
+            "date": "2026-07-01",
+            "url": "http://thepastandenglishbooks.ru/#07-11-2"
+        }
+    },
+    "https://en.wikipedia.org/wiki/1886": {
+        "title": "",
+        "text": "<a href=\"https://en.wikipedia.org/wiki/1886\" target=\"_blank\">1886</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Boris_Grigoriev\" target=\"_blank\">Boris Grigoriev</a>, Russian painter and illustrator (died 1939)",
+        "tags": [
+            "Art"
+        ],
+        "images": [],
+        "pub_status": "draft"
     }
-  },
-  "https://en.wikipedia.org/wiki/1836": {
-    "title": "",
-    "text": "<a href=\"https://en.wikipedia.org/wiki/1836\" target=\"_blank\">1836</a> – <a href=\"https://en.wikipedia.org/wiki/The_Fly-fisher%27s_Entomology\" target=\"_blank\">The Fly-fisher's Entomology</a> is published by <a href=\"https://en.wikipedia.org/wiki/Alfred_Ronalds\" target=\"_blank\">Alfred Ronalds</a>. The book transformed the sport and went to many editions.",
-    "tags": [
-      "Literature"
-    ],
-    "images": [],
-    "pub_status": "draft"
-  },
-  "https://en.wikipedia.org/wiki/To_Kill_a_Mockingbird": {
-    "title": "📜📚To Kill a Mockingbird🥇❤️",
-    "text": "<div>1960   – <a href=\"https://en.wikipedia.org/wiki/To_Kill_a_Mockingbird\" target=\"_blank\">To Kill a Mockingbird</a> by <a href=\"https://en.wikipedia.org/wiki/Harper_Lee\" target=\"_blank\">Harper Lee</a> is first published, in the United States.</div><div><a href=\"https://archive.org/details/storybehindharpe0000gidd/mode/2up\" target=\"_blank\">📖The story behind Harper Lee's To kill a mockingbird by Giddens-White, Bryon 2007</a></div>",
-    "section": "events",
-    "tags": [
-      "Literature"
-    ],
-    "images": [
-      "/images/07-11_6ced0c12d6.jpg",
-      "/images/07-11_0157678dfe.jpg"
-    ],
-    "pub_status": "published",
-    "published": {
-      "date": "2026-07-01",
-      "url": "http://thepastandenglishbooks.ru/#07-11-2"
-    }
-  },
-  "https://en.wikipedia.org/wiki/1886": {
-    "title": "",
-    "text": "<a href=\"https://en.wikipedia.org/wiki/1886\" target=\"_blank\">1886</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Boris_Grigoriev\" target=\"_blank\">Boris Grigoriev</a>, Russian painter and illustrator (died 1939)",
-    "tags": [
-      "Art"
-    ],
-    "images": [],
-    "pub_status": "draft"
-  }
 }

@@ -1,54 +1,54 @@
 {
-  "https://en.wikipedia.org/wiki/1956": {
-    "title": "",
-    "text": "<a href=\"https://en.wikipedia.org/wiki/1956\" target=\"_blank\">1956</a> – <a href=\"https://en.wikipedia.org/wiki/Tom_Hanks\" target=\"_blank\">Tom Hanks</a>, American actor, director, producer, and screenwriter",
-    "tags": [
-      "Art"
-    ],
-    "images": [
-      "/images/07-09_61b95ce899.jpg",
-      "/images/07-09_33c4615d8f.jpg",
-      "/images/07-09_2d67317fae.jpg",
-      "/images/07-09_7c06d25c89.jpg"
-    ],
-    "pub_status": "draft"
-  },
-  "https://en.wikipedia.org/wiki/1763": {
-    "title": "🎼🎹The Mozart family grand tour👸⛪",
-    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1763\" target=\"_blank\">1763</a> – The <a href=\"https://en.wikipedia.org/wiki/Mozart_family_grand_tour\" target=\"_blank\">Mozart family grand tour</a> of Europe begins, lifting the profile of son <a href=\"https://en.wikipedia.org/wiki/Wolfgang_Amadeus_Mozart\" target=\"_blank\">Wolfgang Amadeus</a>.</div><div><a href=\"https://archive.org/details/mozartwonderboy01whee/mode/2up\" target=\"_blank\">📖Mozart, the wonder boy by Wheeler, Opal 1934</a></div>",
-    "section": "events",
-    "tags": [
-      "Music"
-    ],
-    "images": [
-      "/images/07-09_86499f0ff1.png",
-      "/images/07-09_1985d37787.jpg",
-      "/images/07-09_34af1961e0.jpg",
-      "/images/07-09_0be7e54077.jpg",
-      "/images/07-09_bcb692907b.jpg"
-    ],
-    "pub_status": "published",
-    "published": {
-      "date": "2026-06-29",
-      "url": "http://thepastandenglishbooks.ru/#07-09-1"
+    "https://en.wikipedia.org/wiki/1956": {
+        "title": "",
+        "text": "<a href=\"https://en.wikipedia.org/wiki/1956\" target=\"_blank\">1956</a> – <a href=\"https://en.wikipedia.org/wiki/Tom_Hanks\" target=\"_blank\">Tom Hanks</a>, American actor, director, producer, and screenwriter",
+        "tags": [
+            "Art"
+        ],
+        "images": [
+            "/images/07-09_61b95ce899.webp",
+            "/images/07-09_33c4615d8f.webp",
+            "/images/07-09_2d67317fae.webp",
+            "/images/07-09_7c06d25c89.webp"
+        ],
+        "pub_status": "draft"
+    },
+    "https://en.wikipedia.org/wiki/1763": {
+        "title": "🎼🎹The Mozart family grand tour👸⛪",
+        "text": "<div><a href=\"https://en.wikipedia.org/wiki/1763\" target=\"_blank\">1763</a> – The <a href=\"https://en.wikipedia.org/wiki/Mozart_family_grand_tour\" target=\"_blank\">Mozart family grand tour</a> of Europe begins, lifting the profile of son <a href=\"https://en.wikipedia.org/wiki/Wolfgang_Amadeus_Mozart\" target=\"_blank\">Wolfgang Amadeus</a>.</div><div><a href=\"https://archive.org/details/mozartwonderboy01whee/mode/2up\" target=\"_blank\">📖Mozart, the wonder boy by Wheeler, Opal 1934</a></div>",
+        "section": "events",
+        "tags": [
+            "Music"
+        ],
+        "images": [
+            "/images/07-09_86499f0ff1.webp",
+            "/images/07-09_1985d37787.webp",
+            "/images/07-09_34af1961e0.webp",
+            "/images/07-09_0be7e54077.webp",
+            "/images/07-09_bcb692907b.webp"
+        ],
+        "pub_status": "published",
+        "published": {
+            "date": "2026-06-29",
+            "url": "http://thepastandenglishbooks.ru/#07-09-1"
+        }
+    },
+    "https://en.wikipedia.org/wiki/1357": {
+        "title": "🛠️🤴Charles Bridge⛵⛪",
+        "text": "<div><a href=\"https://en.wikipedia.org/wiki/1357\" target=\"_blank\">1357</a> – <a href=\"https://en.wikipedia.org/wiki/Charles_IV,_Holy_Roman_Emperor\" target=\"_blank\">Emperor Charles IV</a> assists in laying the <a href=\"https://en.wikipedia.org/wiki/Cornerstone\" target=\"_blank\">foundation stone</a> of <a href=\"https://en.wikipedia.org/wiki/Charles_Bridge\" target=\"_blank\">Charles Bridge</a> in <a href=\"https://en.wikipedia.org/wiki/Prague\" target=\"_blank\">Prague</a>.</div><div><a href=\"https://archive.org/details/praguedetailedpi0000rygl\" target=\"_blank\">📖Prague by Rygl, Tomáš 2007</a></div>",
+        "section": "events",
+        "tags": [
+            "Inventions"
+        ],
+        "images": [
+            "/images/07-09_3c8a00d866.webp",
+            "/images/07-09_7c27888597.webp",
+            "/images/07-09_9b0b4ce2e7.webp"
+        ],
+        "pub_status": "published",
+        "published": {
+            "date": "2026-06-30",
+            "url": "http://thepastandenglishbooks.ru/#07-09-2"
+        }
     }
-  },
-  "https://en.wikipedia.org/wiki/1357": {
-    "title": "🛠️🤴Charles Bridge⛵⛪",
-    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1357\" target=\"_blank\">1357</a> – <a href=\"https://en.wikipedia.org/wiki/Charles_IV,_Holy_Roman_Emperor\" target=\"_blank\">Emperor Charles IV</a> assists in laying the <a href=\"https://en.wikipedia.org/wiki/Cornerstone\" target=\"_blank\">foundation stone</a> of <a href=\"https://en.wikipedia.org/wiki/Charles_Bridge\" target=\"_blank\">Charles Bridge</a> in <a href=\"https://en.wikipedia.org/wiki/Prague\" target=\"_blank\">Prague</a>.</div><div><a href=\"https://archive.org/details/praguedetailedpi0000rygl\" target=\"_blank\">📖Prague by Rygl, Tomáš 2007</a></div>",
-    "section": "events",
-    "tags": [
-      "Inventions"
-    ],
-    "images": [
-      "/images/07-09_3c8a00d866.jpg",
-      "/images/07-09_7c27888597.jpg",
-      "/images/07-09_9b0b4ce2e7.jpg"
-    ],
-    "pub_status": "published",
-    "published": {
-      "date": "2026-06-30",
-      "url": "http://thepastandenglishbooks.ru/#07-09-2"
-    }
-  }
 }
