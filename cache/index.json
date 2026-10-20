@@ -1055,5 +1055,40 @@
       "Art",
       "Literature"
     ]
+  },
+  {
+    "notes": "notes/11-01.json",
+    "tags": [
+      "Art",
+      "Education"
+    ]
+  },
+  {
+    "notes": "notes/11-02.json",
+    "tags": [
+      "Art",
+      "Inventions"
+    ]
+  },
+  {
+    "notes": "notes/11-03.json",
+    "tags": [
+      "Literature",
+      "Space"
+    ]
+  },
+  {
+    "notes": "notes/11-04.json",
+    "tags": [
+      "Art",
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/11-05.json",
+    "tags": [
+      "Art",
+      "Education"
+    ]
   }
 ]

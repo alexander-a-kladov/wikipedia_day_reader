@@ -1,0 +1,41 @@
+{
+  "https://en.wikipedia.org/wiki/1699": {
+    "title": "Jean-Baptiste-Siméon Chardin",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1699\" target=\"_blank\">1699</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Jean-Baptiste-Siméon_Chardin\" target=\"_blank\">Jean-Baptiste-Siméon Chardin</a>, French painter and educator (died 1779).</div><div>📖<a href=\"https://archive.org/details/c.rjeanbaptistesimeonchardincassirerwildensteininstitute1969/mode/1up\" target=\"_blank\">Chardin by Georges Wildenstein; Daniel Wildenstein 1969</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/11-02_71cdb89e8b.webp",
+      "/images/11-02_6b85e0133a.webp",
+      "/images/11-02_4432439876.webp",
+      "/images/11-02_31e136ac62.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-19",
+      "url": "11-02-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1929": {
+    "title": "Amar Bose",
+    "text": "<a href=\"https://en.wikipedia.org/wiki/1929\" target=\"_blank\">1929</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Amar_Bose\" target=\"_blank\">Amar Bose</a>, American engineer and businessman, founded the <a href=\"https://en.wikipedia.org/wiki/Bose_Corporation\" target=\"_blank\">Bose Corporation</a> (died 2013)",
+    "section": "births",
+    "tags": [
+      "Inventions"
+    ],
+    "images": [
+      "/images/11-02_1599e97979.webp",
+      "/images/11-02_5caf1101a8.webp",
+      "/images/11-02_f65a99886b.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-19",
+      "url": "11-02-2"
+    }
+  }
+}
