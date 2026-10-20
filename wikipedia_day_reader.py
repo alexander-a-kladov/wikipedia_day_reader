@@ -1396,10 +1396,17 @@ HTML_PAGE = r"""<!DOCTYPE html>
     </div>
     <div class="drag-hint" id="dragHint" style="display:none">☰ Перетащите картинки для изменения порядка</div>
     <div class="note-imgs-wrap" id="noteImgs"></div>
-    <label class="bs note-upload-btn" style="border:1.5px solid;border-radius:var(--r)">
-      📎 Добавить картинку
-      <input type="file" id="noteFileInput" accept="image/*" multiple style="display:none" onchange="uploadImages(event)">
-    </label>
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
+      <label class="bs note-upload-btn" style="border:1.5px solid;border-radius:var(--r);margin-bottom:0;">
+        📎 Добавить картинку
+        <input type="file" id="noteFileInput" accept="image/*" multiple style="display:none" onchange="uploadImages(event)">
+      </label>
+      <label style="font-size:12px;color:var(--tx2);display:inline-flex;align-items:center;gap:4px;cursor:pointer;"
+        title="Конвертировать загружаемые картинки в WebP для меньшего размера файла">
+        <input type="checkbox" id="webpConvertChk" checked style="width:13px;height:13px;">
+        Конвертировать в WebP
+      </label>
+    </div>
     <div class="note-toolbar">
       <button onclick="insertLink()" title="Вставить ссылку">🔗 Ссылка</button>
       <button onclick="document.execCommand('bold')" title="Жирный"><b>Ж</b></button>
@@ -2170,21 +2177,46 @@ async function uploadImages(evt){
   const files=[...evt.target.files];
   if(!files.length) return;
   const dv=document.getElementById('datePicker').value;
+  const convertWebp = document.getElementById('webpConvertChk')?.checked ?? true;
+
   for(const file of files){
+    let uploadFile = file;
+    let uploadName = file.name;
+
+    if(convertWebp && file.type !== 'image/webp'){
+      // Convert to WebP using Canvas
+      try {
+        const blob = await new Promise((resolve, reject)=>{
+          const img = new Image();
+          const url = URL.createObjectURL(file);
+          img.onload = ()=>{
+            const canvas = document.createElement('canvas');
+            canvas.width  = img.naturalWidth;
+            canvas.height = img.naturalHeight;
+            canvas.getContext('2d').drawImage(img, 0, 0);
+            URL.revokeObjectURL(url);
+            canvas.toBlob(b => b ? resolve(b) : reject('toBlob failed'),
+                          'image/webp', 0.88);
+          };
+          img.onerror = reject;
+          img.src = url;
+        });
+        uploadName = file.name.replace(/\.[^.]+$/, '') + '.webp';
+        uploadFile = new File([blob], uploadName, {type:'image/webp'});
+      } catch(e){
+        console.warn('WebP conversion failed, uploading original:', e);
+      }
+    }
+
     const fd=new FormData();
     fd.append('date', dv);
     fd.append('wiki_key', _noteKey);
-    fd.append('file', file, file.name);
+    fd.append('file', uploadFile, uploadName);
     const r=await fetch('/api/upload_image',{method:'POST',body:fd});
     const res=await r.json();
     if(res.url){
-      // Only update the DOM — notesData is updated on save
       const wrap=document.getElementById('noteImgs');
-      const thumb=document.createElement('div');
-      thumb.className='note-img-thumb';
-      thumb.innerHTML=`<img src="${res.url}" onclick="openLightbox('${res.url}')">
-        <button class="note-img-del" onclick="removeNoteImg('${res.url}',this.parentNode)" title="Удалить">✕</button>`;
-      wrap.appendChild(thumb);
+      _addImgThumb(wrap, res.url, '');
     } else {
       alert('Ошибка загрузки: '+(res.error||'?'));
     }
