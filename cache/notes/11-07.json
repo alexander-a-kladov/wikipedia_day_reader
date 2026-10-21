@@ -1,0 +1,39 @@
+{
+  "https://en.wikipedia.org/wiki/1867": {
+    "title": "Marie Curie",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1867\" target=\"_blank\">1867</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Marie_Curie\" target=\"_blank\">Marie Curie</a>, Polish chemist and physicist, <a href=\"https://en.wikipedia.org/wiki/Nobel_Prize_in_Physics\" target=\"_blank\">Nobel Prize</a> laureate (died 1934).</div><div>📖<a href=\"https://archive.org/details/mariecurie0000goge\" target=\"_blank\">Marie Curie by Gogerly, Liz 2001</a></div>",
+    "section": "births",
+    "tags": [
+      "Science"
+    ],
+    "images": [
+      "/images/11-07_a20006b4d7.webp",
+      "/images/11-07_7e24b4ba01.webp",
+      "/images/11-07_22db6dc7e3.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-21",
+      "url": "11-07-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1888": {
+    "title": "C. V. Raman",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1888\" target=\"_blank\">1888</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/C._V._Raman\" target=\"_blank\">C. V. Raman</a>, Indian physicist and academic, <a href=\"https://en.wikipedia.org/wiki/Nobel_Prize_in_Physics\" target=\"_blank\">Nobel Prize</a> laureate (died 1970).</div><div>📖&nbsp;<a href=\"https://archive.org/details/C.V.Raman-AMemoir/mode/2up\" target=\"_blank\">C. V. RAMAN - A MEMOIR by A. JAYARAMAN</a></div>",
+    "section": "births",
+    "tags": [
+      "Science"
+    ],
+    "images": [
+      "/images/11-07_fe009c0f08.webp",
+      "/images/11-07_f5068d25dc.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-21",
+      "url": "11-07-2"
+    }
+  }
+}

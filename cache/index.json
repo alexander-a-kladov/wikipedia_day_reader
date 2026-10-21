@@ -1090,5 +1090,25 @@
       "Art",
       "Education"
     ]
+  },
+  {
+    "notes": "notes/11-06.json",
+    "tags": [
+      "Art",
+      "Literature"
+    ]
+  },
+  {
+    "notes": "notes/11-07.json",
+    "tags": [
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/11-08.json",
+    "tags": [
+      "Inventions",
+      "Literature"
+    ]
   }
 ]

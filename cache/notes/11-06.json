@@ -1,0 +1,39 @@
+{
+  "https://en.wikipedia.org/wiki/Emma_Stone": {
+    "title": "Emma Stone",
+    "text": "<div>1988   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Emma_Stone\" target=\"_blank\">Emma Stone</a>, American actress.</div><div>📖<a href=\"https://archive.org/details/emmastonebreakou0000owin/mode/2up\" target=\"_blank\">Emma Stone : breakout movie star by Owings, Lisa, author 2014</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/11-06_31a346d436.webp",
+      "/images/11-06_e3df551344.webp",
+      "/images/11-06_cc35a28c7b.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-21",
+      "url": "11-06-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1913": {
+    "title": "Cho Ki-chon",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1913\" target=\"_blank\">1913</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Cho_Ki-chon\" target=\"_blank\">Cho Ki-chon</a>, North Korean poet (died 1951).</div><div><br></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/11-06_ce1c9547b7.webp",
+      "/images/11-06_0cce1a04d3.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-21",
+      "url": "11-06-2"
+    }
+  }
+}

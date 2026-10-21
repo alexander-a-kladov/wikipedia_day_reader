@@ -1,0 +1,39 @@
+{
+  "https://en.wikipedia.org/wiki/Bram_Stoker": {
+    "title": "Bram Stoker",
+    "text": "<div>1847   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Bram_Stoker\" target=\"_blank\">Bram Stoker</a>, Irish novelist and critic, created <a href=\"https://en.wikipedia.org/wiki/Count_Dracula\" target=\"_blank\">Count Dracula</a> (died 1912).</div><div>📖<a href=\"https://www.gutenberg.org/cache/epub/345/pg345-images.html\" target=\"_blank\">Dracula by Bram Stoker</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/11-08_9aeffa94a5.webp",
+      "/images/11-08_dfd5557e88.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-21",
+      "url": "11-08-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1966": {
+    "title": "Gordon Ramsay",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1966\" target=\"_blank\">1966</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Gordon_Ramsay\" target=\"_blank\">Gordon Ramsay</a>, British chef, restaurateur, and television host/personality.</div><div>📖&nbsp;<a href=\"https://archive.org/details/gordonramsaymake0000rams/mode/2up\" target=\"_blank\">Gordon Ramsay : makes it easy by Ramsay, Gordon 2005</a></div>",
+    "section": "births",
+    "tags": [
+      "Inventions"
+    ],
+    "images": [
+      "/images/11-08_7bbd15d628.webp",
+      "/images/11-08_ea70bde6b8.webp",
+      "/images/11-08_24fd150487.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-21",
+      "url": "11-08-2"
+    }
+  }
+}
