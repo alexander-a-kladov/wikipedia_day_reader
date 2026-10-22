@@ -1,0 +1,43 @@
+{
+  "https://en.wikipedia.org/wiki/1840": {
+    "title": "Auguste Rodin",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1840\" target=\"_blank\">1840</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Auguste_Rodin\" target=\"_blank\">Auguste Rodin</a>, French sculptor and illustrator, created <a href=\"https://en.wikipedia.org/wiki/The_Thinker\" target=\"_blank\">The Thinker</a> (died 1917).</div><div>📖<a href=\"https://archive.org/details/augusterodin00desc/mode/2up\" target=\"_blank\">Auguste Rodin by Descharnes, Robert; Chabrun, Jean François 1982</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/11-12_8fc64a6700.webp",
+      "/images/11-12_f066bdc456.webp",
+      "/images/11-12_2082c81d8c.webp",
+      "/images/11-12_4b494f020b.webp",
+      "/images/11-12_8e52a73836.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-22",
+      "url": "11-12-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1833": {
+    "title": "Alexander Borodin",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1833\" target=\"_blank\">1833</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Alexander_Borodin\" target=\"_blank\">Alexander Borodin</a>, Russian composer and chemist (died 1887).</div><div>🎵<a href=\"https://archive.org/details/Classical-Composers-4-20\" target=\"_blank\">The Classic Composers: Late Romantic: 20 - Borodin: Russian Melodies by International Masters Publishers BV</a></div>",
+    "section": "births",
+    "tags": [
+      "Science",
+      "Music"
+    ],
+    "images": [
+      "/images/11-12_01fb5e0db5.webp",
+      "/images/11-12_1acabad774.webp",
+      "/images/11-12_ccb4736b07.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-22",
+      "url": "11-12-2"
+    }
+  }
+}

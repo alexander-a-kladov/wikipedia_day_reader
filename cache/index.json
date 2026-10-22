@@ -1110,5 +1110,34 @@
       "Inventions",
       "Literature"
     ]
+  },
+  {
+    "notes": "notes/11-09.json",
+    "tags": [
+      "Literature",
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/11-10.json",
+    "tags": [
+      "Literature",
+      "Music"
+    ]
+  },
+  {
+    "notes": "notes/11-11.json",
+    "tags": [
+      "Art",
+      "Literature"
+    ]
+  },
+  {
+    "notes": "notes/11-12.json",
+    "tags": [
+      "Art",
+      "Music",
+      "Science"
+    ]
   }
 ]

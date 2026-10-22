@@ -1,0 +1,42 @@
+{
+  "https://en.wikipedia.org/wiki/1818": {
+    "title": "Ivan Turgenev",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1818\" target=\"_blank\">1818</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Ivan_Turgenev\" target=\"_blank\">Ivan Turgenev</a>, Russian author and playwright (died 1883).</div><div>📖<a href=\"https://www.gutenberg.org/ebooks/8597\" target=\"_blank\">A Sportsman's Sketches by Ivan Sergeevich Turgenev</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/11-09_2d8f2314c7.webp",
+      "/images/11-09_fab77f7025.webp",
+      "/images/11-09_583fac934c.webp",
+      "/images/11-09_76fbfc2c2e.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-22",
+      "url": "11-09-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Carl_Sagan": {
+    "title": "Carl Sagan",
+    "text": "<div>1934   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Carl_Sagan\" target=\"_blank\">Carl Sagan</a>, American astronomer, astrophysicist, and cosmologist (died 1996).</div><div>📖&nbsp;<a href=\"https://archive.org/details/carlsaganlifeinc00poun\" target=\"_blank\">Carl Sagan : a life in the cosmos by Poundstone, William 1999</a></div>",
+    "section": "births",
+    "tags": [
+      "Science"
+    ],
+    "images": [
+      "/images/11-09_46f590becc.webp",
+      "/images/11-09_963291115f.webp",
+      "/images/11-09_c7d218d905.webp",
+      "/images/11-09_859d3e0271.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-22",
+      "url": "11-09-2"
+    }
+  }
+}

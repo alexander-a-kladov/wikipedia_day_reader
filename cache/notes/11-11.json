@@ -1,0 +1,43 @@
+{
+  "https://en.wikipedia.org/wiki/1821": {
+    "title": "Fyodor Dostoevsky",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1821\" target=\"_blank\">1821</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Fyodor_Dostoevsky\" target=\"_blank\">Fyodor Dostoevsky</a>, Russian novelist, short story writer, essayist, and philosopher (died 1881)</div><div>📖<a href=\"https://www.gutenberg.org/ebooks/36034\" target=\"_blank\">White nights, and other stories by Fyodor Dostoyevsky</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/11-11_5be97e31f5.webp",
+      "/images/11-11_f16302734a.webp",
+      "/images/11-11_a28fe9745c.webp",
+      "/images/11-11_88748fd731.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-22",
+      "url": "11-11-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1863": {
+    "title": "Paul Signac",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1863\" target=\"_blank\">1863</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Paul_Signac\" target=\"_blank\">Paul Signac</a>, French painter and educator (died 1935).</div><div><a href=\"https://archive.org/details/PaulSignac/page/n3/mode/2up\" target=\"_blank\">📖Paul Signac</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/11-11_3512dc9256.webp",
+      "/images/11-11_05c16de9c8.webp",
+      "/images/11-11_9b0b4c77e6.webp",
+      "/images/11-11_90c293c893.webp",
+      "/images/11-11_89fb060013.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-22",
+      "url": "11-11-2"
+    }
+  }
+}
