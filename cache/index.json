@@ -1139,5 +1139,27 @@
       "Music",
       "Science"
     ]
+  },
+  {
+    "notes": "notes/11-13.json",
+    "tags": [
+      "Art",
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/11-14.json",
+    "tags": [
+      "Art",
+      "Literature"
+    ]
+  },
+  {
+    "notes": "notes/11-15.json",
+    "tags": [
+      "Art",
+      "Music",
+      "Science"
+    ]
   }
 ]

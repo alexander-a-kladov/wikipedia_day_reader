@@ -1,0 +1,43 @@
+{
+  "https://en.wikipedia.org/wiki/Georgia_O'Keeffe": {
+    "title": "Georgia O'Keeffe",
+    "text": "<div>1887   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Georgia_O'Keeffe\" target=\"_blank\">Georgia O'Keeffe</a>, American painter and educator (died 1986).</div><div>📖<a href=\"https://archive.org/details/georgiaokeeffe0000unse\" target=\"_blank\">Georgia O'Keeffe 2005</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/11-15_a76d09e136.webp",
+      "/images/11-15_7b4ac14507.webp",
+      "/images/11-15_61d5afb536.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-23",
+      "url": "11-15-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1738": {
+    "title": "William Herschel",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1738\" target=\"_blank\">1738</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/William_Herschel\" target=\"_blank\">William Herschel</a>, German-English astronomer and composer (died 1822).</div><div>📖<a href=\"https://archive.org/details/williamherschel0000unse\" target=\"_blank\">William Herschel by Armitage, A. (Angus) 1963</a></div>",
+    "section": "births",
+    "tags": [
+      "Science",
+      "Music"
+    ],
+    "images": [
+      "/images/11-15_ffa8d3d01c.webp",
+      "/images/11-15_ea08fd10fd.webp",
+      "/images/11-15_863df6ca9d.webp",
+      "/images/11-15_ffddc89b84.webp",
+      "/images/11-15_3697d31834.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-23",
+      "url": "11-15-2"
+    }
+  }
+}

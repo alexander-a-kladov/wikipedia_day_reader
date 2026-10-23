@@ -1,0 +1,43 @@
+{
+  "https://en.wikipedia.org/wiki/1840": {
+    "title": "Claude Monet",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1840\" target=\"_blank\">1840</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Claude_Monet\" target=\"_blank\">Claude Monet</a>, French painter (died 1926).</div><div>📖&nbsp;<a href=\"https://archive.org/details/claudemonet0000unse_u1a3/mode/2up\" target=\"_blank\">Claude Monet 2003</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/11-14_905ebb798c.webp",
+      "/images/11-14_7f6efc035c.webp",
+      "/images/11-14_9fd4c7c779.webp",
+      "/images/11-14_8e64133207.webp",
+      "/images/11-14_c7d9d1825b.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-23",
+      "url": "11-14-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Astrid_Lindgren": {
+    "title": "Astrid Lindgren",
+    "text": "<div>1907   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Astrid_Lindgren\" target=\"_blank\">Astrid Lindgren</a>, Swedish author and screenwriter (died 2002).</div><div>📖<a href=\"https://archive.org/details/worldgonemadwart0000lind\" target=\"_blank\">A world gone mad : the wartime diaries of Astrid Lindgren, author of Pippi Longstocking by Lindgren, Astrid 2017</a></div>",
+    "section": "births",
+    "tags": [
+      "Art",
+      "Literature"
+    ],
+    "images": [
+      "/images/11-14_e1d314f0c8.webp",
+      "/images/11-14_403095b248.webp",
+      "/images/11-14_2e5a3cdd4c.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-23",
+      "url": "11-14-2"
+    }
+  }
+}
