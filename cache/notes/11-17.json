@@ -1,0 +1,40 @@
+{
+  "https://en.wikipedia.org/wiki/1896": {
+    "title": "Lev Vygotsky",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1896\" target=\"_blank\">1896</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Lev_Vygotsky\" target=\"_blank\">Lev Vygotsky</a>, Belarusian-Russian psychologist and philosopher (died 1934).</div><div>📖<a href=\"https://archive.org/details/mikhail-yaroshevsky-lev-vygotsky-progress-2021\" target=\"_blank\">Lev Vygotsky (Outstanding Soviet Psychologists) by Mikhail Yaroshevsky 2021</a></div>",
+    "section": "births",
+    "tags": [
+      "Science",
+      "Education"
+    ],
+    "images": [
+      "/images/11-17_44810272b1.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-23",
+      "url": "11-17-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Martin_Scorsese": {
+    "title": "Martin Scorsese",
+    "text": "<div>1942   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Martin_Scorsese\" target=\"_blank\">Martin Scorsese</a>, American director, producer, screenwriter, and actor.</div><div>📖<a href=\"https://archive.org/details/martinscorsese0000unse\" target=\"_blank\">Martin Scorsese 2013</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/11-17_11324a1163.webp",
+      "/images/11-17_cec4d6087c.webp",
+      "/images/11-17_ad91a55ac6.webp",
+      "/images/11-17_54d98d99c4.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-24",
+      "url": "11-17-2"
+    }
+  }
+}

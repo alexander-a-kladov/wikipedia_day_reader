@@ -1,0 +1,43 @@
+{
+  "https://en.wikipedia.org/wiki/1965": {
+    "title": "Venera program",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1965\" target=\"_blank\">1965</a> – <a href=\"https://en.wikipedia.org/wiki/Venera_program\" target=\"_blank\">Venera program</a>: The Soviet Union launches the <a href=\"https://en.wikipedia.org/wiki/Venera_3\" target=\"_blank\">Venera 3</a> space probe toward <a href=\"https://en.wikipedia.org/wiki/Venus\" target=\"_blank\">Venus</a>, which will be the first <a href=\"https://en.wikipedia.org/wiki/Spacecraft\" target=\"_blank\">spacecraft</a> to reach the surface of another <a href=\"https://en.wikipedia.org/wiki/Planet\" target=\"_blank\">planet</a>.</div><div>📖<a href=\"https://archive.org/details/journeytovenus0000snyd\" target=\"_blank\">Journey to Venus by Snyder, J. M 2015</a></div>",
+    "section": "events",
+    "tags": [
+      "Space"
+    ],
+    "images": [
+      "/images/11-16_49e2e06f91.webp",
+      "/images/11-16_2d3b1a12b4.webp",
+      "/images/11-16_8d22e4aa62.webp",
+      "/images/11-16_ed85b1921d.webp",
+      "/images/11-16_47ddce306a.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-23",
+      "url": "11-16-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Tahir_Shah": {
+    "title": "Tahir Shah",
+    "text": "1966   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Tahir_Shah\" target=\"_blank\">Tahir Shah</a>, English journalist, author, and explorer.",
+    "section": "births",
+    "tags": [
+      "Exploration",
+      "Literature"
+    ],
+    "images": [
+      "/images/11-16_253f15a6a2.webp",
+      "/images/11-16_8e28d614aa.webp",
+      "/images/11-16_2c38c39729.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-23",
+      "url": "11-16-2"
+    }
+  }
+}

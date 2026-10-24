@@ -1,0 +1,39 @@
+{
+  "https://en.wikipedia.org/wiki/Nadine_Gordimer": {
+    "title": "Nadine Gordimer",
+    "text": "<div>1923   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Nadine_Gordimer\" target=\"_blank\">Nadine Gordimer</a>, South African novelist, short story writer, and activist, <a href=\"https://en.wikipedia.org/wiki/Nobel_Prize_in_Literature\" target=\"_blank\">Nobel Prize</a> laureate (died 2014).</div><div>📖&nbsp;<a href=\"https://archive.org/details/nadinegordimer00haug/mode/2up\" target=\"_blank\">Nadine Gordimer by Haugh, Robert Fulton; Gordimer, Nadine. asn 1974</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/11-20_cf68f241c1.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-24",
+      "url": "11-20-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Maya_Plisetskaya": {
+    "title": "Maya Plisetskaya",
+    "text": "<div>1925   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Maya_Plisetskaya\" target=\"_blank\">Maya Plisetskaya</a>, Russian-Lithuanian ballerina, choreographer, actress, and director (died 2015).</div><div>🎬<a href=\"https://archive.org/details/bizet-shchedrin-carmen-suite-1973\" target=\"_blank\">Bizet - Shchedrin: Carmen Suite (ballet)</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/11-20_293299db00.webp",
+      "/images/11-20_f7d597f583.webp",
+      "/images/11-20_d56c1eca4b.webp",
+      "/images/11-20_a870eded82.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-24",
+      "url": "11-20-2"
+    }
+  }
+}

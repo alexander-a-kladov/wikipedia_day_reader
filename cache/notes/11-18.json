@@ -1,0 +1,45 @@
+{
+  "https://en.wikipedia.org/wiki/1785": {
+    "title": "David Wilkie",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1785\" target=\"_blank\">1785</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/David_Wilkie_(artist)\" target=\"_blank\">David Wilkie</a>, Scottish painter and academic (died 1841).</div><div><a href=\"https://archive.org/details/cu31924015179645/mode/2up\" target=\"_blank\">📖Sir David Wilkie, R. A. by Bayne, William 1903</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/11-18_1942a43c57.webp",
+      "/images/11-18_feb4a58e55.webp",
+      "/images/11-18_4c04d455c4.webp",
+      "/images/11-18_5d457d1b04.webp",
+      "/images/11-18_6673a1b40b.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-24",
+      "url": "11-18-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1787": {
+    "title": "Louis Daguerre",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1787\" target=\"_blank\">1787</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Louis_Daguerre\" target=\"_blank\">Louis Daguerre</a>, French artist, photographer and inventor (died 1851).</div><div>📖<a href=\"https://archive.org/details/louisdaguerresto0000bank/mode/2up\" target=\"_blank\">Louis Daguerre and the story of the daguerreotype by Bankston, John 2005</a></div>",
+    "section": "births",
+    "tags": [
+      "Art",
+      "Inventions"
+    ],
+    "images": [
+      "/images/11-18_78c4c83079.webp",
+      "/images/11-18_ec3b51eafb.webp",
+      "/images/11-18_1a3e939354.webp",
+      "/images/11-18_71c17f9c3e.webp",
+      "/images/11-18_7aa8dea06a.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-24",
+      "url": "11-18-2"
+    }
+  }
+}

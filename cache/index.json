@@ -1161,5 +1161,48 @@
       "Music",
       "Science"
     ]
+  },
+  {
+    "notes": "notes/11-16.json",
+    "tags": [
+      "Exploration",
+      "Literature",
+      "Space"
+    ]
+  },
+  {
+    "notes": "notes/11-17.json",
+    "tags": [
+      "Art",
+      "Education",
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/11-18.json",
+    "tags": [
+      "Art",
+      "Inventions"
+    ]
+  },
+  {
+    "notes": "notes/11-19.json",
+    "tags": [
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/11-20.json",
+    "tags": [
+      "Art",
+      "Literature"
+    ]
+  },
+  {
+    "notes": "notes/11-21.json",
+    "tags": [
+      "Art",
+      "Literature"
+    ]
   }
 ]

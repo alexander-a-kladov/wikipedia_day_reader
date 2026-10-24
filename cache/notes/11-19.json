@@ -1,0 +1,37 @@
+{
+  "https://en.wikipedia.org/wiki/1711": {
+    "title": "Mikhail Lomonosov",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1711\" target=\"_blank\">1711</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Mikhail_Lomonosov\" target=\"_blank\">Mikhail Lomonosov</a>, Russian physicist, chemist, astronomer, and geographer (died 1765).</div><div>📖<a href=\"https://archive.org/details/b.-b.-kudryavtsev-the-life-and-work-of-mikhail-vasilyevich-lomonosov-flph-1954/mode/2up\" target=\"_blank\">The Life And Work Of Mikhail Vasilyevich Lomonosov by B. B. Kudryavtsev 1954</a></div>",
+    "section": "births",
+    "tags": [
+      "Science"
+    ],
+    "images": [
+      "/images/11-19_6902cfd9ac.webp",
+      "/images/11-19_ccfcd4f60c.webp",
+      "/images/11-19_fa5ec4376b.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-24",
+      "url": "11-19-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Yuri_Knorozov": {
+    "title": "Yuri Knorozov",
+    "text": "<div>1922   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Yuri_Knorozov\" target=\"_blank\">Yuri Knorozov</a>, Ukrainian-Russian linguist, epigrapher, and ethnographer (died 1999).</div>",
+    "section": "births",
+    "tags": [],
+    "images": [
+      "/images/11-19_30025099d0.webp",
+      "/images/11-19_e241a928f4.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-24",
+      "url": "11-19-2"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "https://en.wikipedia.org/wiki/1898": {
+    "title": "René Magritte",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1898\" target=\"_blank\">1898</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/René_Magritte\" target=\"_blank\">René Magritte</a>, Belgian painter (died 1967).</div><div>📖&nbsp;<a href=\"https://archive.org/details/magritte00magr_0\" target=\"_blank\">Magritte by René Magritte 2003</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/11-21_2891382313.webp",
+      "/images/11-21_b1bf65cf98.webp",
+      "/images/11-21_fd45b594d5.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-24",
+      "url": "11-21-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1694": {
+    "title": "Voltaire",
+    "text": "<a href=\"https://en.wikipedia.org/wiki/1694\" target=\"_blank\">1694</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Voltaire\" target=\"_blank\">Voltaire</a>, French writer and philosopher (died 1778).",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/11-21_fbb3611db0.webp",
+      "/images/11-21_a7bc1730ff.webp",
+      "/images/11-21_992503e37b.webp",
+      "/images/11-21_7d94e4da9c.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-24",
+      "url": "11-21-2"
+    }
+  }
+}
