@@ -1217,5 +1217,19 @@
       "Art",
       "Science"
     ]
+  },
+  {
+    "notes": "notes/11-24.json",
+    "tags": [
+      "Art",
+      "Literature"
+    ]
+  },
+  {
+    "notes": "notes/11-25.json",
+    "tags": [
+      "Art",
+      "Literature"
+    ]
   }
 ]

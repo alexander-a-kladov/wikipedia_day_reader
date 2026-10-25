@@ -1,0 +1,43 @@
+{
+  "https://en.wikipedia.org/wiki/1849": {
+    "title": "Frances Hodgson Burnett",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1849\" target=\"_blank\">1849</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Frances_Hodgson_Burnett\" target=\"_blank\">Frances Hodgson Burnett</a>, English-American novelist and playwright (died 1924).</div><div>📖<a href=\"https://www.gutenberg.org/ebooks/17396\" target=\"_blank\">The Secret Garden by Frances Hodgson Burnett</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/11-24_8691de28ef.webp",
+      "/images/11-24_6fb4cb7ee3.webp",
+      "/images/11-24_9ebec9ef84.webp",
+      "/images/11-24_a63eb1653e.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-25",
+      "url": "11-24-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1864": {
+    "title": "Henri de Toulouse-Lautrec",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1864\" target=\"_blank\">1864</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Henri_de_Toulouse-Lautrec\" target=\"_blank\">Henri de Toulouse-Lautrec</a>, French painter and illustrator (died 1901).</div><div>📖&nbsp;<a href=\"https://archive.org/details/henridetoulousel0000arno_r0k8\" target=\"_blank\">Henri de Toulouse-Lautrec, the theatre of life by Arnold, Matthias 2004</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/11-24_f1b3615522.webp",
+      "/images/11-24_f055c1d512.webp",
+      "/images/11-24_a252a060d7.webp",
+      "/images/11-24_fb3b699275.webp",
+      "/images/11-24_dfe7f9a377.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-25",
+      "url": "11-24-2"
+    }
+  }
+}
