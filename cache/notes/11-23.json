@@ -1,0 +1,43 @@
+{
+  "https://en.wikipedia.org/wiki/1890": {
+    "title": "El Lissitzky",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1890\" target=\"_blank\">1890</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/El_Lissitzky\" target=\"_blank\">El Lissitzky</a>, Russian photographer and architect (died 1941).</div><div>📖&nbsp;<a href=\"https://archive.org/details/understandingmod0000bohm\" target=\"_blank\">Understanding modern art by Bohm-Duchen, Monica 1991</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/11-23_09923b1ed6.webp",
+      "/images/11-23_f8ef1e5461.webp",
+      "/images/11-23_3dd4f1145c.webp",
+      "/images/11-23_bb3620b3b2.webp",
+      "/images/11-23_93229db368.webp",
+      "/images/11-23_d28a431ece.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-24",
+      "url": "11-23-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1924": {
+    "title": "Edwin Hubble",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1924\" target=\"_blank\">1924</a> – <a href=\"https://en.wikipedia.org/wiki/Edwin_Hubble\" target=\"_blank\">Edwin Hubble</a>'s discovery, that the <a href=\"https://en.wikipedia.org/wiki/Andromeda_Galaxy\" target=\"_blank\">Andromeda \"nebula\"</a> is actually another <a href=\"https://en.wikipedia.org/wiki/Galaxy\" target=\"_blank\">island galaxy</a> far outside our own <a href=\"https://en.wikipedia.org/wiki/Milky_Way\" target=\"_blank\">Milky Way</a>, is first published in <a href=\"https://en.wikipedia.org/wiki/The_New_York_Times\" target=\"_blank\">The New York Times</a>.</div><div>📖<a href=\"https://archive.org/details/edwinhubbledisco0000datn\" target=\"_blank\">Edwin Hubble : discoverer of galaxies by Datnow, Claire 2008</a></div>",
+    "section": "events",
+    "tags": [
+      "Science"
+    ],
+    "images": [
+      "/images/11-23_1ce51da547.webp",
+      "/images/11-23_6d6b988d54.webp",
+      "/images/11-23_dc9768ffd1.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-24",
+      "url": "11-23-2"
+    }
+  }
+}

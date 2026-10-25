@@ -1,0 +1,41 @@
+{
+  "https://en.wikipedia.org/wiki/1984": {
+    "title": "Scarlett Johansson",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1984\" target=\"_blank\">1984</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Scarlett_Johansson\" target=\"_blank\">Scarlett Johansson</a>, American actress.</div><div>📖<a href=\"https://archive.org/details/scarlettjohansso0000robe\" target=\"_blank\">Scarlett Johansson : the illustrated biography by Roberts, Chris 2007</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/11-22_56f4758f46.webp",
+      "/images/11-22_ff7be73557.webp",
+      "/images/11-22_1d89e8edc3.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-24",
+      "url": "11-22-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1904": {
+    "title": "Miguel Covarrubias",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1904\" target=\"_blank\">1904</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Miguel_Covarrubias\" target=\"_blank\">Miguel Covarrubias</a>, Mexican painter and illustrator (died 1957).</div><div>📖&nbsp;<a href=\"https://archive.org/details/in.ernet.dli.2015.176030/mode/2up\" target=\"_blank\">Island Of Bali by Miguel Covarrubias 1937</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/11-22_f55e07ad11.webp",
+      "/images/11-22_a79463b9c1.webp",
+      "/images/11-22_9009e12298.webp",
+      "/images/11-22_10094fac6a.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-24",
+      "url": "11-22-2"
+    }
+  }
+}
