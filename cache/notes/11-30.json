@@ -1,0 +1,42 @@
+{
+  "https://en.wikipedia.org/wiki/1835": {
+    "title": "Mark Twain",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1835\" target=\"_blank\">1835</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Mark_Twain\" target=\"_blank\">Mark Twain</a>, American novelist, humorist, and critic (died 1910).</div><div>📖<a href=\"https://www.gutenberg.org/ebooks/86\" target=\"_blank\">A Connecticut Yankee in King Arthur's Court by Mark Twain</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/11-30_92e0608066.webp",
+      "/images/11-30_f3e983f8aa.webp",
+      "/images/11-30_4a42648a77.webp",
+      "/images/11-30_f8f2b6c572.webp",
+      "/images/11-30_ecb4ac9b36.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-26",
+      "url": "11-30-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Lucy_Maud_Montgomery": {
+    "title": "Lucy Maud Montgomery",
+    "text": "<div>1874   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Lucy_Maud_Montgomery\" target=\"_blank\">Lucy Maud Montgomery</a>, English-Canadian author and poet (died 1942).</div><div>📖<a href=\"https://www.gutenberg.org/ebooks/67979\" target=\"_blank\">The Blue Castle: a novel by L. M. Montgomery</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/11-30_4d7ab26243.webp",
+      "/images/11-30_6b59f93188.webp",
+      "/images/11-30_32034c7fb9.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-26",
+      "url": "11-30-2"
+    }
+  }
+}

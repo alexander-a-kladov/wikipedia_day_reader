@@ -1,0 +1,40 @@
+{
+  "https://en.wikipedia.org/wiki/1857": {
+    "title": "Charles Scott Sherrington",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1857\" target=\"_blank\">1857</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Charles_Scott_Sherrington\" target=\"_blank\">Charles Scott Sherrington</a>, English physiologist, bacteriologist, and pathologist, <a href=\"https://en.wikipedia.org/wiki/Nobel_Prize_in_Physiology_or_Medicine\" target=\"_blank\">Nobel Prize</a> laureate (died 1952).</div><div>📖Sherrington, his life and thought by Eccles, John C. (John Carew), Sir 1979</div>",
+    "section": "births",
+    "tags": [
+      "Science"
+    ],
+    "images": [
+      "/images/11-27_80e7dc488f.webp",
+      "/images/11-27_8beefa3c62.webp",
+      "/images/11-27_9a86f3381f.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-26",
+      "url": "11-27-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Jimi_Hendrix": {
+    "title": "Jimi Hendrix",
+    "text": "<div>1942   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Jimi_Hendrix\" target=\"_blank\">Jimi Hendrix</a>, American singer-songwriter, guitarist, and producer (died 1970).</div><div>🎵<a href=\"https://archive.org/details/jimi-hendrix-berkeley-concerts-1st-show\" target=\"_blank\">Jimi Hendrix - Berkeley Concerts (1st Show)</a></div>",
+    "section": "births",
+    "tags": [
+      "Music"
+    ],
+    "images": [
+      "/images/11-27_af2c5f80eb.webp",
+      "/images/11-27_33d95d495b.webp",
+      "/images/11-27_e801097837.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-26",
+      "url": "11-27-2"
+    }
+  }
+}

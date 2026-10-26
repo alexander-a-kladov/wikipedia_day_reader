@@ -1,0 +1,42 @@
+{
+  "https://en.wikipedia.org/wiki/1757": {
+    "title": "William Blake",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1757\" target=\"_blank\">1757</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/William_Blake\" target=\"_blank\">William Blake</a>, English poet and painter (died 1827).</div><div>📖&nbsp;<a href=\"https://archive.org/details/williamblake00bloo\" target=\"_blank\">William Blake by Bloom, Harold 2006</a></div>",
+    "section": "births",
+    "tags": [
+      "Art",
+      "Literature"
+    ],
+    "images": [
+      "/images/11-28_a23318cc06.webp",
+      "/images/11-28_6ad3dc32db.webp",
+      "/images/11-28_f692f35bef.webp",
+      "/images/11-28_5f1363c6f3.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-26",
+      "url": "11-28-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1881": {
+    "title": "Stefan Zweig",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1881\" target=\"_blank\">1881</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Stefan_Zweig\" target=\"_blank\">Stefan Zweig</a>, Austrian author, playwright, and journalist (died 1942).</div><div>📖&nbsp;<a href=\"https://archive.org/details/stefanzweigcriti0000alld/mode/2up\" target=\"_blank\">Stefan Zweig ; a critical biography by Allday, Elizabeth 1972</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/11-28_08c47e9fba.webp",
+      "/images/11-28_9a7b2d1dad.webp",
+      "/images/11-28_4edcc051fd.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-26",
+      "url": "11-28-2"
+    }
+  }
+}

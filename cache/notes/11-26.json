@@ -1,0 +1,39 @@
+{
+  "https://en.wikipedia.org/wiki/1948": {
+    "title": "Elizabeth Blackburn",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1948\" target=\"_blank\">1948</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Elizabeth_Blackburn\" target=\"_blank\">Elizabeth Blackburn</a>, Australian-American biologist and academic, <a href=\"https://en.wikipedia.org/wiki/Nobel_Prize_in_Physiology_or_Medicine\" target=\"_blank\">Nobel Prize</a> laureate.</div><div>📖&nbsp;<a href=\"https://archive.org/details/elizabethblackbu00brad_0\" target=\"_blank\">Elizabeth Blackburn and the story of telomeres by Catherine Brady 2007</a></div>",
+    "section": "births",
+    "tags": [
+      "Science"
+    ],
+    "images": [
+      "/images/11-26_f88fa4f36e.webp",
+      "/images/11-26_ca08ab7713.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-26",
+      "url": "11-26-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Casablanca_(film)": {
+    "title": "Casablanca",
+    "text": "<div>1942   – <a href=\"https://en.wikipedia.org/wiki/Casablanca_(film)\" target=\"_blank\">Casablanca</a>, the movie starring Humphrey Bogart and Ingrid Bergman, premieres in New York City.</div><div>📖<a href=\"https://archive.org/details/casablanca-1942-trailer\" target=\"_blank\">Casablanca ( 1942) Trailer</a></div>",
+    "section": "events",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/11-26_4c1ba95d8f.webp",
+      "/images/11-26_ecd12857ba.webp",
+      "/images/11-26_335ec7269a.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-10-26",
+      "url": "11-26-2"
+    }
+  }
+}
