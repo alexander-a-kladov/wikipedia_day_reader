@@ -1,0 +1,43 @@
+{
+  "https://en.wikipedia.org/wiki/1859": {
+    "title": "Georges Seurat",
+    "text": "<div>1859 –Birthday of&nbsp;<a href=\"https://en.wikipedia.org/wiki/Georges_Seurat\" target=\"_blank\">Georges Seurat</a>, French painter (died 1891).</div><div>🎨<a href=\"https://archive.org/details/georgesseurat00cour/mode/2up\" target=\"_blank\">Georges Seurat by Courthion, Pierre; Seurat, Georges 1988</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/12-02_5b635c3cea.webp",
+      "/images/12-02_619bd5e7e2.webp",
+      "/images/12-02_df86fde0ec.webp",
+      "/images/12-02_8839e278d2.webp",
+      "/images/12-02_51e08cf645.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-11-18",
+      "url": "12-02-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Nelly_Furtado": {
+    "title": "Nelly Furtado",
+    "text": "<div>1978   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Nelly_Furtado\" target=\"_blank\">Nelly Furtado</a>, Canadian singer-songwriter, producer, and actress.</div><div>🎵<a href=\"https://archive.org/details/acidplanet-audio-00927273\" target=\"_blank\">Say it Right by Nelli Furtado</a></div>",
+    "section": "births",
+    "tags": [
+      "Music",
+      "Art"
+    ],
+    "images": [
+      "/images/12-02_bc7566dfbf.webp",
+      "/images/12-02_9ad3a72d33.webp",
+      "/images/12-02_4e021ef685.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-11-18",
+      "url": "12-02-2"
+    }
+  }
+}

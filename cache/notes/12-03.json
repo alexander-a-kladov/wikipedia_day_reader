@@ -1,0 +1,52 @@
+{
+  "https://en.wikipedia.org/wiki/1793": {
+    "title": "Clarkson Frederick Stanfield",
+    "text": "<a href=\"https://en.wikipedia.org/wiki/1793\" target=\"_blank\">1793</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Clarkson_Frederick_Stanfield\" target=\"_blank\">Clarkson Frederick Stanfield</a>, English painter and academic (died 1867)",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [],
+    "image_captions": {},
+    "pub_status": "draft"
+  },
+  "https://en.wikipedia.org/wiki/1857": {
+    "title": "Joseph Conrad",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1857\" target=\"_blank\">1857</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Joseph_Conrad\" target=\"_blank\">Joseph Conrad</a>, Polish-born British novelist (died 1924).</div><div>📖<a href=\"https://archive.org/details/josephconrad0000reil\" target=\"_blank\">Joseph Conrad by Reilly, Jim 1990</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/12-03_9ff3f6ddf0.webp",
+      "/images/12-03_28fe2aa923.webp",
+      "/images/12-03_2fa59f5985.webp",
+      "/images/12-03_7eb6c7f86c.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-11-18",
+      "url": "12-03-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1930": {
+    "title": "Jean-Luc Godard",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1930\" target=\"_blank\">1930</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Jean-Luc_Godard\" target=\"_blank\">Jean-Luc Godard</a>, French-Swiss director and screenwriter (died 2022).</div><div>🎬<a href=\"https://archive.org/details/1987King.Lear.GodardMKO\" target=\"_blank\">King Lear - Jean Luc Godard 1987</a></div>",
+    "section": "births",
+    "tags": [
+      "Art",
+      "Literature"
+    ],
+    "images": [
+      "/images/12-03_147243ba9c.webp",
+      "/images/12-03_1234da31ac.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-11-18",
+      "url": "12-03-2"
+    }
+  }
+}

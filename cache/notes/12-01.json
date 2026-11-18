@@ -1,0 +1,41 @@
+{
+  "https://en.wikipedia.org/wiki/1761": {
+    "title": "Marie Tussaud",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1761\" target=\"_blank\">1761</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Marie_Tussaud\" target=\"_blank\">Marie Tussaud</a>, French-English sculptor, founded <a href=\"https://en.wikipedia.org/wiki/Madame_Tussauds\" target=\"_blank\">Madame Tussauds Wax Museum</a> (died 1850)</div><div>📖<a href=\"https://archive.org/details/madametussaudlif0000rans/mode/2up\" target=\"_blank\">Madame Tussaud : a life and a time by Ransom, Teresa 2003</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/12-01_692c095114.webp",
+      "/images/12-01_4d6d1d4568.webp",
+      "/images/12-01_04943d70b3.webp",
+      "/images/12-01_cd2d6223aa.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-11-18",
+      "url": "12-01-2"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1886": {
+    "title": "Rex Stout",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1886\" target=\"_blank\">1886</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Rex_Stout\" target=\"_blank\">Rex Stout</a>, American detective novelist (died 1975).</div><div>📖<a href=\"https://archive.org/details/fer-de-lanceno.-1-by-rex-stout-nero-wolfe-mystery-gunston-classics/mode/2up\" target=\"_blank\">Fer de Lance - No. 1 By Rex Stout Nero Wolfe Mystery</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/12-01_493f55d7ba.webp",
+      "/images/12-01_fa69b786a9.webp",
+      "/images/12-01_f0c88b63b3.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-11-18",
+      "url": "12-01-1"
+    }
+  }
+}

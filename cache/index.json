@@ -1264,5 +1264,26 @@
     "tags": [
       "Literature"
     ]
+  },
+  {
+    "notes": "notes/12-01.json",
+    "tags": [
+      "Art",
+      "Literature"
+    ]
+  },
+  {
+    "notes": "notes/12-02.json",
+    "tags": [
+      "Art",
+      "Music"
+    ]
+  },
+  {
+    "notes": "notes/12-03.json",
+    "tags": [
+      "Art",
+      "Literature"
+    ]
   }
 ]
