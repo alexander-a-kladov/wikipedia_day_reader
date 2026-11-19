@@ -1,0 +1,43 @@
+{
+  "https://en.wikipedia.org/wiki/Jean_Sibelius": {
+    "title": "Jean Sibelius",
+    "text": "<div>1865   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Jean_Sibelius\" target=\"_blank\">Jean Sibelius</a>, Finnish violinist and composer (died 1957).</div><div>🎵&nbsp;<a href=\"https://archive.org/details/symphony-no.-5_202011\" target=\"_blank\">Symphony No. 5 by Jean Sibelius</a></div>",
+    "section": "births",
+    "tags": [
+      "Music"
+    ],
+    "images": [
+      "/images/12-08_75a4469c3d.webp",
+      "/images/12-08_efbe87f1df.webp",
+      "/images/12-08_6e60bbf9f4.webp",
+      "/images/12-08_da80bd6ac4.webp",
+      "/images/12-08_5213d948c3.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-11-19",
+      "url": "12-08-2"
+    }
+  },
+  "https://en.wikipedia.org/wiki/65_BC": {
+    "title": "Horace",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/65_BC\" target=\"_blank\">65 BC</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Horace\" target=\"_blank\">Horace</a>, Roman poet (died 8 BC).</div><div>📖<a href=\"https://archive.org/details/horaceinenglish00hora\" target=\"_blank\">Horace in English by Horace 1996</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/12-08_ad08f96e96.webp",
+      "/images/12-08_c6568a8960.webp",
+      "/images/12-08_23eef12ad8.webp",
+      "/images/12-08_5a45979696.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-11-19",
+      "url": "12-08-1"
+    }
+  }
+}
