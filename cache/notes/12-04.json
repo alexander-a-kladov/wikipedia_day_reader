@@ -1,0 +1,40 @@
+{
+  "https://en.wikipedia.org/wiki/Rainer_Maria_Rilke": {
+    "title": "Rainer Maria Rilke",
+    "text": "<div>1875   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Rainer_Maria_Rilke\" target=\"_blank\">Rainer Maria Rilke</a>, Austrian-Swiss poet and author (died 1926).</div><div>📖<a href=\"https://archive.org/details/rainermariarilke0000gwri/mode/2up\" target=\"_blank\">Rainer Maria Rilke Poems by G W Rilke/mckay 1965</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/12-04_68998b6545.webp",
+      "/images/12-04_7366b5f7d8.webp",
+      "/images/12-04_639dc457d0.webp",
+      "/images/12-04_0f6b7427d4.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-11-19",
+      "url": "12-04-2"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1925": {
+    "title": "Albert Bandura",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1925\" target=\"_blank\">1925</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Albert_Bandura\" target=\"_blank\">Albert Bandura</a>, Canadian-American psychologist and academic (died 2021).</div><div>📖<a href=\"https://archive.org/details/aggressionsocial0000albe\" target=\"_blank\">Aggression a Social Learning Analysis by Albert Bandura 1973</a></div>",
+    "section": "births",
+    "tags": [
+      "Science"
+    ],
+    "images": [
+      "/images/12-04_3025f5c5d7.webp",
+      "/images/12-04_669ad08ca6.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-11-19",
+      "url": "12-04-1"
+    }
+  }
+}

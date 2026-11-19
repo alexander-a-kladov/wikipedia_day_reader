@@ -1285,5 +1285,26 @@
       "Art",
       "Literature"
     ]
+  },
+  {
+    "notes": "notes/12-04.json",
+    "tags": [
+      "Literature",
+      "Science"
+    ]
+  },
+  {
+    "notes": "notes/12-05.json",
+    "tags": [
+      "Exploration",
+      "Literature"
+    ]
+  },
+  {
+    "notes": "notes/12-06.json",
+    "tags": [
+      "Art",
+      "Science"
+    ]
   }
 ]

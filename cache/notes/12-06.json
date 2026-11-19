@@ -1,0 +1,39 @@
+{
+  "https://en.wikipedia.org/wiki/Geoffrey_Hinton": {
+    "title": "Geoffrey Hinton",
+    "text": "1947   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Geoffrey_Hinton\" target=\"_blank\">Geoffrey Hinton</a>, British-Canadian computer scientist, cognitive scientist, and cognitive psychologist, <a href=\"https://en.wikipedia.org/wiki/Nobel_Prize_in_Physics\" target=\"_blank\">Nobel Prize</a> laureate.",
+    "section": "births",
+    "tags": [
+      "Science"
+    ],
+    "images": [
+      "/images/12-06_3376aaeb09.webp",
+      "/images/12-06_fc82c3804b.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-11-19",
+      "url": "12-06-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1912": {
+    "title": "Nefertiti Bust",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1912\" target=\"_blank\">1912</a> – The <a href=\"https://en.wikipedia.org/wiki/Nefertiti_Bust\" target=\"_blank\">Nefertiti Bust</a> is discovered.</div><div>📖<a href=\"https://archive.org/details/howtodrawegyptss0000tecc\" target=\"_blank\">How to draw Egypt's sights and symbols by Tecco, Betsy Dru 2004</a></div>",
+    "section": "events",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/12-06_b12a81e9f8.webp",
+      "/images/12-06_30ecb09c26.webp",
+      "/images/12-06_dbf8ce51ef.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-11-19",
+      "url": "12-06-2"
+    }
+  }
+}
