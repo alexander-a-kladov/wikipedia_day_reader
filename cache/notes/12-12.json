@@ -1,0 +1,41 @@
+{
+  "https://en.wikipedia.org/wiki/1863": {
+    "title": "Edvard Munch",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1863\" target=\"_blank\">1863</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Edvard_Munch\" target=\"_blank\">Edvard Munch</a>, Norwegian painter (died 1944).</div><div>📖<a href=\"https://archive.org/details/edvard-munch.-symbols-and-images.-nga./mode/2up\" target=\"_blank\">Edvard Munch. Symbols And Images by National Gallery of Art</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/12-12_eece42a551.webp",
+      "/images/12-12_a358b3907c.webp",
+      "/images/12-12_06dffb56da.webp",
+      "/images/12-12_25643ee226.webp",
+      "/images/12-12_3cdfe61be8.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-11-20",
+      "url": "12-12-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1821": {
+    "title": "Gustave Flaubert",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1821\" target=\"_blank\">1821</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Gustave_Flaubert\" target=\"_blank\">Gustave Flaubert</a>, French novelist (died 1880).</div><div>📖<a href=\"https://archive.org/details/gustave-flaubert_madame-bovary_eleanor-marx-aveling\" target=\"_blank\">Madame Bovary by Gustave Flaubert</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/12-12_cbd1adad4b.webp",
+      "/images/12-12_4e64f6c211.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-11-20",
+      "url": "12-12-2"
+    }
+  }
+}

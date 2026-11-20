@@ -1,0 +1,42 @@
+{
+  "https://en.wikipedia.org/wiki/Aleksandr_Solzhenitsyn": {
+    "title": "Aleksandr Solzhenitsyn",
+    "text": "<div>1918   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Aleksandr_Solzhenitsyn\" target=\"_blank\">Aleksandr Solzhenitsyn</a>, Russian novelist, historian, and short story writer, <a href=\"https://en.wikipedia.org/wiki/Nobel_Prize_in_Literature\" target=\"_blank\">Nobel Prize</a> laureate (died 2008).</div><div>📖<a href=\"https://archive.org/details/alexandersolzhen00haro/mode/2up\" target=\"_blank\">Aleksandr Solzhenitsyn by Bloom, Harold 2000</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/12-11_a51bc93df6.webp",
+      "/images/12-11_08cdbfac3f.webp",
+      "/images/12-11_655d59be9e.webp",
+      "/images/12-11_bd40ca247a.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-11-20",
+      "url": "12-11-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1927": {
+    "title": "John Buscema",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1927\" target=\"_blank\">1927</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/John_Buscema\" target=\"_blank\">John Buscema</a>, American illustrator (died 2002).</div><div><a href=\"https://archive.org/details/pdfcoffee.com_stan-lee-how-to-draw-comics-the-marvel-way-4-pdf-free_202403/mode/2up\" target=\"_blank\">📖Stan lee how to draw comics the marvel way by Stan lee &amp; John Buscema 1978</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/12-11_0125388f39.webp",
+      "/images/12-11_2dc185614f.webp",
+      "/images/12-11_48ab9bbbcd.webp",
+      "/images/12-11_6a11863263.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-11-20",
+      "url": "12-11-2"
+    }
+  }
+}

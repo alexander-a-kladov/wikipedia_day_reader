@@ -1,0 +1,44 @@
+{
+  "https://en.wikipedia.org/wiki/1821": {
+    "title": "Nikolay Nekrasov",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1821\" target=\"_blank\">1821</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Nikolay_Nekrasov\" target=\"_blank\">Nikolay Nekrasov</a>, Russian poet and critic (died 1877).</div><div>📖<a href=\"https://archive.org/details/treasuryofclassi00cour\" target=\"_blank\">A treasury of classic Russian literature by Cournos, John 1962</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/12-10_49a4175f76.webp",
+      "/images/12-10_72d84d810a.webp",
+      "/images/12-10_9727f33f55.webp",
+      "/images/12-10_568853d61a.webp",
+      "/images/12-10_8df7425072.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-11-20",
+      "url": "12-10-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1768": {
+    "title": "Encyclopædia Britannica",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1768\" target=\"_blank\">1768</a> – The first edition of the <a href=\"https://en.wikipedia.org/wiki/Encyclopædia_Britannica\" target=\"_blank\">Encyclopædia Britannica</a> is published.</div><div>📖<a href=\"https://archive.org/details/encyclopaediabri0001unse_j6z5/mode/2up\" target=\"_blank\">Encyclopaedia Britannica 1973</a></div>",
+    "section": "events",
+    "tags": [
+      "Education"
+    ],
+    "images": [
+      "/images/12-10_7e48702cc1.webp",
+      "/images/12-10_9ad638dbaf.webp",
+      "/images/12-10_3ea8934380.webp",
+      "/images/12-10_3ac273569d.webp",
+      "/images/12-10_ce131b4e9d.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-11-20",
+      "url": "12-10-2"
+    }
+  }
+}
