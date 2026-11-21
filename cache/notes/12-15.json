@@ -1,0 +1,45 @@
+{
+  "https://en.wikipedia.org/wiki/1939": {
+    "title": "Gone with the Wind",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1939\" target=\"_blank\">1939</a> – <a href=\"https://en.wikipedia.org/wiki/Gone_with_the_Wind_(film)\" target=\"_blank\">Gone with the Wind</a> (highest inflation adjusted grossing film) receives its premiere at <a href=\"https://en.wikipedia.org/wiki/Loew's_Grand_Theatre\" target=\"_blank\">Loew's Grand Theatre</a> in <a href=\"https://en.wikipedia.org/wiki/Atlanta\" target=\"_blank\">Atlanta, Georgia</a>, United States.</div><div>📖&nbsp;<a href=\"https://archive.org/details/isbn_9780385298339\" target=\"_blank\">Gone with the wind, the screenplay by Howard, Sidney Coe 1989</a></div>",
+    "section": "events",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/12-15_5c9e7dd748.webp",
+      "/images/12-15_2a1a73600d.webp",
+      "/images/12-15_b649791afc.webp",
+      "/images/12-15_664c1d5a3b.webp",
+      "/images/12-15_c064e65aab.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-11-21",
+      "url": "12-15-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1832": {
+    "title": "Gustave Eiffel",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1832\" target=\"_blank\">1832</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Gustave_Eiffel\" target=\"_blank\">Gustave Eiffel</a>, French architect and engineer, co-designed the <a href=\"https://en.wikipedia.org/wiki/Eiffel_Tower\" target=\"_blank\">Eiffel Tower</a> (died 1923).</div><div>📖<a href=\"https://archive.org/details/eiffelgeniuswhor0000harv\" target=\"_blank\">Eiffel : the genius who reinvented himself by Harvie, David 2006</a></div>",
+    "section": "births",
+    "tags": [
+      "Science",
+      "Inventions"
+    ],
+    "images": [
+      "/images/12-15_04ac889d38.webp",
+      "/images/12-15_42319b9756.webp",
+      "/images/12-15_9952b0a571.webp",
+      "/images/12-15_34de33f7b9.webp",
+      "/images/12-15_3abd3107fa.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-11-21",
+      "url": "12-15-2"
+    }
+  }
+}

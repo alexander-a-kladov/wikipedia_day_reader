@@ -1,0 +1,42 @@
+{
+  "https://en.wikipedia.org/wiki/1866": {
+    "title": "Wassily Kandinsky",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1866\" target=\"_blank\">1866</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Wassily_Kandinsky\" target=\"_blank\">Wassily Kandinsky</a>, Russian-French painter and theorist (died 1944).</div><div>📖&nbsp;<a href=\"https://archive.org/details/wassilykandinsky0000beck\" target=\"_blank\">Wassily Kandinsky the journey to abstraction by Becks-Malorny, Ulrike 2003</a></div>",
+    "section": "births",
+    "tags": [
+      "Art"
+    ],
+    "images": [
+      "/images/12-16_22a632ce44.webp",
+      "/images/12-16_7d2f785019.webp",
+      "/images/12-16_0898e96678.webp",
+      "/images/12-16_2d3fc57fb3.webp",
+      "/images/12-16_74c1807c0b.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-11-21",
+      "url": "12-16-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/Philip_K._Dick": {
+    "title": "Philip K. Dick",
+    "text": "<div>1928   – Birthday of <a href=\"https://en.wikipedia.org/wiki/Philip_K._Dick\" target=\"_blank\">Philip K. Dick</a>, American philosopher and author (died 1982).</div><div>📖&nbsp;<a href=\"https://archive.org/details/isbn_9781596063402\" target=\"_blank\">The collected stories of Philip K. Dick by Dick, Philip K 2010</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/12-16_cc01d2db07.webp",
+      "/images/12-16_0d9e34884f.webp",
+      "/images/12-16_497aaa42e5.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-11-21",
+      "url": "12-16-2"
+    }
+  }
+}

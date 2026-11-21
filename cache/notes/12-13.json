@@ -1,0 +1,42 @@
+{
+  "https://en.wikipedia.org/wiki/1797": {
+    "title": "Heinrich Heine",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1797\" target=\"_blank\">1797</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Heinrich_Heine\" target=\"_blank\">Heinrich Heine</a>, German journalist, poet, and critic (died 1856).</div><div>📖<a href=\"https://archive.org/details/cu31924062629070/mode/2up\" target=\"_blank\">Poems and ballads of Heinrich Heine</a></div>",
+    "section": "births",
+    "tags": [
+      "Literature"
+    ],
+    "images": [
+      "/images/12-13_49465a160e.webp",
+      "/images/12-13_e34f7e260f.webp",
+      "/images/12-13_9ca8752ff9.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-11-21",
+      "url": "12-13-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1871": {
+    "title": "Emily Carr",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1871\" target=\"_blank\">1871</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Emily_Carr\" target=\"_blank\">Emily Carr</a>, Canadian painter and author (died 1945).</div><div>📖&nbsp;<a href=\"https://archive.org/details/InstitutDeLartCanadienEmilyCarr/Art-Canada-Institute_Emily-Carr/mode/2up\" target=\"_blank\">Emily Carr: Life &amp; Work by Lisa Baldissara 2015</a></div>",
+    "section": "births",
+    "tags": [
+      "Art",
+      "Literature"
+    ],
+    "images": [
+      "/images/12-13_f98a754cd2.webp",
+      "/images/12-13_e89a74d554.webp",
+      "/images/12-13_61256652de.webp",
+      "/images/12-13_6823d040cf.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-11-21",
+      "url": "12-13-2"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "https://en.wikipedia.org/wiki/1778": {
+    "title": "Humphry Davy",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1778\" target=\"_blank\">1778</a> – Birthday of <a href=\"https://en.wikipedia.org/wiki/Humphry_Davy\" target=\"_blank\">Humphry Davy</a>, English chemist and physicist (died 1829).</div><div>📖<a href=\"https://archive.org/details/isbn_9780631168164\" target=\"_blank\">Humphry Davy : science &amp; power by Knight, David M 1992</a></div>",
+    "section": "births",
+    "tags": [
+      "Science"
+    ],
+    "images": [
+      "/images/12-17_af0ae6ff92.webp",
+      "/images/12-17_d7b4f7ca88.webp",
+      "/images/12-17_ef8ff43cd1.webp",
+      "/images/12-17_9c0daccf3a.webp",
+      "/images/12-17_f0538ae9a4.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-11-21",
+      "url": "12-17-1"
+    }
+  },
+  "https://en.wikipedia.org/wiki/1865": {
+    "title": "The Unfinished Symphony",
+    "text": "<div><a href=\"https://en.wikipedia.org/wiki/1865\" target=\"_blank\">1865</a> – First performance of the <a href=\"https://en.wikipedia.org/wiki/Symphony_No._8_(Schubert)\" target=\"_blank\">Unfinished Symphony</a> by <a href=\"https://en.wikipedia.org/wiki/Franz_Schubert\" target=\"_blank\">Franz Schubert</a>.</div><div>🎼&nbsp;<a href=\"https://archive.org/details/SymphonieInacheveeDeFrantzSchubert\" target=\"_blank\">Symphonie inachevee de Franz Schubert by Franz Schubert</a></div>",
+    "section": "events",
+    "tags": [
+      "Music"
+    ],
+    "images": [
+      "/images/12-17_67f488e2f2.webp",
+      "/images/12-17_27bbeb028e.webp",
+      "/images/12-17_6a856d0548.webp",
+      "/images/12-17_cc9771a237.webp"
+    ],
+    "image_captions": {},
+    "pub_status": "published",
+    "published": {
+      "date": "2026-11-21",
+      "url": "12-17-2"
+    }
+  }
+}
